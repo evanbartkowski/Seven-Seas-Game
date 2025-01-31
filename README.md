@@ -49,13 +49,21 @@ Once you complete the tutorial or introduction, you will arrive at the main scre
 Below are a list of all the features
 
 Paimons Shop - Where you buy items in the game. These items can be consumables or permanent items that you can use or wear.
+
 Gambling Den - A underwater Casino. Here you can gamble to your hearts content and play any of the four games (Blackjack, Slots, Dice, Roulette)
+
 Labor Market - A place to work for money and gems. Its hard work but pays well. (only Emperion Mining is available)
+
 Castle - (currently being coded) Where the main storyline will take place
+
 Colesseum - (currently being coded) A endless battlefield of opponents. You may also train here and fight AI bosses.
+
 Black Market - Gacha. You can spend gems and gold to purchase treasure chests to unlock and get a mystery creature.
+
 Guild Hall - (under rennovation but workable) You can choose a profession here and also get quests (only one profession and quests not coded yet)
+
 Stash - (currently being coded) Where you can equip items and choose your Mythical Beasts to equip.
+
 Adventure - (currently being coded) Open world pokemon like place where you can walk around and capture mythical creatures and fight enemies
 
 # Paimons Shop
