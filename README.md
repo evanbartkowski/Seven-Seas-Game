@@ -27,11 +27,17 @@ There are three options to choose from once you get to the menu screen
  # Intro Scenes
 
  Once the new game button is clicked the intro into the game will play and you will have to click through various videos and dialogue that the characters of the game provide.
+ 
 ![Game Screenshot](readme_images/readme3.png)
- Throughout the intro will be different options for you to choose from which will affect your later gameplay.  
+
+ Throughout the intro will be different options for you to choose from which will affect your later gameplay. 
+ 
 ![Game Screenshot](readme_images/readme4.png)
+
 You will also have a prompt for your username halfway through the introductions. Up in the top left corner is a skip button which will skip over the intro if you have already gone through it or are simply bored.
+
 ![Game Screenshot](readme_images/readme5.png)
+
 If you didnt already know, the top right is where the exit button is. Only click it if you want to close out of the application.
 
 
