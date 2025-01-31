@@ -42,7 +42,7 @@ If you didnt already know, the top right is where the exit button is. Only click
 
 # Main Screen
 
-Once you complete the tutorial or introduction, you will arrive at the main screen. This is sort of like a hub where you have access to all the important features of the game. 
+Once you complete the tutorial or introduction, you will arrive at the main screen. This is sort of like a hub where you have access to all the important features of the game.You might notice a treasure chest in the upper left hand of the screen. Once that timer goes down to zero you can click it and gain some free resources.
 
 ![Game Screenshot](readme_images/readme7.png)
 
