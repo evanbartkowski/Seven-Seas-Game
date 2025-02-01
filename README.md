@@ -126,10 +126,39 @@ Upgrading your stats is crucial so make sure you collect gems to upgrade your va
 
 # Guild Hall
 
-Currently only the dialogue and profession are available. This is where you will be able to accept quests for rewards, and also complete work for your chosen profession.
-
 ![Game Screenshot](readme_images/readme21.png)
 
+Currently only the dialogue and profession are available. This is where you will be able to accept quests for rewards, and also complete work for your chosen profession.
+
+![Game Screenshot](readme_images/readme22.png)
+
+Once you complete the dialogue you will get the option to perform alchemy. The objective is to time the meter directly in the center area. If you get it within the marked area you will craft a potion. The more potions you craft in a row the more gold and exp you will get per potion. Your alchemy level will also determine the potion price. Getting it in the bullseye will give twice the gold and exp, crafting a super potion.
+
+# Black Market
+
+![Game Screenshot](readme_images/readme23.png)
+
+Byron is the NPC in charge of the blackmarket. Arrive here to buy treasure chests which hold mythical creatures within (AKA GACHA). What creature you get is random and the different types of treasure chests will hold different mythical creatures.
+
+![Game Screenshot](readme_images/readme24.png)
+
+There are three types of treausre chests and one Door.
+
+1. Wooden Chests (1,000 gold)- The cheapest chest and perfect for beginners. This chest has low level beginner creatures.
+
+2. Diamond Chests (10,000 gold)- A mid tier treasure chest. You can get a variety of different beasts but coming at a higher price.
+
+3. Emerald Chests (100,000 gold)- The final and end game chest. Acquire high level beasts of all types and possibly even legendary creatures. This chest is extremely expensive and I have no idea how you will be able to even afford it.
+   
+4. Black Door (100 gems)- This 'Lootcrate' costs gems and not gold. You must be over lvl 10 to use this crate upon which you can get any creature in the game.
+   
+![Game Screenshot](readme_images/readme25.png)
+
+There are currently 76 different mythical creatures you can get in the game. Ill add more when I have more free time.
+
+![Game Screenshot](readme_images/readme26.png)
+
+Each creature has its own movesets and stats. There are base stats that the creature has and then random stats that are added ontop of that. Essentially that means each creature is unique in its strength and 2 of the same creature are not the same stat wise. 
 
 
 
