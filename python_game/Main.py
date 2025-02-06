@@ -2,18 +2,18 @@ import pygame
 from pygame.locals import *
 import sys
 import math
-import moviepy.editor
 import random
 import game
 import string
 import cv2
+import os
 import time
+import json
 
 pygame.init()
 pygame.mixer.init()
 ########################################################################################################################
-
-image0 = pygame.image.load('sevenseaslogo.webp')
+image0 = pygame.image.load('images/sevenseaslogo.webp')
 pygame.display.set_caption("Seven Seas")
 pygame.display.set_icon(image0)
 ########################################################################################################################
@@ -32,6 +32,10 @@ DARKGREEN = (51, 102, 0)
 GOLD = (255, 197, 46)
 SKYBLUE = (204, 255, 255)
 DARKRED = (108, 5, 5)
+DARKPURPLE = (130,20,255)
+AQUA = (0, 247, 255)
+EMERALD = (67, 192, 148)
+ORANGEDESERT = (241, 99, 1)
 
 menu1_active = True
 menu2_active = False
@@ -45,140 +49,141 @@ textFader = 0
 characterName = ''
 gold = 0
 
-cap = cv2.VideoCapture("intromovie3.mov")
-capv2 = cv2.VideoCapture("monsterdissapear.mov")
-capv3 = cv2.VideoCapture("characterchoosevideo.mp4")
+cap = cv2.VideoCapture("video/intromovie3.mov")
+capv2 = cv2.VideoCapture("video/monsterdissapear.mov")
+capv3 = cv2.VideoCapture("video/characterchoosevideo.mp4")
+capv4 = cv2.VideoCapture("video/wavetransitionknight.mp4")
 
-imagen1 = pygame.image.load('scroll1.png')
+imagen1 = pygame.image.load('images/scroll1.png')
 imagen1 = pygame.transform.scale(imagen1, (300, 100))
-imagen2 = pygame.image.load('scroll2.png')
+imagen2 = pygame.image.load('images/scroll2.png')
 imagen2 = pygame.transform.scale(imagen2, (300, 100))
-imagen3 = pygame.image.load('scroll3.png')
+imagen3 = pygame.image.load('images/scroll3.png')
 imagen3 = pygame.transform.scale(imagen3, (300, 100))
-imagen4 = pygame.image.load('scroll4.png')
+imagen4 = pygame.image.load('images/scroll4.png')
 imagen4 = pygame.transform.scale(imagen4, (300, 100))
-imagen6 = pygame.image.load('goldglow.png')
+imagen6 = pygame.image.load('images/goldglow.png')
 imagen6 = pygame.transform.scale(imagen6, (100, 100))
-image1 = pygame.image.load('SevenSeasStartScreen.jfif')
+image1 = pygame.image.load('images/SevenSeasStartScreen.jfif')
 image1 = pygame.transform.scale(image1, (1550, 870))
-image2 = pygame.image.load('parchment.png')
+image2 = pygame.image.load('images/parchment.png')
 image2 = pygame.transform.scale(image2, (750, 800))
 image3 = pygame.transform.rotate(image2, 180)
-image4 = pygame.image.load('blackscreen.jpg')
+image4 = pygame.image.load('images/blackscreen.jpg')
 image4 = pygame.transform.scale(image4, (3920, 1080))
-image5 = pygame.image.load('loadmenu.jpg')
+image5 = pygame.image.load('images/loadmenu.jpg')
 image5 = pygame.transform.scale(image5, (1550, 870))
-image6 = pygame.image.load('goldbox.png')
-image12 = pygame.image.load('darkwater1.webp')
+image6 = pygame.image.load('images/goldbox.png')
+image12 = pygame.image.load('images/darkwater1.webp')
 image12 = pygame.transform.scale(image12, (1550, 870))
-image13 = pygame.image.load('darkwater2.webp')
+image13 = pygame.image.load('images/darkwater2.webp')
 image13 = pygame.transform.scale(image13, (1550, 870))
-image14 = pygame.image.load('darkwater3.webp')
+image14 = pygame.image.load('images/darkwater3.webp')
 image14 = pygame.transform.scale(image14, (1550, 870))
-image15 = pygame.image.load('darkwater4.webp')
+image15 = pygame.image.load('images/darkwater4.webp')
 image15 = pygame.transform.scale(image15, (1550, 870))
-image16 = pygame.image.load('strangefish.webp')
+image16 = pygame.image.load('images/strangefish.webp')
 image16 = pygame.transform.scale(image16, (1550, 870))
-image17 = pygame.image.load('mermaid1.jpg')
+image17 = pygame.image.load('images/mermaid1.jpg')
 image17 = pygame.transform.scale(image17, (1550, 870))
 
-imagemermaid1 = pygame.image.load('mermaidd1.jpeg')
+imagemermaid1 = pygame.image.load('images/mermaidd1.jpeg')
 imagemermaid1 = pygame.transform.scale(imagemermaid1, (1550, 870))
-imagemermaid2 = pygame.image.load('mermaidd2.jpeg')
+imagemermaid2 = pygame.image.load('images/mermaidd2.jpeg')
 imagemermaid2 = pygame.transform.scale(imagemermaid2, (1550, 870))
-imagemermaid3 = pygame.image.load('mermaidd3.webp')
+imagemermaid3 = pygame.image.load('images/mermaidd3.webp')
 imagemermaid3 = pygame.transform.scale(imagemermaid3, (1550, 870))
 
 
-image19 = pygame.image.load('lucidea.jpg')
+image19 = pygame.image.load('images/lucidea.jpg')
 image19 = pygame.transform.scale(image19, (1550, 870))
 
-image21 = pygame.image.load('nightmare1.jpg')
+image21 = pygame.image.load('images/nightmare1.jpg')
 image21 = pygame.transform.scale(image21, (1550, 870))
-image22 = pygame.image.load('orb.webp')
+image22 = pygame.image.load('images/orb.webp')
 image22 = pygame.transform.scale(image22, (300, 300))
-image23 = pygame.image.load('injured.jpg')
+image23 = pygame.image.load('images/injured.jpg')
 image23 = pygame.transform.scale(image23, (1550, 870))
-image24 = pygame.image.load('mermaidguards.jpg')
+image24 = pygame.image.load('images/mermaidguards.jpg')
 image24 = pygame.transform.scale(image24, (1550, 870))
-image25 = pygame.image.load('nightmare2.jpg')
+image25 = pygame.image.load('images/nightmare2.jpg')
 image25 = pygame.transform.scale(image25, (1550, 870))
-image26 = pygame.image.load('goldendragon.webp')
+image26 = pygame.image.load('images/goldendragon.webp')
 image26 = pygame.transform.scale(image26, (1550, 870))
-image27 = pygame.image.load('goldbeam1.jfif')
+image27 = pygame.image.load('images/goldbeam1.jfif')
 image27 = pygame.transform.scale(image27, (1550, 870))
-image28 = pygame.image.load('goldbeam2.jfif')
+image28 = pygame.image.load('images/goldbeam2.jfif')
 image28 = pygame.transform.scale(image28, (1550, 870))
-image29 = pygame.image.load('aura.png')
+image29 = pygame.image.load('images/aura.png')
 image29 = pygame.transform.scale(image29, (500, 500))
-image30 = pygame.image.load('skipbutton.png')
+image30 = pygame.image.load('images/skipbutton.png')
 image30 = pygame.transform.scale(image30, (90, 50))
-image31 = pygame.image.load('purplerect.png')
+image31 = pygame.image.load('images/purplerect.png')
 image31 = pygame.transform.scale(image31, (50, 80))
-image32 = pygame.image.load('button.png')
+image32 = pygame.image.load('images/button.png')
 image32 = pygame.transform.scale(image32, (700, 700))
-image33 = pygame.image.load('greencircle.png')
+image33 = pygame.image.load('images/greencircle.png')
 image33 = pygame.transform.scale(image33, (630, 630))
-image34 = pygame.image.load('kneelingknight.webp')
+image34 = pygame.image.load('images/kneelingknight.webp')
 image34 = pygame.transform.scale(image34, (1550, 870))
-image35 = pygame.image.load('standingknight.webp')
+image35 = pygame.image.load('images/standingknight.webp')
 image35 = pygame.transform.scale(image35, (1550, 870))
-image36 = pygame.image.load('Nightmarecloseup.webp')
+image36 = pygame.image.load('images/Nightmarecloseup.webp')
 image36 = pygame.transform.scale(image36, (1550, 870))
-image37 = pygame.image.load('teleportingnightmare.webp')
+image37 = pygame.image.load('images/teleportingnightmare.webp')
 image37 = pygame.transform.scale(image37, (1550, 870))
-image38 = pygame.image.load('seafloordark.webp')
+image38 = pygame.image.load('images/seafloordark.webp')
 image38 = pygame.transform.scale(image38, (1550, 870))
-image39 = pygame.image.load('fancygoldline.webp')
+image39 = pygame.image.load('images/fancygoldline.webp')
 image39 = pygame.transform.scale(image39, (700, 200))
-image40 = pygame.image.load('tridentstab.webp')
-image41 = pygame.image.load('mainmap.JPG')
+image40 = pygame.image.load('images/tridentstab.webp')
+image41 = pygame.image.load('images/mainmap.JPG')
 image41 = pygame.transform.scale(image41, (1550, 870))
-image42 = pygame.image.load('yellowdiamond.png')
+image42 = pygame.image.load('images/yellowdiamond.png')
 image42 = pygame.transform.scale(image42, (30, 30))
-image43 = pygame.image.load('gamblemap.jpg')
+image43 = pygame.image.load('images/gamblemap.jpg')
 image43 = pygame.transform.scale(image43, (1550, 870))
-image44 = pygame.image.load('paimonmap.jpg')
+image44 = pygame.image.load('images/paimonmap.jpg')
 image44 = pygame.transform.scale(image44, (1550, 870))
-image45 = pygame.image.load('colleseummap.jpg')
+image45 = pygame.image.load('images/colleseummap.jpg')
 image45 = pygame.transform.scale(image45, (1550, 870))
-image46 = pygame.image.load('workmap.jpg')
+image46 = pygame.image.load('images/workmap.jpg')
 image46 = pygame.transform.scale(image46, (1550, 870))
-image47 = pygame.image.load('castlemap.jpg')
+image47 = pygame.image.load('images/castlemap.jpg')
 image47 = pygame.transform.scale(image47, (1550, 870))
-image48 = pygame.image.load('adventuremap.jpg')
+image48 = pygame.image.load('images/adventuremap.jpg')
 image48 = pygame.transform.scale(image48, (1550, 870))
-image49 = pygame.image.load('guildmap.jpg')
+image49 = pygame.image.load('images/guildmap.jpg')
 image49 = pygame.transform.scale(image49, (1550, 870))
-image50 = pygame.image.load('stashmap.jpg')
+image50 = pygame.image.load('images/stashmap.jpg')
 image50 = pygame.transform.scale(image50, (1550, 870))
-image51 = pygame.image.load('blackmarketmap.jpg')
+image51 = pygame.image.load('images/blackmarketmap.jpg')
 image51 = pygame.transform.scale(image51, (1550, 870))
-image52 = pygame.image.load('knightwalkthrough.png')
+image52 = pygame.image.load('images/knightwalkthrough.png')
 image52 = pygame.transform.scale(image52, (500, 250))
-image53 = pygame.image.load('speechbubble.png')
+image53 = pygame.image.load('images/speechbubble.png')
 image53 = pygame.transform.scale(image53, (400, 200))
-image55 = pygame.image.load('mainmap.JPG')
+image55 = pygame.image.load('images/mainmap.JPG')
 image55 = pygame.transform.scale(image55, (1550, 870))
-image56 = pygame.image.load('blueglow.png')
+image56 = pygame.image.load('images/blueglow.png')
 image56 = pygame.transform.scale(image56, (100, 100))
-image57 = pygame.image.load('crack.png')
+image57 = pygame.image.load('images/crack.png')
 image57 = pygame.transform.scale(image57, (1200, 1200))
-image58 = pygame.image.load('paimonshop.webp')
+image58 = pygame.image.load('images/paimonshop.webp')
 image58 = pygame.transform.scale(image58, (1550, 870))
-image59 = pygame.image.load('bubble.png')
+image59 = pygame.image.load('images/bubble.png')
 image59 = pygame.transform.scale(image59, (25, 25))
-image60 = pygame.image.load('bubble.png')
+image60 = pygame.image.load('images/bubble.png')
 image60 = pygame.transform.scale(image60, (35, 35))
-image61 = pygame.image.load('bubble.png')
+image61 = pygame.image.load('images/bubble.png')
 image61 = pygame.transform.scale(image61, (55, 55))
-image62 = pygame.image.load('cardboardbox.png')
+image62 = pygame.image.load('images/cardboardbox.png')
 image62 = pygame.transform.scale(image62, (120, 100))
-image63 = pygame.image.load('glowbox.png')
+image63 = pygame.image.load('images/glowbox.png')
 image63 = pygame.transform.scale(image63, (120, 100))
-image64 = pygame.image.load('sillycrab.png')
+image64 = pygame.image.load('images/sillycrab.png')
 image64 = pygame.transform.scale(image64, (100, 100))
-image65 = pygame.image.load('reddownarrow.png')
+image65 = pygame.image.load('images/reddownarrow.png')
 image65 = pygame.transform.scale(image65, (75, 150))
 ########################################################################################################################
 displaylength = 1920
@@ -192,18 +197,18 @@ font2 = pygame.font.SysFont("Arial", 60)
 font3 = pygame.font.SysFont("Times New Roman", 40)
 font4 = pygame.font.SysFont("Comic Sans", 40)
 font5 = pygame.font.SysFont("Comic Sans", 20)
-font6 = pygame.font.Font("Danger.otf", 25)
-font7 = pygame.font.Font("eroded.ttf", 20)
-font8 = pygame.font.Font("HelpMe.ttf", 20)
-font9 = pygame.font.Font("Overwave.otf", 20)
-font10 = pygame.font.Font("Comfy.otf", 22)
-font11 = pygame.font.Font("anime.otf", 15)
-font12 = pygame.font.Font("oldenFont.otf", 50)
-font13 = pygame.font.Font("SwordsmanFont.TTF", 20)
-font14 = pygame.font.Font("AsianFont.ttf", 20)
-font15 = pygame.font.Font("womenfont.ttf", 20)
-font16 = pygame.font.Font("runefont.otf", 50)
-font17 = pygame.font.Font("dragonfont.ttf", 20)
+font6 = pygame.font.Font("fonts/Danger.otf", 25)
+font7 = pygame.font.Font("fonts/eroded.ttf", 20)
+font8 = pygame.font.Font("fonts/HelpMe.ttf", 20)
+font9 = pygame.font.Font("fonts/Overwave.otf", 20)
+font10 = pygame.font.Font("fonts/Comfy.otf", 22)
+font11 = pygame.font.Font("fonts/anime.otf", 15)
+font12 = pygame.font.Font("fonts/oldenFont.otf", 50)
+font13 = pygame.font.Font("fonts/SwordsmanFont.TTF", 20)
+font14 = pygame.font.Font("fonts/AsianFont.ttf", 20)
+font15 = pygame.font.Font("fonts/womenfont.ttf", 20)
+font16 = pygame.font.Font("fonts/runefont.otf", 50)
+font17 = pygame.font.Font("fonts/dragonfont.ttf", 20)
 gameStatus = True
 ########################################################################################################################
 # Function to display text on the screen
@@ -221,6 +226,18 @@ def draw_text_center(text, font, color, surface, x, y, alpha=255):
     textrect.midtop = (x, y)  # Center the rectangle at the specified position
     surface.blit(textobj, textrect)  # Blit the text surface onto the display surfac
 ########################################################################################################################
+def save_teamcreature(creature_data, filename="teamdata.txt"):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)  # Load existing data
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = []  # If file doesn't exist or is empty, start with an empty list
+
+    data.append(creature_data)  # Add new creature data
+
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=4)  # Save updated data
+########################################################################################################################
 class StartMenu(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -236,7 +253,7 @@ class StartMenu(pygame.sprite.Sprite):
 
         fade_surface = pygame.Surface(DISPLAYSURF.get_size())
         fade_surface.fill(BLACK)
-        pygame.mixer.music.load("background_music1.mp3")
+        pygame.mixer.music.load("audio/background_music1.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
 
@@ -361,7 +378,7 @@ class StartMenu(pygame.sprite.Sprite):
                     mouseX, mouseY = pygame.mouse.get_pos()
                     # Check if "Start Game" is clicked
                     if scrollrect3.collidepoint(mouse_pos):
-                        sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                         pygame.mixer.music.set_volume(0.5)
                         sound_effect.play()
                         print("Game Exited")
@@ -374,14 +391,14 @@ class StartMenu(pygame.sprite.Sprite):
                         self.menu_active = False  # Exit the menu, start game
                     # Check if "Quit" is clicked
                     if scrollrect1.collidepoint(mouse_pos):
-                        sound_effect = pygame.mixer.Sound("scrollsound.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
                         sound_effect.play()
                         if(scrollflip1 == False):
                             scrollflip1 = True
                         else:
                             scrollflip1 = False
                     if scrollrect2.collidepoint(mouse_pos):
-                        sound_effect = pygame.mixer.Sound("scrollsound.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
                         pygame.mixer.music.set_volume(0.5)
                         sound_effect.play()
                         if(scrollflip2 == False):
@@ -403,11 +420,11 @@ class StartMenu2(pygame.sprite.Sprite):
         self.menu_active2 = True
 ########################################################################################################################
     def ChooseMenu(self):
-        pygame.mixer.music.load("background_music2.mp3")
+        pygame.mixer.music.load("audio/background_music2.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("Choose Menu initialized")
-        video = cv2.VideoCapture("SevenSeasMenu.mov")
+        video = cv2.VideoCapture("video/SevenSeasMenu.mov")
         global gold
         global completetutorial
         global characterName
@@ -490,11 +507,11 @@ class StartMenu2(pygame.sprite.Sprite):
             DISPLAYSURF.blit(imagen6, (mouseX - 47, mouseY - 54))
             mouse_pos = pygame.mouse.get_pos()
             if hover_rect.collidepoint(mouse_pos):
-                pygame.draw.rect(DISPLAYSURF, (0, 255, 0), hover_rect, 3)  # (color, rect, border thickness)
+                pygame.draw.rect(DISPLAYSURF, (0, 255, 0), hover_rect, 3, 25)  # (color, rect, border thickness)
             if hover_rect2.collidepoint(mouse_pos):
-                pygame.draw.rect(DISPLAYSURF, (0, 255, 0), hover_rect2, 3)  # (color, rect, border thickness)
+                pygame.draw.rect(DISPLAYSURF, (0, 255, 0), hover_rect2, 3, 25)  # (color, rect, border thickness)
             if hover_rect3.collidepoint(mouse_pos):
-                pygame.draw.rect(DISPLAYSURF, (0, 255, 0), hover_rect3, 3)  # (color, rect, border thickness)
+                pygame.draw.rect(DISPLAYSURF, (0, 255, 0), hover_rect3, 3, 25)  # (color, rect, border thickness)
             if hover_rect4.collidepoint(mouse_pos):
                 DISPLAYSURF.blit(image63, (1191, 883))
             if hover_rect5.collidepoint(mouse_pos):
@@ -508,17 +525,17 @@ class StartMenu2(pygame.sprite.Sprite):
                     sys.exit()
                 if event.type == MOUSEBUTTONDOWN:
                     if(0 <= mouseY <= 900):
-                        sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                         sound_effect.play()
                     mouseX, mouseY = pygame.mouse.get_pos()
                     # IF LOAD GAME IS CLICKED
                     if hover_rect5.collidepoint(mouse_pos):
                         caveswitch = True
-                        sound_effect = pygame.mixer.Sound("dragonroar.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/dragonroar.mp3")
                         sound_effect.play()
                     if hover_rect4.collidepoint(mouse_pos):
                         crabswitch = True
-                        sound_effect = pygame.mixer.Sound("shopclicksound.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
                         sound_effect.play()
                     if 810 <= mouseX <= 1110 and 535 <= mouseY <= 595:
                         print("Clicked load game")
@@ -624,7 +641,7 @@ class gameintro(pygame.sprite.Sprite):
         mouse_pos = pygame.mouse.get_pos()
         image42.set_alpha(Fader)
         DISPLAYSURF.blit(image42, (1655, 917))
-        if ((gamescene > 23) and(gamescene < 103)):
+        if ((gamescene >= 0) and(gamescene < 103)):
             DISPLAYSURF.blit(image30, (180, 115))
         draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
         if xrect.collidepoint(mouse_pos):
@@ -642,17 +659,23 @@ class gameintro(pygame.sprite.Sprite):
                         sys.exit()
             elif xrect2.collidepoint(mouse_pos):
                 if event.type == MOUSEBUTTONDOWN:
-                    sound_effect = pygame.mixer.Sound("teleportnoise.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/teleportnoise.mp3")
                     sound_effect.play()
                     pygame.display.update()
                     if(gamescene < 55):
+                        capv3.release()
+                        cap.release()
                         return (56)
                     if (gamescene > 55):
+                        capv3.release()
+                        cap.release()
+                        capv2.release()
+                        capv4.release()
                         return (154)
             else:
                 if event.type == MOUSEBUTTONDOWN:
                     if 0 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                        sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                         sound_effect.play()
                         pygame.display.update()
                         textFader = 0
@@ -701,12 +724,37 @@ class gameintro(pygame.sprite.Sprite):
             file.write("luck = 1 \n")
             file.write("firstblackmarket = true \n")
 
+            with open("creaturedata.txt", "w") as file:
+                file.truncate(0)
+
+            with open("teamdata.txt", "w") as file:
+                file.truncate(0)
+
+            creature = {
+                "name": "Sacred Lumen",
+                "lvl": 1,
+                "hp": 10,
+                "defense": 10,
+                "strength": 10,
+                "special attack": 10,
+                "speed": 10,
+                "tier": 1,
+                "beastimage": 46,
+                "move1": 75,
+                "move2": 76,
+                "move3": " ",
+                "move4": " ",
+                "type": "light",
+                "experience": 0,
+            }
+
+            save_teamcreature(creature)
         while self.menu_active3:
             mouseX, mouseY = pygame.mouse.get_pos()
             DISPLAYSURF.fill(BLACK)
             DISPLAYSURF.blit(image5, (190, 105))
             if(gamescene == -2):
-                sound_effect = pygame.mixer.Sound("intromoviesound.mp3")
+                sound_effect = pygame.mixer.Sound("audio/intromoviesound.mp3")
                 sound_effect.play()
                 fps = int(cap.get(cv2.CAP_PROP_FPS))
                 clock = pygame.time.Clock()
@@ -720,7 +768,7 @@ class gameintro(pygame.sprite.Sprite):
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     frame = pygame.surfarray.make_surface(frame).convert()
                     DISPLAYSURF.blit(frame, (140, 100))
-                    pygame.display.flip()  # Update the display
+                    pygame.display.flip()
                     clock.tick(fps)
                     for event in pygame.event.get():
                         if (event.type == MOUSEBUTTONDOWN):
@@ -730,7 +778,7 @@ class gameintro(pygame.sprite.Sprite):
 
             if(gamescene == -1):
                 if(music1):
-                    pygame.mixer.music.load("thundermusic.mp3")
+                    pygame.mixer.music.load("audio/thundermusic.mp3")
                     pygame.mixer.music.set_volume(0.8)
                     pygame.mixer.music.play(-1)
                     music1 = False
@@ -753,14 +801,14 @@ class gameintro(pygame.sprite.Sprite):
                             if(i > 6):
                                 i = i - 5
                             if (music2):
-                                sound_effect = pygame.mixer.Sound("choose1.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/choose1.mp3")
                                 pygame.mixer.music.set_volume(0.3)
                                 sound_effect.play()
                                 pygame.mixer.music.play(-1)
                                 music2 = False
                             draw_text_center('"Choose your Character', font2, DARKGREEN, DISPLAYSURF, halfdisplay,130)
 
-                            mouseX, mouseY = pygame.mouse.get_pos()
+                            # mouseX, mouseY = pygame.mouse.get_pos()
                             # print("x and y = " + str(mouseX) + " " + str(mouseY))
 
                             draw_text("+5 Defense", font13, DARKRED, DISPLAYSURF, 453, 480)
@@ -785,7 +833,7 @@ class gameintro(pygame.sprite.Sprite):
                                         firstchar = pygame.Rect(420, 370, 180, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, firstchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("chosencharacternoise.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
                                                 lines[16] = f"defense = {6}\n"
@@ -798,7 +846,7 @@ class gameintro(pygame.sprite.Sprite):
                                         secondchar = pygame.Rect(660, 360, 170, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, secondchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("chosencharacternoise.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
                                                 lines[17] = f"strength = {6}\n"
@@ -811,7 +859,7 @@ class gameintro(pygame.sprite.Sprite):
                                         thirdchar = pygame.Rect(860, 380, 170, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, thirdchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("chosencharacternoise.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
                                                 lines[18] = f"health = {6}\n"
@@ -824,7 +872,7 @@ class gameintro(pygame.sprite.Sprite):
                                         fourthchar = pygame.Rect(1050, 380, 140, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, fourthchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("chosencharacternoise.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
                                                 lines[19] = f"speed = {6}\n"
@@ -837,7 +885,7 @@ class gameintro(pygame.sprite.Sprite):
                                         fifthchar = pygame.Rect(1220, 380, 140, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, fifthchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("chosencharacternoise.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
                                                 lines[20] = f"specattack = {6}\n"
@@ -850,7 +898,7 @@ class gameintro(pygame.sprite.Sprite):
                                         sixthchar = pygame.Rect(1380, 380, 150, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, sixthchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("chosencharacternoise.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
                                                 lines[21] = f"luck = {6}\n"
@@ -865,71 +913,75 @@ class gameintro(pygame.sprite.Sprite):
                             if (textFader != 4000):
                                 textFader = textFader + 15
                             draw_text_center('"Well, well… here we have the dregs of the kingdom, crawling about my deck like insects. You’ve all', font5, RED, DISPLAYSURF, halfdisplay,880)
-                            draw_text_center('been such a delightful nuisance, whispering your little plans in the darkness. Did you truly think I', font5, RED, DISPLAYSURF, halfdisplay,905)
-                            draw_text_center('wouldn’t notice?"', font5, RED, DISPLAYSURF, halfdisplay,930)
+                            draw_text_center('been such a delightful nuisance, whispering your little plans in the darkness. Did you truly believe I', font5, RED, DISPLAYSURF, halfdisplay,905)
+                            draw_text_center('wouldn’t hear your pathetic little plans?"', font5, RED, DISPLAYSURF, halfdisplay,930)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                             DISPLAYSURF.blit(image4, ((textFader + -500), 910))
-                            DISPLAYSURF.blit(image4, ((textFader + -1400), 935))
+                            DISPLAYSURF.blit(image4, ((textFader + -1200), 935))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 1):
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('*The captain paces in front of them, playing with a revolver in his hands*', font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('The captains heavy boots thud against drenched wood, his coat fluttering in the wind.', font5, WHITE, DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('As he paces in front of them you can see a cruel smile as he plays with the revolver in his hands.)', font5, WHITE, DISPLAYSURF, halfdisplay, 880)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 2):
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 12
-                            draw_text_center('"WE aren’t insects were still huma—"', font5, YELLOW, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('(One of the prisoners, a younger man, swallows his fear and dares to speak.)', font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('"WE aren’t insects were still huma—"', font5, YELLOW, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
-                            DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
                             music1 = True
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 3):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("kick.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/kick.mp3")
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 4000):
                                 textFader = textFader + 15
-                            draw_text_center('*The Captain Kicks his throat sending him to his knees*', font5, RED, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('(The Captain Kicks his throat sending him to his knees with a sickening crunch)', font5, RED, DISPLAYSURF, halfdisplay, 880)
                             draw_text_center('"Who else wants to speak?"', font5, RED, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
-                            DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -200), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
                             gamescene = self.xbutton(gamescene)
                             music2 = True
                         if (gamescene == 4):
                             if (music2):
-                                sound_effect = pygame.mixer.Sound("thundersound2.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/thundersound2.mp3")
                                 sound_effect.play()
                                 music2 = False
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('"Ive grown tired of lugging you worthless trash around..."', font5, RED,DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('"Ive grown tired of lugging you worthless wretches across the sea..."', font5, RED,DISPLAYSURF, halfdisplay, 880)
                             draw_text_center('"It pisses me off seeing traitors like you still alive."', font5, RED,DISPLAYSURF, halfdisplay, 905)
                             draw_text_center('"Your very existence is a sin"', font7, RED, DISPLAYSURF, halfdisplay, 935)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -200), 910))
-                            DISPLAYSURF.blit(image4, ((textFader + -1000), 935))
+                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + -700), 935))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 5):
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('"I just had a great idea.."', font5, RED, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('"I just had a great idea, what if we made this… interesting?"', font5, RED, DISPLAYSURF, halfdisplay, 880)
                             draw_text_center('"How about I just kill one of you!"', font5, RED, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
@@ -938,7 +990,7 @@ class gameintro(pygame.sprite.Sprite):
                             music1 = True
                         if (gamescene == 6):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("giantwaves.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/giantwaves.mp3")
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
@@ -949,7 +1001,7 @@ class gameintro(pygame.sprite.Sprite):
                             draw_text_center('Were all such good friends after all!"', font5, RED, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -200), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 7):
                             image4.set_alpha(240)
@@ -960,7 +1012,7 @@ class gameintro(pygame.sprite.Sprite):
                             draw_text_center('and whoever gets the most votes ill kill."', font5, RED, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + 0), 910))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 8):
                             image4.set_alpha(240)
@@ -971,30 +1023,32 @@ class gameintro(pygame.sprite.Sprite):
                             draw_text_center('"Its so amusing to watch scum like you pointing fingers at each other."', font5, RED, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -400), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + -300), 910))
                             gamescene = self.xbutton(gamescene)
                             music1 = True
                         if (gamescene == 9):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("thundersound1.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/thundersound1.mp3")
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('Well, I dont have all day, I have your families to take care of later."',font5, RED, DISPLAYSURF, halfdisplay, 880)
-                            draw_text_center('"Lets get on with this, choose someone to die..."', font5, RED,DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('"Well, I dont have all day, I have your families to take care of later.',font5, RED, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('Lets get on with this, choose someone to die... Or would you rather I pick at random?', font5, RED,DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('"Perhaps I should line you all up and put a bullet in each of you?"', font5, RED,DISPLAYSURF, halfdisplay, 930)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
                             DISPLAYSURF.blit(image4, ((textFader + -100), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + -900), 935))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 10):
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('.........',font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('(A hushed, horrified silence follows. The wind howls through the rigging, rain slashing down. No one speaks. No one moves.)',font5, WHITE, DISPLAYSURF, halfdisplay, 880)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                             DISPLAYSURF.blit(image4, ((textFader + -500), 910))
@@ -1004,32 +1058,32 @@ class gameintro(pygame.sprite.Sprite):
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('The slaves look amongst each other, with no remorse or pity within their eyes',font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('(Then—slowly, the slaves look amongst each other, eyes shifting about with no remorse or pity in their lightless pupils.)',font5, WHITE, DISPLAYSURF, halfdisplay, 880)
                             image4.set_alpha(255)
-                            DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 12):
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('Slowly everyone looks towards you, whos head is down',font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('Eventually there hesitating ends, leaving everyone looks towards you, whos head is down',font5, WHITE, DISPLAYSURF, halfdisplay, 880)
                             image4.set_alpha(255)
                             music2 = True
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 13):
                             if (music2):
-                                sound_effect = pygame.mixer.Sound("gunload.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/gunload.mp3")
                                 sound_effect.play()
                                 music2 = False
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('"Ahh it seems like you have all choosen. You are one unlucky fella arent you?', font5, RED, DISPLAYSURF, halfdisplay, 880)
-                            draw_text_center('But dont be too sad, maybe ill meet you again in hell, dont you think?"', font5, RED, DISPLAYSURF, halfdisplay, 905)
-                            draw_text_center('*Slowly he raises his gun to your head, inches away from your skull*', font5, WHITE, DISPLAYSURF, halfdisplay, 930)
+                            draw_text_center('"Oh? it seems like we have a winner. You are one unlucky fella arent you? Tell me, how does it feel to be', font5, RED, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('betrayed? Dont take it too personally, maybe well meet again in hell, dont you think?"', font5, RED, DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('*Slowly he raises his gun to your head, a metallic click sounds, inches away from your skull*', font5, WHITE, DISPLAYSURF, halfdisplay, 930)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 500), 880))
                             DISPLAYSURF.blit(image4, ((textFader + -300), 910))
@@ -1038,41 +1092,43 @@ class gameintro(pygame.sprite.Sprite):
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 14):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("pistolshot.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/pistolshot.mp3")
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('*BANG BANG BANG*', font7, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('*BANG*', font7, WHITE, DISPLAYSURF, halfdisplay, 880)
                             image4.set_alpha(255)
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 15):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("kick.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/kick.mp3")
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('*You look down at your at yourself but see that you are still breathing*', font5, WHITE, DISPLAYSURF, halfdisplay, 880)
-                            draw_text_center('*Standing around you are 5 dead bodies*', font5, WHITE, DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('(Your body tenses. But… no pain. No darkness)', font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('(Instead, around you, bodies collapse. Five of them. Lifeless. Blood flows onto the deck,', font5, WHITE, DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('painting it crimson as a puddle starts to form. The scent of gunpowder and death lingers in the cold air)', font5, WHITE, DISPLAYSURF, halfdisplay, 930)
                             image4.set_alpha(255)
                             DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                             DISPLAYSURF.blit(image4, ((textFader + -200), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + -1000), 935))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 16):
                             image4.set_alpha(240)
                             DISPLAYSURF.blit(image4, (0, 880))
                             if (textFader != 3000):
                                 textFader = textFader + 15
-                            draw_text_center('As you watch their dead corpses fall to the deck, blood spreading over floor,', font5, WHITE,DISPLAYSURF, halfdisplay, 880)
-                            draw_text_center('The captain turns and locks eyes with you', font5, WHITE, DISPLAYSURF, halfdisplay, 905)
+                            draw_text_center('(As you watch their dead corpses fall to the deck, breathe shaking,', font5, WHITE,DISPLAYSURF, halfdisplay, 880)
+                            draw_text_center('the captain turns and locks eyes with you)', font5, WHITE, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
-                            DISPLAYSURF.blit(image4, ((textFader + 400), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -200), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + -100), 910))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 17):
                             image4.set_alpha(240)
@@ -1093,8 +1149,8 @@ class gameintro(pygame.sprite.Sprite):
                             draw_text_center('Well, you havent survived just yet...', font5, RED,DISPLAYSURF, halfdisplay, 880)
                             draw_text_center('Lets teach you how to swim first.', font5, RED, DISPLAYSURF, halfdisplay, 905)
                             image4.set_alpha(255)
-                            DISPLAYSURF.blit(image4, ((textFader + 400), 880))
-                            DISPLAYSURF.blit(image4, ((textFader + -200), 910))
+                            DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                            DISPLAYSURF.blit(image4, ((textFader + 200), 910))
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 19):
                             music2 = True
@@ -1106,10 +1162,10 @@ class gameintro(pygame.sprite.Sprite):
                 capv3.release()
             if (gamescene == 23):
                 if(music2):
-                    pygame.mixer.music.load("ominiousmusic.mp3")
+                    pygame.mixer.music.load("audio/ominiousmusic.mp3")
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.6)
-                    sound_effect = pygame.mixer.Sound("kick.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/kick.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1121,15 +1177,15 @@ class gameintro(pygame.sprite.Sprite):
                 draw_text_center('VOOSH *KICK*',font8, WHITE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('"Have fun being fishfood for those f*cking monsters"',font5, RED, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                DISPLAYSURF.blit(image4, ((textFader + 100), 920))
+                DISPLAYSURF.blit(image4, ((textFader + 700), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 300), 920))
                 music1 = True
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 24):
                 if(music1):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("splash2.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/splash2.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1150,7 +1206,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 25):
                 if(music2):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("heartbeat.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/heartbeat.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1160,7 +1216,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 15
-                draw_text_center('You struggle to reach the surface as your broken body is still restrained by rope.',font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('You struggle to reach the surface but to no avail as the ropes still bind you. Your body is broken. Weak. Useless.',font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('Freezing ocean water fills your burning lungs as you gasp for nonexistent oxygen.',font5, WHITE, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
@@ -1176,7 +1232,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 15
-                draw_text_center('Why is this happening to me? I only did what I thought was right.',font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('(Your vision blurs) Why is this happening to me? I only did what I thought was right.',font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('Is this the end for me, after everything that ive been through?',font5, WHITE, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
@@ -1187,7 +1243,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 27):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("bubbles.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/bubbles.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1212,8 +1268,8 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 20
-                draw_text_center('I would reclaim whats rightfully mine, and bring death',font5, DARKRED, DISPLAYSURF, halfdisplay, 890)
-                draw_text_center('to the empire once more',font6, DARKRED, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('I would reclaim whats rightfully mine, as crown prince and rightful heir',font6, DARKRED, DISPLAYSURF, halfdisplay, 885)
+                draw_text_center('to the empire!',font6, DARKRED, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 100), 920))
@@ -1228,7 +1284,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('how pitiful ive become, captured and taken as a slave by the empire.', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('(Your vision fades more) How pitiful ive become, captured and taken as a slave by the empire.', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('If there does exist a god out there, I beg you', font5, WHITE, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
@@ -1240,7 +1296,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 30):
                 if(music1):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("drowningnoise.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/drowningnoise.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1263,7 +1319,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('....', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('(Your heartbeat slows)', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 00), 920))
@@ -1293,7 +1349,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('...', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('(Your body begins to goes limp)', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1315,7 +1371,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 35):
                 if(music1):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("blub.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/blub.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1327,14 +1383,14 @@ class gameintro(pygame.sprite.Sprite):
                     textFader = textFader + 10
                 draw_text_center('blub', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 700), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music2 = True
             if (gamescene == 36):
                 if(music2):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("blub.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/blub.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1346,7 +1402,7 @@ class gameintro(pygame.sprite.Sprite):
                     textFader = textFader + 10
                 draw_text_center('blubbbbbbbb', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 700), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 37):
@@ -1357,17 +1413,17 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('...', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('......', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 700), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music1 = True
             if (gamescene == 38):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("underwateranimalnoise.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/underwateranimalnoise.mp3")
                     sound_effect.play()
-                    pygame.mixer.music.load("heavencalm.mp3")
+                    pygame.mixer.music.load("audio/heavencalm.mp3")
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.9)
                     music1 = False
@@ -1378,7 +1434,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('blubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('PwooOOoorrUUuuuHHhhKKkkhh', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1391,11 +1447,11 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('an unknown voice reverbrates around you', font5, SKYBLUE, DISPLAYSURF, halfdisplay, 890)
-                draw_text_center('"Where are you fishyyyy? "', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('an unknown voice reverbrates throughout the darkness and reaches all around you', font5, SKYBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('"Where are you, fishyyy~?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                DISPLAYSURF.blit(image4, ((textFader + -100), 920))
+                DISPLAYSURF.blit(image4, ((textFader + 000), 920))
                 DISPLAYSURF.blit(image4, ((textFader + -800), 960))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
@@ -1407,7 +1463,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"Oh theyre you are!" you hear as the voice gets closer', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('"Oh theyre you are!" you hear as the voice gets closer. The words coil around your mind, echoing in the void.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1415,7 +1471,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 41):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("humming.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/humming.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1425,9 +1481,9 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"hmmmm, whos this?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('A faint glow flickers in the abyss. "hmmmm, whos this?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 42):
@@ -1439,7 +1495,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 43):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("girlgiggle.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/girlgiggle.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1449,7 +1505,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"Silly human, how did you end up like this?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('"A human? How interesting. Lost, broken... so easy to shatter. How did you end up like this?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1462,7 +1518,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"I cant just leave someone to die like this.."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('(A soft voice whispers near your ear) "I cant just leave you to die like this.."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1477,7 +1533,7 @@ class gameintro(pygame.sprite.Sprite):
                     textFader = textFader + 10
                 draw_text_center('"close your eyes human, leave the rest to me"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 400), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 46):
@@ -1490,7 +1546,7 @@ class gameintro(pygame.sprite.Sprite):
                     textFader = textFader + 10
                 draw_text_center('"everything will be alright"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 400), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 47):
@@ -1503,7 +1559,7 @@ class gameintro(pygame.sprite.Sprite):
                     textFader = textFader + 10
                 draw_text_center('*you fall unconscious to her soothing voice*', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
-                DISPLAYSURF.blit(image4, ((textFader + 400), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 48):
@@ -1518,7 +1574,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"he- re y-u aw-ke?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('"H-, hey… are you awake?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1531,9 +1587,12 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"can you hear me child?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('A violent shudder rips through your body. Your lungs **burn**—but not for air. For something else.', font5, WHITE, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('"can you hear me child?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 000), 910))
+                DISPLAYSURF.blit(image4, ((textFader + -500), 937))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 51):
@@ -1561,8 +1620,8 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"Dont panic you are safe now, ive brought you to the kingdom,"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
-                draw_text_center('"the kingdom of Lucidea!"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
+                draw_text_center('"Dont panic you are safe now, I brought you somewhere special."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('"You’re in the **Kingdom of Lucidea**"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 000), 910))
@@ -1576,13 +1635,13 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"You humans have such strange biology, I struggled to save you"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('"You humans have such strange biology, Saving you was… difficult."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('"My only option was to use the innate gift of mermaids,"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
                 draw_text_center('"to have you digest a drop of blood from my heart..."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 930)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                DISPLAYSURF.blit(image4, ((textFader + 00), 910))
-                DISPLAYSURF.blit(image4, ((textFader + -500), 937))
+                DISPLAYSURF.blit(image4, ((textFader + -100), 910))
+                DISPLAYSURF.blit(image4, ((textFader + -600), 937))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 54):
@@ -1592,9 +1651,9 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"Ahhhh, I hope you dont mind me doing it without your blessing.."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
-                draw_text_center('"It was embarassing for me as well. But look on the bright side,"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
-                draw_text_center('"your lungs can now absorb oxygen from the water too!"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 930)
+                draw_text_center('"Ahhhh, I hope you dont mind that I did it without your blessing..  was difficult for me as well. "', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('"You ingested a piece.. of me. But look on the bright side, little human,"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
+                draw_text_center('"Now you can breathe down here. Now you are one of us..."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 930)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
                 DISPLAYSURF.blit(image4, ((textFader + -00), 910))
@@ -1612,8 +1671,8 @@ class gameintro(pygame.sprite.Sprite):
                 draw_text_center('"How embarassing. My name is Octavia."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 905)
                 draw_text_center('"its a pleasure to meet you"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 930)
                 DISPLAYSURF.blit(image4, ((textFader + 500), 880))
-                DISPLAYSURF.blit(image4, ((textFader + -100), 910))
-                DISPLAYSURF.blit(image4, ((textFader + -600), 937))
+                DISPLAYSURF.blit(image4, ((textFader + -000), 910))
+                DISPLAYSURF.blit(image4, ((textFader + -500), 937))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
             if (gamescene == 56):
@@ -1623,7 +1682,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('"Whats your name traveler?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('"Whats your name little human?"', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 880)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 400), 880))
                 gamescene = self.xbutton(gamescene)
@@ -1693,7 +1752,7 @@ class gameintro(pygame.sprite.Sprite):
                 if(textFader != 3000):
                     textFader = textFader + 9
                 draw_text_center('Us meeting is definitely the work of fate.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
-                draw_text_center('lets be friends!', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('lets be friends? Thats what you humans call it right?', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 000), 920))
@@ -1708,7 +1767,7 @@ class gameintro(pygame.sprite.Sprite):
                 if(textFader != 3000):
                     textFader = textFader + 9
                 draw_text_center('Ive never had a friend before,', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
-                draw_text_center('this is so exciting!', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('this is so exciting.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 100), 920))
@@ -1734,8 +1793,8 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('to the kingdom of', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
-                draw_text_center('Lucidea!', font10, GREY, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('to the grand kingdom of', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('**Lucidea**!', font10, GREY, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 150), 920))
                 gamescene = self.xbutton(gamescene)
@@ -1799,7 +1858,7 @@ class gameintro(pygame.sprite.Sprite):
                 if(textFader != 3000):
                     textFader = textFader + 10
                 draw_text_center('but that is all in the past, now we have the strength to regain our lost land.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
-                draw_text_center('tell me traveler, since you now carry my blood within you, do you wish to join us?', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('tell me little human, since you now carry my blood within you, do you wish to join us?', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + -150), 920))
                 gamescene = self.xbutton(gamescene)
@@ -1814,13 +1873,13 @@ class gameintro(pygame.sprite.Sprite):
                 draw_text_center('You need not feel pressured to say yes, It just seems like you have been forgotten, ', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('abandoned... without purpose', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
-                DISPLAYSURF.blit(image4, ((textFader + -150), 920))
+                DISPLAYSURF.blit(image4, ((textFader + -100), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music1 = True
             if (gamescene == 69):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("chestopen.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/chestopen.mp3")
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.2)
                     music1 = False
@@ -1830,7 +1889,7 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 10
-                draw_text_center('Ahh forgive my manners, sorry for saying such things to you so soon.. I have no ill intentions towards you' +characterName , font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+                draw_text_center('Ahh forgive my manners, sorry for saying such things to you so soon.. I have no ill intentions towards you ' +characterName , font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('Please take this gift I prepared for you, Its not much but I believe you will like it.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + -150), 920))
@@ -1839,8 +1898,8 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 70):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(imagemermaid3, (200, 100))
-                DISPLAYSURF.blit(image29, (750, 380))
-                DISPLAYSURF.blit(image22, (820, 505))
+                DISPLAYSURF.blit(image29, (760, 380))
+                DISPLAYSURF.blit(image22, (830, 505))
                 image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
@@ -1854,16 +1913,16 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 71):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("stab.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/stab.mp3")
                     sound_effect.play()
-                    pygame.mixer.music.load("battlemusic2.mp3")
+                    pygame.mixer.music.load("audio/battlemusic2.mp3")
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.8)
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(imagemermaid3, (200, 100))
-                DISPLAYSURF.blit(image29, (750, 380))
-                DISPLAYSURF.blit(image22, (820, 505))
+                DISPLAYSURF.blit(image29, (760, 380))
+                DISPLAYSURF.blit(image22, (830, 505))
                 image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
@@ -1876,7 +1935,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 72):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("gasping.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/gasping.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1886,14 +1945,14 @@ class gameintro(pygame.sprite.Sprite):
                 if(textFader != 3000):
                     textFader = textFader + 10
                 draw_text_center('Aeutgh', font9, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
-                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 700), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 100), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music1 = True
             if (gamescene == 73):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("dragonroar.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/dragonroar.mp3")
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.6)
                     music1 = False
@@ -1920,7 +1979,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 75):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("gasping.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/gasping.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1932,13 +1991,13 @@ class gameintro(pygame.sprite.Sprite):
                 draw_text_center('"Its a Nightmare creature, RUN '+characterName + "!", font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('"Save yourself..."', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
-                DISPLAYSURF.blit(image4, ((textFader + 100), 920))
+                DISPLAYSURF.blit(image4, ((textFader + 200), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music1 = True
             if (gamescene == 76):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("monsterroar.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/monsterroar.mp3")
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.5)
                     music1 = False
@@ -1956,7 +2015,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 77):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("underwaterimpact.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/underwaterimpact.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1978,7 +2037,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 79):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("swordsound.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1988,14 +2047,14 @@ class gameintro(pygame.sprite.Sprite):
                 if(textFader != 3000):
                     textFader = textFader + 9
                 draw_text_center('"HALT CREATURE"', font9, GREY, DISPLAYSURF, halfdisplay, 890)
-                DISPLAYSURF.blit(image4, ((textFader + 600), 880))
+                DISPLAYSURF.blit(image4, ((textFader + 700), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 100), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music1 = True
             if (gamescene == 80):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("marching.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/marching.mp3")
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.5)
                     music1 = False
@@ -2013,7 +2072,7 @@ class gameintro(pygame.sprite.Sprite):
                 pygame.display.update()
             if (gamescene == 81):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("evilmusic.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/evilmusic.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2045,11 +2104,11 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 83):
                 if(music2):
                     pygame.mixer.stop()
-                    pygame.mixer.music.load("rebornmusic.mp3")
+                    pygame.mixer.music.load("audio/rebornmusic.mp3")
                     pygame.mixer.music.play(-1)
-                    sound_effect = pygame.mixer.Sound("underwaterimpact.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/underwaterimpact.mp3")
                     sound_effect.play()
-                    sound_effect = pygame.mixer.Sound("scifinoise.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2067,7 +2126,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 84):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("action.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/action.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2084,9 +2143,9 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 85):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("warhornblast.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/warhornblast.mp3")
                     sound_effect.play()
-                    sound_effect = pygame.mixer.Sound("explosion.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/explosion.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2103,7 +2162,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 86):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("monsterscream.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/monsterscream.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2118,7 +2177,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 87):
                 if(music2):
-                    pygame.mixer.music.load("epicbattle.mp3")
+                    pygame.mixer.music.load("audio/epicbattle.mp3")
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.8)
                     music2 = False
@@ -2162,7 +2221,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 90):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("underwatergrowl.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/underwatergrowl.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2179,7 +2238,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 91):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("glassbreaking.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/glassbreaking.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2198,7 +2257,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene ==92):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("warp.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/warp.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2229,7 +2288,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 94):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("dinosaurgrowl.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/dinosaurgrowl.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2247,7 +2306,7 @@ class gameintro(pygame.sprite.Sprite):
                 pygame.display.update()
                 music2 = True
             if (gamescene == 95):
-                sound_effect = pygame.mixer.Sound("monsterdissapear.mp3")
+                sound_effect = pygame.mixer.Sound("audio/monsterdissapear.mp3")
                 sound_effect.play()
                 fps = int(capv2.get(cv2.CAP_PROP_FPS))
                 clock = pygame.time.Clock()
@@ -2270,7 +2329,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 96):
                 if(music2):
                     pygame.mixer.stop()
-                    pygame.mixer.music.load("dramaticheavenmusic.mp3")
+                    pygame.mixer.music.load("audio/dramaticheavenmusic.mp3")
                     pygame.mixer.music.play(-1)
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2295,13 +2354,13 @@ class gameintro(pygame.sprite.Sprite):
                 draw_text_center('Eventually you gaze upon the golden armored knight as he turns his head towards you', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('"Human."', font5, GOLD, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
-                DISPLAYSURF.blit(image4, ((textFader + -100), 920))
+                DISPLAYSURF.blit(image4, ((textFader + 000), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
                 music1 = True
             if (gamescene == 98):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("sighnoise.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/sighnoise.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2356,7 +2415,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 102):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("bubbles.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/bubbles.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2438,21 +2497,22 @@ class gameintro(pygame.sprite.Sprite):
                 if(choice1):
                     draw_text_center('"I shall take you to the imperial city"', font5, GOLD, DISPLAYSURF, halfdisplay, 890)
                 if(choice2):
-                    if (music1):
-                        sound_effect = pygame.mixer.Sound("stab.mp3")
-                        sound_effect.play()
-                        music1 = False
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image40, (200, 100))
                     image4.set_alpha(240)
                     DISPLAYSURF.blit(image4, (0, 880))
-                    draw_text_center('You have no choice human, strength is not something you can run away from.', font5, GOLD, DISPLAYSURF, halfdisplay, 925)
-                    draw_text_center('You will take responsibility for your actions, follow me to the imperial city', font7, RED, DISPLAYSURF, halfdisplay, 890)
+                    draw_text_center('You have no choice human, strength is not something you can run away from.', font5, GOLD, DISPLAYSURF, halfdisplay, 890)
+                    draw_text_center('You will take responsibility for your actions, follow me to the imperial city', font5, RED, DISPLAYSURF, halfdisplay, 925)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + -150), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
+                music1 = True
             if (gamescene == 106):
+                if(music1):
+                    sound_effect = pygame.mixer.Sound("audio/bubbles.mp3")
+                    sound_effect.play()
+                    music1 = False
                 music2 = True
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image35, (200, 100))
@@ -2460,28 +2520,30 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 0))
                 image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
-                video2 = True
-                if (choice1):
-                    if video2:
-                        video = moviepy.editor.VideoFileClip("wavetransitionknight.mp4  ")
-                        video.preview()
-                        video2 = False
-                    print("Successfully completed intro scene")
-                    gamescene = gamescene + 1
-                if (choice2):
-                    if video2:
-                        video = moviepy.editor.VideoFileClip("wavetransitionknight.mp4  ")
-                        # clip_resized = clip.resize(height=360) # make the height 360px (The width is then computed so that the width/height ratio is conserved.)
-                        video.preview()
-                        video2 = False
-                    print("Successfully completed intro scene")
-                    gamescene = gamescene + 1
+                fps = int(capv4.get(cv2.CAP_PROP_FPS))
+                clock = pygame.time.Clock()
+                while capv4.isOpened():
+                    ret, frame = capv4.read()
+                    if not ret:
+                        break
+                    frame = cv2.resize(frame, (1650, 940))
+                    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    frame = pygame.surfarray.make_surface(frame).convert()
+                    DISPLAYSURF.blit(frame, (140, 100))
+                    pygame.display.flip()  # Update the display
+                    clock.tick(fps)
+                    for event in pygame.event.get():
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            print("stop clicking so much")
+                capv4.release()
+                gamescene = gamescene + 1
             if (gamescene == 107):
                 DISPLAYSURF.fill(BLACK)
                 if(textFader != 3000):
                     textFader = textFader + 12
                 if(music2):
-                    pygame.mixer.music.load("dramaticheavenmusic.mp3")
+                    pygame.mixer.music.load("audio/dramaticheavenmusic.mp3")
                     pygame.mixer.music.play(-1)
                     music2 = False
                 draw_text_center('You travel along with the golden knight.', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
@@ -2923,7 +2985,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 155):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("backopen.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/backopen.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2942,8 +3004,8 @@ class gameintro(pygame.sprite.Sprite):
                         lines = file.readlines()
                         lines[0] = f"gold = {1000}\n"
                     with open("gamedata.txt", "w") as file:
-                        file.writelines(lines)  # Write the modified lines back to the file
-                    sound_effect = pygame.mixer.Sound("itempickup.mp3")
+                        file.writelines(lines)
+                    sound_effect = pygame.mixer.Sound("audio/itempickup.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2976,7 +3038,7 @@ class gameintro(pygame.sprite.Sprite):
                         lines[3] = f"finishedtutorial = true\n"
                     with open("gamedata.txt", "w") as file:
                         file.writelines(lines)  # Write the modified lines back to the file
-                    sound_effect = pygame.mixer.Sound("swoosh.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/swoosh.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)

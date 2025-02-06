@@ -2,9 +2,9 @@ import pygame
 from pygame.locals import *
 import sys
 import math
-import moviepy.editor
 import random
 import cv2
+import json
 pygame.init()
 pygame.mixer.init()
 ########################################################################################################################
@@ -25,6 +25,10 @@ GOLD = (255, 197, 46)
 SKYBLUE = (204, 255, 255)
 TAN = (245, 197, 135)
 DARKRED = (108, 5, 5)
+DARKPURPLE = (130,20,255)
+AQUA = (0, 247, 255)
+EMERALD = (67, 192, 148)
+ORANGEDESERT = (241, 99, 1)
 
 menu1_active = True
 menu2_active = False
@@ -53,82 +57,82 @@ alchemyexp = 0
 guildtutorial = 0
 ########################################################################################################################
 ########################################################################################################################
-imagebeast1 = pygame.image.load('f1.png')
-imagebeast2 = pygame.image.load('f2.png')
-imagebeast3 = pygame.image.load('f3.png')
-imagebeast4 = pygame.image.load('f4.png')
-imagebeast5 = pygame.image.load('f5.png')
-imagebeast6 = pygame.image.load('f6.png')
-imagebeast7 = pygame.image.load('f7.png')
-imagebeast8 = pygame.image.load('f8.png')
-imagebeast9 = pygame.image.load('f9.png')
-imagebeast10 = pygame.image.load('f10.png')
-imagebeast11 = pygame.image.load('f11.png')
-imagebeast12 = pygame.image.load('f12.png')
-imagebeast13 = pygame.image.load('f13.png')
-imagebeast14 = pygame.image.load('f14.png')
-imagebeast15 = pygame.image.load('f15.png')
-imagebeast16 = pygame.image.load('f16.png')
-imagebeast17 = pygame.image.load('f17.png')
-imagebeast18 = pygame.image.load('f18.png')
-imagebeast19 = pygame.image.load('f19.png')
-imagebeast20 = pygame.image.load('f20.png')
-imagebeast21 = pygame.image.load('f21.png')
-imagebeast22 = pygame.image.load('f22.png')
-imagebeast23 = pygame.image.load('f23.png')
-imagebeast24 = pygame.image.load('f24.png')
-imagebeast25 = pygame.image.load('f25.png')
-imagebeast26 = pygame.image.load('f26.png')
-imagebeast27 = pygame.image.load('f27.png')
-imagebeast28 = pygame.image.load('f28.png')
-imagebeast29 = pygame.image.load('f29.png')
-imagebeast30 = pygame.image.load('f30.png')
-imagebeast31 = pygame.image.load('f31.png')
-imagebeast32 = pygame.image.load('f32.png')
-imagebeast33 = pygame.image.load('f33.png')
-imagebeast34 = pygame.image.load('f34.png')
-imagebeast35 = pygame.image.load('f35.png')
-imagebeast36 = pygame.image.load('f36.png')
-imagebeast37 = pygame.image.load('f37.png')
-imagebeast38 = pygame.image.load('f38.png')
-imagebeast39 = pygame.image.load('f39.png')
-imagebeast40 = pygame.image.load('f40.png')
-imagebeast41 = pygame.image.load('f41.png')
-imagebeast42 = pygame.image.load('f42.png')
-imagebeast43 = pygame.image.load('f43.png')
-imagebeast44 = pygame.image.load('f44.png')
-imagebeast45 = pygame.image.load('f45.png')
-imagebeast46 = pygame.image.load('f46.png')
-imagebeast47 = pygame.image.load('f47.png')
-imagebeast48 = pygame.image.load('f48.png')
-imagebeast49 = pygame.image.load('f49.png')
-imagebeast50 = pygame.image.load('f50.png')
-imagebeast51 = pygame.image.load('f51.png')
-imagebeast52 = pygame.image.load('f52.png')
-imagebeast53 = pygame.image.load('f53.png')
-imagebeast54 = pygame.image.load('f54.png')
-imagebeast55 = pygame.image.load('f55.png')
-imagebeast56 = pygame.image.load('f56.png')
-imagebeast57 = pygame.image.load('f57.png')
-imagebeast58 = pygame.image.load('f58.png')
-imagebeast59 = pygame.image.load('f59.png')
-imagebeast60 = pygame.image.load('f60.png')
-imagebeast61 = pygame.image.load('f61.png')
-imagebeast62 = pygame.image.load('f62.png')
-imagebeast63 = pygame.image.load('f63.png')
-imagebeast64 = pygame.image.load('f64.png')
-imagebeast65 = pygame.image.load('f65.png')
-imagebeast66 = pygame.image.load('f66.png')
-imagebeast67 = pygame.image.load('f67.png')
-imagebeast68 = pygame.image.load('f68.png')
-imagebeast69 = pygame.image.load('f69.png')
-imagebeast70 = pygame.image.load('f70.png')
-imagebeast71 = pygame.image.load('f71.png')
-imagebeast72 = pygame.image.load('f72.png')
-imagebeast73 = pygame.image.load('f73.png')
-imagebeast74 = pygame.image.load('f74.png')
-imagebeast75 = pygame.image.load('f75.png')
-imagebeast76 = pygame.image.load('f76.png')
+imagebeast1 = pygame.image.load('images/f1.png')
+imagebeast2 = pygame.image.load('images/f2.png')
+imagebeast3 = pygame.image.load('images/f3.png')
+imagebeast4 = pygame.image.load('images/f4.png')
+imagebeast5 = pygame.image.load('images/f5.png')
+imagebeast6 = pygame.image.load('images/f6.png')
+imagebeast7 = pygame.image.load('images/f7.png')
+imagebeast8 = pygame.image.load('images/f8.png')
+imagebeast9 = pygame.image.load('images/f9.png')
+imagebeast10 = pygame.image.load('images/f10.png')
+imagebeast11 = pygame.image.load('images/f11.png')
+imagebeast12 = pygame.image.load('images/f12.png')
+imagebeast13 = pygame.image.load('images/f13.png')
+imagebeast14 = pygame.image.load('images/f14.png')
+imagebeast15 = pygame.image.load('images/f15.png')
+imagebeast16 = pygame.image.load('images/f16.png')
+imagebeast17 = pygame.image.load('images/f17.png')
+imagebeast18 = pygame.image.load('images/f18.png')
+imagebeast19 = pygame.image.load('images/f19.png')
+imagebeast20 = pygame.image.load('images/f20.png')
+imagebeast21 = pygame.image.load('images/f21.png')
+imagebeast22 = pygame.image.load('images/f22.png')
+imagebeast23 = pygame.image.load('images/f23.png')
+imagebeast24 = pygame.image.load('images/f24.png')
+imagebeast25 = pygame.image.load('images/f25.png')
+imagebeast26 = pygame.image.load('images/f26.png')
+imagebeast27 = pygame.image.load('images/f27.png')
+imagebeast28 = pygame.image.load('images/f28.png')
+imagebeast29 = pygame.image.load('images/f29.png')
+imagebeast30 = pygame.image.load('images/f30.png')
+imagebeast31 = pygame.image.load('images/f31.png')
+imagebeast32 = pygame.image.load('images/f32.png')
+imagebeast33 = pygame.image.load('images/f33.png')
+imagebeast34 = pygame.image.load('images/f34.png')
+imagebeast35 = pygame.image.load('images/f35.png')
+imagebeast36 = pygame.image.load('images/f36.png')
+imagebeast37 = pygame.image.load('images/f37.png')
+imagebeast38 = pygame.image.load('images/f38.png')
+imagebeast39 = pygame.image.load('images/f39.png')
+imagebeast40 = pygame.image.load('images/f40.png')
+imagebeast41 = pygame.image.load('images/f41.png')
+imagebeast42 = pygame.image.load('images/f42.png')
+imagebeast43 = pygame.image.load('images/f43.png')
+imagebeast44 = pygame.image.load('images/f44.png')
+imagebeast45 = pygame.image.load('images/f45.png')
+imagebeast46 = pygame.image.load('images/f46.png')
+imagebeast47 = pygame.image.load('images/f47.png')
+imagebeast48 = pygame.image.load('images/f48.png')
+imagebeast49 = pygame.image.load('images/f49.png')
+imagebeast50 = pygame.image.load('images/f50.png')
+imagebeast51 = pygame.image.load('images/f51.png')
+imagebeast52 = pygame.image.load('images/f52.png')
+imagebeast53 = pygame.image.load('images/f53.png')
+imagebeast54 = pygame.image.load('images/f54.png')
+imagebeast55 = pygame.image.load('images/f55.png')
+imagebeast56 = pygame.image.load('images/f56.png')
+imagebeast57 = pygame.image.load('images/f57.png')
+imagebeast58 = pygame.image.load('images/f58.png')
+imagebeast59 = pygame.image.load('images/f59.png')
+imagebeast60 = pygame.image.load('images/f60.png')
+imagebeast61 = pygame.image.load('images/f61.png')
+imagebeast62 = pygame.image.load('images/f62.png')
+imagebeast63 = pygame.image.load('images/f63.png')
+imagebeast64 = pygame.image.load('images/f64.png')
+imagebeast65 = pygame.image.load('images/f65.png')
+imagebeast66 = pygame.image.load('images/f66.png')
+imagebeast67 = pygame.image.load('images/f67.png')
+imagebeast68 = pygame.image.load('images/f68.png')
+imagebeast69 = pygame.image.load('images/f69.png')
+imagebeast70 = pygame.image.load('images/f70.png')
+imagebeast71 = pygame.image.load('images/f71.png')
+imagebeast72 = pygame.image.load('images/f72.png')
+imagebeast73 = pygame.image.load('images/f73.png')
+imagebeast74 = pygame.image.load('images/f74.png')
+imagebeast75 = pygame.image.load('images/f75.png')
+imagebeast76 = pygame.image.load('images/f76.png')
 
 
 
@@ -141,423 +145,722 @@ imagebeast51,imagebeast52,imagebeast53,imagebeast54,imagebeast55,imagebeast56,im
 imagebeast61,imagebeast62,imagebeast63,imagebeast64,imagebeast65,imagebeast66,imagebeast67,imagebeast68,imagebeast69,imagebeast70,
 imagebeast71,imagebeast72,imagebeast73,imagebeast74,imagebeast75,imagebeast76]
 
+smallBeasts = [pygame.transform.scale(image, (60, 60)) for image in beasts]
+
+
 #Each element corresponds to the following
-#0 - crate level
-#1 - hp
-#2 - defense
-#3 - strength
-#4 - spec attack
-#5 - speed
-#6 - Tier
-#7 - Name
-#8 - image location with beast[]
+# spawn level, hp, defense strength, spec attack, speed, Tier, Name, image location with beast[], move1, move2, move3, move4, type, exp
 beastattributes = [
-    [1, 4, 4, 4, 4, 4, 1, "gallo", 0],
-    [25, 4, 4, 4, 4, 4, 2, "gallodus", 1],
-    [1, 7, 12, 6, 3, 5, 1, "Krillith", 2],
-    [1, 4, 4, 9, 9, 7, 1, "Lux", 3],
-    [1, 8, 13, 5, 3, 2, 1, "Verdescent", 4],
-    [1, 7, 3, 5, 7, 7, 1, "axo", 5],
-    [1, 5, 5, 5, 10, 6, 1, "PoisonLight Goop", 6],
-    [1, 4, 3, 3, 3, 12, 1, "Aether Terror", 7],
-    [1, 5, 3, 9, 3, 13, 1, "Mimi", 8],
-    [1, 5, 11, 1, 3, 1, 1, "Nauty", 9],
-    [1, 5, 9, 2, 7, 4, 1, "Pearlos", 10],
-    [1, 7, 5, 5, 5, 4, 1, "Dust Pill", 11],
-    [1, 10, 3, 2, 10, 2, 1, "Assimule", 12],
-    [1, 4, 6, 7, 7, 8, 1, "Crowpeck", 13],
-    [1, 8, 5, 9, 2, 7, 1, "Depthtracer", 14],
-    [1, 6, 4, 11, 1, 6, 1, "Nautizark", 15],
-    [1, 5, 3, 1, 12, 6, 1, "Ripple", 16],
-    [1, 5, 4, 6, 7, 4, 1, "Marene", 17],
-    [1, 3, 14, 6, 2, 3, 1, "Scalex", 18],
-    [1, 5, 4, 8, 9, 9, 1, "Abyssal Newt", 19],
-    [1, 7, 3, 11, 3, 3, 1, "Hollow Mimic", 20],
-    [1, 4, 4, 7, 7, 4, 1, "Corpse Puppet", 21],
-    [1, 8, 8, 5, 5, 1, 1, "Amica", 22],
-    [1, 3, 3, 5, 3, 6, 1, "Noodle", 23],
-    [1, 6, 4, 5, 5, 8, 1, "Weiner", 24],
-    [1, 7, 6, 7, 10, 7, 1, "Gleamfin", 25],
-    [1, 6, 6, 10, 7, 9, 1, "Mistfin", 26],
-    [1, 6, 7, 7, 10, 7, 1, "Magmafin", 27],
-    [25, 7, 6, 7, 10, 7, 2, "AquaWalker", 28],
-    [25, 6, 7, 7, 10, 7, 2, "MagmaWalker", 29],
-    [25, 7, 3, 5, 7, 7, 2, "Axolus", 30],
-    [50, 7, 3, 5, 7, 7, 3, "Axoluminous", 31],
-    [25, 7, 7, 7, 7, 7, 2, "Sacred Lumenous", 32],
-    [25, 8, 13, 5, 3, 2, 2, "Terra Verdescence", 33],
-    [1, 6, 6, 13, 13, 9, 1, "Snowblossom", 34],
-    [25, 5, 5, 5, 10, 6, 2, "PoisonLight Carp", 35],
-    [25, 10, 3, 2, 10, 2, 2, "Assimilation", 36],
-    [25, 8, 5, 9, 2, 7, 2, "DepthWing", 37],
-    [25, 5, 11, 1, 3, 1, 2, "Nautileous", 38],
-    [25, 5, 3, 1, 12, 6, 2, "Ripshade", 39],
-    [25, 6, 4, 11, 1, 6, 2, "Hydrosark", 40],
-    [25, 5, 4, 6, 7, 4, 2, "Marenara", 41],
-    [25, 3, 14, 6, 2, 3, 2, "Scalex Ripper", 42],
-    [25, 7, 3, 11, 3, 3, 2, "Ethereal Mimic", 43],
-    [1, 4, 5, 5, 5, 4, 1, "Undead Soul", 44],
-    [1, 7, 7, 5, 12, 11, 1, "Cinderfrost", 45],
-    [1, 7, 7, 7, 7, 7, 1, "Sacred Lumen", 46],
-    [1, 10, 10, 7, 1, 4, 1, "FrostTip", 47],
-    [1, 10, 5, 14, 1, 3, 1, "Cryolo", 48],
-    [1, 3, 3, 13, 3, 8, 1, "minnowClaw", 49],
-    [25, 5, 3, 9, 3, 13, 2, "Clyrix", 50],
-    [50, 4, 4, 9, 9, 7, 3, "Luxerous", 51],
-    [25, 8, 8, 8, 4, 4, 2, "Seafrost", 52],
-    [25, 10, 5, 14, 1, 3, 2, "Cryolodon", 53],
-    [25, 5, 3, 9, 3, 13, 2, "Shadow Wing", 54],
-    [1, 8, 5, 3, 8, 5, 1, "Shade Wing", 55],
-    [50, 3, 3, 13, 3, 8, 3, "Brineclaw", 56],
-    [25, 3, 3, 13, 3, 8, 2, "SereneClaw", 57],
-    [50, 10, 10, 7, 1, 4, 3, "FrostHyperion", 58],
-    [25, 10, 10, 7, 1, 4, 2, "Frosthorn", 59],
-    [25, 7, 7, 5, 12, 11, 3, "Cinderglace", 60],
-    [50, 5, 5, 5, 10, 6, 3, "PoisonLight Wyvern", 61],
-    [25, 5, 5, 1, 9, 5, 2, "Sirenyx", 62],
-    [75, 7, 7, 7, 7, 7, 4, "Opheus The Forbidden", 63],
-    [50, 5, 4, 8, 9, 9, 3, "Abyssal Basilisk", 64],
-    [50, 4, 4, 7, 7, 4, 3, "Corpse Puppet King", 65],
-    [50, 8, 5, 9, 2, 7, 3, "Depth Lord", 66],
-    [50, 6, 6, 10, 7, 9, 3, "Mistrace", 67],
-    [50, 6, 6, 13, 13, 9, 3, "Phoenix of Death", 68],
-    [50, 6, 6, 13, 13, 9, 3, "Phoenix of Life", 69],
-    [50, 7, 7, 7, 7, 7, 3, "Sacred Oceanix", 70],
-    [50, 7, 6, 7, 10, 7, 3, "Aqua Dragon", 71],
-    [50, 6, 7, 7, 10, 7, 3, "Flame Dragon", 72],
-    [25, 5, 4, 8, 9, 9, 2, "Abyssal Viper", 73],
-    [25, 4, 5, 5, 5, 4, 2, "Undead Emperor", 74],
-    [50, 9, 9, 9, 9, 9, 3, "Gigantorok", 75]
+    [1, 4, 4, 4, 4, 4, 1, "gallo", 0, 171, 172, 'empty', 'empty', 'normal'],
+    [25, 4, 4, 4, 4, 4, 2, "gallodus", 1, 94, 176, 180, 175, 'normal'],
+    [1, 7, 12, 6, 3, 5, 1, "Krillith", 2, 88, 149, 'empty', 'empty', 'ground'],
+    [1, 4, 4, 9, 9, 7, 1, "Lux", 3, 88, 97, 'empty', 'empty', 'poison'],
+    [1, 8, 13, 5, 3, 2, 1, "Verdescent", 4, 172, 141, 'empty', 'empty', 'ground'],
+    [1, 7, 3, 5, 7, 7, 1, "axo", 5, 72, 71, 'empty', 'empty', 'water'],
+    [1, 5, 5, 5, 10, 6, 1, "PoisonLight Goop", 6, 75, 93, 'empty', 'empty', 'poison'],
+    [1, 4, 3, 3, 3, 12, 1, "Aether Terror", 7, 117, 117, 'empty', 'empty', 'normal'],
+    [1, 5, 3, 9, 3, 13, 1, "Mimi", 8, 218, 172, 'empty', 'empty', 'lightning'],
+    [1, 5, 11, 1, 3, 1, 1, "Nauty", 9, 125, 124, 'empty', 'empty', 'nature'],
+    [1, 5, 9, 2, 7, 4, 1, "Pearlos", 10, 75, 189, 'empty', 'empty', 'water'],
+    [1, 7, 5, 5, 5, 4, 1, "Dust Pill", 11, 75, 75, 'empty', 'empty', 'ground'],
+    [1, 10, 3, 2, 10, 2, 1, "Assimule", 12, 17, 75, 'empty', 'empty', 'darkness'],
+    [1, 4, 6, 7, 7, 8, 1, "Crowpeck", 13, 200, 214, 'empty', 'empty', 'lightning'],
+    [1, 8, 5, 9, 2, 7, 1, "Depthtracer", 14, 190, 181, 'empty', 'empty', 'ice'],
+    [1, 6, 4, 11, 1, 6, 1, "Nautizark", 15, 72, 76, 'empty', 'empty', 'water'],
+    [1, 5, 3, 1, 12, 6, 1, "Ripple", 16, 72, 76, 'empty', 'empty', 'water'],
+    [1, 5, 4, 6, 7, 4, 1, "Marene", 17, 4, 75, 'empty', 'empty', 'darkness'],
+    [1, 3, 14, 6, 2, 3, 1, "Scalex", 18, 57, 58, 'empty', 'empty', 'fire'],
+    [1, 5, 4, 8, 9, 9, 1, "Abyssal Newt", 19, 6, 14, 'empty', 'empty', 'darkness'],
+    [1, 7, 3, 11, 3, 3, 1, "Hollow Mimic", 20, 4, 6, 'empty', 'empty', 'darkness'],
+    [1, 4, 4, 7, 7, 4, 1, "Corpse Puppet", 21, 6, 7, 'empty', 'empty', 'darkness'],
+    [1, 8, 8, 5, 5, 1, 1, "Amica", 22, 120, 141, 'empty', 'empty', 'normal'],
+    [1, 3, 3, 5, 3, 6, 1, "Noodle", 23, 75, 120, 'empty', 'empty', 'normal'],
+    [1, 6, 4, 5, 5, 8, 1, "Weiner", 24, 190, 181, 'empty', 'empty', 'ice'],
+    [1, 7, 6, 7, 10, 7, 1, "Gleamfin", 25, 78, 85, 'empty', 'empty', 'water'],
+    [1, 6, 6, 10, 7, 9, 1, "Mistfin", 26, 75, 219, 'empty', 'empty', 'wind'],
+    [1, 6, 7, 7, 10, 7, 1, "Magmafin", 27, 57, 50, 'empty', 'empty', 'fire'],
+    [25, 7, 6, 7, 10, 7, 2, "AquaWalker", 28, 172, 77, 98, 80, 'water'],
+    [25, 6, 7, 7, 10, 7, 2, "MagmaWalker", 29, 172, 62, 215, 48, 'fire'],
+    [25, 7, 3, 5, 7, 7, 2, "Axolus", 30, 73, 177, 189, 172, 'water'],
+    [50, 7, 3, 5, 7, 7, 3, "Axoluminous", 31, 167, 87, 193, 165, 'water'],
+    [25, 7, 7, 7, 7, 7, 2, "Sacred Lumenous", 32, 33, 22, 36, 66, 'light'],
+    [25, 8, 13, 5, 3, 2, 2, "Terra Verdescence", 33, 176, 139, 134, 171, 'ground'],
+    [1, 6, 6, 13, 13, 9, 1, "Snowblossom", 34, 189, 41, 'empty', 'empty', 'ice'],
+    [25, 5, 5, 5, 10, 6, 2, "PoisonLight Carp", 35, 3, 82, 100, 104, 'poison'],
+    [25, 10, 3, 2, 10, 2, 2, "Assimilation", 36, 6, 4, 94, 1, 'darkness'],
+    [25, 8, 5, 9, 2, 7, 2, "DepthWing", 37, 189, 200, 204, 182, 'ice'],
+    [25, 5, 11, 1, 3, 1, 2, "Nautileous", 38, 127, 6, 32, 126, 'nature'],
+    [25, 5, 3, 1, 12, 6, 2, "Ripshade", 39, 120, 112, 87, 104, 'water'],
+    [25, 6, 4, 11, 1, 6, 2, "Hydrosark", 40, 120, 84, 111, 67, 'water'],
+    [25, 5, 4, 6, 7, 4, 2, "Marenara", 41, 0, 7, 84, 13, 'darkness'],
+    [25, 3, 14, 6, 2, 3, 2, "Scalex Ripper", 42, 137, 50, 145, 52, 'fire'],
+    [25, 7, 3, 11, 3, 3, 2, "Ethereal Mimic", 43, 65, 3, 64, 0, 'darkness'],
+    [1, 4, 5, 5, 5, 4, 1, "Undead Soul", 44, 6, 14, 'empty', 'empty', 'darkness'],
+    [1, 7, 7, 5, 12, 11, 1, "Cinderfrost", 45, 76, 189, 'empty', 'empty', 'ice'],
+    [1, 7, 7, 7, 7, 7, 1, "Sacred Lumen", 46, 75, 76, 'empty', 'empty', 'light'],
+    [1, 10, 10, 7, 1, 4, 1, "FrostTip", 47, 190, 141, 'empty', 'empty', 'ice'],
+    [1, 10, 5, 14, 1, 3, 1, "Cryolo", 48, 141, 143, 'empty', 'empty', 'ground'],
+    [1, 3, 3, 13, 3, 8, 1, "minnowClaw", 49, 204, 179, 'empty', 'empty', 'lightning'],
+    [25, 5, 3, 9, 3, 13, 2, "Clyrix", 50, 174, 204, 165, 201, 'lightning'],
+    [50, 4, 4, 9, 9, 7, 3, "Luxerous", 51, 96, 109, 108, 80, 'poison'],
+    [25, 8, 8, 8, 4, 4, 2, "Seafrost", 52, 190, 141, 139, 192, 'ice'],
+    [25, 10, 5, 14, 1, 3, 2, "Cryolodon", 53, 182, 113, 204, 211, 'ground'],
+    [25, 5, 3, 9, 3, 13, 2, "Shadow Wing", 54, 140, 201, 217, 153, 'wind'],
+    [1, 8, 5, 3, 8, 5, 1, "Shade Wing", 55, 218, 220, 'empty', 'empty', 'wind'],
+    [50, 3, 3, 13, 3, 8, 3, "Brineclaw", 56, 169, 215, 25, 208, 'lightning'],
+    [25, 3, 3, 13, 3, 8, 2, "SereneClaw", 57, 218, 200, 203, 174, 'lightning'],
+    [50, 10, 10, 7, 1, 4, 3, "FrostHyperion", 58, 196, 138, 199, 133, 'ice'],
+    [25, 10, 10, 7, 1, 4, 2, "Frosthorn", 59, 139, 192, 189, 191, 'ice'],
+    [25, 7, 7, 5, 12, 11, 3, "Cinderglace", 60, 187, 185, 86, 193, 'ice'],
+    [50, 5, 5, 5, 10, 6, 3, "PoisonLight Wyvern", 61, 106, 108, 67, 109, 'poison'],
+    [25, 5, 5, 1, 9, 5, 2, "Sirenyx", 62, 159, 92, 158, 161, 'psychic'],
+    [75, 7, 7, 7, 7, 7, 4, "Opheus The Forbidden", 63, 83, 119, 31, 26, 'light'],
+    [50, 5, 4, 8, 9, 9, 3, "Abyssal Basilisk", 64, 15, 144, 19, 12, 'darkness'],
+    [50, 4, 4, 7, 7, 4, 3, "Corpse Puppet King", 65, 15, 16, 21, 98, 'darkness'],
+    [50, 8, 5, 9, 2, 7, 3, "Depth Lord", 66, 194, 175, 185, 179, 'ice'],
+    [50, 6, 6, 10, 7, 9, 3, "Mistrace", 67, 214, 119, 213, 216, 'wind'],
+    [50, 6, 6, 13, 13, 9, 3, "Phoenix of Death", 68, 8, 151, 19, 20, 'darkness'],
+    [50, 6, 6, 13, 13, 9, 3, "Phoenix of Life", 69, 59, 151, 118, 130, 'fire'],
+    [50, 7, 7, 7, 7, 7, 3, "Sacred Oceanix", 70, 116, 29, 83, 119, 'light'],
+    [50, 7, 6, 7, 10, 7, 3, "Aqua Dragon", 71, 140, 86, 87, 159, 'water'],
+    [50, 6, 7, 7, 10, 7, 3, "Flame Dragon", 72, 44, 54, 55, 143, 'fire'],
+    [25, 5, 4, 8, 9, 9, 2, "Abyssal Viper", 73, 4, 161, 3, 0, 'darkness'],
+    [25, 4, 5, 5, 5, 4, 2, "Undead Emperor", 74, 181, 16, 197, 200, 'darkness'],
+    [50, 9, 9, 9, 9, 9, 3, "Gigantorok", 75, 140, 107, 134, 153, 'ground']
+]
+
+
+#Each element corresponds to the following
+# Move name, Damage, special effect, buff/debuff to enemy, buff/debuff to yourself, type of attack, PP
+moves = [
+    ["Nightveil Slash", 60, "empty", "empty", "empty", "attack", 10],
+    ["Dreadspire Maelstrom", 85, "empty", "speed-1", "empty", "spec", 10],
+    ["Abyssal Surge", 100, "empty", "empty", "empty", "spec", 3],
+    ["Blackthorn Rupture", 75, "empty", "empty", "empty", "attack", 5],
+    ["Soulshadow Lament", 50, "empty", "empty", "empty", "spec", 10],
+    ["Nocturne Fang", 75, "empty", "empty", "empty", "attack", 10],
+    ["Void Lash", 40, "empty", "empty", "empty", "attack", 5],
+    ["Nightfall", 60, "empty", "empty", "empty", "spec", 5],
+    ["Netherstrike Touch", "random", "fire", "empty", "empty", "attack", 5],
+    ["Oblivion Bloom", 85, "empty", "empty", "empty", "spec", 5],
+    ["Soul Harvest", 100, "empty", "empty", "empty", "spec", 3],
+    ["Reaper Death Seal", 300, "userdeath", "empty", "empty", "spec", 1],
+    ["Blood Sacrifice", 150, "empty", "empty", "defense-2", "spec", 2],
+    ["Weeping Skull", 60, "empty", "empty", "empty", "attack", 5],
+    ["Soul Tie", 50, "empty", "attack-1", "attack-1", "spec", 7],
+    ["Void Drain", 70, "heal1", "empty", "empty", "spec", 7],
+    ["Blood Magic", 80, "empty", "empty", "defense-1", "spec", 5],
+    ["Wraith", 50, "poison", "empty", "accuracy+1", "spec", 10],
+    ["Essence", 0, "heal2", "empty", "defense-1", "empty", 10],
+    ["Bloodmoon", 110, "empty", "empty", "empty", "spec", 3],
+    ["Black Lotus", 120, "fire", "empty", "empty", "spec", 3],
+    ["Netherpulse", 90, "empty", "empty", "empty", "spec", 3],
+    ["Celestial Javelin", 80, "empty", "empty", "empty", "attack", 10],
+    ["Aurora Veil", 0, "empty", "empty", "specattack+2", "empty", 5],
+    ["Judgement", 140, "empty", "empty", "specattack-1", "spec", 3],
+    ["Heavenly Eclipse", 110, "empty", "empty", "empty", "spec", 3],
+    ["Starpiercer Bolt", 90, "empty", "empty", "empty", "attack", 7],
+    ["Sanctum Barrier", 0, "empty", "attack-1", "defense+2", "empty", 5],
+    ["Moonfire", 85, "empty", "empty", "empty", "spec", 5],
+    ["Fatebreaker", 100, "empty", "empty", "empty", "attack", 3],
+    ["Celestial Cascade", 50, "empty", "empty", "empty", "spec", 10],
+    ["Light Blade", 95, "empty", "empty", "empty", "attack", 5],
+    ["Holy Embrace", 0, "heal2", "empty", "empty", "empty", 5],
+    ["Light Bringer", 45, "empty", "empty", "empty", "spec", 10],
+    ["Love", 0, "heal1", "attack-1", "empty", "empty", 10],
+    ["Quintessence", 0, "heal2", "empty", "defense+1", "empty", 3],
+    ["Smite", "random", "fire", "empty", "empty", "spec", 10],
+    ["Holy Smite", "superrandom", "fire", "empty", "empty", "spec", 5],
+    ["Requiem of Life", 100, "empty", "empty", "empty", "spec", 3],
+    ["Lumina Pulse", 95, "empty", "empty", "empty", "spec", 7],
+    ["Prismstrike", 95, "empty", "empty", "empty", "attack", 7],
+    ["Luminspire", 55, "empty", "empty", "accuracy+1", "attack", 10],
+    ["Skyshard Barrage", 110, "empty", "empty", "empty", "attack", 3],
+    ["Love Potion", 0, "heal2", "empty", "empty", "empty", 10],
+    ["Pyroclasmic Surge", 80, "empty", "empty", "empty", "attack", 5],
+    ["Phoenix Volley", 75, "empty", "empty", "empty", "spec", 10],
+    ["Infernal Arc", 75, "fire", "empty", "empty", "attack", 10],
+    ["Dragon Aura", 0, "empty", "empty", "specattack+2", "empty", 10],
+    ["Dragons Breathe", 75, "empty", "empty", "empty", "spec", 5],
+    ["Draco Meteor", 110, "empty", "empty", "empty", "attack", 3],
+    ["Pyro breath", 60, "empty", "empty", "empty", "spec", 5],
+    ["Will of Fire", 90, "fire", "defense-1", "empty", "spec", 5],
+    ["Flamestorm Spiral", 75, "empty", "empty", "empty", "attack", 5],
+    ["Burning Crescence", 95, "empty", "empty", "empty", "spec", 5],
+    ["Crimson Fang Slash", 80, "empty", "empty", "empty", "attack", 5],
+    ["Supernova", 100, "empty", "empty", "empty", "spec", 3],
+    ["Sunlord", 120, "empty", "empty", "empty", "spec", 3],
+    ["Wisp", 30, "empty", "empty", "accuracy+1", "spec", 10],
+    ["Flare", 0, "empty", "accuracy-2", "empty", "empty", 10],
+    ["Sunfire", 100, "fire", "empty", "empty", "spec", 3],
+    ["Magma Quake", 95, "empty", "empty", "empty", "attack", 7],
+    ["Horizon", 95, "empty", "empty", "empty", "spec", 7],
+    ["Solarclaw", 70, "empty", "empty", "empty", "attack", 10],
+    ["Volcanic Strike", 85, "fire", "empty", "empty", "attack", 5],
+    ["Fireheart", 0, "heal1", "empty", "attack+1", "empty", 5],
+    ["Ashstorm", "random", "empty", "empty", "empty", "empty", 5],
+    ["Crystal Tempest", 95, "empty", "empty", "empty", "attack", 5],
+    ["Spiritbound Vortex", 75, "empty", "speed-1", "empty", "spec", 7],
+    ["Aqua Surge", 60, "empty", "empty", "empty", "attack", 7],
+    ["Rising Tide Strike", 50, "riptide", "empty", "empty", "attack", 10],
+    ["Ocean Requiem", 100, "empty", "empty", "empty", "spec", 3],
+    ["Plunge", 50, "empty", "empty", "empty", "attack", 7],
+    ["Watergun", 45, "empty", "empty", "empty", "attack", 7],
+    ["Hurricane", "random", "riptide", "empty", "empty", "spec", 10],
+    ["Hydro Cannon", 65, "empty", "empty", "empty", "attack", 5],
+    ["Splash", 10, "empty", "empty", "empty", "spec", 20],
+    ["Bubblebeam", 50, "empty", "empty", "empty", "spec", 7],
+    ["Coral Spike", 45, "empty", "empty", "empty", "attack", 10],
+    ["Ocean Voice", 0, "heal1", "empty", "speed+1", "empty", 10],
+    ["Wavepool", 30, "empty", "empty", "empty", "spec", 10],
+    ["Stormbound", 0, "riptide2", "empty", "empty", "empty", 10],
+    ["Hydrolash", 55, "empty", "empty", "attack+1", "attack", 5],
+    ["Rift", 55, "empty", "empty", "empty", "attack", 5],
+    ["Hydronova", 110, "empty", "empty", "empty", "spec", 3],
+    ["Brine Edge", 75, "empty", "empty", "empty", "attack", 5],
+    ["Seafoam Barrage", 60, "empty", "empty", "empty", "spec", 5],
+    ["Crystalwave", 95, "freeze", "empty", "empty", "spec", 5],
+    ["Oceans Embrace", 0, "heal1", "attack-1", "defense+1", "empty", 7],
+    ["Venomdance", 0, "empty", "empty", "specattack+2", "empty", 10],
+    ["Phantom Reaver", 0, "empty", "specattack-2", "empty", "empty", 10],
+    ["Toxic Vortex", 35, "poison", "empty", "empty", "spec", 7],
+    ["Shadow Venom", 0, "poison2", "empty", "empty", "empty", 5],
+    ["Serpent's Spite", 55, "empty", "attack-1", "empty", "attack", 10],
+    ["coil", 45, "empty", "empty", "empty", "attack", 10],
+    ["poison bite", 60, "poison", "empty", "empty", "attack", 7],
+    ["venomshock", 60, "poison", "empty", "attack+1", "spec", 7],
+    ["Erosion", 80, "empty", "empty", "empty", "spec", 3],
+    ["Venom Trap", 45, "poison", "empty", "empty", "attack", 5],
+    ["Paralyze", 0, "paralyze", "empty", "empty", "empty", 10],
+    ["Poison Beak", 50, "empty", "empty", "empty", "attack", 10],
+    ["Chemical Burn", 75, "empty", "empty", "empty", "spec", 5],
+    ["Mustard Gas", "superrandom", "empty", "defense-1", "empty", "spec", 5],
+    ["Dao of Poison", 100, "poison2", "empty", "empty", "spec", 3],
+    ["Purple Lotus", 120, "fire", "empty", "empty", "spec", 3],
+    ["Miasma", 90, "paralyze", "empty", "empty", "spec", 5],
+    ["Corrosive Swipe", 65, "empty", "empty", "empty", "attack", 5],
+    ["Fangs of Decay", 75, "empty", "empty", "empty", "attack", 7],
+    ["Putrid", 0, "bloom2", "empty", "empty", "empty", 7],
+    ["Corrosive Requiem", 100, "empty", "empty", "empty", "spec", 3],
+    ["Plaguestorm", 95, "empty", "defense-1", "empty", "spec", 5],
+    ["Mana Bloom", 60, "empty", "empty", "empty", "attack", 10],
+    ["Nature’s Wrath", 100, "bloom", "empty", "empty", "spec", 7],
+    ["Verdant Slash", 60, "empty", "empty", "empty", "attack", 10],
+    ["Ivybind", 40, "paralyze", "empty", "empty", "spec", 10],
+    ["Leaf Tempest", 95, "empty", "empty", "empty", "spec", 7],
+    ["Grass Knot", 0, "paralyze", "attack-1", "empty", "attack", 10],
+    ["Natures Embrace", 0, "empty", "empty", "empty", "empty", 10],
+    ["Spore Zone", 30, "empty", "empty", "empty", "attack", 10],
+    ["Terra Devestation", 150, "empty", "empty", "attack-2", "attack", 2],
+    ["Call of the Spirits", 0, "heal1", "empty", "speed+1", "empty", 10],
+    ["Mud", 0, "empty", "speed-2", "empty", "empty", 10],
+    ["Jungle Gym", 0, "empty", "empty", "attack+2", "empty", 10],
+    ["heal", 0, "heal1", "empty", "empty", "empty", 7],
+    ["Jungle Juice", 0, "heal1", "empty", "attack+1", "empty", 5],
+    ["Petalstrike", 65, "empty", "empty", "empty", "attack", 7],
+    ["Foliage", 0, "empty", "empty", "empty", "empty", 10],
+    ["Bloomveil", 50, "bloom", "empty", "empty", "spec", 7],
+    ["Wildflare", 70, "empty", "empty", "empty", "spec", 7],
+    ["Thornburst", 80, "empty", "empty", "empty", "attack", 7],
+    ["Budstrike", 60, "bloom", "empty", "empty", "spec", 7],
+    ["Thorns of Ruin", 100, "empty", "empty", "empty", "attack", 5],
+    ["Verdescence", 120, "empty", "empty", "empty", "spec", 3],
+    ["Titan’s Fist", 130, "gravity", "empty", "speed-1", "attack", 1],
+    ["Earthspike Rupture", 90, "empty", "empty", "empty", "spec", 7],
+    ["Quakebreaker Slam", 90, "empty", "empty", "empty", "attack", 7],
+    ["Shatterstrike", 85, "paralyze", "empty", "empty", "attack", 5],
+    ["Creeping Death", 80, "empty", "empty", "empty", "spec", 5],
+    ["Earth Barrier", 0, "empty", "speed-1", "defense+1", "empty", 10],
+    ["Harden", 0, "empty", "empty", "defense+1", "empty", 10],
+    ["Stone Barricade", 0, "empty", "attack-1", "defense+1", "empty", 10],
+    ["Earth Spike", 85, "empty", "empty", "empty", "attack", 7],
+    ["Stomp", 45, "empty", "empty", "empty", "attack", 10],
+    ["New Earth", 130, "empty", "defense-1", "defense-1", "spec", 1],
+    ["Bedrock", 120, "empty", "empty", "empty", "attack", 3],
+    ["Gravelstrike", "superrandom", "empty", "empty", "empty", "attack", 10],
+    ["Tremor", 40, "empty", "empty", "empty", "spec", 10],
+    ["Faultline", 100, "empty", "empty", "empty", "spec", 5],
+    ["Geospike", 100, "empty", "empty", "empty", "attack", 5],
+    ["Seismic Crush", 80, "gravity", "empty", "empty", "attack", 5],
+    ["Sediment", 20, "empty", "accuracy-1", "empty", "spec", 10],
+    ["Terraburst", 85, "empty", "empty", "empty", "spec", 5],
+    ["Meteor Impact", 110, "empty", "empty", "accuracy-1", "attack", 3],
+    ["Torterra", 120, "empty", "empty", "empty", "attack", 3],
+    ["Duststorm", "random", "empty", "speed-1", "empty", "empty", 5],
+    ["Voidflare Rift", 90, "empty", "empty", "empty", "spec", 5],
+    ["Mind Burst", "superrandom", "empty", "empty", "empty", "spec", 3],
+    ["Timefracture", 130, "empty", "empty", "accuracy-1", "spec", 3],
+    ["Echoing Frenzy", 0, "gravity2", "empty", "empty", "empty", 10],
+    ["Soulpierce Shot", 75, "paralyze", "empty", "empty", "spec", 5],
+    ["Spectral Bolt", 75, "empty", "empty", "empty", "spec", 7],
+    ["Astral Coil", 60, "empty", "empty", "empty", "spec", 10],
+    ["Dreambreaker", "random", "empty", "empty", "empty", "spec", 10],
+    ["Etherwave", 50, "empty", "empty", "empty", "spec", 10],
+    ["Memory Wipe", 0, "empty", "specattack-2", "empty", "empty", 5],
+    ["Enlightenment", "superrandom", "heal1", "empty", "specattack+2", "empty", 5],
+    ["Lionheart Lunge", 80, "gravity", "empty", "empty", "attack", 5],
+    ["Arrowstorm", 80, "empty", "empty", "empty", "attack", 5],
+    ["Echo Strike", 75, "empty", "empty", "empty", "spec", 5],
+    ["Phantom Edge", 75, "empty", "empty", "empty", "spec", 5],
+    ["Bladestorm Spiral", "random", "empty", "empty", "empty", "attack", 7],
+    ["Slash", 70, "empty", "empty", "empty", "attack", 7],
+    ["Crunch", 70, "empty", "empty", "empty", "attack", 7],
+    ["Leer", 0, "empty", "accuracy-1", "empty", "empty", 10],
+    ["Workout", 0, "empty", "accuracy-1", "attack+1", "empty", 10],
+    ["Sword Soul", 0, "gravity", "empty", "specattack+2", "empty", 7],
+    ["Aura", 0, "empty", "attack-1", "attack+1", "empty", 7],
+    ["Headbutt", 50, "empty", "empty", "empty", "attack", 7],
+    ["jab", 50, "paralyze", "empty", "empty", "attack", 7],
+    ["Frenzy", 0, "empty", "empty", "attack+1", "empty", 10],
+    ["Trueform", 0, "empty", "empty", "specattack+2", "empty", 10],
+    ["empty", 90, "empty", "empty", "empty", "spec", 5],
+    ["Howl", 0, "empty", "speed-1", "empty", "empty", 10],
+    ["Frostfang Missile", 75, "empty", "empty", "empty", "attack", 7],
+    ["Crystal Tempest", 100, "empty", "empty", "empty", "spec", 5],
+    ["Frozen Starlight", 135, "freeze", "defense+1", "empty", "spec", 3],
+    ["Shatterfang", 75, "paralyze", "empty", "empty", "attack", 5],
+    ["Aurora", 0, "empty", "empty", "defense+2", "empty", 10],
+    ["Ice Heart", 0, "heal2", "empty", "empty", "empty", 10],
+    ["Frozen World", 120, "freeze", "empty", "empty", "spec", 5],
+    ["Icicle", 35, "empty", "empty", "empty", "attack", 10],
+    ["Frostshard", 35, "empty", "empty", "empty", "spec", 10],
+    ["Icevein", 0, "freeze2", "empty", "specattack+1", "empty", 10],
+    ["Tundrashard", 75, "empty", "empty", "empty", "spec", 10],
+    ["Cryoshard", 95, "empty", "empty", "empty", "spec", 7],
+    ["Subzero", 0, "freeze", "speed-2", "empty", "empty", 10],
+    ["Polarveil", 0, "empty", "empty", "defense+1", "empty", 10],
+    ["Icefang Tempest", 95, "empty", "empty", "empty", "attack", 7],
+    ["Frozen Reqiuem", 100, "freeze", "empty", "empty", "spec", 5],
+    ["Stormbreaker", 110, "empty", "empty", "empty", "spec", 5],
+    ["Thunderstrike", 95, "empty", "empty", "empty", "attack", 5],
+    ["Lightning Surge", 60, "empty", "empty", "empty", "spec", 7],
+    ["Arcburst", 90, "empty", "empty", "empty", "attack", 7],
+    ["Electrify", 0, "paralyze", "defense-1", "empty", "empty", 10],
+    ["Cloudlash", 60, "empty", "empty", "empty", "spec", 7],
+    ["Thunderpulse", 40, "empty", "empty", "empty", "spec", 10],
+    ["Lightningcry", 0, "paralyze2", "empty", "empty", "empty", 10],
+    ["Blitz", 110, "empty", "empty", "accuracy-1", "attack", 5],
+    ["Tempest", 120, "empty", "empty", "empty", "spec", 5],
+    ["Sky Sunder", 140, "empty", "empty", "speed-1", "attack", 3],
+    ["Storm Lord", 150, "empty", "speed+1", "attack-1", "spec", 1],
+    ["Tribulation Lightning", "superrandom", "paralyze", "defense-1", "defense-1", "spec", 5],
+    ["Agile", 0, "empty", "speed-1", "speed+2", "empty", 10],
+    ["Zephyr", 130, "empty", "empty", "accuracy-1", "attack", 3],
+    ["Feather Tornado", 70, "empty", "empty", "empty", "attack", 7],
+    ["Windshear", 70, "empty", "empty", "empty", "attack", 7],
+    ["Skybound", 0, "empty", "empty", "accuracy+2", "empty", 10],
+    ["Sky Breaker", 120, "empty", "empty", "empty", "attack", 3],
+    ["Airstream", 60, "gravity", "empty", "empty", "attack", 10],
+    ["Winglash", 45, "empty", "empty", "empty", "attack", 10],
+    ["Gust", 40, "empty", "empty", "empty", "empty", 10],
+    ["Aerial Ace", "superrandom", "empty", "empty", "attack+1", "attack", 5]
+    ]
+
+
+beast_lore = [
+    "A creature of forgotten songs, said to hum melodies that guide lost sailors home.",
+    "A guardian of the abyss, ensuring no one disturbs the secrets buried in the ocean’s depths.",
+    "Feared by many, it devours memories of those who encounter it, leaving them with only an eerie sense of loss.",
+    "Known as the Keeper of Light, it emits pulses of energy that awaken dormant relics scattered across the ocean floor.",
+    "A legendary healer, its presence purifies the water and restores life to dying reefs.",
+    "The eternal wanderer, said to appear before those on the brink of discovery, pushing them toward untold knowledge.",
+    "A master of deception, it lures prey with an inviting glow before releasing a mind-altering mist.",
+    "A spectral entity that exists between dimensions, glimpsed only when the fabric of reality weakens.",
+    "Known as the Trickster of the Deep, it manipulates shadows and whispers riddles to those who dare to listen.",
+    "A collector of lost treasures, it hoards ancient relics and jealously guards them from prying hands.",
+    "Said to be the keeper of the Ocean’s Crown, a mythical artifact granting dominion over the seas.",
+    "A being of legend, rumored to be the last remnant of a long-forgotten underwater civilization.",
+    "A mimic of extraordinary ability, it assumes the presence of anything it encounters, leaving others questioning reality.",
+    "The silent observer, it watches the tides of war and peace, only intervening when fate demands.",
+    "Capable of glimpsing into the past, it etches the history of the ocean onto coral walls.",
+    "Said to have emerged during the first flood, it carries the echoes of an ancient world in its wake.",
+    "A being of pure motion, forever shifting and reshaping the currents to maintain balance in the sea.",
+    "Revered by sailors, its presence signals an upcoming storm or a long-awaited safe passage.",
+    "A harbinger of change, wherever it swims, the waters take on new life—or wither into silence.",
+    "A messenger of the unknown, it delivers omens of disaster to those who dare venture too deep.",
+    "Thought to be a fragment of something far greater, it seeks to reclaim its missing pieces.",
+    "Said to be animated by the souls of lost mariners, it drifts lifelessly until it finds justice for the fallen.",
+    "A bringer of harmony, it appears during moments of crisis to unite rivaling factions beneath the waves.",
+    "A creature of mischief, known for meddling with the ocean’s flow and confusing navigators.",
+    "Legends say it carries the laughter of the sea, bringing joy to those who hear its silent song.",
+    "A beacon of hope, its presence signals the return of something long thought lost.",
+    "Born from the mist of shipwrecks, it carries the weight of every lost vessel in its silent path.",
+    "A force of destruction and rebirth, it reshapes the ocean floor with its volcanic essence.",
+    "Said to be the first creature to step between water and air, bridging the worlds above and below.",
+    "A harbinger of fire, it thrives where the earth’s core touches the deep, birthing new islands in its wake.",
+    "A bringer of wisdom, sought by scholars for its knowledge of tides and time itself.",
+    "Considered a living relic, it is believed to hold the secrets of an ancient, sunken empire.",
+    "Worshiped by deep-sea dwellers, it is said to be the light that keeps the abyss from consuming all.",
+    "A guardian of nature’s balance, its existence ensures the ocean and land remain in harmony.",
+    "A legend of the frozen seas, it brings winter wherever it drifts, turning water to ice with its presence.",
+    "Feared by all, its touch induces hallucinations, twisting the minds of those who stray too close.",
+    "A being without form, it consumes the identity of those it encounters, leaving behind only echoes.",
+    "A silent predator, it moves unseen in the depths, leaving only shadows in its wake.",
+    "Said to be the key to an ancient machine, its very existence is tied to the rise and fall of lost civilizations.",
+    "A master of illusions, it bends the ocean’s darkness to hide what should never be found.",
+    "A legendary force of the deep, rumored to have the power to part the sea at will.",
+    "A storyteller of the abyss, its presence causes visions of histories long buried beneath the waves.",
+    "Feared by sailors, it is said to appear only before the greatest tragedies at sea.",
+    "A creature of the in-between, neither alive nor dead, it mimics the voices of those long gone.",
+    "A drifting wraith, forever searching for the life it once had but can never reclaim.",
+    "Born of fire and ice, it holds the power to freeze and burn with equal fury.",
+    "A divine being, said to be the last remnant of an ancient pantheon lost beneath the tides.",
+    "A creature of the frozen deep, known for appearing in the coldest waters where even light dares not tread.",
+    "Said to be the guardian of the last iceberg, its presence marks the end of an era.",
+    "A bringer of chaos, it disrupts balance wherever it swims, turning peaceful waters into raging tempests.",
+    "A ghostly being, it drifts between worlds, watching over those who linger too long in the abyss.",
+    "Said to be the embodiment of radiant energy, it can breathe life into the darkest corners of the ocean.",
+    "A traveler of frozen waters, bringing ice to even the warmest currents.",
+    "A beast of eternal winter, it is said to be the reason why the polar seas never thaw.",
+    "A silent observer, it watches over the abyss, ensuring no soul is taken before its time.",
+    "A creature of twilight, thriving where darkness meets light, forever shifting between the two.",
+    "A warrior of the old world, said to be the last of an order sworn to defend the ocean’s secrets.",
+    "A keeper of balance, ensuring no force becomes too dominant within the deep.",
+    "A godlike being of frozen tides, its awakening is said to mark the return of a forgotten age.",
+    "A guardian of the cold abyss, it thrives in places where only the strongest can endure.",
+    "A creature of duality, wielding both the power of fire and ice to reshape its surroundings.",
+    "A venomous entity of legend, known for bringing ruin to those who seek forbidden knowledge.",
+    "A voice in the deep, its song calls to sailors, promising either salvation or doom.",
+    "A creature of light, bound by ancient magic, waiting for the day it is freed.",
+    "Feared by all, its mere presence warps reality, twisting the ocean into an endless labyrinth.",
+    "A ruler of the forgotten, commanding an army of lost souls bound to the depths.",
+    "A force of nature, its presence signifies an era of change within the ocean’s domain.",
+    "A whisper in the waves, moving unseen through the currents, known only by the trail it leaves behind.",
+    "Said to mark the end of civilizations, bringing eternal darkness to the waters it touches.",
+    "A counterpart to its dark twin, it revives dying reefs and restores the balance of the deep.",
+    "The embodiment of the ocean’s will, existing beyond time, forever watching over its domain.",
+    "A titan of the deep, said to be the last remnant of an age when monsters ruled the seas."
 ]
 
 
 
-image00 = pygame.image.load('bubble.png')
+
+image00 = pygame.image.load('images/bubble.png')
 image00 = pygame.transform.scale(image00, (15, 15))
-image01 = pygame.image.load('bubble.png')
+image01 = pygame.image.load('images/bubble.png')
 image01 = pygame.transform.scale(image01, (25, 25))
-image02 = pygame.image.load('bubble.png')
+image02 = pygame.image.load('images/bubble.png')
 image02 = pygame.transform.scale(image02, (35, 35))
 
-imagen6 = pygame.image.load('goldglow.png')
+imagen6 = pygame.image.load('images/goldglow.png')
 imagen6 = pygame.transform.scale(imagen6, (100, 100))
 
-imagewhite = pygame.image.load('blankwhitepage.jpg')
-imagewhitehalo = pygame.image.load('whiteglowhalo.png')
-imagewhiteground = pygame.image.load('whitehaloground.png')
-imagewhitecircle = pygame.image.load('whitehalocircle.png')
+imagewhite = pygame.image.load('images/blankwhitepage.jpg')
+imagewhitehalo = pygame.image.load('images/whiteglowhalo.png')
+imagewhiteground = pygame.image.load('images/whitehaloground.png')
+imagewhitecircle = pygame.image.load('images/whitehalocircle.png')
 
-image4 = pygame.image.load('blackscreen.jpg')
+image4 = pygame.image.load('images/blackscreen.jpg')
 image4 = pygame.transform.scale(image4, (3920, 1080))
-image30 = pygame.image.load('skipbutton.png')
+image30 = pygame.image.load('images/skipbutton.png')
 image30 = pygame.transform.scale(image30, (90, 50))
-image31 = pygame.image.load('purplerect.png')
+image31 = pygame.image.load('images/purplerect.png')
 image31 = pygame.transform.scale(image31, (50, 80))
-image42 = pygame.image.load('yellowdiamond.png')
+image42 = pygame.image.load('images/yellowdiamond.png')
 image42 = pygame.transform.scale(image42, (30, 30))
-image52 = pygame.image.load('knightwalkthrough.png')
+image52 = pygame.image.load('images/knightwalkthrough.png')
 image52 = pygame.transform.scale(image52, (500, 250))
-image53 = pygame.image.load('speechbubble.png')
+image53 = pygame.image.load('images/speechbubble.png')
 image53 = pygame.transform.scale(image53, (500, 230))
-image56 = pygame.image.load('blueglow.png')
+image56 = pygame.image.load('images/blueglow.png')
 image56 = pygame.transform.scale(image56, (100, 100))
 #######paimons shop images##############
-image58 = pygame.image.load('paimonshop.webp')
+image58 = pygame.image.load('images/paimonshop.webp')
 image58 = pygame.transform.scale(image58, (1550, 870))
-image59 = pygame.image.load('paimonmenushop.png')
+image59 = pygame.image.load('images/paimonmenushop.png')
 image59 = pygame.transform.scale(image59, (900, 900))
-imageBlack = pygame.image.load('blackscreen.jpg')
+imageBlack = pygame.image.load('images/blackscreen.jpg')
 imageBlack = pygame.transform.scale(imageBlack, (765, 700))
-image60 = pygame.image.load('returnarrow.png')
+image60 = pygame.image.load('images/returnarrow.png')
 image60 = pygame.transform.scale(image60, (75, 75))
-image61 = pygame.image.load('whitereturnarrow.png')
+image61 = pygame.image.load('images/whitereturnarrow.png')
 image61 = pygame.transform.scale(image61, (75, 75))
 ########################################################################################################################
-image62 = pygame.image.load('purplepotion.png')
+image62 = pygame.image.load('images/purplepotion.png')
 image62 = pygame.transform.scale(image62, (50, 50))
-image63 = pygame.image.load('bluepotion.png')
+image63 = pygame.image.load('images/bluepotion.png')
 image63 = pygame.transform.scale(image63, (50, 50))
-image64 = pygame.image.load('greenpotion.png')
+image64 = pygame.image.load('images/greenpotion.png')
 image64 = pygame.transform.scale(image64, (50, 50))
-image65 = pygame.image.load('whitepotion.png')
+image65 = pygame.image.load('images/whitepotion.png')
 image65 = pygame.transform.scale(image65, (50, 50))
-image66 = pygame.image.load('healingpotion.png')
+image66 = pygame.image.load('images/healingpotion.png')
 image66 = pygame.transform.scale(image66, (50, 50))
-image67 = pygame.image.load('apple.png')
+image67 = pygame.image.load('images/apple.png')
 image67 = pygame.transform.scale(image67, (50, 50))
-image68 = pygame.image.load('goldenapple.png')
+image68 = pygame.image.load('images/goldenapple.png')
 image68 = pygame.transform.scale(image68, (50, 50))
 
-image69 = pygame.image.load('enchantedbook1.png')
+image69 = pygame.image.load('images/enchantedbook1.png')
 image69 = pygame.transform.scale(image69, (50, 50))
-image70 = pygame.image.load('whiteamulet.png')
+image70 = pygame.image.load('images/whiteamulet.png')
 image70 = pygame.transform.scale(image70, (50, 50))
-image71 = pygame.image.load('redamulet.png')
+image71 = pygame.image.load('images/redamulet.png')
 image71 = pygame.transform.scale(image71, (50, 50))
-image72 = pygame.image.load('purpleamulet.png')
+image72 = pygame.image.load('images/purpleamulet.png')
 image72 = pygame.transform.scale(image72, (50, 50))
-image73 = pygame.image.load('underwatercrown.png')
+image73 = pygame.image.load('images/underwatercrown.png')
 image73 = pygame.transform.scale(image73, (50, 50))
-image74 = pygame.image.load('mysterybag.png')
+image74 = pygame.image.load('images/mysterybag.png')
 image74 = pygame.transform.scale(image74, (50, 50))
-image75 = pygame.image.load('supermysterybag.png')
+image75 = pygame.image.load('images/supermysterybag.png')
 image75 = pygame.transform.scale(image75, (50, 50))
 
-image76 = pygame.image.load('rustysword.png')
+image76 = pygame.image.load('images/rustysword.png')
 image76 = pygame.transform.scale(image76, (50, 50))
-image77 = pygame.image.load('bronzesword.png')
+image77 = pygame.image.load('images/bronzesword.png')
 image77 = pygame.transform.scale(image77, (50, 50))
-image78 = pygame.image.load('Ironsword.png')
+image78 = pygame.image.load('images/Ironsword.png')
 image78 = pygame.transform.scale(image78, (50, 50))
-image79 = pygame.image.load('diamondsword.png')
+image79 = pygame.image.load('images/diamondsword.png')
 image79 = pygame.transform.scale(image79, (50, 50))
-image80 = pygame.image.load('simplestaff.png')
+image80 = pygame.image.load('images/simplestaff.png')
 image80 = pygame.transform.scale(image80, (50, 50))
-image81 = pygame.image.load('leatherhelmet.png')
+image81 = pygame.image.load('images/leatherhelmet.png')
 image81 = pygame.transform.scale(image81, (50, 50))
-image82 = pygame.image.load('leatherchestplate.png')
+image82 = pygame.image.load('images/leatherchestplate.png')
 image82 = pygame.transform.scale(image82, (50, 50))
 
-imageesneak83 = pygame.image.load('leatherpants.png')
+imageesneak83 = pygame.image.load('images/leatherpants.png')
 imageesneak83 = pygame.transform.scale(imageesneak83, (50, 50))
-imageesneak84 = pygame.image.load('leatherboots.png')
+imageesneak84 = pygame.image.load('images/leatherboots.png')
 imageesneak84 = pygame.transform.scale(imageesneak84, (50, 50))
-image83 = pygame.image.load('metalhelmet.png')
+image83 = pygame.image.load('images/metalhelmet.png')
 image83 = pygame.transform.scale(image83, (50, 50))
-image84 = pygame.image.load('metalchestplate.png')
+image84 = pygame.image.load('images/metalchestplate.png')
 image84 = pygame.transform.scale(image84, (50, 50))
-image85 = pygame.image.load('metalgreeves.png')
+image85 = pygame.image.load('images/metalgreeves.png')
 image85 = pygame.transform.scale(image85, (50, 50))
-image86 = pygame.image.load('metalboots.png')
+image86 = pygame.image.load('images/metalboots.png')
 image86 = pygame.transform.scale(image86, (50, 50))
-image87 = pygame.image.load('coralhelmet.png')
+image87 = pygame.image.load('images/coralhelmet.png')
 image87 = pygame.transform.scale(image87, (50, 50))
 
-image88 = pygame.image.load('coralchestplate.png')
+image88 = pygame.image.load('images/coralchestplate.png')
 image88 = pygame.transform.scale(image88, (50, 50))
-image89 = pygame.image.load('coralpants.png')
+image89 = pygame.image.load('images/coralpants.png')
 image89 = pygame.transform.scale(image89, (50, 50))
-image90 = pygame.image.load('coralshoes.png')
+image90 = pygame.image.load('images/coralshoes.png')
 image90 = pygame.transform.scale(image90, (50, 50))
-image91 = pygame.image.load('expouch.png')
+image91 = pygame.image.load('images/expouch.png')
 image91 = pygame.transform.scale(image91, (50, 50))
-image92 = pygame.image.load('largeexppouch.png')
+image92 = pygame.image.load('images/largeexppouch.png')
 image92 = pygame.transform.scale(image92, (50, 50))
-image93 = pygame.image.load('timedilator.png')
+image93 = pygame.image.load('images/timedilator.png')
 image93 = pygame.transform.scale(image93, (50, 50))
 ########################################################################################################################
-image94 = pygame.image.load('purplepotion.png')
+image94 = pygame.image.load('images/purplepotion.png')
 image94 = pygame.transform.scale(image94, (350, 350))
-image95 = pygame.image.load('enchantedbook1.png')
+image95 = pygame.image.load('images/enchantedbook1.png')
 image95 = pygame.transform.scale(image95, (350, 350))
-image96 = pygame.image.load('rustysword.png')
+image96 = pygame.image.load('images/rustysword.png')
 image96 = pygame.transform.scale(image96, (350, 350))
-image97 = pygame.image.load('leatherpants.png')
+image97 = pygame.image.load('images/leatherpants.png')
 image97 = pygame.transform.scale(image97, (350, 350))
-image98 = pygame.image.load('coralchestplate.png')
+image98 = pygame.image.load('images/coralchestplate.png')
 image98 = pygame.transform.scale(image98, (350, 350))
 
-image99 = pygame.image.load('bluepotion.png')
+image99 = pygame.image.load('images/bluepotion.png')
 image99 = pygame.transform.scale(image99, (350, 350))
-image100 = pygame.image.load('whiteamulet.png')
+image100 = pygame.image.load('images/whiteamulet.png')
 image100 = pygame.transform.scale(image100, (350, 350))
-image101 = pygame.image.load('bronzesword.png')
+image101 = pygame.image.load('images/bronzesword.png')
 image101 = pygame.transform.scale(image101, (350, 350))
-image102 = pygame.image.load('leatherboots.png')
+image102 = pygame.image.load('images/leatherboots.png')
 image102 = pygame.transform.scale(image102, (350, 350))
-image103 = pygame.image.load('coralpants.png')
+image103 = pygame.image.load('images/coralpants.png')
 image103 = pygame.transform.scale(image103, (350, 350))
 
-image104 = pygame.image.load('greenpotion.png')
+image104 = pygame.image.load('images/greenpotion.png')
 image104 = pygame.transform.scale(image104, (350, 350))
-image105 = pygame.image.load('redamulet.png')
+image105 = pygame.image.load('images/redamulet.png')
 image105 = pygame.transform.scale(image105, (350, 350))
-image106 = pygame.image.load('Ironsword.png')
+image106 = pygame.image.load('images/Ironsword.png')
 image106 = pygame.transform.scale(image106, (350, 350))
-image107 = pygame.image.load('metalhelmet.png')
+image107 = pygame.image.load('images/metalhelmet.png')
 image107 = pygame.transform.scale(image107, (350, 350))
-image108 = pygame.image.load('coralshoes.png')
+image108 = pygame.image.load('images/coralshoes.png')
 image108 = pygame.transform.scale(image108, (350, 350))
 
-image109 = pygame.image.load('whitepotion.png')
+image109 = pygame.image.load('images/whitepotion.png')
 image109 = pygame.transform.scale(image109, (350, 350))
-image110 = pygame.image.load('purpleamulet.png')
+image110 = pygame.image.load('images/purpleamulet.png')
 image110 = pygame.transform.scale(image110, (350, 350))
-image111 = pygame.image.load('diamondsword.png')
+image111 = pygame.image.load('images/diamondsword.png')
 image111 = pygame.transform.scale(image111, (350, 350))
-image112 = pygame.image.load('metalchestplate.png')
+image112 = pygame.image.load('images/metalchestplate.png')
 image112 = pygame.transform.scale(image112, (350, 350))
-image113 = pygame.image.load('expouch.png')
+image113 = pygame.image.load('images/expouch.png')
 image113 = pygame.transform.scale(image113, (350, 350))
 
-image114 = pygame.image.load('healingpotion.png')
+image114 = pygame.image.load('images/healingpotion.png')
 image114 = pygame.transform.scale(image114, (350, 350))
-image115 = pygame.image.load('underwatercrown.png')
+image115 = pygame.image.load('images/underwatercrown.png')
 image115 = pygame.transform.scale(image115, (350, 350))
-image116 = pygame.image.load('simplestaff.png')
+image116 = pygame.image.load('images/simplestaff.png')
 image116 = pygame.transform.scale(image116, (350, 350))
-image117 = pygame.image.load('metalgreeves.png')
+image117 = pygame.image.load('images/metalgreeves.png')
 image117 = pygame.transform.scale(image117, (350, 350))
-image118 = pygame.image.load('largeexppouch.png')
+image118 = pygame.image.load('images/largeexppouch.png')
 image118 = pygame.transform.scale(image118, (350, 350))
 
-image119 = pygame.image.load('apple.png')
+image119 = pygame.image.load('images/apple.png')
 image119 = pygame.transform.scale(image119, (350, 350))
-image120 = pygame.image.load('mysterybag.png')
+image120 = pygame.image.load('images/mysterybag.png')
 image120 = pygame.transform.scale(image120, (350, 350))
-image121 = pygame.image.load('leatherhelmet.png')
+image121 = pygame.image.load('images/leatherhelmet.png')
 image121 = pygame.transform.scale(image121, (350, 350))
-image122 = pygame.image.load('metalboots.png')
+image122 = pygame.image.load('images/metalboots.png')
 image122 = pygame.transform.scale(image122, (350, 350))
-image123 = pygame.image.load('timedilator.png')
+image123 = pygame.image.load('images/timedilator.png')
 image123 = pygame.transform.scale(image123, (350, 350))
 
-image124 = pygame.image.load('goldenapple.png')
+image124 = pygame.image.load('images/goldenapple.png')
 image124 = pygame.transform.scale(image124, (350, 350))
-image125 = pygame.image.load('supermysterybag.png')
+image125 = pygame.image.load('images/supermysterybag.png')
 image125 = pygame.transform.scale(image125, (350, 350))
-image126 = pygame.image.load('leatherchestplate.png')
+image126 = pygame.image.load('images/leatherchestplate.png')
 image126 = pygame.transform.scale(image126, (350, 350))
-image127 = pygame.image.load('coralhelmet.png')
+image127 = pygame.image.load('images/coralhelmet.png')
 image127 = pygame.transform.scale(image127, (350, 350))
 
 ########################################################################################################################
-image128 = pygame.image.load('stars.png')
+image128 = pygame.image.load('images/stars.png')
 image128 = pygame.transform.scale(image128, ((770, 740)))
-image129 = pygame.image.load('itemframe.png')
+image129 = pygame.image.load('images/itemframe.png')
 image129 = pygame.transform.scale(image129, ((950, 1150)))
-image130 = pygame.image.load('buybutton.png')
+image130 = pygame.image.load('images/buybutton.png')
 image130 = pygame.transform.scale(image130, ((300, 300)))
-image131 = pygame.image.load('glowbuybutton.png')
+image131 = pygame.image.load('images/glowbuybutton.png')
 image131 = pygame.transform.scale(image131, ((300, 300)))
-imageBlack2 = pygame.image.load('blackscreen.jpg')
+imageBlack2 = pygame.image.load('images/blackscreen.jpg')
 imageBlack2 = pygame.transform.scale(imageBlack2, (275, 85))
 
 
-image132 = pygame.image.load('mainmap.JPG')
+image132 = pygame.image.load('images/mainmap.JPG')
 image132 = pygame.transform.scale(image132, (1550, 870))
-image0133 = pygame.image.load('workmap.jpg')
+image0133 = pygame.image.load('images/workmap.jpg')
 image0133 = pygame.transform.scale(image0133, (1550, 870))
-image0134 = pygame.image.load('gamblemap.jpg')
+image0134 = pygame.image.load('images/gamblemap.jpg')
 image0134 = pygame.transform.scale(image0134, (1550, 870))
-image0135 = pygame.image.load('paimonmap.jpg')
+image0135 = pygame.image.load('images/paimonmap.jpg')
 image0135 = pygame.transform.scale(image0135, (1550, 870))
-image0136 = pygame.image.load('castlemap.jpg')
+image0136 = pygame.image.load('images/castlemap.jpg')
 image0136 = pygame.transform.scale(image0136, (1550, 870))
-image0137 = pygame.image.load('colleseummap.jpg')
+image0137 = pygame.image.load('images/colleseummap.jpg')
 image0137 = pygame.transform.scale(image0137, (1550, 870))
-image0138 = pygame.image.load('adventuremap.jpg')
+image0138 = pygame.image.load('images/adventuremap.jpg')
 image0138 = pygame.transform.scale(image0138, (1550, 870))
-image0139 = pygame.image.load('guildmap.jpg')
+image0139 = pygame.image.load('images/guildmap.jpg')
 image0139 = pygame.transform.scale(image0139, (1550, 870))
-image0140 = pygame.image.load('stashmap.jpg')
+image0140 = pygame.image.load('images/stashmap.jpg')
 image0140 = pygame.transform.scale(image0140, (1550, 870))
-image0141 = pygame.image.load('blackmarketmap.jpg')
+image0141 = pygame.image.load('images/blackmarketmap.jpg')
 image0141 = pygame.transform.scale(image0141, (1550, 870))
 
 
-image133 = pygame.image.load('greenglow.png')
+image133 = pygame.image.load('images/greenglow.png')
 image133 = pygame.transform.scale(image133, (80, 80))
-imagee133 = pygame.image.load('redglow.png')
+imagee133 = pygame.image.load('images/redglow.png')
 imagee133 = pygame.transform.scale(imagee133, (80, 80))
-image134 = pygame.image.load('returnbutton.png')
+image134 = pygame.image.load('images/returnbutton.png')
 image134 = pygame.transform.scale(image134, (125, 125))
-image135 = pygame.image.load('returnbutton2.png')
+image135 = pygame.image.load('images/returnbutton2.png')
 image135 = pygame.transform.scale(image135, (125, 125))
-image136 = pygame.image.load('returnbutton2.png')
+image136 = pygame.image.load('images/returnbutton2.png')
 image136 = pygame.transform.scale(image136, (250, 250))
 ########################################################################################################################
-image137 = pygame.image.load('goblin.jpg')
+image137 = pygame.image.load('images/goblin.jpg')
 image137 = pygame.transform.scale(image137, (1550, 870))
-image138 = pygame.image.load('laborchoices.png')
+image138 = pygame.image.load('images/laborchoices.png')
 image138 = pygame.transform.scale(image138, (800, 600))
-image139 = pygame.image.load('redx.png')
+image139 = pygame.image.load('images/redx.png')
 image139 = pygame.transform.scale(image139, (400, 100))
-image140 = pygame.image.load('laborchoiceshover1.png')
+image140 = pygame.image.load('images/laborchoiceshover1.png')
 image140 = pygame.transform.scale(image140, (800, 600))
-image141 = pygame.image.load('mininggameworld.jpg')
-image142 = pygame.image.load('betacharacter.png')
+image141 = pygame.image.load('images/mininggameworld.jpg')
+image142 = pygame.image.load('images/betacharacter.png')
 image142 = pygame.transform.scale(image142, (50, 50))
-image143 = pygame.image.load('lightbluegem.png')
-image144 = pygame.image.load('pinkgem.png')
-image145 = pygame.image.load('rubygem.png')
-image146 = pygame.image.load('heartgem.png')
-image147 = pygame.image.load('diamondgem.png')
-image148 = pygame.image.load('purplegem.png')
-image149 = pygame.image.load('darkbluegem.png')
-image150 = pygame.image.load('miningworldgame2.jpg')
-image151 = pygame.image.load('dighole.png')
+image143 = pygame.image.load('images/lightbluegem.png')
+image144 = pygame.image.load('images/pinkgem.png')
+image145 = pygame.image.load('images/rubygem.png')
+image146 = pygame.image.load('images/heartgem.png')
+image147 = pygame.image.load('images/diamondgem.png')
+image148 = pygame.image.load('images/purplegem.png')
+image149 = pygame.image.load('images/darkbluegem.png')
+image150 = pygame.image.load('images/miningworldgame2.jpg')
+image151 = pygame.image.load('images/dighole.png')
 image151 = pygame.transform.scale(image151, (60, 60))
-image152 = pygame.image.load('digholereturnarro.png')
+image152 = pygame.image.load('images/digholereturnarro.png')
 image152 = pygame.transform.scale(image152, (60, 60))
-image153 = pygame.image.load('digholereturnarrow.png')
+image153 = pygame.image.load('images/digholereturnarrow.png')
 image153 = pygame.transform.scale(image153, (60, 60))
-image154 = pygame.image.load('trilobite.png')
-image155 = pygame.image.load('gems.png')
-image156 = pygame.image.load('dinosaurbones.png')
-image157 = pygame.image.load('crown.png')
-image158 = pygame.image.load('spider.png')
-image159 = pygame.image.load('egg.png')
-image160 = pygame.image.load('digchest1.png')
-image161 = pygame.image.load('digchest2.png')
-image162 = pygame.image.load('digchest3.png')
-image163 = pygame.image.load('digchest4.png')
-image164 = pygame.image.load('invertreturnsign.png')
+image154 = pygame.image.load('images/trilobite.png')
+image155 = pygame.image.load('images/gems.png')
+image156 = pygame.image.load('images/dinosaurbones.png')
+image157 = pygame.image.load('images/crown.png')
+image158 = pygame.image.load('images/spider.png')
+image159 = pygame.image.load('images/egg.png')
+image160 = pygame.image.load('images/digchest1.png')
+image161 = pygame.image.load('images/digchest2.png')
+image162 = pygame.image.load('images/digchest3.png')
+image163 = pygame.image.load('images/digchest4.png')
+image164 = pygame.image.load('images/invertreturnsign.png')
 image164 = pygame.transform.scale(image164, (60, 60))
-image165 = pygame.image.load('invertreturnsignpurple.png')
+image165 = pygame.image.load('images/invertreturnsignpurple.png')
 image165 = pygame.transform.scale(image165, (60, 60))
-image166 = pygame.image.load('lava1.png')
-image167 = pygame.image.load('lava2.png')
-image168 = pygame.image.load('miningstatsimage1.png')
-image169 = pygame.image.load('miningstatsimage2.png')
-image170 = pygame.image.load('digginggameupgradescreen.png')
-image171 = pygame.image.load('statfilledbox.jpg')
+image166 = pygame.image.load('images/lava1.png')
+image167 = pygame.image.load('images/lava2.png')
+image168 = pygame.image.load('images/miningstatsimage1.png')
+image169 = pygame.image.load('images/miningstatsimage2.png')
+image170 = pygame.image.load('images/digginggameupgradescreen.png')
+image171 = pygame.image.load('images/statfilledbox.jpg')
 ########################################################################################################################
-image172 = pygame.image.load('casinoimage1.webp')
+image172 = pygame.image.load('images/casinoimage1.webp')
 image172 = pygame.transform.scale(image172, (1550, 870))
-image173 = pygame.image.load('gamblingchoices.webp')
+image173 = pygame.image.load('images/gamblingchoices.webp')
 image173 = pygame.transform.scale(image173, (800, 800))
-image174 = pygame.image.load('roulette1.jpg')
+image174 = pygame.image.load('images/roulette1.jpg')
 image174 = pygame.transform.scale(image174, (1550, 870))
-image175 = pygame.image.load('reddownarrow.png')
-image176 = pygame.image.load('slotsimage.webp')
+image175 = pygame.image.load('images/reddownarrow.png')
+image176 = pygame.image.load('images/slotsimage.webp')
 image176 = pygame.transform.scale(image176, (1550, 870))
-image177 = pygame.image.load('slotimage.png')
-image178 = pygame.image.load('slotimage2.png')
-image179 = pygame.image.load('slotimage3.png')
-image180 = pygame.image.load('goldbackground.jpg')
+image177 = pygame.image.load('images/slotimage.png')
+image178 = pygame.image.load('images/slotimage2.png')
+image179 = pygame.image.load('images/slotimage3.png')
+image180 = pygame.image.load('images/goldbackground.jpg')
 
-image181 = pygame.image.load('slotnum1.jpg')
-image182 = pygame.image.load('slotnum2.jpg')
-image183 = pygame.image.load('slotnum3.jpg')
-image184 = pygame.image.load('slotnum4.jpg')
-image185 = pygame.image.load('slotnum5.jpg')
-image186 = pygame.image.load('slotnum6.jpg')
-image187 = pygame.image.load('slotnum7.jpg')
-image188 = pygame.image.load('slotnum8.jpg')
-image189 = pygame.image.load('slotnum9.jpg')
+image181 = pygame.image.load('images/slotnum1.jpg')
+image182 = pygame.image.load('images/slotnum2.jpg')
+image183 = pygame.image.load('images/slotnum3.jpg')
+image184 = pygame.image.load('images/slotnum4.jpg')
+image185 = pygame.image.load('images/slotnum5.jpg')
+image186 = pygame.image.load('images/slotnum6.jpg')
+image187 = pygame.image.load('images/slotnum7.jpg')
+image188 = pygame.image.load('images/slotnum8.jpg')
+image189 = pygame.image.load('images/slotnum9.jpg')
 
-image190 = pygame.image.load('slotimage4.png')
+image190 = pygame.image.load('images/slotimage4.png')
 
-image191 = pygame.image.load('diceimage.jpg')
+image191 = pygame.image.load('images/diceimage.jpg')
 image191 = pygame.transform.scale(image191, (1550, 870))
 
-image192 = pygame.image.load('dice1.jpg')
+image192 = pygame.image.load('images/dice1.jpg')
 image192 = pygame.transform.scale(image192, (320, 320))
-image193 = pygame.image.load('dice2.jpg')
+image193 = pygame.image.load('images/dice2.jpg')
 image193 = pygame.transform.scale(image193, (320, 320))
-image194 = pygame.image.load('dice3.jpg')
+image194 = pygame.image.load('images/dice3.jpg')
 image194 = pygame.transform.scale(image194, (320, 320))
-image195 = pygame.image.load('dice4.jpg')
+image195 = pygame.image.load('images/dice4.jpg')
 image195 = pygame.transform.scale(image195, (320, 320))
-image196 = pygame.image.load('dice5.jpg')
+image196 = pygame.image.load('images/dice5.jpg')
 image196 = pygame.transform.scale(image196, (320, 320))
-image197 = pygame.image.load('dice6.jpg')
+image197 = pygame.image.load('images/dice6.jpg')
 image197 = pygame.transform.scale(image197, (320, 320))
-image198 = pygame.image.load('dice7.png')
+image198 = pygame.image.load('images/dice7.png')
 image198 = pygame.transform.scale(image198, (320, 320))
 
-image199 = pygame.image.load('bluebakcground.jpg')
+image199 = pygame.image.load('images/bluebakcground.jpg')
 
 image201 = pygame.transform.scale(image192, (150, 150))
 image202 = pygame.transform.scale(image193, (150, 150))
@@ -566,75 +869,93 @@ image204 = pygame.transform.scale(image195, (150, 150))
 image205 = pygame.transform.scale(image196, (150, 150))
 image206 = pygame.transform.scale(image197, (150, 150))
 
-image207 = pygame.image.load('guildroom.png')
+image207 = pygame.image.load('images/guildroom.png')
 image207 = pygame.transform.scale(image207, (1550, 870))
-image208 = pygame.image.load('questboard.jpg')
+image208 = pygame.image.load('images/questboard.jpg')
 image208 = pygame.transform.scale(image208, (1550, 870))
-image209 = pygame.image.load('alchemyroom.jpg')
+image209 = pygame.image.load('images/alchemyroom.jpg')
 image209 = pygame.transform.scale(image209, (1550, 870))
 
-image210 = pygame.image.load('cauldron.png')
-image211 = pygame.image.load('stopbutton.png')
-image212 = pygame.image.load('glowstopbutton.png')
-image213 = pygame.image.load('meterimage.jpg')
-image214 = pygame.image.load('meterline.png')
+image210 = pygame.image.load('images/cauldron.png')
+image211 = pygame.image.load('images/stopbutton.png')
+image212 = pygame.image.load('images/glowstopbutton.png')
+image213 = pygame.image.load('images/meterimage.jpg')
+image214 = pygame.image.load('images/meterline.png')
 
-image215 = pygame.image.load('pot1.png')
-image216 = pygame.image.load('pot2.png')
-image217 = pygame.image.load('pot3.png')
-image218 = pygame.image.load('pot4.png')
-image219 = pygame.image.load('pot5.png')
+image215 = pygame.image.load('images/pot1.png')
+image216 = pygame.image.load('images/pot2.png')
+image217 = pygame.image.load('images/pot3.png')
+image218 = pygame.image.load('images/pot4.png')
+image219 = pygame.image.load('images/pot5.png')
 
-image220 = pygame.image.load('goldlabel.png')
-image221 = pygame.image.load('lvllabel.png')
-image222 = pygame.image.load('gemlabel.png')
+image220 = pygame.image.load('images/goldlabel.png')
+image221 = pygame.image.load('images/lvllabel.png')
+image222 = pygame.image.load('images/gemlabel.png')
 
-image223 = pygame.image.load('cauldronstars.png')
-image224 = pygame.image.load('sunlight.png')
+image223 = pygame.image.load('images/cauldronstars.png')
+image224 = pygame.image.load('images/sunlight.png')
 
-image225 = pygame.image.load('chestopened.png')
-image226 = pygame.image.load('chestclosed.png')
+image225 = pygame.image.load('images/chestopened.png')
+image226 = pygame.image.load('images/chestclosed.png')
 ########################################################################################################################
-image227 = pygame.image.load('bluechip.png')
-image228 = pygame.image.load('redchip.png')
-image229 = pygame.image.load('blackchip.png')
-image230 = pygame.image.load('allchip.png')
-image231 = pygame.image.load('goldchip.png')
+image227 = pygame.image.load('images/bluechip.png')
+image228 = pygame.image.load('images/redchip.png')
+image229 = pygame.image.load('images/blackchip.png')
+image230 = pygame.image.load('images/allchip.png')
+image231 = pygame.image.load('images/goldchip.png')
 
-image232 = pygame.image.load('pokertable.webp')
+image232 = pygame.image.load('images/pokertable.webp')
 image232 = pygame.transform.scale(image232, (1550, 870))
 
-image233 = pygame.image.load('outlinechipblue.png')
-image234 = pygame.image.load('outlinechipred.png')
-image235 = pygame.image.load('outlinechipblack.png')
-image236 = pygame.image.load('outlinechipall.png')
-image237 = pygame.image.load('outlinechipgold.png')
+image233 = pygame.image.load('images/outlinechipblue.png')
+image234 = pygame.image.load('images/outlinechipred.png')
+image235 = pygame.image.load('images/outlinechipblack.png')
+image236 = pygame.image.load('images/outlinechipall.png')
+image237 = pygame.image.load('images/outlinechipgold.png')
 
-image238 = pygame.image.load('hearts.png')
-image239 = pygame.image.load('diamonds.png')
-image240 = pygame.image.load('spades.png')
-image241 = pygame.image.load('clovers.png')
-image242 = pygame.image.load('facedowncard.png')
+image238 = pygame.image.load('images/hearts.png')
+image239 = pygame.image.load('images/diamonds.png')
+image240 = pygame.image.load('images/spades.png')
+image241 = pygame.image.load('images/clovers.png')
+image242 = pygame.image.load('images/facedowncard.png')
 
-image243 = pygame.image.load('blackmarketbyron.jpg')
+image243 = pygame.image.load('images/blackmarketbyron.jpg')
 image243 = pygame.transform.scale(image243, (1550, 870))
-image244 = pygame.image.load('blackmarketloot.webp')
+image244 = pygame.image.load('images/blackmarketloot.webp')
 image244 = pygame.transform.scale(image244, (1550, 870))
 
-image245 = pygame.image.load('arrowleft.png')
-image246 = pygame.image.load('arrowright.png')
+image245 = pygame.image.load('images/arrowleft.png')
+image246 = pygame.image.load('images/arrowright.png')
 
-image247 = pygame.image.load('woodchest.png')
-image248 = pygame.image.load('diamondchest.png')
-image249 = pygame.image.load('emeraldchest.png')
-image250 = pygame.image.load('blackdoor.png')
-image251 = pygame.image.load('redarrowleft.png')
-image252 = pygame.image.load('redarrowright.png')
+image247 = pygame.image.load('images/woodchest.png')
+image248 = pygame.image.load('images/diamondchest.png')
+image249 = pygame.image.load('images/emeraldchest.png')
+image250 = pygame.image.load('images/blackdoor.png')
+image251 = pygame.image.load('images/redarrowleft.png')
+image252 = pygame.image.load('images/redarrowright.png')
 
-image253 = pygame.image.load('glowwoodentreasurechest.png')
-image254 = pygame.image.load('glowdiamondtreasurechest.png')
-image255 = pygame.image.load('glowemeraldtreasurechest.png')
-image256 = pygame.image.load('glowblackdoor.png')
+image253 = pygame.image.load('images/glowwoodentreasurechest.png')
+image254 = pygame.image.load('images/glowdiamondtreasurechest.png')
+image255 = pygame.image.load('images/glowemeraldtreasurechest.png')
+image256 = pygame.image.load('images/glowblackdoor.png')
+
+image257 = pygame.image.load('images/bat.png')
+image258 = pygame.image.load('images/ant.png')
+image259 = pygame.image.load('images/snake.png')
+image260 = pygame.image.load('images/dino.png')
+image261 = pygame.image.load('images/boulder.png')
+
+image262 = pygame.image.load('images/vault.jpg')
+image262 = pygame.transform.scale(image262, (1550, 870))
+image263 = pygame.image.load('images/seaofstars.webp')
+image263 = pygame.transform.scale(image263, (1550, 870))
+
+image264 = pygame.image.load('images/stashchoose.jpg')
+image264 = pygame.transform.scale(image264, (1550, 870))
+
+image266 = pygame.image.load('images/stashwindow2.png')
+image267 = pygame.image.load('images/stashwindow.png')
+
 ########################################################################################################################
 displaylength = 1920
 displaywidth = 1080
@@ -647,21 +968,25 @@ font2 = pygame.font.SysFont("Arial", 60)
 font3 = pygame.font.SysFont("Times New Roman", 40)
 font4 = pygame.font.SysFont("Comic Sans", 40)
 font5 = pygame.font.SysFont("Comic Sans", 20)
-font6 = pygame.font.Font("Danger.otf", 25)
-font7 = pygame.font.Font("eroded.ttf", 20)
-font8 = pygame.font.Font("HelpMe.ttf", 20)
-font9 = pygame.font.Font("Overwave.otf", 20)
-font10 = pygame.font.Font("Comfy.otf", 22)
-font11 = pygame.font.Font("anime.otf", 15)
-font12 = pygame.font.Font("oldenFont.otf", 50)
-font13 = pygame.font.Font("SwordsmanFont.TTF", 20)
-font14 = pygame.font.Font("AsianFont.ttf", 20)
-font15 = pygame.font.Font("womenfont.ttf", 20)
-font16 = pygame.font.Font("runefont.otf", 20)
-font17 = pygame.font.Font("dragonfont.ttf", 20)
-font18 = pygame.font.Font("oldenFont.otf", 70)
-font19 = pygame.font.Font("Danger.otf", 100)
-font20 = pygame.font.Font("AsianFont.ttf", 60)
+font6 = pygame.font.Font("fonts/Danger.otf", 25)
+font7 = pygame.font.Font("fonts/eroded.ttf", 20)
+font8 = pygame.font.Font("fonts/HelpMe.ttf", 20)
+font9 = pygame.font.Font("fonts/Overwave.otf", 20)
+font10 = pygame.font.Font("fonts/Comfy.otf", 22)
+font11 = pygame.font.Font("fonts/anime.otf", 15)
+font12 = pygame.font.Font("fonts/oldenFont.otf", 50)
+font13 = pygame.font.Font("fonts/SwordsmanFont.TTF", 20)
+font14 = pygame.font.Font("fonts/AsianFont.ttf", 20)
+font15 = pygame.font.Font("fonts/womenfont.ttf", 20)
+font16 = pygame.font.Font("fonts/runefont.otf", 20)
+font17 = pygame.font.Font("fonts/dragonfont.ttf", 20)
+font18 = pygame.font.Font("fonts/oldenFont.otf", 70)
+font19 = pygame.font.Font("fonts/Danger.otf", 100)
+font20 = pygame.font.Font("fonts/AsianFont.ttf", 60)
+font21 = pygame.font.SysFont("Comic Sans", 16)
+font22 = pygame.font.Font("fonts/AsianFont.ttf", 50)
+font23 = pygame.font.Font("fonts/oldenFont.otf", 35)
+font24 = pygame.font.Font("fonts/AsianFont.ttf", 40)
 
 gameStatus = True
 ########################################################################################################################
@@ -691,6 +1016,125 @@ def transition(speed):
             transitionbool = False
             transitioncounter = 1
 ########################################################################################################################
+def save_creature(creature_data, filename="creaturedata.txt"):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)  # Load existing data
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = []  # If file doesn't exist or is empty, start with an empty list
+
+    data.append(creature_data)  # Add new creature data
+
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=4)  # Save updated data
+########################################################################################################################
+def load_creatures(filename="creaturedata.txt"):
+    try:
+        with open(filename, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []  # Return empty list if file doesn't exist or is empty
+
+    #creatures = load_creatures()
+    #print(creatures)  # Displays the list of saved creatures
+########################################################################################################################
+import json
+
+def modify_creature(index, new_attributes, filename="creaturedata.txt"):
+    try:
+        with open(filename, "r") as file:
+            creatures = json.load(file)  # Load existing creatures
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("No creatures found.")
+        return
+
+    if index < 0 or index >= len(creatures):  # Check if index is valid
+        print(f"Invalid index: {index}. No creature modified.")
+        return
+
+    creatures[index].update(new_attributes)  # Modify attributes
+
+
+
+    with open(filename, "w") as file:
+        json.dump(creatures, file, indent=4)  # Save changes
+
+    print(f"Creature '{creatures[index][0]}' updated successfully!")
+
+# Example Usage
+# modify_creature(index, {"health": 120, "attack": 25})  # Updates Dragon's health and attack
+########################################################################################################################
+import json
+
+def delete_creature_by_index(index, filename="creaturedata.txt"):
+    try:
+        with open(filename, "r") as file:
+            creatures = json.load(file)  # Load existing creatures
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("No creatures found.")
+        return
+
+    if index < 0 or index >= len(creatures):  # Check if index is valid
+        print(f"Invalid index: {index}. No creature deleted.")
+        return
+
+    deleted_creature = creatures.pop(index)  # Remove the creature at the index
+
+    with open(filename, "w") as file:
+        json.dump(creatures, file, indent=4)  # Save updated list
+
+    print(f"Creature at index {index} ('{deleted_creature.get('name', 'Unknown')}') deleted successfully!")
+
+# Example Usage
+# delete_creature_by_index(2)  # Deletes the third creature (index 2)
+
+########################################################################################################################
+def load_teamcreatures(filename="teamdata.txt"):
+    try:
+        with open(filename, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []  # Return empty list if file doesn't exist or is empty
+
+    #creatures = load_creatures()
+    #print(creatures)  # Displays the list of saved creatures
+########################################################################################################################
+def modify_teamcreature(index, new_attributes, filename="teamdata.txt"):
+    try:
+        with open(filename, "r") as file:
+            creatures = json.load(file)  # Load existing creatures
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("No creatures found.")
+        return
+
+    if index < 0 or index >= len(creatures):  # Check if index is valid
+        print(f"Invalid index: {index}. No creature modified.")
+        return
+
+    creatures[index].update(new_attributes)  # Modify attributes
+
+
+
+    with open(filename, "w") as file:
+        json.dump(creatures, file, indent=4)  # Save changes
+
+    print(f"Creature updated successfully!")
+
+# Example Usage
+# modify_creature(index, {"health": 120, "attack": 25})  # Updates Dragon's health and attack
+########################################################################################################################
+def save_teamcreature(creature_data, filename="teamdata.txt"):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)  # Load existing data
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = []  # If file doesn't exist or is empty, start with an empty list
+
+    data.append(creature_data)  # Add new creature data
+
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=4)  # Save updated data
+########################################################################################################################
 class maingameareas(pygame.sprite.Sprite):
     def __init__(self, inputvalue=""):
         super().__init__()
@@ -712,10 +1156,11 @@ class maingameareas(pygame.sprite.Sprite):
         randomgem = 0
         random2 = 0
         chestbool = 0
-        pygame.mixer.music.load("fantasyhomemusic.mp3")
-        pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
         pygame.mixer.music.play(-1)
         mainloop = True
+        video = cv2.VideoCapture("video/underwater.mp4")
 
         bubbles = 800
         bubblex = []
@@ -769,6 +1214,7 @@ class maingameareas(pygame.sprite.Sprite):
             draw_text("Gambling Den", font13, GOLD, DISPLAYSURF, 1415, 547)
             draw_text("Guild Hall", font13, SKYBLUE, DISPLAYSURF, 630, 550)
             draw_text("Black Market", font13, PURPLE, DISPLAYSURF, 250, 575)
+            draw_text("Stash", font13, BLACK, DISPLAYSURF, 570, 685)
 
             if paimonrect.collidepoint(mouse_pos):
                 DISPLAYSURF.blit(image0135, (195, 100))
@@ -788,12 +1234,24 @@ class maingameareas(pygame.sprite.Sprite):
                 draw_text("Guild Hall", font13, rainbow, DISPLAYSURF, 630, 550)
             if stashrect.collidepoint(mouse_pos):
                 DISPLAYSURF.blit(image0140, (195, 100))
+                draw_text("Stash", font13, rainbow, DISPLAYSURF, 570, 685)
             if blackmarketrect.collidepoint(mouse_pos):
                 DISPLAYSURF.blit(image0141, (195, 100))
                 draw_text("Black Market", font13, rainbow, DISPLAYSURF, 250, 575)
-
             if adventurerect.collidepoint(mouse_pos):
                 DISPLAYSURF.blit(image0138, (195, 100))
+
+            ret, frame = video.read()
+            if not ret:
+                video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                continue  # Continue to the next loop iteration
+            frame = cv2.resize(frame, (1550, 880))
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame_surface = pygame.surfarray.make_surface(frame)
+            frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+            frame_surface = pygame.transform.flip(frame_surface, True, False)
+            frame_surface.set_alpha(70)
+            DISPLAYSURF.blit(frame_surface, (190, 100))
 
 
             image133.set_alpha(150)
@@ -833,17 +1291,16 @@ class maingameareas(pygame.sprite.Sprite):
             DISPLAYSURF.blit(image220, (360, 130))
             DISPLAYSURF.blit(image221, (655, 125))
             DISPLAYSURF.blit(image222, (1260, 130))
-            draw_text(str(gold), font5, GOLD, DISPLAYSURF, 480, 152)
-            draw_text(str(gem), font5, PURPLE, DISPLAYSURF, 1385, 152)
-            draw_text(str(level), font5, GREY, DISPLAYSURF, 706, 150)
-            draw_text(str(level), font5, GREY, DISPLAYSURF, 1208, 150)
+            draw_text_center(str(gold), font5, GOLD, DISPLAYSURF, 507, 152)
+            draw_text_center(str(gem), font5, PURPLE, DISPLAYSURF, 1410, 152)
+            draw_text_center(str(level), font5, GREY, DISPLAYSURF, 710, 150)
+            draw_text_center(str(level), font5, GREY, DISPLAYSURF, 1210, 150)
 
             # print("x and y = " +str(mouseX) +" " +str(mouseY))
 
-            draw_text("Coming Soon", font13, DARKRED, DISPLAYSURF, 900, 460)
-            draw_text("Coming Soon", font13, DARKRED, DISPLAYSURF, 714, 254)
-            draw_text("Coming Soon", font13, DARKRED, DISPLAYSURF, 900, 620)
-            draw_text("Coming Soon", font13, DARKRED, DISPLAYSURF, 550, 685)
+            draw_text_center("Coming Soon", font13, DARKRED, DISPLAYSURF, 960, 460)
+            draw_text_center("Coming Soon", font13, DARKRED, DISPLAYSURF, 780, 254)
+            draw_text_center("Coming Soon", font13, DARKRED, DISPLAYSURF, 960, 620)
 
             mouseX, mouseY = pygame.mouse.get_pos()
 
@@ -891,53 +1348,74 @@ class maingameareas(pygame.sprite.Sprite):
                                 gold = gold + randomgold
                             if(random2 == 1):
                                 gem = gem + randomgem
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                             pygame.mixer.music.set_volume(0.5)
                             sound_effect.play()
                             chestbool = 150
                             chestcollected = chesttimer
                     if paimonrect.collidepoint(mouse_pos):
+                        video.release()
                         transition(6)
-                        sound_effect = pygame.mixer.Sound("dissapearwhoosh.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/dissapearwhoosh.mp3")
                         sound_effect.play()
                         PaimonShop()
-                        pygame.mixer.music.load("fantasyhomemusic.mp3")
-                        pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+                        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+                        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
                         pygame.mixer.music.play(-1)
+                        video = cv2.VideoCapture("video/underwater.mp4")
                     if labormarketrect.collidepoint(mouse_pos):
+                        video.release()
                         transition(6)
-                        sound_effect = pygame.mixer.Sound("dissapearwhoosh.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/dissapearwhoosh.mp3")
                         sound_effect.play()
                         labormarket()
-                        pygame.mixer.music.load("fantasyhomemusic.mp3")
-                        pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+                        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+                        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
                         pygame.mixer.music.play(-1)
+                        video = cv2.VideoCapture("video/underwater.mp4")
                     if gamblingdenrect.collidepoint(mouse_pos):
+                        video.release()
                         transition(6)
-                        sound_effect = pygame.mixer.Sound("dissapearwhoosh.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/dissapearwhoosh.mp3")
                         sound_effect.play()
                         casino()
-                        pygame.mixer.music.load("fantasyhomemusic.mp3")
-                        pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+                        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+                        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
                         pygame.mixer.music.play(-1)
+                        video = cv2.VideoCapture("video/underwater.mp4")
                     if guildrect.collidepoint(mouse_pos):
+                        video.release()
                         transition(6)
-                        sound_effect = pygame.mixer.Sound("dissapearwhoosh.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/dissapearwhoosh.mp3")
                         sound_effect.play()
                         guild()
-                        pygame.mixer.music.load("fantasyhomemusic.mp3")
-                        pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+                        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+                        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
                         pygame.mixer.music.play(-1)
+                        video = cv2.VideoCapture("video/underwater.mp4")
                     if blackmarketrect.collidepoint(mouse_pos):
+                        video.release()
                         transition(6)
-                        sound_effect = pygame.mixer.Sound("dissapearwhoosh.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/dissapearwhoosh.mp3")
                         sound_effect.play()
                         blackmarket()
-                        pygame.mixer.music.load("fantasyhomemusic.mp3")
-                        pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+                        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+                        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
                         pygame.mixer.music.play(-1)
+                        video = cv2.VideoCapture("video/underwater.mp4")
+                    if stashrect.collidepoint(mouse_pos):
+                        video.release()
+                        transition(6)
+                        sound_effect = pygame.mixer.Sound("audio/dissapearwhoosh.mp3")
+                        sound_effect.play()
+                        stash()
+                        pygame.mixer.music.load("audio/fantasyhomemusic.mp3")
+                        pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
+                        pygame.mixer.music.play(-1)
+                        video = cv2.VideoCapture("video/underwater.mp4")
                     if xrect.collidepoint(mouse_pos):
                         print("Quit clicked")
+                        video.release()
                         pygame.mixer.music.stop()
                         pygame.quit()
                         sys.exit()
@@ -1024,12 +1502,12 @@ class PaimonShop(pygame.sprite.Sprite):
                         gold = gold - price
                         itemlist.append(name)
                         print("item bought")
-                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                         itemboughtswitch = True
                         sound_effect.play()
                         return (0, 7)
                     else:
-                        sound_effect = pygame.mixer.Sound("error.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/error.mp3")
                         errorswitch = True
                         sound_effect.play()
                         pygame.mixer.music.set_volume(0.5)
@@ -1072,7 +1550,7 @@ class PaimonShop(pygame.sprite.Sprite):
             else:
                 if event.type == MOUSEBUTTONDOWN:
                     if 0 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                        sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                         sound_effect.play()
                         pygame.mixer.music.set_volume(0.4)
                         pygame.display.update()
@@ -1091,7 +1569,7 @@ class PaimonShop(pygame.sprite.Sprite):
         itemdisplay = 0
         xcounter = 0
         mouse_pos = pygame.mouse.get_pos()
-        pygame.mixer.music.load("celestialmusic.mp3")
+        pygame.mixer.music.load("audio/celestialmusic.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("Paimons shop initialized")
@@ -1379,7 +1857,7 @@ class PaimonShop(pygame.sprite.Sprite):
                         pygame.quit()
                         sys.exit()
                     elif event.type == MOUSEBUTTONDOWN:
-                        sound_effect = pygame.mixer.Sound("shopclicksound.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
                         sound_effect.play()
                         if returnrect.collidepoint(mouse_pos):
                             print("exited paimon shop menu")
@@ -1684,7 +2162,7 @@ class PaimonShop(pygame.sprite.Sprite):
                                 self.menu_activepaimon = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
@@ -1741,7 +2219,7 @@ class PaimonShop(pygame.sprite.Sprite):
                                 self.menu_activepaimon = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
@@ -1815,7 +2293,7 @@ class PaimonShop(pygame.sprite.Sprite):
                                 self.menu_activepaimon = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
@@ -1877,7 +2355,7 @@ class labormarket(pygame.sprite.Sprite):
             else:
                 if event.type == MOUSEBUTTONDOWN:
                     if 0 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                        sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                         sound_effect.play()
                         pygame.mixer.music.set_volume(0.4)
 
@@ -1889,11 +2367,11 @@ class labormarket(pygame.sprite.Sprite):
         global FaderBool
         global Fader
         global textFader
-        video = cv2.VideoCapture("goldglitterbackground.mp4")
+        video = cv2.VideoCapture("video/goldglitterbackground.mp4")
         startTime = pygame.time.get_ticks()
         self.gamescene = 1
         mouse_pos = pygame.mouse.get_pos()
-        pygame.mixer.music.load("goblindancemusic.mp3")
+        pygame.mixer.music.load("audio/goblindancemusic.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("labor market initialized")
@@ -2085,9 +2563,10 @@ class labormarket(pygame.sprite.Sprite):
             global specialefficiency
             startTime = pygame.time.get_ticks()
             scene = 1
+            popcounter = 1
             mouse_pos = pygame.mouse.get_pos()
-            pygame.mixer.music.load("beachmusic.mp3")
-            pygame.mixer.music.queue("fantasyhomemusic2.mp3")
+            pygame.mixer.music.load("audio/beachmusic.mp3")
+            pygame.mixer.music.queue("audio/fantasyhomemusic2.mp3")
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
             secondsextra = 0
@@ -2204,6 +2683,8 @@ class labormarket(pygame.sprite.Sprite):
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if beginrect.collidepoint(mouse_pos):
+                                sound_effect = pygame.mixer.Sound("audio/yippie.mp3")
+                                sound_effect.play()
                                 scene = scene + 1
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
@@ -2218,6 +2699,16 @@ class labormarket(pygame.sprite.Sprite):
                                 scene = 5
 
                 if(scene == 2):
+                    movementbool1 = True
+                    movementbool2 = True
+                    movementbool3 = True
+                    movementbool4 = True
+
+                    if(popcounter <= 5):
+                        popcounter = popcounter + 1
+                    if(popcounter > 5):
+                        popcounter = 0
+
                     if(tempgold > 0):
                         tempgold2 = tempgold
                     if(tempgem > 0):
@@ -2231,19 +2722,19 @@ class labormarket(pygame.sprite.Sprite):
                     if(x < -8480):
                         x = -8480
                     if (miningspeedtemp < 5):
-                        if(len(digs) > 700):
+                        if(len(digs) > 53):
                             digs.pop(0)
                             digs.pop(1)
                             digs.pop(2)
 
                     if (5 <= miningspeedtemp < 10):
-                        if(len(digs) > 500):
+                        if(len(digs) > 53):
                             digs.pop(0)
                             digs.pop(1)
                             digs.pop(2)
 
                     if (10 <= miningspeedtemp):
-                        if(len(digs) > 300):
+                        if(len(digs) > 53):
                             digs.pop(0)
                             digs.pop(1)
                             digs.pop(2)
@@ -2257,18 +2748,13 @@ class labormarket(pygame.sprite.Sprite):
                     seconds = (remaining_time // 1000) + secondsextra
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image150, (x, y))
-                    i = 3
                     for element in digs:
-                        i = i + 1
                         if (miningspeedtemp < 5):
-                            if (i % 20 == 3):
-                                DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
+                            DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
                         if (5 <= miningspeedtemp < 10):
-                            if (i % 12 == 3):
-                                DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
+                            DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
                         if (10 <= miningspeedtemp):
-                            if (i % 6 == 3):
-                                DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
+                            DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
                     screen_width, screen_height = DISPLAYSURF.get_size()
                     DISPLAYSURF.blit(image142, (screen_width/2, screen_height/2))
                     itemgenerationcounter = (90 + (4 * int(spawnchance)))
@@ -2279,7 +2765,7 @@ class labormarket(pygame.sprite.Sprite):
                             xlocation[itemgenerationcounter + 6000] = xlocation[itemgenerationcounter + 6000] + random.randint(-10,10)
                             ylocation[itemgenerationcounter + 6000] = ylocation[itemgenerationcounter + 6000] + random.randint(-10,10)
 
-                            DISPLAYSURF.blit(image156, (xlocation[itemgenerationcounter + 5000] + x, ylocation[itemgenerationcounter + 5000] + y + 8000))
+                            DISPLAYSURF.blit(image156, (xlocation[itemgenerationcounter + 5000] + x, ylocation[itemgenerationcounter + 5000] + y + 5000))
                             DISPLAYSURF.blit(image157, (xlocation[itemgenerationcounter + 5500] + x, ylocation[itemgenerationcounter + 5500] + y + 3000))
                             DISPLAYSURF.blit(image158, (xlocation[itemgenerationcounter + 6000] + x, ylocation[itemgenerationcounter + 6000] + y + 1000))
                             DISPLAYSURF.blit(image159, (xlocation[itemgenerationcounter + 6500] + x, ylocation[itemgenerationcounter + 6500] + y + 10000))
@@ -2291,7 +2777,7 @@ class labormarket(pygame.sprite.Sprite):
                             draw_text('3 secs', font5, (0, 0, rainbowcolor3), DISPLAYSURF, xlocation[itemgenerationcounter + 8700] + x, ylocation[itemgenerationcounter + 8700] + y + 2000)
                             draw_text('1 secs', font5, (0, 0, rainbowcolor3), DISPLAYSURF, xlocation[itemgenerationcounter + 8900] + x, ylocation[itemgenerationcounter + 8900] + y + 500)
 
-                            gem9rect = pygame.Rect((xlocation[itemgenerationcounter + 5000] + x - 16, ylocation[itemgenerationcounter + 5000] + y - 30 + 8000, 240, 190))
+                            gem9rect = pygame.Rect((xlocation[itemgenerationcounter + 5000] + x - 16, ylocation[itemgenerationcounter + 5000] + y - 30 + 5000, 240, 190))
                             gem10rect = pygame.Rect((xlocation[itemgenerationcounter + 5500] + x - 8, ylocation[itemgenerationcounter + 5500] + y - 20 + 3000, 85, 85))
                             gem11rect = pygame.Rect((xlocation[itemgenerationcounter + 6000] + x - 8, ylocation[itemgenerationcounter + 6000] + y - 25 + 1000, 85, 85))
                             gem12rect = pygame.Rect((xlocation[itemgenerationcounter + 6500] + x - 16, ylocation[itemgenerationcounter + 6500] + y - 30 + 10000, 100, 100))
@@ -2314,11 +2800,12 @@ class labormarket(pygame.sprite.Sprite):
                             # pygame.draw.rect(DISPLAYSURF, (BLACK), text1rect, 5)
                             # pygame.draw.rect(DISPLAYSURF, (BLACK), text2rect, 5)
                             # pygame.draw.rect(DISPLAYSURF, (BLACK), text3rect, 5)
+
                             if text1rect.collidepoint((screen_center[0], screen_center[1])):
                                 print("time collected!")
                                 xlocation[itemgenerationcounter + 8500] = (-20000)
                                 ylocation[itemgenerationcounter + 8500] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                                 sound_effect.play()
                                 secondstouch = 5
                                 secondsextra = secondsextra + 5
@@ -2328,7 +2815,7 @@ class labormarket(pygame.sprite.Sprite):
                                 print("time collected!")
                                 xlocation[itemgenerationcounter + 8700] = (-20000)
                                 ylocation[itemgenerationcounter + 8700] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                                 sound_effect.play()
                                 secondstouch = 3
                                 secondsextra = secondsextra + 3
@@ -2338,27 +2825,27 @@ class labormarket(pygame.sprite.Sprite):
                                 print("time collected!")
                                 xlocation[itemgenerationcounter + 8900] = (-20000)
                                 ylocation[itemgenerationcounter + 8900] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                                 sound_effect.play()
                                 secondstouch = 1
                                 secondsextra = secondsextra + 1
                                 looptimet = pygame.time.get_ticks() + 2000
                                 timert = pygame.time.get_ticks()
-                            if gem9rect.collidepoint((screen_center[0], screen_center[1])):
+                            if gem9rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                                 print("dinosaur collected!")
                                 xlocation[itemgenerationcounter + 5000] = (-20000)
                                 ylocation[itemgenerationcounter + 5000] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/itempickup.mp3")
                                 sound_effect.play()
-                                tempgold = int(tempgold + (500 * (1 + (.1 * specialefficiency))))
+                                tempgold = int(tempgold + (750 * (1 + (.1 * specialefficiency))))
                                 looptime = pygame.time.get_ticks() + 2000
                                 timer = pygame.time.get_ticks()
-                                goldamount = int((500 * (1 + (.1 * specialefficiency))))
+                                goldamount = int((750 * (1 + (.1 * specialefficiency))))
                             if gem10rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                                 print("crown collected!")
                                 xlocation[itemgenerationcounter + 5500] = (-20000)
                                 ylocation[itemgenerationcounter + 5500] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/itempickup.mp3")
                                 sound_effect.play()
                                 tempgold = int(tempgold + (100 * (1 + (.1 * specialefficiency))))
                                 looptime = pygame.time.get_ticks() + 2000
@@ -2368,6 +2855,8 @@ class labormarket(pygame.sprite.Sprite):
                                 xlocation[itemgenerationcounter + 6000] = (-20000)
                                 ylocation[itemgenerationcounter + 6000] = (-20000)
                                 print("spider attacked!")
+                                sound_effect = pygame.mixer.Sound("audio/spidernoise.mp3")
+                                sound_effect.play()
                                 gold = gold + tempgold
                                 gem = gem + tempgem
                                 tempgold = 0
@@ -2383,7 +2872,7 @@ class labormarket(pygame.sprite.Sprite):
                                 print("egg collected!")
                                 xlocation[itemgenerationcounter + 6500] = (-20000)
                                 ylocation[itemgenerationcounter + 6500] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/swoosh.mp3")
                                 sound_effect.play()
                                 tempgold = int(tempgold + (2000 * (1 + (.1 * specialefficiency))))
                                 looptime = pygame.time.get_ticks() + 2000
@@ -2393,9 +2882,9 @@ class labormarket(pygame.sprite.Sprite):
                                 print("Chest collected!")
                                 xlocation[itemgenerationcounter + 7000] = (-20000)
                                 ylocation[itemgenerationcounter + 7000] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
                                 sound_effect.play()
-                                goldamount = int(random.randint(int(200 + (10 * luck)), int(400 * (1 + (.1 * specialefficiency)))))
+                                goldamount = int(random.randint(int(200 + (10 * luck)), int(500 * (1 + (.1 * specialefficiency)))))
                                 tempgold = tempgold + goldamount
                                 looptime = pygame.time.get_ticks() + 2000
                                 timer = pygame.time.get_ticks()
@@ -2403,9 +2892,9 @@ class labormarket(pygame.sprite.Sprite):
                                 print("Chest collected!")
                                 xlocation[itemgenerationcounter + 7500] = (-20000)
                                 ylocation[itemgenerationcounter + 7500] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
                                 sound_effect.play()
-                                goldamount = int(random.randint(int(200 + (10 * luck)), int(500 * (1 + (.1 * specialefficiency)))))
+                                goldamount = int(random.randint(int(200 + (10 * luck)), int(700 * (1 + (.1 * specialefficiency)))))
                                 tempgold = tempgold + goldamount
                                 looptime = pygame.time.get_ticks() + 2000
                                 timer = pygame.time.get_ticks()
@@ -2413,9 +2902,9 @@ class labormarket(pygame.sprite.Sprite):
                                 print("Chest collected!")
                                 xlocation[itemgenerationcounter + 8000] = (-20000)
                                 ylocation[itemgenerationcounter + 8000] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
                                 sound_effect.play()
-                                goldamount = int(random.randint(int(10 + (30 * luck)), int(1000 * (1 + (.1 * specialefficiency)))))
+                                goldamount = int(random.randint(int(10 + (30 * luck)), int(1500 * (1 + (.1 * specialefficiency)))))
                                 tempgold = tempgold + goldamount
                                 looptime = pygame.time.get_ticks() + 2000
                                 timer = pygame.time.get_ticks()
@@ -2423,9 +2912,9 @@ class labormarket(pygame.sprite.Sprite):
                                 print("Chest collected!")
                                 xlocation[itemgenerationcounter + 4500] = (-20000)
                                 ylocation[itemgenerationcounter + 4500] = (-20000)
-                                sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
                                 sound_effect.play()
-                                goldamount = int(random.randint(int(20 + (2 * luck)), int(50 * (1 + (.1 * specialefficiency)))))
+                                goldamount = int(random.randint(int(30 + (2 * luck)), int(80 * (1 + (.1 * specialefficiency)))))
                                 tempgold = tempgold + goldamount
                                 looptime = pygame.time.get_ticks() + 2000
                                 timer = pygame.time.get_ticks()
@@ -2442,6 +2931,22 @@ class labormarket(pygame.sprite.Sprite):
                         DISPLAYSURF.blit(image166, (xlocation[itemgenerationcounter + 3700] + x, ylocation[itemgenerationcounter + 3700] + y + 4500))
                         DISPLAYSURF.blit(image167, (xlocation[itemgenerationcounter + 3900] + x, ylocation[itemgenerationcounter + 3900] + y + 7500))
 
+                        randomcritter = itemgenerationcounter % 4
+                        if (randomcritter == 1):
+                            DISPLAYSURF.blit(image257, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                        if (randomcritter == 2):
+                            DISPLAYSURF.blit(image258, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                        if (randomcritter == 0):
+                            DISPLAYSURF.blit(image259, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                        if (randomcritter == 3):
+                            DISPLAYSURF.blit(image260, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+
+                        batrect = pygame.Rect((xlocation[itemgenerationcounter + 4250] + x - 16, ylocation[itemgenerationcounter + 4250] + y - 30 + 3000, 120, 90))
+
+                        DISPLAYSURF.blit(image261, (xlocation[itemgenerationcounter + 4750] + x, ylocation[itemgenerationcounter + 4750] + y + 1000))
+                        boulderect = pygame.Rect((xlocation[itemgenerationcounter + 4750] + x - 16, ylocation[itemgenerationcounter + 4750] + y - 10 + 1000, 210, 150))
+
+
                         gem1rect = pygame.Rect((xlocation[itemgenerationcounter] + x - 15, ylocation[itemgenerationcounter] + y - 40, 70, 70))
                         gem2rect = pygame.Rect((xlocation[itemgenerationcounter + 1000] + x - 20, ylocation[itemgenerationcounter + 1000] + y - 35, 65, 65))
                         gem3rect = pygame.Rect((xlocation[itemgenerationcounter + 2000] + x - 20, ylocation[itemgenerationcounter + 2000] + y - 25 + 1000, 65, 65))
@@ -2451,8 +2956,8 @@ class labormarket(pygame.sprite.Sprite):
                         gem6rect = pygame.Rect((xlocation[itemgenerationcounter + 2500] + x - 20, ylocation[itemgenerationcounter + 2500] + y - 25 + 1000, 65, 60))
                         gem7rect = pygame.Rect((xlocation[itemgenerationcounter + 3500] + x - 20, ylocation[itemgenerationcounter + 3500] + y - 25 + 1500, 65, 65))
 
-                        lava1rect = pygame.Rect((xlocation[itemgenerationcounter + 3700] + x + 100, ylocation[itemgenerationcounter + 3700] + y - 45 + 4500, 250, 250))
-                        lava2rect = pygame.Rect((xlocation[itemgenerationcounter + 3900] + x  - 20, ylocation[itemgenerationcounter + 3900] + y - 25 + 7500, 330, 450))
+                        lava1rect = pygame.Rect((xlocation[itemgenerationcounter + 3700] + x + 80, ylocation[itemgenerationcounter + 3700] + y - 10 + 4500, 210, 200))
+                        lava2rect = pygame.Rect((xlocation[itemgenerationcounter + 3900] + x + 10, ylocation[itemgenerationcounter + 3900] + y - 0 + 7500, 280, 410))
 
                         # pygame.draw.rect(DISPLAYSURF, (WHITE), gem1rect, 5)
                         # pygame.draw.rect(DISPLAYSURF, (RED), gem2rect, 5)
@@ -2464,10 +2969,52 @@ class labormarket(pygame.sprite.Sprite):
                         # pygame.draw.rect(DISPLAYSURF, (RED), lava1rect, 5)
                         # pygame.draw.rect(DISPLAYSURF, (RED), lava2rect, 5)
                         screen_center = DISPLAYSURF.get_rect().center
+                        speed = .9 + (.20 * miningspeed)
+
+                        batrect2 = pygame.Rect((xlocation[itemgenerationcounter + 4250] + x - 500, ylocation[itemgenerationcounter + 4250] + y - 500 + 3000, 1000, 1000))
+
+                        if boulderect.collidepoint((screen_center[0] + 10, screen_center[1] + 10 + speed)):
+                            movementbool1 = False
+                        if boulderect.collidepoint((screen_center[0] + 10, screen_center[1] + 10 - speed)):
+                            movementbool2 = False
+                        if boulderect.collidepoint((screen_center[0] + 10 + speed, screen_center[1] + 10)):
+                            movementbool3 = False
+                        if boulderect.collidepoint((screen_center[0] + 10 - speed, screen_center[1] + 10)):
+                            movementbool4 = False
+
+                        if batrect2.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
+                            if((screen_center[0] + 10) >  xlocation[itemgenerationcounter + 4250] + x):
+                                xlocation[itemgenerationcounter + 4250] = xlocation[itemgenerationcounter + 4250] + 1
+                            if((screen_center[0] + 10) <  xlocation[itemgenerationcounter + 4250] + x):
+                                xlocation[itemgenerationcounter + 4250] = xlocation[itemgenerationcounter + 4250] - 1
+                            if ((screen_center[1] + 10) > ylocation[itemgenerationcounter + 4250] + y + 3000):
+                                ylocation[itemgenerationcounter + 4250] = ylocation[itemgenerationcounter + 4250] + 1
+                            if ((screen_center[1] + 10) < ylocation[itemgenerationcounter + 4250] + y + 3000):
+                                ylocation[itemgenerationcounter + 4250] = ylocation[itemgenerationcounter + 4250] - 1
+
+                        if batrect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
+                            xlocation[itemgenerationcounter + 4250] = (-20000)
+                            ylocation[itemgenerationcounter + 4250] = (-20000)
+                            print("Bat attacked!")
+                            sound_effect = pygame.mixer.Sound("audio/critternoise.mp3")
+                            sound_effect.play()
+                            gold = gold + tempgold
+                            gem = gem + tempgem
+                            tempgold = 0
+                            tempgem = 0
+                            with open("gamedata.txt", "r") as file:
+                                lines = file.readlines()
+                                lines[0] = f"gold = {gold}\n"
+                                lines[1] = f"gem = {gem}\n"
+                            with open("gamedata.txt", "w") as file:
+                                file.writelines(lines)
+                            scene = 4
                         if lava1rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                             xlocation[itemgenerationcounter + 3700] = (-20000)
                             ylocation[itemgenerationcounter + 3700] = (-20000)
                             print("Jumped into Lava!")
+                            sound_effect = pygame.mixer.Sound("audio/lavanoise.mp3")
+                            sound_effect.play()
                             gold = gold + tempgold
                             gem = gem + tempgem
                             tempgold = 0
@@ -2483,6 +3030,8 @@ class labormarket(pygame.sprite.Sprite):
                             xlocation[itemgenerationcounter + 3900] = (-20000)
                             ylocation[itemgenerationcounter + 3900] = (-20000)
                             print("Jumped into Lava!")
+                            sound_effect = pygame.mixer.Sound("audio/lavanoise.mp3")
+                            sound_effect.play()
                             gold = gold + tempgold
                             gem = gem + tempgem
                             tempgold = 0
@@ -2498,57 +3047,57 @@ class labormarket(pygame.sprite.Sprite):
                             print("gem collected!")
                             xlocation[itemgenerationcounter] = (-20000)
                             ylocation[itemgenerationcounter] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
-                            sound_effect.play()
-                            tempgold = int(tempgold + (5 * (1 + (.1 * miningefficiency))))
-                            looptime = pygame.time.get_ticks() + 2000
-                            timer = pygame.time.get_ticks()
-                            goldamount = int((5 * (1 + (.1 * miningefficiency))))
-                        if gem2rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
-                            print("gem collected!")
-                            xlocation[itemgenerationcounter + 1000] = (-20000)
-                            ylocation[itemgenerationcounter + 1000] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
-                            sound_effect.play()
-                            tempgold = int(tempgold + (2 * (1 + (.1 * miningefficiency))))
-                            looptime = pygame.time.get_ticks() + 2000
-                            timer = pygame.time.get_ticks()
-                            goldamount = int((2 * (1 + (.1 * miningefficiency))))
-                        if gem3rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
-                            print("gem collected!")
-                            xlocation[itemgenerationcounter + 2000] = (-20000)
-                            ylocation[itemgenerationcounter + 2000] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
-                            sound_effect.play()
-                            tempgold = int(tempgold + (3 * (1 + (.1 * miningefficiency))))
-                            looptime = pygame.time.get_ticks() + 2000
-                            timer = pygame.time.get_ticks()
-                            goldamount = int((3 * (1 + (.1 * miningefficiency))))
-                        if gem4rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
-                            print("gem collected!")
-                            xlocation[itemgenerationcounter + 3000] = (-20000)
-                            ylocation[itemgenerationcounter + 3000] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                             sound_effect.play()
                             tempgold = int(tempgold + (10 * (1 + (.1 * miningefficiency))))
                             looptime = pygame.time.get_ticks() + 2000
                             timer = pygame.time.get_ticks()
                             goldamount = int((10 * (1 + (.1 * miningefficiency))))
+                        if gem2rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
+                            print("gem collected!")
+                            xlocation[itemgenerationcounter + 1000] = (-20000)
+                            ylocation[itemgenerationcounter + 1000] = (-20000)
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
+                            sound_effect.play()
+                            tempgold = int(tempgold + (5 * (1 + (.1 * miningefficiency))))
+                            looptime = pygame.time.get_ticks() + 2000
+                            timer = pygame.time.get_ticks()
+                            goldamount = int((5 * (1 + (.1 * miningefficiency))))
+                        if gem3rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
+                            print("gem collected!")
+                            xlocation[itemgenerationcounter + 2000] = (-20000)
+                            ylocation[itemgenerationcounter + 2000] = (-20000)
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
+                            sound_effect.play()
+                            tempgold = int(tempgold + (7 * (1 + (.1 * miningefficiency))))
+                            looptime = pygame.time.get_ticks() + 2000
+                            timer = pygame.time.get_ticks()
+                            goldamount = int((7 * (1 + (.1 * miningefficiency))))
+                        if gem4rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
+                            print("gem collected!")
+                            xlocation[itemgenerationcounter + 3000] = (-20000)
+                            ylocation[itemgenerationcounter + 3000] = (-20000)
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
+                            sound_effect.play()
+                            tempgold = int(tempgold + (20 * (1 + (.1 * miningefficiency))))
+                            looptime = pygame.time.get_ticks() + 2000
+                            timer = pygame.time.get_ticks()
+                            goldamount = int((20 * (1 + (.1 * miningefficiency))))
                         if gem5rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                             print("gem collected!")
                             xlocation[itemgenerationcounter + 4000] = (-20000)
                             ylocation[itemgenerationcounter + 4000] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                             sound_effect.play()
-                            tempgold = int(tempgold + (1 * (1 + (.1 * miningefficiency))))
+                            tempgold = int(tempgold + (3 * (1 + (.1 * miningefficiency))))
                             looptime = pygame.time.get_ticks() + 2000
                             timer = pygame.time.get_ticks()
-                            goldamount = int((1 * (1 + (.1 * miningefficiency))))
+                            goldamount = int((3 * (1 + (.1 * miningefficiency))))
                         if gem6rect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                             print("trilobite collected!")
                             xlocation[itemgenerationcounter + 2500] = (-20000)
                             ylocation[itemgenerationcounter + 2500] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                             sound_effect.play()
                             tempgold = int(tempgold + (1 * (1 + (.5 * specialefficiency))))
                             looptime = pygame.time.get_ticks() + 2000
@@ -2558,7 +3107,7 @@ class labormarket(pygame.sprite.Sprite):
                             print("special gem collected!")
                             xlocation[itemgenerationcounter + 3500] = (-20000)
                             ylocation[itemgenerationcounter + 3500] = (-20000)
-                            sound_effect = pygame.mixer.Sound("nextlevel.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
                             sound_effect.play()
                             tempgem = int(tempgem + (1 * (1 + (.25 * specialefficiency))))
                             looptimeg = pygame.time.get_ticks() + 2000
@@ -2580,30 +3129,45 @@ class labormarket(pygame.sprite.Sprite):
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_s:
-                                y = y - speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool1 == True):
+                                    y = y - speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_w:
-                                y = y + speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool2 == True):
+                                    y = y + speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_d:
-                                x = x - speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool3 == True):
+                                    x = x - speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_a:
-                                x = x + speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool4 == True):
+                                    x = x + speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_UP:
-                                y = y + speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool2 == True):
+                                    y = y + speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_DOWN:
-                                y = y - speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool1 == True):
+                                    y = y - speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_LEFT:
-                                x = x + speed
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool4 == True):
+                                    x = x + speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                             elif event.key == pygame.K_RIGHT:
-                                x = x - speed
-                                randomdig = random.randint(1, 3)
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                if(movementbool3 == True):
+                                    x = x - speed
+                                    if(popcounter == 3):
+                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if returnarrowrect.collidepoint(mouse_pos):
                                 transition(6)
@@ -2622,29 +3186,45 @@ class labormarket(pygame.sprite.Sprite):
 
                     # Check if specific keys are being held down
                     if keys[pygame.K_s]:
-                        y = y - speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool1 == True):
+                            y = y - speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_w]:
-                        y = y + speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool2 == True):
+                            y = y + speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_d]:
-                        x = x - speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool3 == True):
+                            x = x - speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_a]:
-                        x = x + speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool4 == True):
+                            x = x + speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_UP]:
-                        y = y + speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool2 == True):
+                            y = y + speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_DOWN]:
-                        y = y - speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool1 == True):
+                            y = y - speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_LEFT]:
-                        x = x + speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool4 == True):
+                            x = x + speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     if keys[pygame.K_RIGHT]:
-                        x = x - speed
-                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                        if (movementbool3 == True):
+                            x = x - speed
+                            if (popcounter == 3):
+                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
                     draw_text_center(str(seconds) +" seconds remaining", font4, rainbowcol, DISPLAYSURF, halfdisplay, screen_height/2 - 400)
                     if seconds <= 0:
                         print("Time's up!")
@@ -2694,6 +3274,8 @@ class labormarket(pygame.sprite.Sprite):
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if enddayrect.collidepoint(mouse_pos):
                                 transition(6)
+                                sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                                sound_effect.play()
                                 self.diggingbool = False
                                 tempgold2 = 0
                                 tempgold = 0
@@ -2734,11 +3316,15 @@ class labormarket(pygame.sprite.Sprite):
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if enddayrect.collidepoint(mouse_pos):
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
+                                sound_effect.play()
                                 transition(6)
                                 self.diggingbool = False
                                 tempgold2 = 0
                                 tempgem2 = 0
                             if returnarrowrect.collidepoint(mouse_pos):
+                                sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                sound_effect.play()
                                 transition(6)
                                 self.gamescene == 1
                                 self.diggingbool = False
@@ -2847,31 +3433,43 @@ class labormarket(pygame.sprite.Sprite):
                                     if(gem >= (3 * miningspeed)):
                                         gem = (gem - (3 * miningspeed))
                                         miningspeed = miningspeed + 1
+                                        sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                        sound_effect.play()
                             if plusrect5.collidepoint(mouse_pos):
                                 if(miningefficiency != 16):
                                     if(gem >= (5 * miningefficiency)):
                                         gem = gem - ((5 * miningefficiency))
                                         miningefficiency = miningefficiency + 1
+                                        sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                        sound_effect.play()
                             if plusrect4.collidepoint(mouse_pos):
                                 if(time != 16):
                                     if(gem >= (3 * time)):
                                         gem = gem - ((3 * time))
                                         time = time + 1
+                                        sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                        sound_effect.play()
                             if plusrect3.collidepoint(mouse_pos):
                                 if(luck != 16):
                                     if(gem >= (3 * luck)):
                                         gem = gem - ((3 * luck))
                                         luck = luck + 1
+                                        sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                        sound_effect.play()
                             if plusrect2.collidepoint(mouse_pos):
                                 if(spawnchance != 16):
                                     if(gem >= (8 * spawnchance)):
                                         gem = (gem - (8 * spawnchance))
                                         spawnchance = spawnchance + 1
+                                        sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                        sound_effect.play()
                             if plusrect1.collidepoint(mouse_pos):
                                 if(specialefficiency != 16):
                                     if(gem >= (10 * specialefficiency)):
                                         gem = (gem - (10 * specialefficiency))
                                         specialefficiency = specialefficiency + 1
+                                        sound_effect = pygame.mixer.Sound("audio/success.mp3")
+                                        sound_effect.play()
                             with open("gamedata.txt", "r") as file:
                                 lines = file.readlines()
                                 lines[0] = f"gold = {gold}\n"
@@ -2894,16 +3492,31 @@ class casino(pygame.sprite.Sprite):
         self.casinomenubool = True
         self.casinomenu()
 ########################################################################################################################
+    def yourbroke(self):
+        startTime  = pygame.time.get_ticks()
+        completeTime = startTime + 600
+        sound_effect = pygame.mixer.Sound("audio/error.mp3")
+        sound_effect.play()
+        while(completeTime > startTime):
+            startTime = pygame.time.get_ticks()
+            draw_text_center("NOT ENOUGH GOLD", font20, PINK, DISPLAYSURF, halfdisplay, 500)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    print("stop clicking so damn much")
+
+        return 0
+    ########################################################################################################################
     def casinomenu(self):
         global FaderBool
         global Fader
         global textFader
-        video = cv2.VideoCapture("casinobackgroundglow.mp4")
+        video = cv2.VideoCapture("video/casinobackgroundglow.mp4")
         startTime = pygame.time.get_ticks()
         self.gamescene = 1
         mouse_pos = pygame.mouse.get_pos()
-        pygame.mixer.music.load("casinostartmusic.mp3")
-        pygame.mixer.music.queue("slotsmusic.mp3")
+        pygame.mixer.music.load("audio/casinostartmusic.mp3")
+        pygame.mixer.music.queue("audio/slotsmusic.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("Casino initialized")
@@ -2927,7 +3540,7 @@ class casino(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -2961,7 +3574,7 @@ class casino(pygame.sprite.Sprite):
                             transition(6)
                             self.casinomenubool = False
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if xrect.collidepoint(mouse_pos):
@@ -2989,7 +3602,7 @@ class casino(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -3019,7 +3632,7 @@ class casino(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -3116,8 +3729,8 @@ class casino(pygame.sprite.Sprite):
     def casinogameplay(self):
         global gem
         global gold
-        cap1 = cv2.VideoCapture("roulettered.mov")
-        cap2 = cv2.VideoCapture("rouletteblack.mov")
+        cap1 = cv2.VideoCapture("video/roulettered.mov")
+        cap2 = cv2.VideoCapture("video/rouletteblack.mov")
         itemchoosen = " "
         blackorred = 0
         moneychoosen = 0
@@ -3126,7 +3739,7 @@ class casino(pygame.sprite.Sprite):
             startTime = pygame.time.get_ticks()
             scene = 1
             won = False
-            pygame.mixer.music.load("roulettemusic.mp3")
+            pygame.mixer.music.load("audio/roulettemusic.mp3")
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
             while(self.casinogamebool):
@@ -3224,10 +3837,10 @@ class casino(pygame.sprite.Sprite):
 
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
-                            if ((itemchoosen != ' ') and (moneychoosen != 0)):
+                            if ((itemchoosen != ' ') and (moneychoosen != 0) and (gold >= moneychoosen)):
                                 if beginrect.collidepoint(mouse_pos):
-                                    cap1 = cv2.VideoCapture("roulettered.mov")
-                                    cap2 = cv2.VideoCapture("rouletteblack.mov")
+                                    cap1 = cv2.VideoCapture("video/roulettered.mov")
+                                    cap2 = cv2.VideoCapture("video/rouletteblack.mov")
                                     scene = scene + 1
                             if blackrect.collidepoint(mouse_pos):
                                 itemchoosen = 'black'
@@ -3235,16 +3848,28 @@ class casino(pygame.sprite.Sprite):
                                 itemchoosen = 'red'
                             if (spend10rect.collidepoint(mouse_pos) & (gold >= 10)):
                                 moneychoosen = 10
+                            if (spend10rect.collidepoint(mouse_pos) & (gold < 10)):
+                                self.yourbroke()
                             if (spend100rect.collidepoint(mouse_pos) & (gold >= 100)):
                                 moneychoosen = 100
+                            if (spend100rect.collidepoint(mouse_pos) & (gold < 100)):
+                                self.yourbroke()
                             if (spend1000rect.collidepoint(mouse_pos) & (gold >= 1000)):
                                 moneychoosen = 1000
+                            if (spend1000rect.collidepoint(mouse_pos) & (gold < 1000)):
+                                self.yourbroke()
                             if (spend10000rect.collidepoint(mouse_pos) & (gold >= 10000)):
                                 moneychoosen = 10000
+                            if (spend10000rect.collidepoint(mouse_pos) & (gold < 10000)):
+                                self.yourbroke()
                             if (spend100000rect.collidepoint(mouse_pos) & (gold >= 100000)):
                                 moneychoosen = 100000
+                            if (spend100000rect.collidepoint(mouse_pos) & (gold < 100000)):
+                                self.yourbroke()
                             if (spend1000000rect.collidepoint(mouse_pos) & (gold >= 1000000)):
                                 moneychoosen = 1000000
+                            if (spend1000000rect.collidepoint(mouse_pos) & (gold < 1000000)):
+                                self.yourbroke()
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
                                 pygame.mixer.music.stop()
@@ -3295,7 +3920,7 @@ class casino(pygame.sprite.Sprite):
 
                     pygame.display.update()
                 if(scene == 2):
-                    sound_effect = pygame.mixer.Sound("roulettespinsound.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/roulettespinsound.mp3")
                     sound_effect.play()
                     if(blackorred == 0):
                         if (itemchoosen == 'red'):
@@ -3372,8 +3997,8 @@ class casino(pygame.sprite.Sprite):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
             scene = 1
-            pygame.mixer.music.load("slotsmusic.mp3")
-            pygame.mixer.music.queue("slotsmusic2.mp3")
+            pygame.mixer.music.load("audio/slotsmusic.mp3")
+            pygame.mixer.music.queue("audio/slotsmusic2.mp3")
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
             while(self.casinogamebool):
@@ -3416,7 +4041,7 @@ class casino(pygame.sprite.Sprite):
                                 self.casinogamebool = False
                                 self.repeatslotloop = False
                             if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 scene = scene + 1
                             if xrect.collidepoint(mouse_pos):
@@ -3445,7 +4070,7 @@ class casino(pygame.sprite.Sprite):
                             if returnarrowrect.collidepoint(mouse_pos):
                                 self.repeatslotloop = False
                             if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 scene = scene + 1
                             if xrect.collidepoint(mouse_pos):
@@ -3541,17 +4166,29 @@ class casino(pygame.sprite.Sprite):
                                 sys.exit()
                             if (spend1rect.collidepoint(mouse_pos) & (gold >= 1)):
                                 moneychoosen = 1
+                            if (spend1rect.collidepoint(mouse_pos) & (gold < 1)):
+                                self.yourbroke()
                             if (spend10rect.collidepoint(mouse_pos) & (gold >= 10)):
                                 moneychoosen = 10
+                            if (spend10rect.collidepoint(mouse_pos) & (gold < 10)):
+                                self.yourbroke()
                             if (spend100rect.collidepoint(mouse_pos) & (gold >= 100)):
                                 moneychoosen = 100
+                            if (spend100rect.collidepoint(mouse_pos) & (gold < 100)):
+                                self.yourbroke()
                             if (spend1000rect.collidepoint(mouse_pos) & (gold >= 1000)):
                                 moneychoosen = 1000
+                            if (spend1000rect.collidepoint(mouse_pos) & (gold < 1000)):
+                                self.yourbroke()
                             if (spend10000rect.collidepoint(mouse_pos) & (gold >= 10000)):
                                 moneychoosen = 10000
+                            if (spend10000rect.collidepoint(mouse_pos) & (gold < 10000)):
+                                self.yourbroke()
                             if (spend100000rect.collidepoint(mouse_pos) & (gold >= 100000)):
                                 moneychoosen = 100000
-                            if (moneychoosen != 0) & (beginrect.collidepoint(mouse_pos)):
+                            if (spend100000rect.collidepoint(mouse_pos) & (gold < 100000)):
+                                self.yourbroke()
+                            if (moneychoosen != 0 & (beginrect.collidepoint(mouse_pos)) & (gold >= moneychoosen)):
                                 scene = scene + 1
 
                     draw_text('1', font3, GREY, DISPLAYSURF, 455, 860)
@@ -3593,8 +4230,9 @@ class casino(pygame.sprite.Sprite):
                                 pygame.quit()
                                 sys.exit()
                             if slotrect.collidepoint(mouse_pos):
-                                gold = gold - moneychoosen
-                                scene = scene + 1
+                                if(gold >= moneychoosen):
+                                    gold = gold - moneychoosen
+                                    scene = scene + 1
                     pygame.display.update()
                 if (scene == 5):
                     time1 = pygame.time.get_ticks()
@@ -3605,7 +4243,7 @@ class casino(pygame.sprite.Sprite):
                     DISPLAYSURF.blit(image178, (360, 60))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
                     draw_text(str(gold), font5, YELLOW, DISPLAYSURF, 445, 135)
-                    sound_effect = pygame.mixer.Sound("spin.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/spin.mp3")
                     sound_effect.play()
                     while(loop):
                         randomnumber1 = random.randint(1, 9)
@@ -3755,32 +4393,32 @@ class casino(pygame.sprite.Sprite):
 
                             screen_width, screen_height = DISPLAYSURF.get_size()
                             if((randomnumber1 == 7) and (randomnumber2 == 7) and (randomnumber3 == 7)):
-                                sound_effect = pygame.mixer.Sound("slotwin1.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/slotwin1.mp3")
                                 sound_effect.play()
                                 gold = gold + (moneychoosen * 1000)
                                 draw_text('gained ' + str(moneychoosen * 1000) + ' gold!', font3, GOLD, DISPLAYSURF, screen_width / 2 - 155, screen_height / 2 - 45)
                             else:
                                 if((randomnumber1 == randomnumber2) and (randomnumber1 == randomnumber3) and (randomnumber2 == randomnumber3)):
-                                    sound_effect = pygame.mixer.Sound("slotwin2.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/slotwin2.mp3")
                                     sound_effect.play()
                                     gold = gold + (moneychoosen * 80)
                                     draw_text('gained ' + str(moneychoosen * 80) + ' gold!', font3, GOLD, DISPLAYSURF, screen_width / 2 - 155, screen_height / 2 - 45)
 
                                 else:
                                     if(randomnumber1 == randomnumber2):
-                                        sound_effect = pygame.mixer.Sound("minislotwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/minislotwin.mp3")
                                         sound_effect.play()
                                         gold = gold + (moneychoosen * 1)
                                         draw_text('You won ' + str(moneychoosen * 1) + ' gold!', font3, GOLD, DISPLAYSURF, screen_width / 2 - 155, screen_height / 2 - 45)
 
                                     if(randomnumber3 == randomnumber2):
-                                        sound_effect = pygame.mixer.Sound("minislotwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/minislotwin.mp3")
                                         sound_effect.play()
                                         gold = gold + (moneychoosen * 1)
                                         draw_text('You won ' + str(moneychoosen * 1) + ' gold!', font3, GOLD, DISPLAYSURF, screen_width / 2 - 155, screen_height / 2 - 45)
 
                                     if(randomnumber3 == randomnumber1):
-                                        sound_effect = pygame.mixer.Sound("minislotwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/minislotwin.mp3")
                                         sound_effect.play()
                                         gold = gold + (moneychoosen * 1)
                                         draw_text('You won ' + str(moneychoosen * 1) + ' gold!', font3, GOLD, DISPLAYSURF, screen_width / 2 - 155, screen_height / 2 - 45)
@@ -3816,7 +4454,7 @@ class casino(pygame.sprite.Sprite):
                                 pygame.quit()
                                 sys.exit()
                             if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 scene = 4
 
@@ -3831,7 +4469,7 @@ class casino(pygame.sprite.Sprite):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
             scene = -1
-            pygame.mixer.music.load("dicemusic.mp3")
+            pygame.mixer.music.load("audio/dicemusic.mp3")
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
             while(self.casinogamebool):
@@ -4031,17 +4669,29 @@ class casino(pygame.sprite.Sprite):
 
                             if (spend10rect.collidepoint(mouse_pos) & (gold >= 10)):
                                 moneychoosen = 10
+                            if (spend10rect.collidepoint(mouse_pos) & (gold < 10)):
+                                self.yourbroke()
                             if (spend100rect.collidepoint(mouse_pos) & (gold >= 100)):
                                 moneychoosen = 100
+                            if (spend100rect.collidepoint(mouse_pos) & (gold < 100)):
+                                self.yourbroke()
                             if (spend1000rect.collidepoint(mouse_pos) & (gold >= 1000)):
                                 moneychoosen = 1000
+                            if (spend1000rect.collidepoint(mouse_pos) & (gold < 1000)):
+                                self.yourbroke()
                             if (spend10000rect.collidepoint(mouse_pos) & (gold >= 10000)):
                                 moneychoosen = 10000
+                            if (spend10000rect.collidepoint(mouse_pos) & (gold < 10000)):
+                                self.yourbroke()
                             if (spend100000rect.collidepoint(mouse_pos) & (gold >= 100000)):
                                 moneychoosen = 100000
+                            if (spend100000rect.collidepoint(mouse_pos) & (gold < 100000)):
+                                self.yourbroke()
                             if (spend1000000rect.collidepoint(mouse_pos) & (gold >= 1000000)):
                                 moneychoosen = 1000000
-                            if (moneychoosen != 0) & (beginrect.collidepoint(mouse_pos)):
+                            if (spend1000000rect.collidepoint(mouse_pos) & (gold < 1000000)):
+                                self.yourbroke()
+                            if (moneychoosen != 0) and (beginrect.collidepoint(mouse_pos) and (gold >= moneychoosen)):
                                 scene = scene + 1
 
                     draw_text('10', font3, GREY, DISPLAYSURF, 450, 860)
@@ -4083,8 +4733,9 @@ class casino(pygame.sprite.Sprite):
                                 pygame.quit()
                                 sys.exit()
                             if dicerect.collidepoint(mouse_pos):
-                                gold = gold - moneychoosen
-                                scene = scene + 1
+                                if(gold >= moneychoosen):
+                                    gold = gold - moneychoosen
+                                    scene = scene + 1
                     pygame.display.update()
                 if (scene == 2):
                     DISPLAYSURF.blit(image191, (190, 100))
@@ -4092,7 +4743,7 @@ class casino(pygame.sprite.Sprite):
                     DISPLAYSURF.blit(image199, (0, 0))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
                     draw_text(str(gold), font5, YELLOW, DISPLAYSURF, 445, 135)
-                    sound_effect = pygame.mixer.Sound("dicerollsound.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/dicerollsound.mp3")
                     sound_effect.play()
                     randomnumber1 = random.randint(1, 6)
                     mouse_pos = pygame.mouse.get_pos()
@@ -4114,7 +4765,7 @@ class casino(pygame.sprite.Sprite):
                                 pygame.quit()
                                 sys.exit()
 
-                    dicevideo = cv2.VideoCapture("dicerolling.mov")
+                    dicevideo = cv2.VideoCapture("video/dicerolling.mov")
                     fps = int(dicevideo.get(cv2.CAP_PROP_FPS))
                     clock = pygame.time.Clock()
                     while dicevideo.isOpened():
@@ -4148,7 +4799,7 @@ class casino(pygame.sprite.Sprite):
 
                     screen_width, screen_height = DISPLAYSURF.get_size()
                     if(int(randomnumber1) == int(dicechoosen)):
-                        sound_effect = pygame.mixer.Sound("minislotwin.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/minislotwin.mp3")
                         sound_effect.play()
                         gold = gold + (moneychoosen * 6)
                         draw_text('You won ' + str(moneychoosen * 6) + ' gold!', font2, GOLD, DISPLAYSURF, screen_width / 2 - 215, screen_height / 2 - 345)
@@ -4187,7 +4838,7 @@ class casino(pygame.sprite.Sprite):
                                 pygame.quit()
                                 sys.exit()
                             if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 scene = 1
                     pygame.display.update()
@@ -4219,7 +4870,7 @@ class casino(pygame.sprite.Sprite):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
             scene = -1
-            pygame.mixer.music.load("blackjack1.mp3")
+            pygame.mixer.music.load("audio/blackjack1.mp3")
             pygame.mixer.music.play(-1)
             while(self.casinogamebool):
                 with open("gamedata.txt", "r") as file:
@@ -4551,13 +5202,20 @@ class casino(pygame.sprite.Sprite):
                                 pygame.mixer.music.stop()
                                 pygame.quit()
                                 sys.exit()
-
+                            if (spend100rect.collidepoint(mouse_pos) & (gold < (moneychoosen + 100))):
+                                self.yourbroke()
                             if (spend100rect.collidepoint(mouse_pos) & (gold >= (moneychoosen + 100))):
                                 moneychoosen = moneychoosen + 100
+                            if (spend1000rect.collidepoint(mouse_pos) & (gold < (moneychoosen + 1000))):
+                                self.yourbroke()
                             if (spend1000rect.collidepoint(mouse_pos) & (gold >= (moneychoosen + 1000))):
                                 moneychoosen = moneychoosen + 1000
+                            if (spend10000rect.collidepoint(mouse_pos) & (gold < (moneychoosen + 10000))):
+                                self.yourbroke()
                             if (spend10000rect.collidepoint(mouse_pos) & (gold >= (moneychoosen + 10000))):
                                 moneychoosen = moneychoosen + 10000
+                            if (spend100000rect.collidepoint(mouse_pos) & (gold < (moneychoosen + 100000))):
+                                self.yourbroke()
                             if (spend100000rect.collidepoint(mouse_pos) & (gold >= (moneychoosen + 100000))):
                                 moneychoosen = moneychoosen + 100000
                             if (spendallrect.collidepoint(mouse_pos)):
@@ -4684,20 +5342,20 @@ class casino(pygame.sprite.Sprite):
                             draw_text(card3numm, font5, BLACK, DISPLAYSURF, 910, 310)
                             if (CARDVALUE3 + CARDVALUE4 >= 17):
                                 if(CARDVALUE3 + CARDVALUE4 == 21):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
                                 elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 elif(CARDVALUE1 + CARDVALUE2 >= 17):
                                     if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                             if (CARDVALUE3 + CARDVALUE4 < 17):
@@ -4715,20 +5373,20 @@ class casino(pygame.sprite.Sprite):
                                     dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8
                                     playerhand = CARDVALUE1 + CARDVALUE2
                                     if (dealerhand == 21):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                                     if (dealerhand > 21):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if(dealerhand != 21 and dealerhand < 21):
                                         if(dealerhand >= playerhand):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand < playerhand):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                 else:
@@ -4746,20 +5404,20 @@ class casino(pygame.sprite.Sprite):
                                         dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9
                                         playerhand = CARDVALUE1 + CARDVALUE2
                                         if(dealerhand == 21):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand > 21):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                         if (dealerhand != 21 and dealerhand < 21):
                                             if (dealerhand >= playerhand):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand < playerhand):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                     else:
@@ -4777,20 +5435,20 @@ class casino(pygame.sprite.Sprite):
                                             dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10
                                             playerhand = CARDVALUE1 + CARDVALUE2
                                             if (dealerhand == 21):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand > 21):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                             if (dealerhand != 21 and dealerhand < 21):
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                         else:
@@ -4808,34 +5466,34 @@ class casino(pygame.sprite.Sprite):
                                                 dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10 + CARDVALUE11
                                                 playerhand = CARDVALUE1 + CARDVALUE2
                                                 if (dealerhand == 21):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand > 21):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                                 if (dealerhand != 21 and dealerhand < 21):
                                                     if (dealerhand >= playerhand):
-                                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                         sound_effect.play()
                                                         scene = 98
                                                     if (dealerhand < playerhand):
-                                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                         sound_effect.play()
                                                         scene = 99
                                             else:
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
 
                         if(CARDVALUE1 + CARDVALUE2 > 21):
-                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                             sound_effect.play()
                             scene = 100
 
@@ -4975,20 +5633,20 @@ class casino(pygame.sprite.Sprite):
                             draw_text(card3numm, font5, BLACK, DISPLAYSURF, 910, 310)
                             if (CARDVALUE3 + CARDVALUE4 >= 17):
                                 if(CARDVALUE3 + CARDVALUE4 == 21):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
                                 elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 elif(CARDVALUE1 + CARDVALUE2 >= 17):
                                     if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2+ CARDVALUE5):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                             if (CARDVALUE3 + CARDVALUE4 < 17):
@@ -5006,20 +5664,20 @@ class casino(pygame.sprite.Sprite):
                                     dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8
                                     playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5
                                     if (dealerhand == 21):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                                     if (dealerhand > 21):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if(dealerhand != 21 and dealerhand < 21):
                                         if(dealerhand >= playerhand):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand < playerhand):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                 else:
@@ -5037,20 +5695,20 @@ class casino(pygame.sprite.Sprite):
                                         dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9
                                         playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5
                                         if(dealerhand == 21):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand > 21):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                         if (dealerhand != 21 and dealerhand < 21):
                                             if (dealerhand >= playerhand):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand < playerhand):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                     else:
@@ -5068,20 +5726,20 @@ class casino(pygame.sprite.Sprite):
                                             dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10
                                             playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5
                                             if (dealerhand == 21):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand > 21):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                             if (dealerhand != 21 and dealerhand < 21):
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                         else:
@@ -5099,52 +5757,52 @@ class casino(pygame.sprite.Sprite):
                                                 dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10 + CARDVALUE11
                                                 playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5
                                                 if (dealerhand == 21):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand > 21):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                                 if (dealerhand != 21 and dealerhand < 21):
                                                     if (dealerhand >= playerhand):
-                                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                         sound_effect.play()
                                                         scene = 98
                                                     if (dealerhand < playerhand):
-                                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                         sound_effect.play()
                                                         scene = 99
                                             else:
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
 
                             elif(CARDVALUE3 + CARDVALUE4 == 21):
-                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                 sound_effect.play()
                                 scene = 98
                             elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                 sound_effect.play()
                                 scene = 99
                             else:
                                 if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
 
                         if((CARDVALUE1 + CARDVALUE2 + CARDVALUE5) > 21):
-                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                             sound_effect.play()
                             scene = 100
 
@@ -5303,20 +5961,20 @@ class casino(pygame.sprite.Sprite):
                             draw_text(card3numm, font5, BLACK, DISPLAYSURF, 910, 310)
                             if (CARDVALUE3 + CARDVALUE4 >= 17):
                                 if(CARDVALUE3 + CARDVALUE4 == 21):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
                                 elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 elif(CARDVALUE1 + CARDVALUE2 >= 17):
                                     if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                             if (CARDVALUE3 + CARDVALUE4 < 17):
@@ -5334,20 +5992,20 @@ class casino(pygame.sprite.Sprite):
                                     dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8
                                     playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6
                                     if (dealerhand == 21):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                                     if (dealerhand > 21):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if(dealerhand != 21 and dealerhand < 21):
                                         if(dealerhand >= playerhand):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand < playerhand):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                 else:
@@ -5365,20 +6023,20 @@ class casino(pygame.sprite.Sprite):
                                         dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9
                                         playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6
                                         if(dealerhand == 21):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand > 21):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                         if (dealerhand != 21 and dealerhand < 21):
                                             if (dealerhand >= playerhand):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand < playerhand):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                     else:
@@ -5396,20 +6054,20 @@ class casino(pygame.sprite.Sprite):
                                             dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10
                                             playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6
                                             if (dealerhand == 21):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand > 21):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                             if (dealerhand != 21 and dealerhand < 21):
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                         else:
@@ -5427,52 +6085,52 @@ class casino(pygame.sprite.Sprite):
                                                 dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10 + CARDVALUE11
                                                 playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6
                                                 if (dealerhand == 21):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand > 21):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                                 if (dealerhand != 21 and dealerhand < 21):
                                                     if (dealerhand >= playerhand):
-                                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                         sound_effect.play()
                                                         scene = 98
                                                     if (dealerhand < playerhand):
-                                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                         sound_effect.play()
                                                         scene = 99
                                             else:
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
 
                             elif(CARDVALUE3 + CARDVALUE4 == 21):
-                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                 sound_effect.play()
                                 scene = 98
                             elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                 sound_effect.play()
                                 scene = 99
                             else:
                                 if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
 
                         if((CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6) > 21):
-                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                             sound_effect.play()
                             scene = 100
 
@@ -5638,20 +6296,20 @@ class casino(pygame.sprite.Sprite):
                             draw_text(card3numm, font5, BLACK, DISPLAYSURF, 910, 310)
                             if (CARDVALUE3 + CARDVALUE4 >= 17):
                                 if(CARDVALUE3 + CARDVALUE4 == 21):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
                                 elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 elif(CARDVALUE1 + CARDVALUE2 >= 17):
                                     if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                             if (CARDVALUE3 + CARDVALUE4 < 17):
@@ -5669,20 +6327,20 @@ class casino(pygame.sprite.Sprite):
                                     dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8
                                     playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7
                                     if (dealerhand == 21):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                                     if (dealerhand > 21):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if(dealerhand != 21 and dealerhand < 21):
                                         if(dealerhand >= playerhand):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand < playerhand):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                 else:
@@ -5700,20 +6358,20 @@ class casino(pygame.sprite.Sprite):
                                         dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9
                                         playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7
                                         if(dealerhand == 21):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand > 21):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                         if (dealerhand != 21 and dealerhand < 21):
                                             if (dealerhand >= playerhand):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand < playerhand):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                     else:
@@ -5731,20 +6389,20 @@ class casino(pygame.sprite.Sprite):
                                             dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10
                                             playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7
                                             if (dealerhand == 21):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand > 21):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                             if (dealerhand != 21 and dealerhand < 21):
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                         else:
@@ -5762,52 +6420,52 @@ class casino(pygame.sprite.Sprite):
                                                 dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10 + CARDVALUE11
                                                 playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7
                                                 if (dealerhand == 21):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand > 21):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                                 if (dealerhand != 21 and dealerhand < 21):
                                                     if (dealerhand >= playerhand):
-                                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                         sound_effect.play()
                                                         scene = 98
                                                     if (dealerhand < playerhand):
-                                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                         sound_effect.play()
                                                         scene = 99
                                             else:
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
 
                             elif(CARDVALUE3 + CARDVALUE4 == 21):
-                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                 sound_effect.play()
                                 scene = 98
                             elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                 sound_effect.play()
                                 scene = 99
                             else:
                                 if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
 
                         if((CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7) > 21):
-                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                             sound_effect.play()
                             scene = 100
 
@@ -5990,20 +6648,20 @@ class casino(pygame.sprite.Sprite):
                             draw_text(card3numm, font5, BLACK, DISPLAYSURF, 910, 310)
                             if (CARDVALUE3 + CARDVALUE4 >= 17):
                                 if(CARDVALUE3 + CARDVALUE4 == 21):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
                                 elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 elif(CARDVALUE1 + CARDVALUE2 >= 17):
                                     if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                             if (CARDVALUE3 + CARDVALUE4 < 17):
@@ -6021,20 +6679,20 @@ class casino(pygame.sprite.Sprite):
                                     dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8
                                     playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8
                                     if (dealerhand == 21):
-                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                         sound_effect.play()
                                         scene = 98
                                     if (dealerhand > 21):
-                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                         sound_effect.play()
                                         scene = 99
                                     if(dealerhand != 21 and dealerhand < 21):
                                         if(dealerhand >= playerhand):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand < playerhand):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                 else:
@@ -6052,20 +6710,20 @@ class casino(pygame.sprite.Sprite):
                                         dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9
                                         playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8
                                         if(dealerhand == 21):
-                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                             sound_effect.play()
                                             scene = 98
                                         if(dealerhand > 21):
-                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                             sound_effect.play()
                                             scene = 99
                                         if (dealerhand != 21 and dealerhand < 21):
                                             if (dealerhand >= playerhand):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand < playerhand):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                     else:
@@ -6083,20 +6741,20 @@ class casino(pygame.sprite.Sprite):
                                             dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10
                                             playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8
                                             if (dealerhand == 21):
-                                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                 sound_effect.play()
                                                 scene = 98
                                             if (dealerhand > 21):
-                                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                 sound_effect.play()
                                                 scene = 99
                                             if (dealerhand != 21 and dealerhand < 21):
                                                 if (dealerhand >= playerhand):
-                                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                     sound_effect.play()
                                                     scene = 98
                                                 if (dealerhand < playerhand):
-                                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                     sound_effect.play()
                                                     scene = 99
                                             if(dealerhand < 17):
@@ -6114,52 +6772,52 @@ class casino(pygame.sprite.Sprite):
                                                     dealerhand = CARDVALUE3 + CARDVALUE4 + CARDVALUE8 + CARDVALUE9 + CARDVALUE10 + CARDVALUE11
                                                     playerhand = CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8
                                                     if (dealerhand == 21):
-                                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                         sound_effect.play()
                                                         scene = 98
                                                     if (dealerhand > 21):
-                                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                         sound_effect.play()
                                                         scene = 99
                                                     if (dealerhand != 21 and dealerhand < 21):
                                                         if (dealerhand >= playerhand):
-                                                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                             sound_effect.play()
                                                             scene = 98
                                                         if (dealerhand < playerhand):
-                                                            sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                            sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                             sound_effect.play()
                                                             scene = 99
                                                 else:
                                                     if (dealerhand >= playerhand):
-                                                        sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                                         sound_effect.play()
                                                         scene = 98
                                                     if (dealerhand < playerhand):
-                                                        sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                                        sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                                         sound_effect.play()
                                                         scene = 99
 
                             elif(CARDVALUE3 + CARDVALUE4 == 21):
-                                sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                 sound_effect.play()
                                 scene = 98
                             elif (CARDVALUE3 + CARDVALUE4 > 21):
-                                sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                 sound_effect.play()
                                 scene = 99
                             else:
                                 if (CARDVALUE3 + CARDVALUE4 < CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8):
-                                    sound_effect = pygame.mixer.Sound("blackjackwin.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/blackjackwin.mp3")
                                     sound_effect.play()
                                     scene = 99
                                 if (CARDVALUE3 + CARDVALUE4 >= CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8):
-                                    sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                                     sound_effect.play()
                                     scene = 98
 
                         if((CARDVALUE1 + CARDVALUE2 + CARDVALUE5 + CARDVALUE6 + CARDVALUE7 + CARDVALUE8) > 21):
-                            sound_effect = pygame.mixer.Sound("coinsound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                             sound_effect.play()
                             scene = 100
 
@@ -6254,7 +6912,7 @@ class guild(pygame.sprite.Sprite):
         global FaderBool
         global Fader
         global textFader
-        video = cv2.VideoCapture("glowparticlevideo.mp4")
+        video = cv2.VideoCapture("video/glowparticlevideo.mp4")
 
         startTime = pygame.time.get_ticks()
         self.gamescene = 1
@@ -6263,8 +6921,8 @@ class guild(pygame.sprite.Sprite):
         alchemylevelupbool = False
         boolleftorright = True
         mouse_pos = pygame.mouse.get_pos()
-        pygame.mixer.music.load("bardmusic.mp3")
-        pygame.mixer.music.queue("bardmusic2.mp3")
+        pygame.mixer.music.load("audio/bardmusic.mp3")
+        pygame.mixer.music.queue("audio/bardmusic2.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("Guild initialized")
@@ -6280,6 +6938,14 @@ class guild(pygame.sprite.Sprite):
         imagechoosen = image215
         potionimage = 1
         streak = 0
+        with open("gamedata.txt", "r") as file:
+            lines = file.readlines()
+            guildtutorial = lines[14].strip()
+            guildtutorial = guildtutorial[16:]
+        if (guildtutorial == 'true'):
+            self.gamescene = 1
+        elif (guildtutorial == 'false'):
+            self.gamescene = 11
         while self.guildbool1:
             with open("gamedata.txt", "r") as file:
                 lines = file.readlines()
@@ -6297,7 +6963,6 @@ class guild(pygame.sprite.Sprite):
                 alchemylevel = int(alchemylevel)
                 guildtutorial = lines[14].strip()
                 guildtutorial = guildtutorial[16:]
-                guildtutorial = int(guildtutorial)
 
             if(staropacity >= 255):
                 starbool = False
@@ -6310,16 +6975,6 @@ class guild(pygame.sprite.Sprite):
 
             startTime = pygame.time.get_ticks()
             mouseX, mouseY = pygame.mouse.get_pos()
-
-            with open("gamedata.txt", "r") as file:
-                lines = file.readlines()
-                guildguide = lines[14].strip()
-                guildguide = guildguide[16:]
-
-            if (guildguide == 'true'):
-                self.gamescene = 1
-            elif (guildguide == 'false'):
-                self.gamescene = 11
 
 
             if (self.gamescene == 1):
@@ -6337,7 +6992,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6372,7 +7027,7 @@ class guild(pygame.sprite.Sprite):
                             transition(6)
                             self.guildbool1 = False
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if xrect.collidepoint(mouse_pos):
@@ -6401,7 +7056,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6432,7 +7087,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6464,7 +7119,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6496,7 +7151,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6528,7 +7183,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6572,7 +7227,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if yesrect.collidepoint(mouse_pos):
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
 
                             with open("gamedata.txt", "r") as file:
@@ -6586,7 +7241,7 @@ class guild(pygame.sprite.Sprite):
                             self.gamescene = self.gamescene + 1
                             print("guild join initiated")
                         if norect.collidepoint(mouse_pos):
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             transition(6)
                             self.guildbool1 = False
@@ -6620,7 +7275,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6663,9 +7318,9 @@ class guild(pygame.sprite.Sprite):
                             self.gamescene = 30
                         if professionrect.collidepoint(mouse_pos):
                             print("profession clicked")
-                            if(guildtutorial == 1):
+                            if(guildtutorial == "false"):
                                 self.gamescene = 54
-                            elif (guildtutorial == 0):
+                            elif (guildtutorial == "true"):
                                 self.gamescene = 50
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -6695,7 +7350,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             transition(6)
                             self.guildbool1 = False
@@ -6727,7 +7382,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = 10
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6758,7 +7413,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6789,7 +7444,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6820,7 +7475,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6850,7 +7505,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -6863,7 +7518,7 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 54):
-                guildtutorial = 1
+                guildguide = "false"
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
                 image4.set_alpha(150)
@@ -6911,11 +7566,11 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
-                            pygame.mixer.music.load("alchemy2.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
+                            pygame.mixer.music.load("audio/alchemy2.mp3")
                             pygame.mixer.music.play(-1)
-                            pygame.mixer.music.queue("alchemy3.mp3")
-                            pygame.mixer.music.queue("alchemy1.mp3")
+                            pygame.mixer.music.queue("audio/alchemy3.mp3")
+                            pygame.mixer.music.queue("audio/alchemy1.mp3")
                             pygame.mixer.music.set_volume(0.5)
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -7032,7 +7687,7 @@ class guild(pygame.sprite.Sprite):
                 pygame.display.update()
 
                 if alchemyhitrect.collidepoint(x + 47, 150):
-                    sound_effect = pygame.mixer.Sound("potioncreation.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/potioncreation.mp3")
                     sound_effect.play()
                     streak = streak + 1
                     alchemyexp = alchemyexp + 1 + streak
@@ -7042,7 +7697,7 @@ class guild(pygame.sprite.Sprite):
                         alchemylevel = alchemylevel + 1
                         alchemylevelupbool = True
                 if alchemyhitrect2.collidepoint(x + 47, 150):
-                    sound_effect = pygame.mixer.Sound("potioncreation.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/potioncreation.mp3")
                     sound_effect.play()
                     streak = streak + 1
                     alchemyexp = alchemyexp + 1 + streak
@@ -7052,7 +7707,7 @@ class guild(pygame.sprite.Sprite):
                         alchemylevel = alchemylevel + 1
                         alchemylevelupbool = True
                 if superalchemyhitrect.collidepoint(x + 47, 150):
-                    sound_effect = pygame.mixer.Sound("potioncreation.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/potioncreation.mp3")
                     sound_effect.play()
                     streak = streak + 1
                     alchemyexp = alchemyexp + 5 + streak
@@ -7066,7 +7721,7 @@ class guild(pygame.sprite.Sprite):
                 else:
                     print("streak lost")
                     streak = 0
-                    sound_effect = pygame.mixer.Sound("messedupalchemy.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/messedupalchemy.mp3")
                     sound_effect.play()
 
                 with open("gamedata.txt", "r") as file:
@@ -7075,7 +7730,7 @@ class guild(pygame.sprite.Sprite):
                     lines[1] = f"gem = {gem}\n"
                     lines[12] = f"alchemyexp = {alchemyexp}\n"
                     lines[13] = f"alchemylevel = {alchemylevel}\n"
-                    lines[14] = f"guildtutorial = {1}\n"
+                    lines[14] = f"guildtutorial = false\n"
                 with open("gamedata.txt", "w") as file:
                     file.writelines(lines)
                 potionimage = random.randint(1, 5)
@@ -7159,7 +7814,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             randomnum = random.randint(1,2)
                             if(randomnum == 1):
@@ -7212,7 +7867,7 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                             sound_effect.play()
                             self.gamescene = self.gamescene
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -7277,7 +7932,7 @@ class blackmarket(pygame.sprite.Sprite):
             else:
                 if event.type == MOUSEBUTTONDOWN:
                     if 0 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                        sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                         sound_effect.play()
                         pygame.mixer.music.set_volume(0.4)
                         pygame.display.update()
@@ -7293,9 +7948,9 @@ class blackmarket(pygame.sprite.Sprite):
         global gold
         global gem
         music1 = False
-        video3 = cv2.VideoCapture("starglitter2.mp4")
-        video = cv2.VideoCapture("starglitter.mp4")
-        video2 = cv2.VideoCapture("unboxingcreature.mp4")
+        video3 = cv2.VideoCapture("video/starglitter2.mp4")
+        video = cv2.VideoCapture("video/starglitter.mp4")
+        video2 = cv2.VideoCapture("video/unboxingcreature.mp4")
         global beasts
         randombeast = 0
         randomhp = 1
@@ -7310,8 +7965,8 @@ class blackmarket(pygame.sprite.Sprite):
         itemdisplay = 0
         xcounter = 0
         mouse_pos = pygame.mouse.get_pos()
-        pygame.mixer.music.load("battletheme.mp3")
-        pygame.mixer.music.queue("etherealmusic.mp3")
+        pygame.mixer.music.load("audio/battletheme.mp3")
+        pygame.mixer.music.queue("audio/etherealmusic.mp3")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("blackmarket shop initialized")
@@ -7363,10 +8018,10 @@ class blackmarket(pygame.sprite.Sprite):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
-                draw_text_center('Hehehe, welcome welcome human. Your quite', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center('handsome arent you. You can call me Byron,', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
-                draw_text_center('im the owner of this humble establishment.', font5, DARKGREEN, DISPLAYSURF, 1300, 250)
-                draw_text_center('Come let me show you the merchandise.', font5, DARKGREEN, DISPLAYSURF, 1300, 275)
+                draw_text_center('Hehehe, welcome welcome human. Your quite', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center('handsome arent you. You can call me Byron,', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('im the owner of this humble establishment.', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
+                draw_text_center('Come let me show you the merchandise.', font21, DARKGREEN, DISPLAYSURF, 1300, 275)
 
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
@@ -7375,10 +8030,10 @@ class blackmarket(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
 
-                draw_text_center('Your not collaborating with the royal guards', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center('are you? Those bastards have been on my ass', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
-                draw_text_center('for a while. Not that it matters much anyways,', font5, DARKGREEN, DISPLAYSURF, 1300, 250)
-                draw_text_center('ill just take care of you like the rest', font5, DARKGREEN, DISPLAYSURF, 1300, 275)
+                draw_text_center('Your not collaborating with the royal guards', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center('are you? Those bastards have been on my ass', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('for a while. Not that it matters much anyways,', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
+                draw_text_center('ill just take care of you like the rest', font21, DARKGREEN, DISPLAYSURF, 1300, 275)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
             if (self.gamescene == 4):
@@ -7386,8 +8041,8 @@ class blackmarket(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
 
-                draw_text_center('Im just kidding, dont be so tense handsome.', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center(' I dont bite, much...', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('Im just kidding, dont be so tense handsome.', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center(' I dont bite, much...', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
             if (self.gamescene == 5):
@@ -7400,8 +8055,8 @@ class blackmarket(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
 
-                draw_text_center('Now tell, are you here to purchase some', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center('creatures or are you here for me? *wink*', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('Now tell, are you here to purchase some', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center('creatures or are you here for me? *wink*', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 draw_text_center('p', font15, SKYBLUE, DISPLAYSURF, 1300, 250)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
@@ -7410,15 +8065,15 @@ class blackmarket(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
 
-                draw_text_center('hehe,', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center('Follow me ill show you our merchandise.', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('hehe,', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center('Follow me ill show you our merchandise.', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
 
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
                 music1 = True
             if (self.gamescene == 7):
                 if(music1):
-                    pygame.mixer.music.load("angels.mp3")
+                    pygame.mixer.music.load("audio/angels.mp3")
                     pygame.mixer.music.play(-1)
                     music1 = False
                 startTime = pygame.time.get_ticks()
@@ -7482,7 +8137,7 @@ class blackmarket(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-                Bigswordfont= pygame.font.Font("SwordsmanFont.TTF", 50)
+                Bigswordfont= pygame.font.Font("fonts/SwordsmanFont.TTF", 50)
 
                 if (itemdisplay == 0):
                     draw_text('1000 Gold', font11, YELLOW, DISPLAYSURF, 1430, 260)
@@ -7507,7 +8162,7 @@ class blackmarket(pygame.sprite.Sprite):
                             pygame.quit()
                             sys.exit()
                         elif event.type == MOUSEBUTTONDOWN:
-                            sound_effect = pygame.mixer.Sound("shopclicksound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
                             sound_effect.play()
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
@@ -7528,7 +8183,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if buyrect.collidepoint(mouse_pos):
                                 if (gold >= 1000):
                                     gold = gold - 1000
-                                    sound_effect = pygame.mixer.Sound("ingamepurchase.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/ingamepurchase.mp3")
                                     sound_effect.play()
                                     with open("gamedata.txt", "r") as file:
                                         lines = file.readlines()
@@ -7536,7 +8191,9 @@ class blackmarket(pygame.sprite.Sprite):
                                     with open("gamedata.txt", "w") as file:
                                         file.writelines(lines)
                                     transition(1)
-                                    sound_effect = pygame.mixer.Sound("treasureopen.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
+                                    sound_effect.play()
+                                    sound_effect = pygame.mixer.Sound("audio/lootcratechestsound.mp3")
                                     sound_effect.play()
                                     self.gamescene = 17
 
@@ -7564,7 +8221,7 @@ class blackmarket(pygame.sprite.Sprite):
                             pygame.quit()
                             sys.exit()
                         elif event.type == MOUSEBUTTONDOWN:
-                            sound_effect = pygame.mixer.Sound("shopclicksound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
                             sound_effect.play()
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
@@ -7585,7 +8242,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if buyrect.collidepoint(mouse_pos):
                                 if (gold >= 10000):
                                     gold = gold - 10000
-                                    sound_effect = pygame.mixer.Sound("ingamepurchase.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/ingamepurchase.mp3")
                                     sound_effect.play()
                                     with open("gamedata.txt", "r") as file:
                                         lines = file.readlines()
@@ -7593,7 +8250,7 @@ class blackmarket(pygame.sprite.Sprite):
                                     with open("gamedata.txt", "w") as file:
                                         file.writelines(lines)
                                     transition(1)
-                                    sound_effect = pygame.mixer.Sound("treasureopen.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/lootcratechestsound.mp3")
                                     sound_effect.play()
                                     self.gamescene = 16
 
@@ -7621,7 +8278,7 @@ class blackmarket(pygame.sprite.Sprite):
                             pygame.quit()
                             sys.exit()
                         elif event.type == MOUSEBUTTONDOWN:
-                            sound_effect = pygame.mixer.Sound("shopclicksound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
                             sound_effect.play()
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
@@ -7642,7 +8299,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if buyrect.collidepoint(mouse_pos):
                                 if (gold >= 100000):
                                     gold = gold - 100000
-                                    sound_effect = pygame.mixer.Sound("ingamepurchase.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/ingamepurchase.mp3")
                                     sound_effect.play()
                                     with open("gamedata.txt", "r") as file:
                                         lines = file.readlines()
@@ -7651,12 +8308,14 @@ class blackmarket(pygame.sprite.Sprite):
                                         file.writelines(lines)
 
                                     transition(1)
-                                    sound_effect = pygame.mixer.Sound("treasureopen.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
+                                    sound_effect.play()
+                                    sound_effect = pygame.mixer.Sound("audio/lootcratechestsound.mp3")
                                     sound_effect.play()
                                     self.gamescene = 15
 
                 if(itemdisplay == 3):
-                    draw_text('100 Gems', font11, rainbow, DISPLAYSURF, 1430, 260)
+                    draw_text('200 Gems', font11, rainbow, DISPLAYSURF, 1430, 260)
                     draw_text_center('Cosmic Door', Bigswordfont, BLACK, DISPLAYSURF, halfdisplay, 175)
                     draw_text_center('Cosmic Door', Bigswordfont, (rainbowcolor2, rainbowcolor1, rainbowcolor3), DISPLAYSURF, halfdisplay, 175,opacitynum)
                     draw_text_center('Within Cosmic doors reside creatures sealed through time. What you ressurect will be unknown, will you take the risk?', font5, GREY, DISPLAYSURF, halfdisplay, 920)
@@ -7671,8 +8330,8 @@ class blackmarket(pygame.sprite.Sprite):
 
                     if (gem >= 100):
                         if(level < 10):
-                            draw_text_center('lvl10 Req', Fontbig, BLUE, DISPLAYSURF, halfdisplay, 797)
-                            draw_text_center('lvl10 Req', Fontbig, RED, DISPLAYSURF, halfdisplay, 797, int(opacitynum / 2))
+                            draw_text_center('lvl 5 Req', Fontbig, BLUE, DISPLAYSURF, halfdisplay, 797)
+                            draw_text_center('lvl 5 Req', Fontbig, RED, DISPLAYSURF, halfdisplay, 797, int(opacitynum / 2))
                         else:
                             draw_text_center('Purchase', Fontbig, SKYBLUE, DISPLAYSURF, halfdisplay, 797)
                             draw_text_center('Purchase', Fontbig, BLACK, DISPLAYSURF, halfdisplay, 797, int(opacitynum/2))
@@ -7685,7 +8344,7 @@ class blackmarket(pygame.sprite.Sprite):
                             pygame.quit()
                             sys.exit()
                         elif event.type == MOUSEBUTTONDOWN:
-                            sound_effect = pygame.mixer.Sound("shopclicksound.mp3")
+                            sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
                             sound_effect.play()
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
@@ -7707,9 +8366,9 @@ class blackmarket(pygame.sprite.Sprite):
                                 if (itemdisplay == 4):
                                     itemdisplay = 0
                             if buyrect.collidepoint(mouse_pos):
-                                if (gem >= 100 and level >= 10):
-                                    gem = gem - 100
-                                    sound_effect = pygame.mixer.Sound("ingamepurchase.mp3")
+                                if (gem >= 200 and level >= 5):
+                                    gem = gem - 200
+                                    sound_effect = pygame.mixer.Sound("audio/ingamepurchase.mp3")
                                     sound_effect.play()
                                     with open("gamedata.txt", "r") as file:
                                         lines = file.readlines()
@@ -7718,7 +8377,9 @@ class blackmarket(pygame.sprite.Sprite):
                                         file.writelines(lines)
 
                                     transition(1)
-                                    sound_effect = pygame.mixer.Sound("scaryhowlverb.mp3")
+                                    sound_effect = pygame.mixer.Sound("audio/treasureopen.mp3")
+                                    sound_effect.play()
+                                    sound_effect = pygame.mixer.Sound("audio/scaryhowlverb.mp3")
                                     sound_effect.play()
                                     self.gamescene = 14
 
@@ -7771,7 +8432,7 @@ class blackmarket(pygame.sprite.Sprite):
                                 self.menu_activeblackmarket = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
@@ -7829,7 +8490,7 @@ class blackmarket(pygame.sprite.Sprite):
                                 self.menu_activeblackmarket = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
@@ -7837,32 +8498,32 @@ class blackmarket(pygame.sprite.Sprite):
                                 self.gamescene = self.gamescene + 1
 
                 if(randomtext == 0):
-                    draw_text_center('Hey cutie your back again I see!', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('Hey cutie your back again I see!', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
                 elif(randomtext == 1):
-                    draw_text_center('Awwww did you miss me that much? You are' +characterName +"?", font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('back already '+str(characterName), font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('Awwww did you miss me that much? You are' +characterName +"?", font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('back already '+str(characterName), font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 elif(randomtext == 2):
-                    draw_text_center('My richest customer is back again!', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center(' please be gentle with me '+str(characterName) +"!", font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('My richest customer is back again!', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center(' please be gentle with me '+str(characterName) +"!", font21, DARKGREEN, DISPLAYSURF, 1300, 225)
 
                 elif(randomtext == 3):
-                    draw_text_center('Well well well, look who it is,', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('my cutest customer.', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('Well well well, look who it is,', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('my cutest customer.', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
 
                 elif(randomtext == 4):
-                    draw_text_center('Where have you been? You havent visited', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('in so long! Humphh', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('Where have you been? You havent visited', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('in so long! Humphh', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 elif(randomtext == 5):
-                    draw_text_center('hufph, Im not in a good mood, the siren', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('slave shipment escaped earlier...', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('hufph, Im not in a good mood, the siren', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('slave shipment escaped earlier...', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
 
                 elif(randomtext == 6):
-                    draw_text_center('I got some interesting new mechandise just', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('for you sweetheart!', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('I got some interesting new mechandise just', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('for you sweetheart!', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 elif(randomtext == 7):
-                    draw_text_center('Should I open a brothel, im sure you', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('would be my biggest customer..', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
-                    draw_text_center('or would you like to work there?', font5, DARKGREEN, DISPLAYSURF, 1300, 250)
+                    draw_text_center('Should I open a brothel, im sure you', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('would be my biggest customer..', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('or would you like to work there?', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
 
                 pygame.display.update()
             if (self.gamescene == 12):
@@ -7912,14 +8573,14 @@ class blackmarket(pygame.sprite.Sprite):
                                 self.menu_activeblackmarket = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound("clicknoise.mp3")
+                                sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
                                 textFader = 0
                                 self.gamescene = self.gamescene + 1
-                draw_text_center('what are you waiting for darling,', font5, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center('go on and take a look around', font5, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('what are you waiting for darling,', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center('go on and take a look around', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 music1 = True
                 pygame.display.update()
             if (self.gamescene == 13):
@@ -7969,10 +8630,13 @@ class blackmarket(pygame.sprite.Sprite):
                         i = 0
                     if(lootcratespeed == 20):
                         transition(10)
-                        sound_effect = pygame.mixer.Sound("beastsummon.mp3")
+                        sound_effect = pygame.mixer.Sound("audio/beastsummon.mp3")
                         sound_effect.play()
 
-                    DISPLAYSURF.blit(beasts[randombeast], (700, 380))
+                    copy_beast = beasts[randombeast].copy()
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    DISPLAYSURF.blit(copy_beast, (700, 380))
+
                     randomhp = random.randint(0,4)
                     randomdefense = random.randint(0, 4)
                     randomstrength = random.randint(0, 4)
@@ -8029,13 +8693,37 @@ class blackmarket(pygame.sprite.Sprite):
                 tier = beastattributes[randombeast][6]
                 name = beastattributes[randombeast][7]
                 beastimage = beastattributes[randombeast][8]
+                beasttype = beastattributes[randombeast][13]
+                experience = 0
+
+                move1 = " "
+                move2 = " "
+                move3 = " "
+                move4 = " "
+
+                draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
+                draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
+
+                if(beastattributes[randombeast][9] != 'empty'):
+                    move1 = moves[int(beastattributes[randombeast][9])][0]
+                    draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
+                if(beastattributes[randombeast][10] != 'empty'):
+                    move2 = moves[int(beastattributes[randombeast][10])][0]
+                    draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
+                if(beastattributes[randombeast][11] != 'empty'):
+                    move3 = moves[int(beastattributes[randombeast][11])][0]
+                    draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
+                if(beastattributes[randombeast][12] != 'empty'):
+                    move4 = moves[int(beastattributes[randombeast][12])][0]
+                    draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
+
 
                 draw_text('Lvl- ' +str(Beastlevel), font20, WHITE, DISPLAYSURF, 1375, 300)
                 draw_text('Hp- ' +str(int((basehp + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 400)
-                draw_text('Def- ' +str(int((basedefense + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
-                draw_text('Str- ' +str(int((basestrength + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
-                draw_text('Sp. Att- ' +str(int((basespecattack + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
-                draw_text('Speed- ' +str(int((basespeed + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
+                draw_text('Def- ' +str(int((basedefense + (basedefense * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
+                draw_text('Str- ' +str(int((basestrength + (basestrength * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
+                draw_text('Sp. Att- ' +str(int((basespecattack + (basespecattack * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
+                draw_text('Speed- ' +str(int((basespeed + (basespeed * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
                 draw_text_center(str(beastattributes[randombeast][7]), font20, YELLOW, DISPLAYSURF, halfdisplay, 150)
 
                 xrect = pygame.Rect(1680, 123, 35, 35)
@@ -8058,6 +8746,24 @@ class blackmarket(pygame.sprite.Sprite):
                             sys.exit()
                         elif(mouseY > 300):
                             print("end lootcrate initialized")
+                            creature = {
+                                "name": name,
+                                "lvl": Beastlevel,
+                                "hp": basehp,
+                                "defense": basedefense,
+                                "strength": basestrength,
+                                "special attack": basespecattack,
+                                "speed": basespeed,
+                                "tier": tier,
+                                "beastimage": beastimage,
+                                "move1": move1,
+                                "move2": move2,
+                                "move3": move3,
+                                "move4": move4,
+                                "type": beasttype,
+                                "experience": experience,
+                            }
+                            save_creature(creature)
                             lootcratespeed = 1
                             self.gamescene = 7
 
@@ -8084,17 +8790,17 @@ class blackmarket(pygame.sprite.Sprite):
 
                     if (calculatedTime < 4000):
                         lootcratespeed = 1
-                    elif (calculatedTime < 6000):
+                    elif (calculatedTime < 5000):
                         lootcratespeed = 2
-                    elif (calculatedTime < 8000):
+                    elif (calculatedTime < 7000):
                         lootcratespeed = 4
                     elif (calculatedTime < 9000):
                         lootcratespeed = 6
                     elif (calculatedTime < 10000):
                         lootcratespeed = 8
-                    elif (calculatedTime < 13000):
+                    elif (calculatedTime < 12000):
                         lootcratespeed = 12
-                    elif (calculatedTime < 17000):
+                    elif (calculatedTime < 15000):
                         lootcratespeed = 20
 
                     i = i + 1
@@ -8104,10 +8810,13 @@ class blackmarket(pygame.sprite.Sprite):
                         i = 0
                     if(lootcratespeed == 20):
                         transition(10)
-                        sound_effect = pygame.mixer.Sound("beastsummon2.wav")
+                        sound_effect = pygame.mixer.Sound("audio/beastsummon2.wav")
                         sound_effect.play()
 
-                    DISPLAYSURF.blit(beasts[randombeast], (700, 380))
+                    copy_beast = beasts[randombeast].copy()
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    DISPLAYSURF.blit(copy_beast, (700, 380))
+
                     randomhp = random.randint(0,4)
                     randomdefense = random.randint(0, 4)
                     randomstrength = random.randint(0, 4)
@@ -8164,13 +8873,37 @@ class blackmarket(pygame.sprite.Sprite):
                 tier = beastattributes[randombeast][6]
                 name = beastattributes[randombeast][7]
                 beastimage = beastattributes[randombeast][8]
+                beasttype = beastattributes[randombeast][13]
+                experience = 0
+
+                move1 = " "
+                move2 = " "
+                move3 = " "
+                move4 = " "
+
+                draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
+                draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
+
+                if(beastattributes[randombeast][9] != 'empty'):
+                    move1 = moves[int(beastattributes[randombeast][9])][0]
+                    draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
+                if(beastattributes[randombeast][10] != 'empty'):
+                    move2 = moves[int(beastattributes[randombeast][10])][0]
+                    draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
+                if(beastattributes[randombeast][11] != 'empty'):
+                    move3 = moves[int(beastattributes[randombeast][11])][0]
+                    draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
+                if(beastattributes[randombeast][12] != 'empty'):
+                    move4 = moves[int(beastattributes[randombeast][12])][0]
+                    draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
+
 
                 draw_text('Lvl- ' +str(Beastlevel), font20, WHITE, DISPLAYSURF, 1375, 300)
                 draw_text('Hp- ' +str(int((basehp + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 400)
-                draw_text('Def- ' +str(int((basedefense + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
-                draw_text('Str- ' +str(int((basestrength + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
-                draw_text('Sp. Att- ' +str(int((basespecattack + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
-                draw_text('Speed- ' +str(int((basespeed + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
+                draw_text('Def- ' +str(int((basedefense + (basedefense * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
+                draw_text('Str- ' +str(int((basestrength + (basestrength * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
+                draw_text('Sp. Att- ' +str(int((basespecattack + (basespecattack * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
+                draw_text('Speed- ' +str(int((basespeed + (basespeed * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
                 draw_text_center(str(beastattributes[randombeast][7]), font20, YELLOW, DISPLAYSURF, halfdisplay, 150)
 
                 xrect = pygame.Rect(1680, 123, 35, 35)
@@ -8193,6 +8926,24 @@ class blackmarket(pygame.sprite.Sprite):
                             sys.exit()
                         elif(mouseY > 300):
                             print("end lootcrate initialized")
+                            creature = {
+                                "name": name,
+                                "lvl": Beastlevel,
+                                "hp": basehp,
+                                "defense": basedefense,
+                                "strength": basestrength,
+                                "special attack": basespecattack,
+                                "speed": basespeed,
+                                "tier": tier,
+                                "beastimage": beastimage,
+                                "move1": move1,
+                                "move2": move2,
+                                "move3": move3,
+                                "move4": move4,
+                                "type": beasttype,
+                                "experience": experience,
+                            }
+                            save_creature(creature)
                             lootcratespeed = 1
                             self.gamescene = 7
 
@@ -8219,17 +8970,17 @@ class blackmarket(pygame.sprite.Sprite):
 
                     if (calculatedTime < 4000):
                         lootcratespeed = 1
-                    elif (calculatedTime < 6000):
+                    elif (calculatedTime < 5000):
                         lootcratespeed = 2
-                    elif (calculatedTime < 8000):
+                    elif (calculatedTime < 7000):
                         lootcratespeed = 4
                     elif (calculatedTime < 9000):
                         lootcratespeed = 6
                     elif (calculatedTime < 10000):
                         lootcratespeed = 8
-                    elif (calculatedTime < 13000):
+                    elif (calculatedTime < 12000):
                         lootcratespeed = 12
-                    elif (calculatedTime < 17000):
+                    elif (calculatedTime < 15000):
                         lootcratespeed = 20
 
                     i = i + 1
@@ -8239,10 +8990,13 @@ class blackmarket(pygame.sprite.Sprite):
                         i = 0
                     if(lootcratespeed == 20):
                         transition(10)
-                        sound_effect = pygame.mixer.Sound("beastsummon2.wav")
+                        sound_effect = pygame.mixer.Sound("audio/beastsummon2.wav")
                         sound_effect.play()
 
-                    DISPLAYSURF.blit(beasts[randombeast], (700, 380))
+                    copy_beast = beasts[randombeast].copy()
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    DISPLAYSURF.blit(copy_beast, (700, 380))
+
                     randomhp = random.randint(0,4)
                     randomdefense = random.randint(0, 4)
                     randomstrength = random.randint(0, 4)
@@ -8300,13 +9054,37 @@ class blackmarket(pygame.sprite.Sprite):
                 tier = beastattributes[randombeast][6]
                 name = beastattributes[randombeast][7]
                 beastimage = beastattributes[randombeast][8]
+                beasttype = beastattributes[randombeast][13]
+                experience = 0
+
+                move1 = " "
+                move2 = " "
+                move3 = " "
+                move4 = " "
+
+                draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
+                draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
+
+                if(beastattributes[randombeast][9] != 'empty'):
+                    move1 = moves[int(beastattributes[randombeast][9])][0]
+                    draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
+                if(beastattributes[randombeast][10] != 'empty'):
+                    move2 = moves[int(beastattributes[randombeast][10])][0]
+                    draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
+                if(beastattributes[randombeast][11] != 'empty'):
+                    move3 = moves[int(beastattributes[randombeast][11])][0]
+                    draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
+                if(beastattributes[randombeast][12] != 'empty'):
+                    move4 = moves[int(beastattributes[randombeast][12])][0]
+                    draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
+
 
                 draw_text('Lvl- ' +str(Beastlevel), font20, WHITE, DISPLAYSURF, 1375, 300)
                 draw_text('Hp- ' +str(int((basehp + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 400)
-                draw_text('Def- ' +str(int((basedefense + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
-                draw_text('Str- ' +str(int((basestrength + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
-                draw_text('Sp. Att- ' +str(int((basespecattack + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
-                draw_text('Speed- ' +str(int((basespeed + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
+                draw_text('Def- ' +str(int((basedefense + (basedefense * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
+                draw_text('Str- ' +str(int((basestrength + (basestrength * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
+                draw_text('Sp. Att- ' +str(int((basespecattack + (basespecattack * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
+                draw_text('Speed- ' +str(int((basespeed + (basespeed * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
                 draw_text_center(str(beastattributes[randombeast][7]), font20, YELLOW, DISPLAYSURF, halfdisplay, 150)
 
                 xrect = pygame.Rect(1680, 123, 35, 35)
@@ -8329,6 +9107,24 @@ class blackmarket(pygame.sprite.Sprite):
                             sys.exit()
                         elif(mouseY > 300):
                             print("end lootcrate initialized")
+                            creature = {
+                                "name": name,
+                                "lvl": Beastlevel,
+                                "hp": basehp,
+                                "defense": basedefense,
+                                "strength": basestrength,
+                                "special attack": basespecattack,
+                                "speed": basespeed,
+                                "tier": tier,
+                                "beastimage": beastimage,
+                                "move1": move1,
+                                "move2": move2,
+                                "move3": move3,
+                                "move4": move4,
+                                "type": beasttype,
+                                "experience": experience,
+                            }
+                            save_creature(creature)
                             lootcratespeed = 1
                             self.gamescene = 7
 
@@ -8355,17 +9151,17 @@ class blackmarket(pygame.sprite.Sprite):
 
                     if (calculatedTime < 4000):
                         lootcratespeed = 1
-                    elif (calculatedTime < 6000):
+                    elif (calculatedTime < 5000):
                         lootcratespeed = 2
-                    elif (calculatedTime < 8000):
+                    elif (calculatedTime < 7000):
                         lootcratespeed = 4
                     elif (calculatedTime < 9000):
                         lootcratespeed = 6
                     elif (calculatedTime < 10000):
                         lootcratespeed = 8
-                    elif (calculatedTime < 13000):
+                    elif (calculatedTime < 12000):
                         lootcratespeed = 12
-                    elif (calculatedTime < 17000):
+                    elif (calculatedTime < 15000):
                         lootcratespeed = 20
 
                     i = i + 1
@@ -8375,10 +9171,13 @@ class blackmarket(pygame.sprite.Sprite):
                         i = 0
                     if(lootcratespeed == 20):
                         transition(10)
-                        sound_effect = pygame.mixer.Sound("beastsummon2.wav")
+                        sound_effect = pygame.mixer.Sound("audio/beastsummon2.wav")
                         sound_effect.play()
 
-                    DISPLAYSURF.blit(beasts[randombeast], (700, 380))
+                    copy_beast = beasts[randombeast].copy()
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    DISPLAYSURF.blit(copy_beast, (700, 380))
+
                     randomhp = random.randint(0,4)
                     randomdefense = random.randint(0, 4)
                     randomstrength = random.randint(0, 4)
@@ -8426,6 +9225,7 @@ class blackmarket(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(imagewhiteground, (630, 500))
                 DISPLAYSURF.blit(imagewhitecircle, (500, 170))
 
+
                 DISPLAYSURF.blit(beasts[randombeast], (700, 380))
 
                 Beastlevel = beastattributes[randombeast][0]
@@ -8437,13 +9237,37 @@ class blackmarket(pygame.sprite.Sprite):
                 tier = beastattributes[randombeast][6]
                 name = beastattributes[randombeast][7]
                 beastimage = beastattributes[randombeast][8]
+                beasttype = beastattributes[randombeast][13]
+                experience = 0
+
+
+                move1 = " "
+                move2 = " "
+                move3 = " "
+                move4 = " "
+
+                draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
+                draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
+
+                if(beastattributes[randombeast][9] != 'empty'):
+                    move1 = moves[int(beastattributes[randombeast][9])][0]
+                    draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
+                if(beastattributes[randombeast][10] != 'empty'):
+                    move2 = moves[int(beastattributes[randombeast][10])][0]
+                    draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
+                if(beastattributes[randombeast][11] != 'empty'):
+                    move3 = moves[int(beastattributes[randombeast][11])][0]
+                    draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
+                if(beastattributes[randombeast][12] != 'empty'):
+                    move4 = moves[int(beastattributes[randombeast][12])][0]
+                    draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
 
                 draw_text('Lvl- ' +str(Beastlevel), font20, WHITE, DISPLAYSURF, 1375, 300)
                 draw_text('Hp- ' +str(int((basehp + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 400)
-                draw_text('Def- ' +str(int((basedefense + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
-                draw_text('Str- ' +str(int((basestrength + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
-                draw_text('Sp. Att- ' +str(int((basespecattack + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
-                draw_text('Speed- ' +str(int((basespeed + (basehp * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
+                draw_text('Def- ' +str(int((basedefense + (basedefense * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 500)
+                draw_text('Str- ' +str(int((basestrength + (basestrength * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 600)
+                draw_text('Sp. Att- ' +str(int((basespecattack + (basespecattack * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 700)
+                draw_text('Speed- ' +str(int((basespeed + (basespeed * .2 * Beastlevel) + (1 * Beastlevel)) * (1 + tier * .1))), font20, WHITE, DISPLAYSURF, 1375, 800)
                 draw_text_center(str(beastattributes[randombeast][7]), font20, YELLOW, DISPLAYSURF, halfdisplay, 150)
 
                 xrect = pygame.Rect(1680, 123, 35, 35)
@@ -8466,6 +9290,24 @@ class blackmarket(pygame.sprite.Sprite):
                             sys.exit()
                         elif(mouseY > 300):
                             print("end lootcrate initialized")
+                            creature = {
+                                "name": name,
+                                "lvl": Beastlevel,
+                                "hp": basehp,
+                                "defense": basedefense,
+                                "strength": basestrength,
+                                "special attack": basespecattack,
+                                "speed": basespeed,
+                                "tier": tier,
+                                "beastimage": beastimage,
+                                "move1": move1,
+                                "move2": move2,
+                                "move3": move3,
+                                "move4": move4,
+                                "type": beasttype,
+                                "experience": experience,
+                            }
+                            save_creature(creature)
                             lootcratespeed = 1
                             self.gamescene = 7
 
@@ -8478,4 +9320,1156 @@ class blackmarket(pygame.sprite.Sprite):
             file.writelines(lines)
         return 0
 ########################################################################################################################
+class stash(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.stashloop = True
+        self.stashvault()
+########################################################################################################################
+    def stashvault(self):
+        global FaderBool
+        global Fader
+        global textFader
+        video = cv2.VideoCapture("video/underwater.mp4")
+        video2 = cv2.VideoCapture("video/vaultenter.mov")
+        opacityvalue = 1
+        opacitybool = True
+        startTime = pygame.time.get_ticks()
+        self.gamescene = 1
+        mouse_pos = pygame.mouse.get_pos()
+        pygame.mixer.music.load("audio/stashambient1.mp3")
+        pygame.mixer.music.queue("audio/stashambient2.mp3")
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+        print("Stash initialized")
+        global textFader
+        global characterName
+        global gold
+        global gem
+
+        creaturename = []
+        creaturelvl = []
+        creaturehp = []
+        creaturedefense = []
+        creaturestrength = []
+        creaturespecattack = []
+        creaturespeed = []
+        creaturestrength = []
+        creaturespecattack = []
+        creaturespeed = []
+        creaturetier = []
+        creatureimage = []
+        creaturemove1 = []
+        creaturemove2 = []
+        creaturemove3 = []
+        creaturemove4 = []
+        creaturetype = []
+        creatureexp = []
+        clickedrect = -1
+        creaturepage = 1
+
+        creatures = load_creatures("creaturedata.txt")
+
+        for creature in creatures:
+            attributes = list(creature.values())
+            creaturename.append(attributes[0])
+            creaturelvl.append(attributes[1])
+            creaturehp.append(attributes[2])
+            creaturedefense.append(attributes[3])
+            creaturestrength.append(attributes[4])
+            creaturespecattack.append(attributes[5])
+            creaturespeed.append(attributes[6])
+            creaturetier.append(attributes[7])
+            creatureimage.append(attributes[8])
+            creaturemove1.append(attributes[9])
+            creaturemove2.append(attributes[10])
+            creaturemove3.append(attributes[11])
+            creaturemove4.append(attributes[12])
+            creaturetype.append(attributes[13])
+            creatureexp.append(attributes[14])
+
+        while self.stashloop:
+            rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
+            rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
+            rainbowcolor3 = int((math.sin(startTime * 0.005 + 2) + 1) * 127.5)
+            rainbow = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
+            with open("gamedata.txt", "r") as file:
+                lines = file.readlines()
+                goldline = lines[0].strip()
+                goldline = goldline[7:]
+                gemline = lines[1].strip()
+                gemline = gemline[6:]
+                gold = int(goldline)
+                gem = int(gemline)
+
+            startTime = pygame.time.get_ticks()
+            mouseX, mouseY = pygame.mouse.get_pos()
+            DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
+
+            if(opacitybool == True):
+                opacityvalue = opacityvalue + 1
+            if(opacitybool == False):
+                opacityvalue = opacityvalue - 1
+            if(opacityvalue >= 250):
+                opacitybool = False
+            if (opacityvalue <= 5):
+                opacitybool = True
+
+            if (self.gamescene == 1):
+                DISPLAYSURF.fill(BLACK)
+                DISPLAYSURF.blit(image262, (197, 100))
+
+                ret, frame = video.read()
+                if not ret:
+                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(70)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                mouse_pos = pygame.mouse.get_pos()
+                draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
+                DISPLAYSURF.blit(image164, (198, 110))
+                xrect = pygame.Rect(1680, 123, 35, 35)
+                returnarrowrect = pygame.Rect(153, 110, 120, 70)
+                draw_text_center('Click to Enter Vault', font18, WHITE, DISPLAYSURF, halfdisplay, 300)
+                draw_text_center('Click to Enter Vault', font18, AQUA, DISPLAYSURF, halfdisplay, 300, opacityvalue)
+
+                if xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
+                if returnarrowrect.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(image165, (198, 110))
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
+                            sound_effect = pygame.mixer.Sound("audio/vaultopen.mp3")
+                            sound_effect.play()
+                            sound_effect = pygame.mixer.Sound("audio/stashtransitionnoise.mp3")
+                            sound_effect.play()
+                            fps = int(video2.get(cv2.CAP_PROP_FPS))
+                            clock = pygame.time.Clock()
+                            while video2.isOpened():
+                                ret, frame = video2.read()
+                                if not ret:
+                                    break
+                                frame = cv2.resize(frame, (1650, 940))
+                                frame = cv2.flip(frame, 1)
+                                frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+                                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                                frame = pygame.surfarray.make_surface(frame).convert()
+                                DISPLAYSURF.blit(frame, (140, 70))
+                                pygame.display.flip()  # Update the display
+                                clock.tick(fps)
+                            video2.release()
+                            transition(6)
+                            self.gamescene = self.gamescene + 1
+                        if returnarrowrect.collidepoint(mouse_pos):
+                            video.release()
+                            transition(6)
+                            self.stashloop = False
+                        if xrect.collidepoint(mouse_pos):
+                            print("Quit clicked")
+                            video.release()
+                            pygame.mixer.music.stop()
+                            pygame.quit()
+                            sys.exit()
+                pygame.display.update()
+            if (self.gamescene == 2):
+                DISPLAYSURF.fill(BLACK)
+                mouse_pos = pygame.mouse.get_pos()
+                mouseX, mouseY = pygame.mouse.get_pos()
+                print("x and y = " + str(mouseX) + " " + str(mouseY))
+
+                image264.set_alpha(150)
+                DISPLAYSURF.blit(image264, (197, 100))
+
+                draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
+                DISPLAYSURF.blit(image164, (198, 110))
+
+                ret, frame = video.read()
+                if not ret:
+                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(70)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                DISPLAYSURF.blit(image267, (490, 190))
+
+                draw_text_center('Armory', font23, RED, DISPLAYSURF,885, 222)
+                draw_text_center('Beasts', font23, PURPLE, DISPLAYSURF, 1043, 222)
+                draw_text_center('Equipment', font23, AQUA, DISPLAYSURF, 580, 311)
+                draw_text_center('Page ', font23, EMERALD, DISPLAYSURF, halfdisplay + 5, 875)
+
+                DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
+
+                leftarrowrect = pygame.Rect(685, 835, 125, 60)
+                rightarrowrect = pygame.Rect(1130, 830, 125, 60)
+
+                armoryrect = pygame.Rect(815, 210, 150, 60)
+                companionrect = pygame.Rect(975, 210, 150, 60)
+                pygame.draw.rect(DISPLAYSURF, rainbow, armoryrect, 5)
+
+                xrect = pygame.Rect(1680, 123, 35, 35)
+                returnarrowrect = pygame.Rect(153, 110, 120, 70)
+                if leftarrowrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, ORANGEDESERT, leftarrowrect, 5, 5)
+                if rightarrowrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, ORANGEDESERT, rightarrowrect, 5, 5)
+                if armoryrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, EMERALD, armoryrect, 5)
+                if companionrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, EMERALD, companionrect, 5)
+                if xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
+                if returnarrowrect.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(image165, (198, 110))
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if returnarrowrect.collidepoint(mouse_pos):
+                            video.release()
+                            transition(6)
+                            self.stashloop = False
+                        if armoryrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
+                            sound_effect.play()
+                            self.gamescene = 2
+                        if companionrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
+                            sound_effect.play()
+                            self.gamescene = 3
+                        if xrect.collidepoint(mouse_pos):
+                            print("Quit clicked")
+                            video.release()
+                            pygame.mixer.music.stop()
+                            pygame.quit()
+                            sys.exit()
+                pygame.display.update()
+            if (self.gamescene == 3):
+                DISPLAYSURF.fill(BLACK)
+                mouse_pos = pygame.mouse.get_pos()
+                mouseX, mouseY = pygame.mouse.get_pos()
+                print("x and y = " + str(mouseX) + " " + str(mouseY))
+
+                image264.set_alpha(150)
+                DISPLAYSURF.blit(image264, (197, 100))
+
+                draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
+                DISPLAYSURF.blit(image164, (198, 110))
+
+                ret, frame = video.read()
+                if not ret:
+                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(70)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                DISPLAYSURF.blit(image266, (490, 190))
+
+                draw_text_center('Armory', font23, RED, DISPLAYSURF,885, 222)
+                draw_text_center('Beasts', font23, PURPLE, DISPLAYSURF, 1043, 222)
+                draw_text_center('Companions', font23, AQUA, DISPLAYSURF, 595, 361)
+                draw_text_center('Page ' +str(creaturepage), font23, EMERALD, DISPLAYSURF, halfdisplay + 5, 875)
+
+                DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
+
+                rects = []
+                i = 0
+                amountBeasts = len(creatureimage)
+                while(i != amountBeasts):
+
+                    ii = (i + (creaturepage - 1) * 36)
+                    size = len(creatureimage) - 1
+
+                    if(i >= 0 and i <= 5):
+                        if(size >= ii):
+                            DISPLAYSURF.blit(smallBeasts[creatureimage[ii]], (699 + (94 * i), 288))
+                            rect = pygame.Rect(695 + (94 * i), 282, 73, 71)
+                            rects.append(rect)
+                    if(i >=6 and i <= 11):
+                        if(size >= ii):
+                            DISPLAYSURF.blit(smallBeasts[creatureimage[ii]], (699 + (94 * (i - 6)), 379))
+                            rect = pygame.Rect(695 + (94 * (i - 6)), 373, 73, 71)
+                            rects.append(rect)
+                    if(i >= 12 and i <= 17):
+                        if(size >= ii):
+                            DISPLAYSURF.blit(smallBeasts[creatureimage[ii]], (699 +(94 * (i - 12)), 465))
+                            rect = pygame.Rect(695 + (94 * (i - 12)), 460, 73, 71)
+                            rects.append(rect)
+                    if(i >= 18 and i <= 23):
+                        if(size >= ii):
+                            DISPLAYSURF.blit(smallBeasts[creatureimage[ii]], (699 + (94 * (i - 18)), 555))
+                            rect = pygame.Rect(695 + (94 * (i - 18)), 549, 73, 71)
+                            rects.append(rect)
+                    if(i >= 24 and i <= 29):
+                        if(size >= ii):
+                            DISPLAYSURF.blit(smallBeasts[creatureimage[ii]], (699 + (94 * (i - 24)), 642))
+                            rect = pygame.Rect(695 + (94 * (i - 24)), 636, 73, 71)
+                            rects.append(rect)
+                    if(i >= 30 and i <= 35):
+                        if(size >= ii):
+                            DISPLAYSURF.blit(smallBeasts[creatureimage[ii]], (699 + (94 * (i - 30)), 731))
+                            rect = pygame.Rect(695 + (94 * (i - 30)), 726, 73, 71)
+                            rects.append(rect)
+
+                    i = i + 1
+
+                s1 = " "
+                s2 = " "
+                s3 = " "
+                s4 = " "
+                s5 = " "
+                s6 = " "
+                showbool = True
+                x = 0
+                team1 = pygame.Rect(509, 410, 174, 75)
+                team2 = pygame.Rect(509, 500, 174, 75)
+                team3 = pygame.Rect(507, 590, 174, 75)
+
+                for rect in rects:
+                    pygame.draw.rect(DISPLAYSURF,PINK, rect, 6, 10)
+                    if rect.collidepoint(mouse_pos):
+                        showbool = False
+                        xx = x + ((creaturepage - 1) * 36)
+                        s1 = ('Lvl- ' + str(creaturelvl[xx]))
+                        s2 = ('Hp- ' + str(int((creaturehp[xx] + (creaturehp[xx] * .2 * creaturelvl[xx]) + (1 * creaturelvl[xx])) * (1 + creaturetier[xx] * .1))))
+                        s3 = ('Def- ' + str(int((creaturedefense[xx] + (creaturedefense[xx] * .2 * creaturelvl[xx]) + (1 * creaturelvl[xx])) * (1 + creaturetier[xx] * .1))))
+                        s4 = ('Str- ' + str(int((creaturestrength[xx] + (creaturestrength[xx] * .2 * creaturelvl[xx]) + (1 * creaturelvl[xx])) * (1 + creaturetier[xx] * .1))))
+                        s5 = ('Spec- ' + str(int((creaturespecattack[xx] + (creaturespecattack[xx] * .2 * creaturelvl[xx]) + (1 * creaturelvl[xx])) * (1 + creaturetier[xx] * .1))))
+                        s6 = ('Speed- ' + str(int((creaturespeed[xx] + (creaturespeed[xx] * .2 * creaturelvl[xx]) + (1 * creaturelvl[xx])) * (1 + creaturetier[xx] * .1))))
+                        pygame.draw.rect(DISPLAYSURF, GOLD, rect, 6, 10)
+                        draw_text_center(str(creaturename[xx]), font24, LIGHTGREEN, DISPLAYSURF, 1405, 365)
+                        draw_text_center(str(beast_lore[creatureimage[xx]]), font11, DARKPURPLE, DISPLAYSURF, 960, 930)
+                        draw_text_center("lvl- " +str(creaturelvl[xx]), font24, GREEN, DISPLAYSURF, 1405, 415)
+                        draw_text(str(creaturemove1[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                        draw_text(str(creaturemove2[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
+                        draw_text(str(creaturemove3[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
+                        draw_text(str(creaturemove4[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
+                        draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
+                        draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
+                        draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
+                        draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
+                        draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
+                        draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                        exprect = pygame.Rect(690, 157, 0  + creatureexp[xx], 50)
+                        exprect2 = pygame.Rect(690, 157, 555, 50)
+                        draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
+                        pygame.draw.rect(DISPLAYSURF, PINK, exprect, 0, 12)
+                        pygame.draw.rect(DISPLAYSURF, GREY, exprect2, 6, 12)
+                        draw_text_center("type- " +creaturetype[xx], font24, GREEN, DISPLAYSURF, 1398, 315)
+                        for event in pygame.event.get():
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                clickedrect = x + ((creaturepage - 1) * 36)
+
+                    x = x + 1
+                if (clickedrect != -1):
+                     if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                        pygame.draw.rect(DISPLAYSURF, AQUA, rects[clickedrect - ((creaturepage - 1) * 36)], 6, 10)
+
+                if (showbool == True):
+                    if team1.collidepoint(mouse_pos):
+                        teamcreatures = load_teamcreatures()
+                        if (len(teamcreatures) >= 1):
+                            attributes = list(teamcreatures[0].values())
+                            s1 = ('Lvl- ' + str(attributes[1]))
+                            s2 = ('Hp- ' + str(int((attributes[2] + (attributes[2] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s3 = ('Def- ' + str(int((attributes[3] + (attributes[3] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s4 = ('Str- ' + str(int((attributes[4] + (attributes[4] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s5 = ('Spec- ' + str(int((attributes[5] + (attributes[5] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s6 = ('Speed- ' + str(int((attributes[6] + (attributes[6] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            draw_text_center(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1405,365)
+                            draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
+                            draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
+                            draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
+                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
+                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            exprect = pygame.Rect(690, 157, 0 + attributes[14], 50)
+                            exprect2 = pygame.Rect(690, 157, 555, 50)
+                            draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
+                            pygame.draw.rect(DISPLAYSURF, PINK, exprect, 0, 12)
+                            pygame.draw.rect(DISPLAYSURF, GREY, exprect2, 6, 12)
+                            draw_text_center("type- " + attributes[13], font24, GREEN, DISPLAYSURF, 1398,315)
+                    elif team2.collidepoint(mouse_pos):
+                        teamcreatures = load_teamcreatures()
+                        if (len(teamcreatures) >= 2):
+                            attributes = list(teamcreatures[1].values())
+                            s1 = ('Lvl- ' + str(attributes[1]))
+                            s2 = ('Hp- ' + str(int((attributes[2] + (attributes[2] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s3 = ('Def- ' + str(int((attributes[3] + (attributes[3] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s4 = ('Str- ' + str(int((attributes[4] + (attributes[4] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s5 = ('Spec- ' + str(int((attributes[5] + (attributes[5] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s6 = ('Speed- ' + str(int((attributes[6] + (attributes[6] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            draw_text_center(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1405,365)
+                            draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
+                            draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
+                            draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
+                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
+                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            exprect = pygame.Rect(690, 157, 0 + attributes[14], 50)
+                            exprect2 = pygame.Rect(690, 157, 555, 50)
+                            draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
+                            pygame.draw.rect(DISPLAYSURF, PINK, exprect, 0, 12)
+                            pygame.draw.rect(DISPLAYSURF, GREY, exprect2, 6, 12)
+                            draw_text_center("type- " + attributes[13], font24, GREEN, DISPLAYSURF, 1398,315)
+                    elif team3.collidepoint(mouse_pos):
+                        teamcreatures = load_teamcreatures()
+                        if (len(teamcreatures) >= 3):
+                            attributes = list(teamcreatures[2].values())
+                            s1 = ('Lvl- ' + str(attributes[1]))
+                            s2 = ('Hp- ' + str(int((attributes[2] + (attributes[2] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s3 = ('Def- ' + str(int((attributes[3] + (attributes[3] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s4 = ('Str- ' + str(int((attributes[4] + (attributes[4] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s5 = ('Spec- ' + str(int((attributes[5] + (attributes[5] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            s6 = ('Speed- ' + str(int((attributes[6] + (attributes[6] * .2 * attributes[1]) + (1 * attributes[1])) * (1 + attributes[7] * .1))))
+                            draw_text_center(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1405,365)
+                            draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
+                            draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
+                            draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
+                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
+                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            exprect = pygame.Rect(690, 157, 0 + attributes[14], 50)
+                            exprect2 = pygame.Rect(690, 157, 555, 50)
+                            draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
+                            pygame.draw.rect(DISPLAYSURF, PINK, exprect, 0, 12)
+                            pygame.draw.rect(DISPLAYSURF, GREY, exprect2, 6, 12)
+                            draw_text_center("type- " + attributes[13], font24, GREEN, DISPLAYSURF, 1398,315)
+                    elif (clickedrect != -1):
+                        if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                            s1 = ('Lvl- ' + str(creaturelvl[clickedrect]))
+                            s2 = ('Hp- ' + str(int((creaturehp[clickedrect] + (creaturehp[clickedrect] * .2 * creaturelvl[clickedrect]) + (
+                                        1 * creaturelvl[clickedrect])) * (1 + creaturetier[clickedrect] * .1))))
+                            s3 = ('Def- ' + str(int((creaturedefense[clickedrect] + (
+                                        creaturedefense[clickedrect] * .2 * creaturelvl[clickedrect]) + (1 * creaturelvl[clickedrect])) * (
+                                                                1 + creaturetier[clickedrect] * .1))))
+                            s4 = ('Str- ' + str(int((creaturestrength[clickedrect] + (
+                                        creaturestrength[clickedrect] * .2 * creaturelvl[clickedrect]) + (1 * creaturelvl[clickedrect])) * (
+                                                                1 + creaturetier[clickedrect] * .1))))
+                            s5 = ('Spec- ' + str(int((creaturespecattack[clickedrect] + (
+                                        creaturespecattack[clickedrect] * .2 * creaturelvl[clickedrect]) + (1 * creaturelvl[clickedrect])) * (
+                                                                 1 + creaturetier[clickedrect] * .1))))
+                            s6 = ('Speed- ' + str(int((creaturespeed[clickedrect] + (
+                                        creaturespeed[clickedrect] * .2 * creaturelvl[clickedrect]) + (1 * creaturelvl[clickedrect])) * (
+                                                                  1 + creaturetier[clickedrect] * .1))))
+                            pygame.draw.rect(DISPLAYSURF, AQUA, rects[clickedrect - ((creaturepage - 1) * 36)], 6,10)
+                            draw_text_center(str(creaturename[clickedrect]), font24, LIGHTGREEN, DISPLAYSURF, 1405, 365)
+                            draw_text_center(str(beast_lore[creatureimage[clickedrect]]), font11, DARKPURPLE, DISPLAYSURF,960, 930)
+                            draw_text_center("lvl- " + str(creaturelvl[clickedrect]), font24, GREEN, DISPLAYSURF, 1405, 415)
+                            draw_text(str(creaturemove1[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            draw_text(str(creaturemove2[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
+                            draw_text(str(creaturemove3[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
+                            draw_text(str(creaturemove4[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            exprect = pygame.Rect(690, 157, 0 + creatureexp[clickedrect], 50)
+                            exprect2 = pygame.Rect(690, 157, 555, 50)
+                            draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
+                            pygame.draw.rect(DISPLAYSURF, PINK, exprect, 0, 12)
+                            pygame.draw.rect(DISPLAYSURF, GREY, exprect2, 6, 12)
+                            draw_text_center("type- " + creaturetype[clickedrect], font24, GREEN, DISPLAYSURF, 1398, 315)
+
+                pygame.draw.ellipse(DISPLAYSURF, (rainbowcolor2,rainbowcolor3,46), team1, 6)
+                pygame.draw.ellipse(DISPLAYSURF, (rainbowcolor2,rainbowcolor3,46), team2, 6)
+                pygame.draw.ellipse(DISPLAYSURF, (rainbowcolor2,rainbowcolor3,46), team3, 6)
+
+                if team1.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, team1, 5)
+
+                if team2.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, team2, 5)
+
+                if team3.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, team3, 5)
+
+                teamcreatures = load_teamcreatures()
+                if (len(teamcreatures) >= 1):
+                    attributes = list(teamcreatures[0].values())
+                    DISPLAYSURF.blit(smallBeasts[attributes[8]], (563, 415))
+                if (len(teamcreatures) >= 2):
+                    attributes = list(teamcreatures[1].values())
+                    DISPLAYSURF.blit(smallBeasts[attributes[8]], (563, 515))
+                if (len(teamcreatures) >= 3):
+                    attributes = list(teamcreatures[2].values())
+                    DISPLAYSURF.blit(smallBeasts[attributes[8]], (563, 605))
+
+                draw_text('x', font4, RED, DISPLAYSURF, 474, 412)
+                draw_text('x', font4, RED, DISPLAYSURF, 474, 501)
+                draw_text('x', font4, RED, DISPLAYSURF, 474, 595)
+
+                team1xrect = pygame.Rect(470, 430, 40, 40)
+                team2xrect = pygame.Rect(470, 517, 40, 40)
+                team3xrect = pygame.Rect(470, 612, 40, 40)
+                if team1xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 474, 412)
+
+                if team2xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 474, 501)
+
+                if team3xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 474, 595)
+
+                trashcanrect = pygame.Rect(930, 800, 80, 80)
+                if trashcanrect.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, RED, trashcanrect, 4)
+                    draw_text_center("click trash can to delete creature", font11, rainbow, DISPLAYSURF, halfdisplay, 797)
+
+                move1rect = pygame.Rect(1257, 476, 290, 40)
+                move2rect = pygame.Rect(1257, 476, 290, 40)
+                move3rect = pygame.Rect(1257, 476, 290, 40)
+                move4rect = pygame.Rect(1257, 476, 290, 40)
+
+                if move1rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move1rect, 5, 5)
+
+                if move2rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move2rect, 5, 5)
+
+                if move3rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, (rainbowcolor2, 192, rainbowcolor2), move3rect, 5, 5)
+
+                if move4rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move4rect, 5, 5)
+
+
+                leftarrowrect = pygame.Rect(685, 835, 125, 60)
+                rightarrowrect = pygame.Rect(1130, 830, 125, 60)
+
+                armoryrect = pygame.Rect(815, 210, 150, 60)
+                companionrect = pygame.Rect(975, 210, 150, 60)
+                pygame.draw.rect(DISPLAYSURF, rainbow, companionrect, 5)
+
+                xrect = pygame.Rect(1680, 123, 35, 35)
+                returnarrowrect = pygame.Rect(153, 110, 120, 70)
+                if leftarrowrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, ORANGEDESERT, leftarrowrect, 5, 5)
+                if rightarrowrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, ORANGEDESERT, rightarrowrect, 5, 5)
+                if armoryrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, EMERALD, armoryrect, 5)
+                if companionrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, EMERALD, companionrect, 5)
+                if xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
+                if returnarrowrect.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(image165, (198, 110))
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if leftarrowrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
+                            sound_effect.play()
+                            if(creaturepage != 1):
+                                creaturepage = creaturepage - 1
+                        if rightarrowrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
+                            sound_effect.play()
+                            creaturepage = creaturepage + 1
+                        if returnarrowrect.collidepoint(mouse_pos):
+                            video.release()
+                            transition(6)
+                            self.stashloop = False
+                        if armoryrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
+                            sound_effect.play()
+                            self.gamescene = 2
+                        if companionrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
+                            sound_effect.play()
+                            self.gamescene = 3
+                        if xrect.collidepoint(mouse_pos):
+                            print("Quit clicked")
+                            video.release()
+                            pygame.mixer.music.stop()
+                            pygame.quit()
+                            sys.exit()
+                        if team1.collidepoint(mouse_pos):
+                            teamcreatures = load_teamcreatures()
+                            if (clickedrect != -1):
+                                if(len(teamcreatures) >= 1):
+                                    if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                                        save_creature(teamcreatures[0], "creaturedata.txt")
+                                        modify_teamcreature(0, {"name": creaturename[clickedrect],
+                                                                "lvl": creaturelvl[clickedrect],
+                                                                "hp": creaturehp[clickedrect],
+                                                                "defense": creaturedefense[clickedrect],
+                                                                "strength": creaturestrength[clickedrect],
+                                                                "special attack": creaturespecattack[clickedrect],
+                                                                "speed": creaturespeed[clickedrect],
+                                                                "tier": creaturetier[clickedrect],
+                                                                "beastimage": creatureimage[clickedrect],
+                                                                "move1": creaturemove1[clickedrect],
+                                                                "move2": creaturemove2[clickedrect],
+                                                                "move3": creaturemove3[clickedrect],
+                                                                "move4": creaturemove4[clickedrect],
+                                                                "type": creaturetype[clickedrect],
+                                                                "experience": creatureexp[
+                                                                    clickedrect]})  # Updates Dragon's health and attack
+                                        delete_creature_by_index(clickedrect)
+
+                                        creaturename.clear()
+                                        creaturelvl.clear()
+                                        creaturehp.clear()
+                                        creaturedefense.clear()
+                                        creaturestrength.clear()
+                                        creaturespecattack.clear()
+                                        creaturespecattack.clear()
+                                        creaturespeed.clear()
+                                        creaturetier.clear()
+                                        creatureimage.clear()
+                                        creaturemove1.clear()
+                                        creaturemove2.clear()
+                                        creaturemove3.clear()
+                                        creaturemove4.clear()
+                                        creaturetype.clear()
+                                        creatureexp.clear()
+
+                                        creatures = load_creatures("creaturedata.txt")
+
+                                        for creature in creatures:
+                                            attributes = list(creature.values())
+                                            creaturename.append(attributes[0])
+                                            creaturelvl.append(attributes[1])
+                                            creaturehp.append(attributes[2])
+                                            creaturedefense.append(attributes[3])
+                                            creaturestrength.append(attributes[4])
+                                            creaturespecattack.append(attributes[5])
+                                            creaturespeed.append(attributes[6])
+                                            creaturetier.append(attributes[7])
+                                            creatureimage.append(attributes[8])
+                                            creaturemove1.append(attributes[9])
+                                            creaturemove2.append(attributes[10])
+                                            creaturemove3.append(attributes[11])
+                                            creaturemove4.append(attributes[12])
+                                            creaturetype.append(attributes[13])
+                                            creatureexp.append(attributes[14])
+
+                                        sound_effect = pygame.mixer.Sound("audio/pokemonnoise.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+
+                                        clickedrect = -1
+                                else:
+                                    tempcreature = {
+                                        "name": creaturename[clickedrect],
+                                        "lvl": creaturelvl[clickedrect],
+                                        "hp": creaturehp[clickedrect],
+                                        "defense": creaturedefense[clickedrect],
+                                        "strength": creaturestrength[clickedrect],
+                                        "special attack": creaturespecattack[clickedrect],
+                                        "speed": creaturespeed[clickedrect],
+                                        "tier": creaturetier[clickedrect],
+                                        "beastimage": creatureimage[clickedrect],
+                                        "move1": creaturemove1[clickedrect],
+                                        "move2": creaturemove2[clickedrect],
+                                        "move3": creaturemove3[clickedrect],
+                                        "move4": creaturemove4[clickedrect],
+                                        "type": creaturetype[clickedrect],
+                                        "experience": creatureexp[clickedrect],
+                                    }
+
+                                    save_teamcreature(tempcreature, "teamdata.txt")
+                                    delete_creature_by_index(clickedrect)
+
+                                    creaturename.clear()
+                                    creaturelvl.clear()
+                                    creaturehp.clear()
+                                    creaturedefense.clear()
+                                    creaturestrength.clear()
+                                    creaturespecattack.clear()
+                                    creaturespecattack.clear()
+                                    creaturespeed.clear()
+                                    creaturetier.clear()
+                                    creatureimage.clear()
+                                    creaturemove1.clear()
+                                    creaturemove2.clear()
+                                    creaturemove3.clear()
+                                    creaturemove4.clear()
+                                    creaturetype.clear()
+                                    creatureexp.clear()
+
+                                    creatures = load_creatures("creaturedata.txt")
+
+                                    for creature in creatures:
+                                        attributes = list(creature.values())
+                                        creaturename.append(attributes[0])
+                                        creaturelvl.append(attributes[1])
+                                        creaturehp.append(attributes[2])
+                                        creaturedefense.append(attributes[3])
+                                        creaturestrength.append(attributes[4])
+                                        creaturespecattack.append(attributes[5])
+                                        creaturespeed.append(attributes[6])
+                                        creaturetier.append(attributes[7])
+                                        creatureimage.append(attributes[8])
+                                        creaturemove1.append(attributes[9])
+                                        creaturemove2.append(attributes[10])
+                                        creaturemove3.append(attributes[11])
+                                        creaturemove4.append(attributes[12])
+                                        creaturetype.append(attributes[13])
+                                        creatureexp.append(attributes[14])
+
+                                    sound_effect = pygame.mixer.Sound("audio/pokemonnoise.mp3")
+                                    pygame.mixer.music.set_volume(0.4)
+                                    sound_effect.play()
+
+                            clickedrect = -1
+                        if team2.collidepoint(mouse_pos):
+                            teamcreatures = load_teamcreatures()
+                            if (clickedrect != -1):
+                                if(len(teamcreatures) >= 2):
+                                    if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                                        save_creature(teamcreatures[1], "creaturedata.txt")
+                                        modify_teamcreature(1, {"name": creaturename[clickedrect], "lvl": creaturelvl[clickedrect], "hp": creaturehp[clickedrect], "defense": creaturedefense[clickedrect], "strength": creaturestrength[clickedrect], "special attack": creaturespecattack[clickedrect], "speed": creaturespeed[clickedrect], "tier": creaturetier[clickedrect], "beastimage": creatureimage[clickedrect], "move1": creaturemove1[clickedrect], "move2": creaturemove2[clickedrect], "move3": creaturemove3[clickedrect], "move4": creaturemove4[clickedrect], "type": creaturetype[clickedrect], "experience": creatureexp[clickedrect]})  # Updates Dragon's health and attack
+                                        delete_creature_by_index(clickedrect)
+
+                                        creaturename.clear()
+                                        creaturelvl.clear()
+                                        creaturehp.clear()
+                                        creaturedefense.clear()
+                                        creaturestrength.clear()
+                                        creaturespecattack.clear()
+                                        creaturespecattack.clear()
+                                        creaturespeed.clear()
+                                        creaturetier.clear()
+                                        creatureimage.clear()
+                                        creaturemove1.clear()
+                                        creaturemove2.clear()
+                                        creaturemove3.clear()
+                                        creaturemove4.clear()
+                                        creaturetype.clear()
+                                        creatureexp.clear()
+
+                                        creatures = load_creatures("creaturedata.txt")
+
+                                        for creature in creatures:
+                                            attributes = list(creature.values())
+                                            creaturename.append(attributes[0])
+                                            creaturelvl.append(attributes[1])
+                                            creaturehp.append(attributes[2])
+                                            creaturedefense.append(attributes[3])
+                                            creaturestrength.append(attributes[4])
+                                            creaturespecattack.append(attributes[5])
+                                            creaturespeed.append(attributes[6])
+                                            creaturetier.append(attributes[7])
+                                            creatureimage.append(attributes[8])
+                                            creaturemove1.append(attributes[9])
+                                            creaturemove2.append(attributes[10])
+                                            creaturemove3.append(attributes[11])
+                                            creaturemove4.append(attributes[12])
+                                            creaturetype.append(attributes[13])
+                                            creatureexp.append(attributes[14])
+
+                                        sound_effect = pygame.mixer.Sound("audio/pokemonnoise.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+
+                                        clickedrect = -1
+                                else:
+                                    tempcreature = {
+                                        "name": creaturename[clickedrect],
+                                        "lvl": creaturelvl[clickedrect],
+                                        "hp": creaturehp[clickedrect],
+                                        "defense": creaturedefense[clickedrect],
+                                        "strength": creaturestrength[clickedrect],
+                                        "special attack": creaturespecattack[clickedrect],
+                                        "speed": creaturespeed[clickedrect],
+                                        "tier": creaturetier[clickedrect],
+                                        "beastimage": creatureimage[clickedrect],
+                                        "move1": creaturemove1[clickedrect],
+                                        "move2": creaturemove2[clickedrect],
+                                        "move3": creaturemove3[clickedrect],
+                                        "move4": creaturemove4[clickedrect],
+                                        "type": creaturetype[clickedrect],
+                                        "experience": creatureexp[clickedrect],
+                                    }
+
+                                    save_teamcreature(tempcreature, "teamdata.txt")
+                                    delete_creature_by_index(clickedrect)
+
+                                    creaturename.clear()
+                                    creaturelvl.clear()
+                                    creaturehp.clear()
+                                    creaturedefense.clear()
+                                    creaturestrength.clear()
+                                    creaturespecattack.clear()
+                                    creaturespecattack.clear()
+                                    creaturespeed.clear()
+                                    creaturetier.clear()
+                                    creatureimage.clear()
+                                    creaturemove1.clear()
+                                    creaturemove2.clear()
+                                    creaturemove3.clear()
+                                    creaturemove4.clear()
+                                    creaturetype.clear()
+                                    creatureexp.clear()
+
+                                    creatures = load_creatures("creaturedata.txt")
+
+                                    for creature in creatures:
+                                        attributes = list(creature.values())
+                                        creaturename.append(attributes[0])
+                                        creaturelvl.append(attributes[1])
+                                        creaturehp.append(attributes[2])
+                                        creaturedefense.append(attributes[3])
+                                        creaturestrength.append(attributes[4])
+                                        creaturespecattack.append(attributes[5])
+                                        creaturespeed.append(attributes[6])
+                                        creaturetier.append(attributes[7])
+                                        creatureimage.append(attributes[8])
+                                        creaturemove1.append(attributes[9])
+                                        creaturemove2.append(attributes[10])
+                                        creaturemove3.append(attributes[11])
+                                        creaturemove4.append(attributes[12])
+                                        creaturetype.append(attributes[13])
+                                        creatureexp.append(attributes[14])
+
+                                    sound_effect = pygame.mixer.Sound("audio/pokemonnoise.mp3")
+                                    pygame.mixer.music.set_volume(0.4)
+                                    sound_effect.play()
+
+                            clickedrect = -1
+                        if team3.collidepoint(mouse_pos):
+                            teamcreatures = load_teamcreatures()
+                            if (clickedrect != -1):
+                                if(len(teamcreatures) >= 3):
+                                    if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                                        save_creature(teamcreatures[2], "creaturedata.txt")
+                                        modify_teamcreature(2, {"name": creaturename[clickedrect], "lvl": creaturelvl[clickedrect], "hp": creaturehp[clickedrect], "defense": creaturedefense[clickedrect], "strength": creaturestrength[clickedrect], "special attack": creaturespecattack[clickedrect], "speed": creaturespeed[clickedrect], "tier": creaturetier[clickedrect], "beastimage": creatureimage[clickedrect], "move1": creaturemove1[clickedrect], "move2": creaturemove2[clickedrect], "move3": creaturemove3[clickedrect], "move4": creaturemove4[clickedrect], "type": creaturetype[clickedrect], "experience": creatureexp[clickedrect]})  # Updates Dragon's health and attack
+                                        delete_creature_by_index(clickedrect)
+
+                                        creaturename.clear()
+                                        creaturelvl.clear()
+                                        creaturehp.clear()
+                                        creaturedefense.clear()
+                                        creaturestrength.clear()
+                                        creaturespecattack.clear()
+                                        creaturespecattack.clear()
+                                        creaturespeed.clear()
+                                        creaturetier.clear()
+                                        creatureimage.clear()
+                                        creaturemove1.clear()
+                                        creaturemove2.clear()
+                                        creaturemove3.clear()
+                                        creaturemove4.clear()
+                                        creaturetype.clear()
+                                        creatureexp.clear()
+
+                                        creatures = load_creatures("creaturedata.txt")
+
+                                        for creature in creatures:
+                                            attributes = list(creature.values())
+                                            creaturename.append(attributes[0])
+                                            creaturelvl.append(attributes[1])
+                                            creaturehp.append(attributes[2])
+                                            creaturedefense.append(attributes[3])
+                                            creaturestrength.append(attributes[4])
+                                            creaturespecattack.append(attributes[5])
+                                            creaturespeed.append(attributes[6])
+                                            creaturetier.append(attributes[7])
+                                            creatureimage.append(attributes[8])
+                                            creaturemove1.append(attributes[9])
+                                            creaturemove2.append(attributes[10])
+                                            creaturemove3.append(attributes[11])
+                                            creaturemove4.append(attributes[12])
+                                            creaturetype.append(attributes[13])
+                                            creatureexp.append(attributes[14])
+
+                                        sound_effect = pygame.mixer.Sound("audio/pokemonnoise.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+
+                                        clickedrect = -1
+
+                                else:
+                                    tempcreature = {
+                                        "name": creaturename[clickedrect],
+                                        "lvl": creaturelvl[clickedrect],
+                                        "hp": creaturehp[clickedrect],
+                                        "defense": creaturedefense[clickedrect],
+                                        "strength": creaturestrength[clickedrect],
+                                        "special attack": creaturespecattack[clickedrect],
+                                        "speed": creaturespeed[clickedrect],
+                                        "tier": creaturetier[clickedrect],
+                                        "beastimage": creatureimage[clickedrect],
+                                        "move1": creaturemove1[clickedrect],
+                                        "move2": creaturemove2[clickedrect],
+                                        "move3": creaturemove3[clickedrect],
+                                        "move4": creaturemove4[clickedrect],
+                                        "type": creaturetype[clickedrect],
+                                        "experience": creatureexp[clickedrect],
+                                    }
+
+                                    save_teamcreature(tempcreature, "teamdata.txt")
+                                    delete_creature_by_index(clickedrect)
+
+                                    creaturename.clear()
+                                    creaturelvl.clear()
+                                    creaturehp.clear()
+                                    creaturedefense.clear()
+                                    creaturestrength.clear()
+                                    creaturespecattack.clear()
+                                    creaturespecattack.clear()
+                                    creaturespeed.clear()
+                                    creaturetier.clear()
+                                    creatureimage.clear()
+                                    creaturemove1.clear()
+                                    creaturemove2.clear()
+                                    creaturemove3.clear()
+                                    creaturemove4.clear()
+                                    creaturetype.clear()
+                                    creatureexp.clear()
+
+                                    creatures = load_creatures("creaturedata.txt")
+
+                                    for creature in creatures:
+                                        attributes = list(creature.values())
+                                        creaturename.append(attributes[0])
+                                        creaturelvl.append(attributes[1])
+                                        creaturehp.append(attributes[2])
+                                        creaturedefense.append(attributes[3])
+                                        creaturestrength.append(attributes[4])
+                                        creaturespecattack.append(attributes[5])
+                                        creaturespeed.append(attributes[6])
+                                        creaturetier.append(attributes[7])
+                                        creatureimage.append(attributes[8])
+                                        creaturemove1.append(attributes[9])
+                                        creaturemove2.append(attributes[10])
+                                        creaturemove3.append(attributes[11])
+                                        creaturemove4.append(attributes[12])
+                                        creaturetype.append(attributes[13])
+                                        creatureexp.append(attributes[14])
+
+                                    sound_effect = pygame.mixer.Sound("audio/pokemonnoise.mp3")
+                                    pygame.mixer.music.set_volume(0.4)
+                                    sound_effect.play()
+
+                            clickedrect = -1
+                        if team1xrect.collidepoint(mouse_pos):
+                            teamcreatures = load_teamcreatures()
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            if(len(teamcreatures) >= 1):
+                                teamattributes = list(teamcreatures[0].values())
+                                save_creature(teamcreatures[0], "creaturedata.txt")
+                                creaturename.clear()
+                                creaturelvl.clear()
+                                creaturehp.clear()
+                                creaturedefense.clear()
+                                creaturestrength.clear()
+                                creaturespecattack.clear()
+                                creaturespecattack.clear()
+                                creaturespeed.clear()
+                                creaturetier.clear()
+                                creatureimage.clear()
+                                creaturemove1.clear()
+                                creaturemove2.clear()
+                                creaturemove3.clear()
+                                creaturemove4.clear()
+                                creaturetype.clear()
+                                creatureexp.clear()
+
+                                creatures = load_creatures("creaturedata.txt")
+
+                                for creature in creatures:
+                                    attributes = list(creature.values())
+                                    creaturename.append(attributes[0])
+                                    creaturelvl.append(attributes[1])
+                                    creaturehp.append(attributes[2])
+                                    creaturedefense.append(attributes[3])
+                                    creaturestrength.append(attributes[4])
+                                    creaturespecattack.append(attributes[5])
+                                    creaturespeed.append(attributes[6])
+                                    creaturetier.append(attributes[7])
+                                    creatureimage.append(attributes[8])
+                                    creaturemove1.append(attributes[9])
+                                    creaturemove2.append(attributes[10])
+                                    creaturemove3.append(attributes[11])
+                                    creaturemove4.append(attributes[12])
+                                    creaturetype.append(attributes[13])
+                                    creatureexp.append(attributes[14])
+                                delete_creature_by_index(0, "teamdata.txt")
+                        if team2xrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            teamcreatures = load_teamcreatures()
+                            if(len(teamcreatures) >= 2):
+                                teamattributes = list(teamcreatures[1].values())
+                                save_creature(teamcreatures[1], "creaturedata.txt")
+                                creaturename.clear()
+                                creaturelvl.clear()
+                                creaturehp.clear()
+                                creaturedefense.clear()
+                                creaturestrength.clear()
+                                creaturespecattack.clear()
+                                creaturespecattack.clear()
+                                creaturespeed.clear()
+                                creaturetier.clear()
+                                creatureimage.clear()
+                                creaturemove1.clear()
+                                creaturemove2.clear()
+                                creaturemove3.clear()
+                                creaturemove4.clear()
+                                creaturetype.clear()
+                                creatureexp.clear()
+
+                                creatures = load_creatures("creaturedata.txt")
+
+                                for creature in creatures:
+                                    attributes = list(creature.values())
+                                    creaturename.append(attributes[0])
+                                    creaturelvl.append(attributes[1])
+                                    creaturehp.append(attributes[2])
+                                    creaturedefense.append(attributes[3])
+                                    creaturestrength.append(attributes[4])
+                                    creaturespecattack.append(attributes[5])
+                                    creaturespeed.append(attributes[6])
+                                    creaturetier.append(attributes[7])
+                                    creatureimage.append(attributes[8])
+                                    creaturemove1.append(attributes[9])
+                                    creaturemove2.append(attributes[10])
+                                    creaturemove3.append(attributes[11])
+                                    creaturemove4.append(attributes[12])
+                                    creaturetype.append(attributes[13])
+                                    creatureexp.append(attributes[14])
+                                delete_creature_by_index(1, "teamdata.txt")
+                        if team3xrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            teamcreatures = load_teamcreatures()
+                            if(len(teamcreatures) >= 3):
+                                teamattributes = list(teamcreatures[2].values())
+                                save_creature(teamcreatures[2], "creaturedata.txt")
+                                creaturename.clear()
+                                creaturelvl.clear()
+                                creaturehp.clear()
+                                creaturedefense.clear()
+                                creaturestrength.clear()
+                                creaturespecattack.clear()
+                                creaturespecattack.clear()
+                                creaturespeed.clear()
+                                creaturetier.clear()
+                                creatureimage.clear()
+                                creaturemove1.clear()
+                                creaturemove2.clear()
+                                creaturemove3.clear()
+                                creaturemove4.clear()
+                                creaturetype.clear()
+                                creatureexp.clear()
+
+                                creatures = load_creatures("creaturedata.txt")
+
+                                for creature in creatures:
+                                    attributes = list(creature.values())
+                                    creaturename.append(attributes[0])
+                                    creaturelvl.append(attributes[1])
+                                    creaturehp.append(attributes[2])
+                                    creaturedefense.append(attributes[3])
+                                    creaturestrength.append(attributes[4])
+                                    creaturespecattack.append(attributes[5])
+                                    creaturespeed.append(attributes[6])
+                                    creaturetier.append(attributes[7])
+                                    creatureimage.append(attributes[8])
+                                    creaturemove1.append(attributes[9])
+                                    creaturemove2.append(attributes[10])
+                                    creaturemove3.append(attributes[11])
+                                    creaturemove4.append(attributes[12])
+                                    creaturetype.append(attributes[13])
+                                    creatureexp.append(attributes[14])
+                                delete_creature_by_index(2, "teamdata.txt")
+                        if trashcanrect.collidepoint(mouse_pos):
+                            if (clickedrect != -1):
+                                if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                                    delete_creature_by_index(clickedrect)
+                                    randomgem = random.randint(1, int(creaturelvl[clickedrect] / 4) + 2)
+                                    with open("gamedata.txt", "r") as file:
+                                        lines = file.readlines()
+                                        lines[1] = f"gem = {gem + randomgem}\n"
+                                    with open("gamedata.txt", "w") as file:
+                                        file.writelines(lines)
+                                    sound_effect = pygame.mixer.Sound("audio/creaturetrashnoise.mp3")
+                                    sound_effect.play()
+                                    looptimeg = pygame.time.get_ticks() + 700
+                                    timerg = pygame.time.get_ticks()
+                                    while(looptimeg > timerg):
+                                        draw_text('gained ' +str(randomgem) +" gems", font24, PURPLE, DISPLAYSURF, 1388, 710)
+                                        timerg = pygame.time.get_ticks()
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                                print("stop clicking so much")
+                                        pygame.display.update()
+
+                                    creaturename.clear()
+                                    creaturelvl.clear()
+                                    creaturehp.clear()
+                                    creaturedefense.clear()
+                                    creaturestrength.clear()
+                                    creaturespecattack.clear()
+                                    creaturespecattack.clear()
+                                    creaturespeed.clear()
+                                    creaturetier.clear()
+                                    creatureimage.clear()
+                                    creaturemove1.clear()
+                                    creaturemove2.clear()
+                                    creaturemove3.clear()
+                                    creaturemove4.clear()
+                                    creaturetype.clear()
+                                    creatureexp.clear()
+
+                                    creatures = load_creatures("creaturedata.txt")
+
+                                    for creature in creatures:
+                                        attributes = list(creature.values())
+                                        creaturename.append(attributes[0])
+                                        creaturelvl.append(attributes[1])
+                                        creaturehp.append(attributes[2])
+                                        creaturedefense.append(attributes[3])
+                                        creaturestrength.append(attributes[4])
+                                        creaturespecattack.append(attributes[5])
+                                        creaturespeed.append(attributes[6])
+                                        creaturetier.append(attributes[7])
+                                        creatureimage.append(attributes[8])
+                                        creaturemove1.append(attributes[9])
+                                        creaturemove2.append(attributes[10])
+                                        creaturemove3.append(attributes[11])
+                                        creaturemove4.append(attributes[12])
+                                        creaturetype.append(attributes[13])
+                                        creatureexp.append(attributes[14])
+                                    clickedrect = -1
+                pygame.display.update()
+
 ########################################################################################################################
