@@ -1,35 +1,5 @@
 [
     {
-        "name": "Simple Staff",
-        "imagecore": "images/simplestaff.png",
-        "HP": 0,
-        "armor": 0,
-        "Attack": 0,
-        "specialattack": 5,
-        "speed": 1,
-        "luck": 0
-    },
-    {
-        "name": "Plated Boots",
-        "imagecore": "images/metalboots.png",
-        "HP": 5,
-        "armor": 10,
-        "Attack": 3,
-        "specialattack": 0,
-        "speed": -5,
-        "luck": 0
-    },
-    {
-        "name": "Plated Greeves",
-        "imagecore": "images/metalgreeves.png",
-        "HP": 5,
-        "armor": 10,
-        "Attack": -1,
-        "specialattack": 0,
-        "speed": -5,
-        "luck": 0
-    },
-    {
         "name": "Silverline Sword",
         "imagecore": "images/Ironsword.png",
         "HP": 0,
@@ -37,6 +7,16 @@
         "Attack": 10,
         "specialattack": 10,
         "speed": 5,
+        "luck": 0
+    },
+    {
+        "name": "Leather Cap",
+        "imagecore": "images/leatherhelmet.png",
+        "HP": 1,
+        "armor": 2,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 3,
         "luck": 0
     },
     {
@@ -48,45 +28,5 @@
         "specialattack": 0,
         "speed": -5,
         "luck": 0
-    },
-    {
-        "name": "Ascendent Helmet",
-        "imagecore": "images/coralhelmet.png",
-        "HP": 5,
-        "armor": 30,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 10,
-        "luck": 5
-    },
-    {
-        "name": "Lava Amulet",
-        "imagecore": "images/redamulet.png",
-        "HP": 5,
-        "armor": 0,
-        "Attack": 5,
-        "specialattack": 5,
-        "speed": 0,
-        "luck": 0
-    },
-    {
-        "name": "Adamantine Sword",
-        "imagecore": "images/diamondsword.png",
-        "HP": 0,
-        "armor": 5,
-        "Attack": 25,
-        "specialattack": 0,
-        "speed": 5,
-        "luck": 0
-    },
-    {
-        "name": "Amulet of Heaven",
-        "imagecore": "images/purpleamulet.png",
-        "HP": 10,
-        "armor": 10,
-        "Attack": 10,
-        "specialattack": 10,
-        "speed": 10,
-        "luck": 10
     }
 ]

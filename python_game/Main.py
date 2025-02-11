@@ -869,7 +869,7 @@ class gameintro(pygame.sprite.Sprite):
                                             sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
-                                                lines[16] = f"defense = {6}\n"
+                                                lines[17] = f"defense = {6}\n"
                                             with open("gamedata.txt", "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
@@ -882,7 +882,7 @@ class gameintro(pygame.sprite.Sprite):
                                             sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
                                             with open("gamedata.txt", "r") as file:
                                                 lines = file.readlines()
-                                                lines[17] = f"strength = {6}\n"
+                                                lines[16] = f"strength = {6}\n"
                                             with open("gamedata.txt", "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()

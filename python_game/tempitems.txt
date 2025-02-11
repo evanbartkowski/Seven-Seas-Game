@@ -198,5 +198,35 @@
         "specialattack": 0,
         "speed": 0,
         "luck": 0
+    },
+    {
+        "name": "Time Dilator",
+        "imagecore": "images/timedilator.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Large EXP Pouch",
+        "imagecore": "images/largeexppouch.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Codex",
+        "imagecore": "images/enchantedbook1.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
     }
 ]

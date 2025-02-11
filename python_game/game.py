@@ -1759,7 +1759,22 @@ class maingameareas(pygame.sprite.Sprite):
             if xrect.collidepoint(mouse_pos):
                 draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
 
+            adminrect = pygame.Rect(1680, 940, 50, 50)
+
             for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_g:
+                        if adminrect.collidepoint(mouse_pos):
+                            with open("gamedata.txt", "r") as file:
+                                lines = file.readlines()
+                                gold = 1000000000
+                                gem = 100000000
+                                lines[0] = f"gold = {1000000000}\n"
+                                lines[1] = f"gem = {100000000}\n"
+                                lines[15] = f"level = {100}\n"
+                            with open("gamedata.txt", "w") as file:
+                                file.writelines(lines)
+
                 if event.type == MOUSEBUTTONDOWN:
                     if chestrect.collidepoint(mouse_pos):
                         if ((((chestcollected + 600000) - chesttimer) / 1000) < 0):
@@ -10341,12 +10356,43 @@ class stash(pygame.sprite.Sprite):
                             sys.exit()
                         if helmetrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[0].values())
                             if (clickedrect != -1):
                                 if (len(equipeditems) >= 1 and (itemname[clickedrect] == "Leather Cap" or itemname[clickedrect] == "Plated Helmet" or itemname[clickedrect] == "Ascendent Helmet")):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[0]):
                                             save_creature(equipeditems[0], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(0, {
                                         "name": itemname[clickedrect],
                                         "imagecore": regularimage[clickedrect],
@@ -10356,6 +10402,30 @@ class stash(pygame.sprite.Sprite):
                                         "specialattack": itemspecialattack[clickedrect],
                                         "speed": itemspeed[clickedrect],
                                         "luck": itemluck[clickedrect]}, "equipeditems.txt")
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10427,12 +10497,43 @@ class stash(pygame.sprite.Sprite):
                             clickedrect = -1
                         if chestplaterect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[1].values())
                             if (clickedrect != -1):
                                 if (len(equipeditems) >= 2 and (itemname[clickedrect] == "Leather Chestplate" or itemname[clickedrect] == "Plated Chestplate" or itemname[clickedrect] == "Ascendent Chestplate")):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[1]):
                                             save_creature(equipeditems[1], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(1, {
                                             "name": itemname[clickedrect],
                                             "imagecore": regularimage[clickedrect],
@@ -10443,6 +10544,37 @@ class stash(pygame.sprite.Sprite):
                                             "speed": itemspeed[clickedrect],
                                             "luck": itemluck[clickedrect],
                                         }, "equipeditems.txt")
+                                        strength = 0
+                                        defense = 0
+                                        health = 0
+                                        speed = 0
+                                        specattack = 0
+                                        luck = 0
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10514,12 +10646,43 @@ class stash(pygame.sprite.Sprite):
                             clickedrect = -1
                         if pantsrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[2].values())
                             if (clickedrect != -1 and (itemname[clickedrect] == "Leather Greeves" or itemname[clickedrect] == "Plated Greeves" or itemname[clickedrect] == "Ascendent Greeves")):
                                 if (len(equipeditems) >= 3):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[2]):
                                             save_creature(equipeditems[2], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(2, {
                                             "name": itemname[clickedrect],
                                             "imagecore": regularimage[clickedrect],
@@ -10530,6 +10693,37 @@ class stash(pygame.sprite.Sprite):
                                             "speed": itemspeed[clickedrect],
                                             "luck": itemluck[clickedrect],
                                         }, "equipeditems.txt")
+                                        strength = 0
+                                        defense = 0
+                                        health = 0
+                                        speed = 0
+                                        specattack = 0
+                                        luck = 0
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10603,12 +10797,43 @@ class stash(pygame.sprite.Sprite):
                             clickedrect = -1
                         if bootsrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[3].values())
                             if (clickedrect != -1 and (itemname[clickedrect] == "Leather Boots" or itemname[clickedrect] == "Plated Boots" or itemname[clickedrect] == "Ascendent Boots")):
                                 if (len(equipeditems) >= 4):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[3]):
                                             save_creature(equipeditems[3], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(3, {
                                             "name": itemname[clickedrect],
                                             "imagecore": regularimage[clickedrect],
@@ -10619,6 +10844,37 @@ class stash(pygame.sprite.Sprite):
                                             "speed": itemspeed[clickedrect],
                                             "luck": itemluck[clickedrect],
                                         }, "equipeditems.txt")
+                                        strength = 0
+                                        defense = 0
+                                        health = 0
+                                        speed = 0
+                                        specattack = 0
+                                        luck = 0
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10692,12 +10948,43 @@ class stash(pygame.sprite.Sprite):
                             clickedrect = -1
                         if jewelry1rect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[4].values())
                             if (clickedrect != -1 and (itemname[clickedrect] == "Aqua Amulet" or itemname[clickedrect] == "Lava Amulet" or itemname[clickedrect] == "Amulet of Heaven" or itemname[clickedrect] == "Lost Crown")):
                                 if (len(equipeditems) >= 5):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[4]):
                                             save_creature(equipeditems[4], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(4, {
                                             "name": itemname[clickedrect],
                                             "imagecore": regularimage[clickedrect],
@@ -10708,6 +10995,37 @@ class stash(pygame.sprite.Sprite):
                                             "speed": itemspeed[clickedrect],
                                             "luck": itemluck[clickedrect],
                                         }, "equipeditems.txt")
+                                        strength = 0
+                                        defense = 0
+                                        health = 0
+                                        speed = 0
+                                        specattack = 0
+                                        luck = 0
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10781,12 +11099,43 @@ class stash(pygame.sprite.Sprite):
                             clickedrect = -1
                         if jewelry2rect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[5].values())
                             if (clickedrect != -1 and (itemname[clickedrect] == "Aqua Amulet" or itemname[clickedrect] == "Lava Amulet" or itemname[clickedrect] == "Amulet of Heaven" or itemname[clickedrect] == "Lost Crown")):
                                 if (len(equipeditems) >= 6):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[5]):
                                             save_creature(equipeditems[5], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(5, {
                                             "name": itemname[clickedrect],
                                             "imagecore": regularimage[clickedrect],
@@ -10797,6 +11146,37 @@ class stash(pygame.sprite.Sprite):
                                             "speed": itemspeed[clickedrect],
                                             "luck": itemluck[clickedrect],
                                         }, "equipeditems.txt")
+                                        strength = 0
+                                        defense = 0
+                                        health = 0
+                                        speed = 0
+                                        specattack = 0
+                                        luck = 0
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10870,12 +11250,43 @@ class stash(pygame.sprite.Sprite):
                             clickedrect = -1
                         if weaponrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
+                            attributes = list(equipeditems[6].values())
                             if (clickedrect != -1 and (itemname[clickedrect] == "Rusty Sword" or itemname[clickedrect] == "Bronze Sword" or itemname[clickedrect] == "Silverline Sword" or itemname[clickedrect] == "Adamantine Sword" or itemname[clickedrect] == "Simple Staff")):
                                 if (len(equipeditems) >= 7):
                                     if (clickedrect > ((itempage - 1) * 36) - 1) and (
                                             clickedrect <= ((itempage * 36) - 1)):
                                         if(equipeditems[6]):
                                             save_creature(equipeditems[6], "itemdata.txt")
+                                            strength = 0
+                                            defense = 0
+                                            health = 0
+                                            speed = 0
+                                            specattack = 0
+                                            luck = 0
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                strength = lines[16].strip()
+                                                strength = int(strength[11:])
+                                                defense = lines[17].strip()
+                                                defense = int(defense[10:])
+                                                health = lines[18].strip()
+                                                health = int(health[9:])
+                                                speed = lines[19].strip()
+                                                speed = int(speed[8:])
+                                                specattack = lines[20].strip()
+                                                specattack = int(specattack[13:])
+                                                luck = lines[21].strip()
+                                                luck = int(luck[7:])
+                                            with open("gamedata.txt", "r") as file:
+                                                lines = file.readlines()
+                                                lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                                lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                                lines[18] = (f"health = {health - attributes[2]}\n")
+                                                lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                                lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                                lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                            with open("gamedata.txt", "w") as file:
+                                                file.writelines(lines)
                                         modify_teamcreature(6, {
                                             "name": itemname[clickedrect],
                                             "imagecore": regularimage[clickedrect],
@@ -10886,6 +11297,37 @@ class stash(pygame.sprite.Sprite):
                                             "speed": itemspeed[clickedrect],
                                             "luck": itemluck[clickedrect],
                                         }, "equipeditems.txt")
+                                        strength = 0
+                                        defense = 0
+                                        health = 0
+                                        speed = 0
+                                        specattack = 0
+                                        luck = 0
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            strength = lines[16].strip()
+                                            strength = int(strength[11:])
+                                            defense = lines[17].strip()
+                                            defense = int(defense[10:])
+                                            health = lines[18].strip()
+                                            health = int(health[9:])
+                                            speed = lines[19].strip()
+                                            speed = int(speed[8:])
+                                            specattack = lines[20].strip()
+                                            specattack = int(specattack[13:])
+                                            luck = lines[21].strip()
+                                            luck = int(luck[7:])
+                                        with open("gamedata.txt", "r") as file:
+                                            lines = file.readlines()
+                                            lines[16] = (f"strength = {strength + itemAttack[clickedrect]}\n")
+                                            lines[17] = (f"defense = {defense + itemarmor[clickedrect]}\n")
+                                            lines[18] = (f"health = {health + itemHP[clickedrect]}\n")
+                                            lines[19] = (f"speed = {speed + itemspeed[clickedrect]}\n")
+                                            lines[20] = (f"specattack = {specattack + itemspecialattack[clickedrect]}\n")
+                                            lines[21] = (f"luck = {luck + itemluck[clickedrect]}\n")
+                                        with open("gamedata.txt", "w") as file:
+                                            file.writelines(lines)
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
                                         delete_creature_by_index(clickedrect, "itemdata.txt")
 
                                         itemname.clear()
@@ -10962,6 +11404,38 @@ class stash(pygame.sprite.Sprite):
                             sound_effect.play()
                             if (len(equipeditems) >= 1 and equipeditems[0] != {}):
                                 save_creature(equipeditems[0], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[0].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
@@ -11033,6 +11507,38 @@ class stash(pygame.sprite.Sprite):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             if (len(equipeditems) >= 2 and equipeditems[1] != {}):
                                 save_creature(equipeditems[1], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[1].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
@@ -11104,6 +11610,38 @@ class stash(pygame.sprite.Sprite):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             if (len(equipeditems) >= 3 and equipeditems[2] != {}):
                                 save_creature(equipeditems[2], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[2].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
@@ -11175,6 +11713,38 @@ class stash(pygame.sprite.Sprite):
                             sound_effect.play()
                             if (len(equipeditems) >= 4 and equipeditems[3] != {}):
                                 save_creature(equipeditems[3], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[3].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
@@ -11246,6 +11816,38 @@ class stash(pygame.sprite.Sprite):
                             sound_effect.play()
                             if (len(equipeditems) >= 5 and equipeditems[4] != {}):
                                 save_creature(equipeditems[4], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[4].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
@@ -11316,6 +11918,38 @@ class stash(pygame.sprite.Sprite):
                             sound_effect.play()
                             if (len(equipeditems) >= 6 and equipeditems[5] != {}):
                                 save_creature(equipeditems[5], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[5].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
@@ -11386,6 +12020,38 @@ class stash(pygame.sprite.Sprite):
                             sound_effect.play()
                             if (len(equipeditems) >= 7 and equipeditems[6] != {}):
                                 save_creature(equipeditems[6], "itemdata.txt")
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                attributes = list(equipeditems[6].values())
+                                strength = 0
+                                defense = 0
+                                health = 0
+                                speed = 0
+                                specattack = 0
+                                luck = 0
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    strength = lines[16].strip()
+                                    strength = int(strength[11:])
+                                    defense = lines[17].strip()
+                                    defense = int(defense[10:])
+                                    health = lines[18].strip()
+                                    health = int(health[9:])
+                                    speed = lines[19].strip()
+                                    speed = int(speed[8:])
+                                    specattack = lines[20].strip()
+                                    specattack = int(specattack[13:])
+                                    luck = lines[21].strip()
+                                    luck = int(luck[7:])
+                                with open("gamedata.txt", "r") as file:
+                                    lines = file.readlines()
+                                    lines[16] = (f"strength = {strength - attributes[4]}\n")
+                                    lines[17] = (f"defense = {defense - attributes[3]}\n")
+                                    lines[18] = (f"health = {health - attributes[2]}\n")
+                                    lines[19] = (f"speed = {speed - attributes[6]}\n")
+                                    lines[20] = (f"specattack = {specattack - attributes[5]}\n")
+                                    lines[21] = (f"luck = {luck - attributes[7]}\n")
+                                with open("gamedata.txt", "w") as file:
+                                    file.writelines(lines)
                                 itemname.clear()
                                 regularimage.clear()
                                 itemimagecore.clear()
