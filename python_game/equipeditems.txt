@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Leather Cap",
+        "imagecore": "images/leatherhelmet.png",
+        "HP": 1,
+        "armor": 2,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 3,
+        "luck": 0
+    },
+    {
+        "name": "Leather Chestplate",
+        "imagecore": "images/leatherchestplate.png",
+        "HP": 0,
+        "armor": 4,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 4,
+        "luck": 0
+    },
+    {
+        "name": "Ascendent Greeves",
+        "imagecore": "images/coralpants.png",
+        "HP": 10,
+        "armor": 30,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 10,
+        "luck": 5
+    },
+    {
+        "name": "Plated Boots",
+        "imagecore": "images/metalboots.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": 3,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
+    {
+        "name": "Aqua Amulet",
+        "imagecore": "images/whiteamulet.png",
+        "HP": 5,
+        "armor": 5,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 5,
+        "luck": 0
+    },
+    {},
+    {}
+]

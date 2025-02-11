@@ -4,9 +4,9 @@ import sys
 import math
 import random
 import cv2
-import json
 pygame.init()
 pygame.mixer.init()
+import json
 ########################################################################################################################
 ########################################################################################################################
 BLUE = (0, 0, 255)
@@ -29,6 +29,15 @@ DARKPURPLE = (130,20,255)
 AQUA = (0, 247, 255)
 EMERALD = (67, 192, 148)
 ORANGEDESERT = (241, 99, 1)
+LIGHTYELLOW = (255, 255, 153)
+SWAMPGREEN = (0, 51, 0)
+DARKGEMBLUE = (0, 0, 51)
+VELVET = (102, 0, 51)
+LIME = (102, 255, 102)
+PINPPINK = (255, 102, 102)
+MURKY = (51, 51, 0)
+CLOUD = (204, 229, 255)
+SLEEPPURPLE = (204, 153, 255)
 
 menu1_active = True
 menu2_active = False
@@ -256,7 +265,7 @@ moves = [
     ["Black Lotus", 120, "fire", "empty", "empty", "spec", 3],
     ["Netherpulse", 90, "empty", "empty", "empty", "spec", 3],
     ["Celestial Javelin", 80, "empty", "empty", "empty", "attack", 10],
-    ["Aurora Veil", 0, "empty", "empty", "specattack+2", "empty", 5],
+    ["Aurora Veil", 0, "empty", "empty", "specattack+2", "spec", 5],
     ["Judgement", 140, "empty", "empty", "specattack-1", "spec", 3],
     ["Heavenly Eclipse", 110, "empty", "empty", "empty", "spec", 3],
     ["Starpiercer Bolt", 90, "empty", "empty", "empty", "attack", 7],
@@ -456,6 +465,229 @@ moves = [
     ["Aerial Ace", "superrandom", "empty", "empty", "attack+1", "attack", 5]
     ]
 
+moves_lore = [
+    "Nightveil Slash: A shadowy blade technique forged in the depths of the Nightveil, said to sever the soul from the body.",
+    "Dreadspire Maelstrom: A chaotic vortex of dark energy that consumes all light and hope, originating from the cursed Dreadspire Tower.",
+    "Abyssal Surge: A surge of power from the Abyss, capable of drowning enemies in an ocean of despair.",
+    "Blackthorn Rupture: A devastating strike that summons thorny vines from the underworld to entangle and pierce foes.",
+    "Soulshadow Lament: A mournful cry that manipulates shadows to drain the life force of those who hear it.",
+    "Nocturne Fang: A bite infused with the essence of eternal night, paralyzing enemies with fear.",
+    "Void Lash: A whip of pure void energy that disrupts the fabric of reality, leaving chaos in its wake.",
+    "Nightfall: A catastrophic event summoned by dark mages, plunging the battlefield into eternal darkness.",
+    "Netherstrike Touch: A touch that channels the corrupting energy of the Nether, withering all it contacts.",
+    "Oblivion Bloom: A dark flower that blooms once every millennium, releasing a wave of annihilation.",
+    "Soul Harvest: A forbidden technique that steals the souls of the fallen to empower the user.",
+    "Reaper Death Seal: A pact with the Reaper, sealing the fate of a target with an inescapable curse.",
+    "Blood Sacrifice: A ritual that sacrifices the user's blood to summon immense dark power.",
+    "Weeping Skull: A cursed skull that weeps tears of poison, spreading decay and despair.",
+    "Soul Tie: A binding spell that links the life force of two beings, ensuring shared fate.",
+    "Void Drain: A technique that siphons energy from the Void, restoring the user at the cost of the environment.",
+    "Blood Magic: A dangerous art that uses the user's blood as a catalyst for destructive spells.",
+    "Wraith: A spectral form that allows the user to phase through attacks and strike from the shadows.",
+    "Essence: A move that extracts the essence of an enemy, weakening them and empowering the user.",
+    "Bloodmoon: A lunar event that amplifies dark powers, turning the tide of battle in favor of shadow users.",
+    "Black Lotus: A rare flower that blooms in darkness, releasing a cloud of toxic spores.",
+    "Netherpulse: A pulse of energy from the Netherworld, destabilizing the battlefield and weakening enemies.",
+    "Celestial Javelin: A spear of pure starlight, hurled from the heavens to smite evil.",
+    "Aurora Veil: A protective barrier woven from the light of the auroras, shielding allies from harm.",
+    "Judgement: A divine verdict delivered by the gods, striking down the unworthy with righteous fury.",
+    "Heavenly Eclipse: A celestial event that channels the power of the sun and moon to obliterate darkness.",
+    "Starpiercer Bolt: A bolt of cosmic energy that pierces through any defense.",
+    "Sanctum Barrier: An impenetrable shield blessed by the gods, guarding against all evil.",
+    "Moonfire: A radiant flame fueled by lunar energy, burning away corruption.",
+    "Fatebreaker: A move that defies destiny, allowing the user to rewrite their fate in battle.",
+    "Celestial Cascade: A waterfall of starlight that heals allies and purges darkness.",
+    "Light Blade: A sword forged from pure light, cutting through shadows with ease.",
+    "Holy Embrace: A comforting embrace of divine energy, restoring health and hope.",
+    "Light Bringer: A beacon of hope that dispels darkness and inspires allies.",
+    "Love: A pure and powerful emotion that manifests as a radiant aura, healing and protecting.",
+    "Quintessence: The essence of creation itself, used to restore balance and harmony.",
+    "Smite: A divine strike that punishes the wicked with unrelenting force.",
+    "Holy Smite: A sacred blast of energy that purifies the battlefield.",
+    "Requiem of Life: A song of life that revives fallen allies and strengthens the living.",
+    "Lumina Pulse: A pulse of light energy that radiates healing and protection.",
+    "Prismstrike: A dazzling attack that refracts light into a spectrum of destructive energy.",
+    "Luminspire: A spire of light that rises from the ground, banishing darkness and empowering allies.",
+    "Skyshard Barrage: A rain of crystalline shards infused with celestial energy.",
+    "Love Potion: A magical elixir that restores health and strengthens bonds between allies.",
+    "Pyroclasmic Surge: A surge of molten energy that engulfs the battlefield in flames.",
+    "Phoenix Volley: A barrage of fiery feathers that reignite the user's strength upon impact.",
+    "Infernal Arc: A sweeping arc of hellfire that incinerates all in its path.",
+    "Dragon Aura: An aura of draconic power that enhances the user's fire-based abilities.",
+    "Dragons Breathe: A torrent of flame unleashed from the mouth of a dragon.",
+    "Draco Meteor: A meteor shower summoned by dragon magic, raining destruction from above.",
+    "Pyro Breath: A concentrated blast of fire that melts through defenses.",
+    "Will of Fire: A technique that channels the user's inner fire, increasing their strength and resolve.",
+    "Flamestorm Spiral: A spiraling vortex of fire that consumes everything in its radius.",
+    "Burning Crescence: A crescent-shaped wave of fire that scorches the earth.",
+    "Crimson Fang Slash: A fiery slash that leaves a trail of burning embers.",
+    "Supernova: A cataclysmic explosion of solar energy, mimicking the death of a star.",
+    "Sunlord: A move that summons the power of the sun, radiating intense heat and light.",
+    "Wisp: A small flame spirit that guides and empowers the user.",
+    "Flare: A bright burst of fire that blinds and burns enemies.",
+    "Sunfire: A radiant flame that burns with the intensity of the sun.",
+    "Magma Quake: A seismic eruption of magma that devastates the battlefield.",
+    "Horizon: A move that summons a wall of fire, cutting off escape routes.",
+    "Solarclaw: A claw attack infused with solar energy, leaving searing wounds.",
+    "Volcanic Strike: A powerful strike that triggers a volcanic eruption.",
+    "Fireheart: A move that ignites the user's heart, increasing their passion and power.",
+    "Ashstorm: A storm of burning ash that suffocates and burns enemies.",
+    "Crystal Tempest: A storm of crystalline water that freezes and shatters enemies.",
+    "Spiritbound Vortex: A whirlpool infused with the spirits of the ocean, dragging enemies into the depths.",
+    "Aqua Surge: A surge of water that crashes over enemies with immense force.",
+    "Rising Tide Strike: A strike that summons a tidal wave, overwhelming foes.",
+    "Ocean Requiem: A mournful song that calms the seas and lulls enemies to sleep.",
+    "Plunge: A diving attack that uses the weight of water to crush enemies.",
+    "Watergun: A high-pressure jet of water that pierces through defenses.",
+    "Hurricane: A massive storm that devastates the battlefield with wind and rain.",
+    "Hydro Cannon: A cannonball of water that explodes on impact.",
+    "Splash: A playful move that splashes water, distracting enemies.",
+    "Bubblebeam: A stream of bubbles that trap and confuse enemies.",
+    "Coral Spike: A sharp spike of coral that impales enemies.",
+    "Ocean Voice: A soothing voice that calms the seas and heals allies.",
+    "Wavepool: A pool of water that rises and falls, damaging enemies caught within.",
+    "Stormbound: A move that binds enemies with chains of water and lightning.",
+    "Hydrolash: A whip of water that strikes with the force of a tidal wave.",
+    "Rift: A tear in the fabric of reality that summons a flood of water.",
+    "Hydronova: A burst of water energy that heals allies and damages enemies.",
+    "Brine Edge: A blade of saltwater that corrodes and cuts through defenses.",
+    "Seafoam Barrage: A barrage of seafoam that blinds and slows enemies.",
+    "Crystalwave: A wave of crystalline water that freezes enemies on contact.",
+    "Oceans Embrace: A protective embrace of water that shields and heals allies.",
+    "Venomdance: A deadly dance that spreads poison with every step.",
+    "Phantom Reaver: A ghostly blade that poisons the soul.",
+    "Toxic Vortex: A swirling vortex of toxic gas that suffocates enemies.",
+    "Shadow Venom: A venom that corrupts the mind and body.",
+    "Serpent's Spite: A strike imbued with the venom of a vengeful serpent.",
+    "Coil: A constricting move that traps and poisons enemies.",
+    "Poison Bite: A bite that injects a deadly toxin.",
+    "Venomshock: A shockwave of venom that paralyzes enemies.",
+    "Erosion: A corrosive substance that eats away at defenses.",
+    "Venom Trap: A trap that releases venom when triggered.",
+    "Paralyze: A move that immobilizes enemies with a neurotoxin.",
+    "Poison Beak: A peck that delivers a potent poison.",
+    "Chemical Burn: A burn caused by toxic chemicals.",
+    "Mustard Gas: A cloud of toxic gas that damages and blinds enemies.",
+    "Dao of Poison: A philosophy that embraces the art of poisoning.",
+    "Purple Lotus: A beautiful but deadly flower that releases toxic pollen.",
+    "Miasma: A noxious fog that weakens and poisons enemies.",
+    "Corrosive Swipe: A swipe that corrodes armor and flesh.",
+    "Fangs of Decay: Fangs that inject a rotting venom.",
+    "Putrid: A move that emits a foul stench, weakening enemies.",
+    "Corrosive Requiem: A song that spreads decay and destruction.",
+    "Plaguestorm: A storm that rains down disease and poison.",
+    "Mana Bloom: A flower that drains mana and poisons enemies.",
+    "Nature’s Wrath: A powerful strike that channels the fury of nature.",
+    "Verdant Slash: A slash that summons vines to entangle enemies.",
+    "Ivybind: A move that binds enemies with thorny ivy.",
+    "Leaf Tempest: A storm of razor-sharp leaves that cuts through enemies.",
+    "Grass Knot: A move that tangles enemies in grass, immobilizing them.",
+    "Natures Embrace: A healing move that restores health using the power of nature.",
+    "Spore Zone: An area filled with toxic spores that weaken enemies.",
+    "Terra Devestation: A catastrophic move that reshapes the battlefield.",
+    "Call of the Spirits: A summoning move that calls forth nature spirits to aid in battle.",
+    "Mud: A move that covers enemies in mud, slowing them down.",
+    "Jungle Gym: A move that creates a jungle-like environment, confusing enemies.",
+    "Heal: A restorative move that uses nature's energy to heal wounds.",
+    "Jungle Juice: A potion made from jungle plants that restores health and energy.",
+    "Petalstrike: A strike that uses flower petals to cut through enemies.",
+    "Foliage: A move that creates a dense thicket, providing cover and protection.",
+    "Bloomveil: A veil of blooming flowers that shields and heals allies.",
+    "Wildflare: A burst of wild energy that ignites the battlefield.",
+    "Thornburst: A burst of thorns that damages and poisons enemies.",
+    "Budstrike: A strike that uses budding plants to entrap enemies.",
+    "Thorns of Ruin: Thorns that drain the life force of those they touch.",
+    "Verdescence: A radiant aura of green energy that enhances nature-based moves.",
+    "Titan’s Fist: A colossal punch that shakes the earth.",
+    "Earthspike Rupture: A move that summons spikes of earth to impale enemies.",
+    "Quakebreaker Slam: A slam that creates a seismic shockwave.",
+    "Shatterstrike: A strike that shatters the ground, causing debris to fly.",
+    "Creeping Death: A move that causes the earth to swallow enemies.",
+    "Earth Barrier: A wall of earth that blocks attacks.",
+    "Harden: A move that hardens the user's body, increasing defense.",
+    "Stone Barricade: A barricade of stone that protects allies.",
+    "Earth Spike: A spike of earth that erupts from the ground.",
+    "Stomp: A powerful stomp that causes tremors.",
+    "New Earth: A move that rejuvenates the battlefield with fertile soil.",
+    "Bedrock: A move that creates an unbreakable foundation.",
+    "Gravelstrike: A strike that uses gravel to blind and damage enemies.",
+    "Tremor: A move that creates small tremors, destabilizing enemies.",
+    "Faultline: A move that creates a fissure in the earth, trapping enemies.",
+    "Geospike: A spike of earth that erupts with explosive force.",
+    "Seismic Crush: A crushing move that uses seismic energy.",
+    "Sediment: A move that covers enemies in sediment, slowing them down.",
+    "Terraburst: A burst of earth energy that damages and knocks back enemies.",
+    "Meteor Impact: A move that summons a meteor to crash into the battlefield.",
+    "Torterra: A move that summons a massive turtle-like creature to crush enemies.",
+    "Duststorm: A storm of dust that blinds and damages enemies.",
+    "Voidflare Rift: A rift that unleashes the power of the Void, consuming all in its path.",
+    "Mind Burst: A psychic explosion that overwhelms the minds of enemies.",
+    "Timefracture: A move that fractures time, slowing down enemies.",
+    "Echoing Frenzy: A psychic wave that drives enemies into a frenzy.",
+    "Soulpierce Shot: A shot that pierces the soul, causing immense pain.",
+    "Spectral Bolt: A bolt of spectral energy that disrupts the mind.",
+    "Astral Coil: A coil of astral energy that binds and weakens enemies.",
+    "Dreambreaker: A move that shatters the dreams of enemies, leaving them vulnerable.",
+    "Etherwave: A wave of ether energy that disrupts the fabric of reality.",
+    "Memory Wipe: A move that erases the memories of enemies, disorienting them.",
+    "Enlightenment: A move that grants clarity and focus, enhancing psychic abilities.",
+    "Lionheart Lunge: A brave and powerful lunge that strikes fear into enemies.",
+    "Arrowstorm: A barrage of arrows that rains down on enemies.",
+    "Echo Strike: A strike that echoes with additional force.",
+    "Phantom Edge: A blade that strikes with the speed of a phantom.",
+    "Bladestorm Spiral: A spinning attack that creates a storm of blades.",
+    "Slash: A basic but effective slash attack.",
+    "Crunch: A powerful bite that crushes through defenses.",
+    "Leer: A menacing glare that lowers the enemy's defenses.",
+    "Workout: A move that increases the user's strength and stamina.",
+    "Sword Soul: A move that channels the user's soul into their sword, increasing its power.",
+    "Aura: A protective aura that enhances the user's abilities.",
+    "Headbutt: A forceful headbutt that stuns enemies.",
+    "Jab: A quick and precise jab that disrupts enemies.",
+    "Frenzy: A wild and uncontrolled attack that strikes multiple times.",
+    "Trueform: A move that reveals the user's true form, increasing their power.",
+    "Empty: A move that clears the mind, allowing for precise and focused attacks.",
+    "Howl: A chilling howl that freezes enemies in fear.",
+    "Frostfang Missile: A missile of ice that freezes enemies on impact.",
+    "Crystal Tempest: A storm of crystalline ice that cuts through enemies.",
+    "Frozen Starlight: A move that freezes enemies with the light of a distant star.",
+    "Shatterfang: A bite that freezes and shatters enemies.",
+    "Aurora: A beautiful but deadly display of light that freezes enemies.",
+    "Ice Heart: A move that freezes the user's heart, increasing their resistance to damage.",
+    "Frozen World: A move that freezes the entire battlefield, slowing down enemies.",
+    "Icicle: A sharp icicle that impales enemies.",
+    "Frostshard: A shard of ice that explodes on impact.",
+    "Icevein: A move that freezes the veins of enemies, slowing their movements.",
+    "Tundrashard: A shard of ice from the tundra that freezes enemies.",
+    "Cryoshard: A shard of ice that explodes into a freezing mist.",
+    "Subzero: A move that lowers the temperature to subzero levels, freezing enemies.",
+    "Polarveil: A veil of polar energy that shields and freezes enemies.",
+    "Icefang Tempest: A storm of icy fangs that pierce and freeze enemies.",
+    "Frozen Requiem: A song that freezes the hearts of enemies, leaving them vulnerable.",
+    "Stormbreaker: A move that breaks through storms, unleashing lightning.",
+    "Thunderstrike: A powerful strike of lightning that electrifies enemies.",
+    "Lightning Surge: A surge of lightning that courses through the battlefield.",
+    "Arcburst: A burst of electrical energy that shocks and stuns enemies.",
+    "Electrify: A move that electrifies the user, increasing their speed and power.",
+    "Cloudlash: A whip of lightning that strikes from the clouds.",
+    "Thunderpulse: A pulse of thunder that knocks back enemies.",
+    "Lightningcry: A cry that summons a storm of lightning.",
+    "Blitz: A rapid and powerful strike of lightning.",
+    "Skyflare: A brilliant flash of celestial fire ignites the sky, scorching foes with the fury of the heavens.",
+    "Sky Sunder: With a mighty strike, the sky itself is torn asunder, unleashing a devastating force from above.",
+    "Storm Lord: Harnessing the power of the tempests, the user commands the storm, summoning lightning and thunder to strike down enemies.",
+    "Tribulation Lightning: Bolts of divine judgment rain down, punishing those who stand against fate with relentless electrical fury.",
+    "Agile: The user moves with unmatched swiftness, evading attacks and striking with graceful precision.",
+    "Zephyr: A gentle yet swift current of wind empowers the user, enhancing their speed and agility in battle.",
+    "Tornado: A spiraling vortex of wind is conjured, lifting foes into the air before hurling them aside with violent force.",
+    "Windshear: A razor-sharp gust of wind cuts through the battlefield, slicing through defenses with precision.",
+    "Skybound: The user ascends with the power of the skies, gaining an aerial advantage and striking from above.",
+    "Sky Breaker: A thunderous blow that shatters the very air, sending shockwaves through the battlefield.",
+    "Airstream: A powerful gust propels the user forward, striking swiftly and overwhelming foes with momentum.",
+    "Winglash: The user lashes out with wings or air-forged blades, delivering a cutting strike that whips through the air.",
+    "Cut: A swift and precise slash that carves through obstacles and enemies alike.",
+    "Aerial Ace: A flawless airborne maneuver that ensures the user's attack lands unerringly, striking with pinpoint accuracy."
+]
 
 beast_lore = [
     "A creature of forgotten songs, said to hum melodies that guide lost sailors home.",
@@ -571,6 +803,8 @@ image59 = pygame.image.load('images/paimonmenushop.png')
 image59 = pygame.transform.scale(image59, (900, 900))
 imageBlack = pygame.image.load('images/blackscreen.jpg')
 imageBlack = pygame.transform.scale(imageBlack, (765, 700))
+imagebackdrop = pygame.image.load('images/STASHBACKDROP.jpg')
+imagebackdrop = pygame.transform.scale(imagebackdrop, (765, 700))
 image60 = pygame.image.load('images/returnarrow.png')
 image60 = pygame.transform.scale(image60, (75, 75))
 image61 = pygame.image.load('images/whitereturnarrow.png')
@@ -987,6 +1221,9 @@ font21 = pygame.font.SysFont("Comic Sans", 16)
 font22 = pygame.font.Font("fonts/AsianFont.ttf", 50)
 font23 = pygame.font.Font("fonts/oldenFont.otf", 35)
 font24 = pygame.font.Font("fonts/AsianFont.ttf", 40)
+font25 = pygame.font.SysFont("Comic Sans", 30)
+font26 = pygame.font.Font("fonts/AsianFont.ttf", 30)
+font27 = pygame.font.Font("fonts/Comfy.otf", 15)
 
 gameStatus = True
 ########################################################################################################################
@@ -1038,8 +1275,6 @@ def load_creatures(filename="creaturedata.txt"):
     #creatures = load_creatures()
     #print(creatures)  # Displays the list of saved creatures
 ########################################################################################################################
-import json
-
 def modify_creature(index, new_attributes, filename="creaturedata.txt"):
     try:
         with open(filename, "r") as file:
@@ -1064,8 +1299,6 @@ def modify_creature(index, new_attributes, filename="creaturedata.txt"):
 # Example Usage
 # modify_creature(index, {"health": 120, "attack": 25})  # Updates Dragon's health and attack
 ########################################################################################################################
-import json
-
 def delete_creature_by_index(index, filename="creaturedata.txt"):
     try:
         with open(filename, "r") as file:
@@ -1134,6 +1367,195 @@ def save_teamcreature(creature_data, filename="teamdata.txt"):
 
     with open(filename, "w") as file:
         json.dump(data, file, indent=4)  # Save updated data
+########################################################################################################################
+def empty_item(index, filename="equipeditems.txt"):
+    try:
+        with open(filename, "r") as file:
+            items = json.load(file)  # Load existing creatures
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("No creatures found.")
+        return
+
+    if index < 0 or index >= len(items):  # Check if index is valid
+        print(f"Invalid index: {index}. No creature modified.")
+        return
+
+    items[index].clear()  # Modify attributes
+
+
+
+    with open(filename, "w") as file:
+        json.dump(items, file, indent=4)  # Save changes
+
+    print(f"item cleared!")
+
+########################################################################################################################
+def moveprint(movestatus, target = "opponent"):
+    movereturn = " "
+    if(target == "opponent"):
+        if(movestatus == "userdeath"):
+            movereturn = "Forbidden moves are not to be taken lightly. The user instantly dies upon use."
+        if(movestatus == "fire"):
+            movereturn = "Small chance of setting opponent on fire."
+        if(movestatus == "fire2"):
+            movereturn = "High chance of setting opponent on fire and being a Arsonist."
+        if(movestatus == "heal1"):
+            movereturn = "A lesser heal. Rejuvenates 25% hp"
+        if(movestatus == "heal2"):
+            movereturn = "A greater heal. Rejuvenates 50% hp"
+        if(movestatus == "poison"):
+            movereturn = "Small chance of poisoning the opponent."
+        if(movestatus == "poison2"):
+            movereturn = "Great chance of poisoning the opponent."
+        if(movestatus == "riptide"):
+            movereturn = "Small chance of your opponent getting caught in a riptide"
+        if(movestatus == "riptide2"):
+            movereturn = "Highly likely your opponent getting caught in a riptide"
+        if(movestatus == "freeze"):
+            movereturn = "Small chance of perma-freezing your opponent"
+        if(movestatus == "freeze2"):
+            movereturn = "High chance of perma-freezing your opponent"
+        if(movestatus == "paralyze"):
+            movereturn = "Medium chance of paralyzing your opponent"
+        if(movestatus == "paralyze2"):
+            movereturn = "High chance of paralyzing your opponent"
+        if(movestatus == "bloom"):
+            movereturn = "Small chance of infecting your opponent with bloom."
+        if(movestatus == "bloom2"):
+            movereturn = "High chance of infecting your opponent with bloom."
+        if(movestatus == "gravity"):
+            movereturn = "Small chance of your opponent getting stuck in a gravity field"
+        if(movestatus == "gravity2"):
+            movereturn = "High chance of your opponent getting stuck in a gravity field"
+
+        if(movestatus == "accuracy+1"):
+            movereturn = "Slightly increases your opponents Accuracy"
+        if(movestatus == "accuracy+2"):
+            movereturn = "Drastically increases your opponents Accuracy"
+        if(movestatus == "accuracy-1"):
+            movereturn = "Decreases your opponents Accuracy"
+        if(movestatus == "accuracy-2"):
+            movereturn = "Drastically decreases your opponents Accuracy"
+
+        if(movestatus == "speed+1"):
+            movereturn = "slightly increases your opponents Speed"
+        if(movestatus == "speed+2"):
+            movereturn = "Sharply increases your opponents Speed"
+        if(movestatus == "attack+1"):
+            movereturn = "slightly increases your opponents Attack Stat"
+        if(movestatus == "attack+2"):
+            movereturn = "Sharply increases your foes Attack"
+        if(movestatus == "specattack+1"):
+            movereturn = "slightly increases your foes Special Attack Stat"
+        if(movestatus == "specattack+2"):
+            movereturn = "Sharply increases your foes Special Attack"
+        if(movestatus == "defense+1"):
+            movereturn = "slightly increases your foes Defense Stat"
+        if(movestatus == "defense+2"):
+            movereturn = "Sharply increases your foes Defense"
+        if(movestatus == "speed-1"):
+            movereturn = "decreases your rivals Speed Stat"
+        if(movestatus == "speed-2"):
+            movereturn = "Harshly decreases your rivals Speed"
+        if(movestatus == "attack-1"):
+            movereturn = "decreases your rivals Attack Stat"
+        if(movestatus == "attack-2"):
+            movereturn = "Harshly decreases your rivals Attack"
+        if(movestatus == "specattack-1"):
+            movereturn = "decreases your rivals Special Attack Stat"
+        if(movestatus == "specattack-2"):
+            movereturn = "Harshly decreases your rivals Special Attack"
+        if(movestatus == "defense-1"):
+            movereturn = "decreases your rivals defense stat"
+        if(movestatus == "defense-2"):
+            movereturn = "Harshly decreases your rivals Defense"
+
+    if (target == "self"):
+        if (movestatus == "userdeath"):
+            movereturn = "Forbidden moves are not to be taken lightly. The user instantly dies upon use."
+        if (movestatus == "fire"):
+            movereturn = "Small chance of setting yourself on fire."
+        if (movestatus == "fire2"):
+            movereturn = "High chance of setting yourself on fire dying."
+        if (movestatus == "heal1"):
+            movereturn = "A lesser heal. Rejuvenates 25% hp"
+        if (movestatus == "heal2"):
+            movereturn = "A greater heal. Rejuvenates 50% hp"
+        if (movestatus == "poison"):
+            movereturn = "Small chance of poisoning yourself."
+        if (movestatus == "poison2"):
+            movereturn = "Great chance of poisoning yourself."
+        if (movestatus == "riptide"):
+            movereturn = "Small chance of getting yourself caught in a riptide"
+        if (movestatus == "riptide2"):
+            movereturn = "Highly likely you will get yourself caught in a riptide"
+        if (movestatus == "freeze"):
+            movereturn = "Small chance of becoming perma-frozen"
+        if (movestatus == "freeze2"):
+            movereturn = "High chance of becoming perma-frozen"
+        if (movestatus == "paralyze"):
+            movereturn = "Medium chance of being paralyzed"
+        if (movestatus == "paralyze2"):
+            movereturn = "High chance of being paralyzed"
+        if (movestatus == "bloom"):
+            movereturn = "Small chance of getting infected with bloom"
+        if (movestatus == "bloom2"):
+            movereturn = "High chance of getting infected with bloom"
+        if (movestatus == "gravity"):
+            movereturn = "Small chance of gettin stuck in a gravity field"
+        if (movestatus == "gravity2"):
+            movereturn = "High chance of gettin stuck in a gravity field"
+
+        if (movestatus == "accuracy+1"):
+            movereturn = "Slightly increases your Accuracy"
+        if (movestatus == "accuracy+2"):
+            movereturn = "Drastically increases your Accuracy"
+        if (movestatus == "accuracy-1"):
+            movereturn = "Decreases your Accuracy"
+        if (movestatus == "accuracy-2"):
+            movereturn = "Drastically decreases your Accuracy"
+
+        if (movestatus == "speed+1"):
+            movereturn = "slightly increases your Speed"
+        if (movestatus == "speed+2"):
+            movereturn = "Sharply increases your Speed"
+        if (movestatus == "attack+1"):
+            movereturn = "slightly increases your Attack Stat"
+        if (movestatus == "attack+2"):
+            movereturn = "Sharply increases your Attack"
+        if (movestatus == "specattack+1"):
+            movereturn = "slightly increases your Special Attack Stat"
+        if (movestatus == "specattack+2"):
+            movereturn = "Sharply increases your Special Attack"
+        if (movestatus == "defense+1"):
+            movereturn = "slightly increases your Defense Stat"
+        if (movestatus == "defense+2"):
+            movereturn = "Sharply increases your Defense"
+        if (movestatus == "speed-1"):
+            movereturn = "decreases your Speed Stat"
+        if (movestatus == "speed-2"):
+            movereturn = "Harshly decreases your Speed"
+        if (movestatus == "attack-1"):
+            movereturn = "decreases your Attack Stat"
+        if (movestatus == "attack-2"):
+            movereturn = "Harshly decreases your Attack"
+        if (movestatus == "specattack-1"):
+            movereturn = "decreases your Special Attack Stat"
+        if (movestatus == "specattack-2"):
+            movereturn = "Harshly decreases your Special Attack"
+        if (movestatus == "defense-1"):
+            movereturn = "decreases your defense stat"
+        if (movestatus == "defense-2"):
+            movereturn = "Harshly decreases your creatures Defense"
+
+
+
+    if(movereturn == " "):
+        print("failed to capture move effect!")
+        print(movestatus)
+        print("failed to capture move effect!")
+
+    return movereturn
 ########################################################################################################################
 class maingameareas(pygame.sprite.Sprite):
     def __init__(self, inputvalue=""):
@@ -1433,8 +1855,8 @@ class PaimonShop(pygame.sprite.Sprite):
         self.menu_activepaimon = True
         self.paimonshop()
 ########################################################################################################################
-    def displayitemscene(self, itemdisplay, gamescene, name, temporary, image, attack=0, armor=0, speed=0,
-                         critical=0, specialattack=0, luck=0, price=0):
+    def displayitemscene(self, itemdisplay, gamescene, name, temporary, imagecore, image, attack=0, armor=0, speed=0,
+                         hp=0, specialattack=0, luck=0, price=0):
         startTime = pygame.time.get_ticks()
         rainbowcolor1 = int((math.sin(startTime * 0.001) + 1) * 127.5)
         rainbowcolor2 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
@@ -1478,11 +1900,11 @@ class PaimonShop(pygame.sprite.Sprite):
         draw_text(str(attack), font11, WHITE, DISPLAYSURF, 1270, 706)
         draw_text(str(armor), font11, WHITE, DISPLAYSURF, 1270, 731)
         draw_text(str(speed), font11, WHITE, DISPLAYSURF, 1270, 756)
-        draw_text(str(critical), font11, WHITE, DISPLAYSURF, 1270, 781)
+        draw_text(str(hp), font11, WHITE, DISPLAYSURF, 1270, 781)
         draw_text(str(specialattack), font11, WHITE, DISPLAYSURF, 1270, 806)
         draw_text(str(luck), font11, SKYBLUE, DISPLAYSURF, 1270, 831)
         if ((temporary != 0) and (temporary != -1)):
-            draw_text("Temporary- " + str(temporary) + " min", font13,
+            draw_text("*Temporary Item*", font13,
                       (rainbowcolor2, rainbowcolor3, rainbowcolor1), DISPLAYSURF, 1120, 630)
         elif (temporary == -1):
             draw_text("Consumable Item", font13, (rainbowcolor2, rainbowcolor3, rainbowcolor1), DISPLAYSURF, 1120,
@@ -1505,6 +1927,20 @@ class PaimonShop(pygame.sprite.Sprite):
                         sound_effect = pygame.mixer.Sound("audio/coinsound.mp3")
                         itemboughtswitch = True
                         sound_effect.play()
+                        item = {
+                            "name": name,
+                            "imagecore": imagecore,
+                            "HP": hp,
+                            "armor": armor,
+                            "Attack": attack,
+                            "specialattack": specialattack,
+                            "speed": speed,
+                            "luck": luck,
+                        }
+                        if(temporary == 0):
+                            save_creature(item, "itemdata.txt")
+                        if (temporary == 1):
+                            save_creature(item, "tempitems.txt")
                         return (0, 7)
                     else:
                         sound_effect = pygame.mixer.Sound("audio/error.mp3")
@@ -1939,181 +2375,181 @@ class PaimonShop(pygame.sprite.Sprite):
                                     itemdisplay = 34
 
             if(itemdisplay == 1):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Purple Potion", 10, image94, 1, 2, 3, 4, 5, 6, 100)
-                draw_text('Increases Attack stat by 15% for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Purple Potion", 1,'images/purplepotion.png', image94, 0, 0, 0, 0, 0, 0, 250)
+                draw_text('Increases Attack stat for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
 
             if(itemdisplay == 2):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Codex", -1, image95, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Codex", 1,'images/enchantedbook1.png', image95, 0, 0, 0, 0, 0, 0, 20000)
                 draw_text('A codex filled with the knowledge of', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('the gods. Use this item to gain ', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('1-5000 user experience points', font5, TAN, DISPLAYSURF, 675, 790)
 
             if(itemdisplay == 3):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Rusty Sword", 0, image96, 1, 2, 3, 4, 5, 6, 1)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Rusty Sword", 0,'images/rustysword.png', image96, 2, 0, 2, 0, 0, 0, 250)
                 draw_text('A sword with a forgotten story.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('This sword is the bare minimum', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('for surviving in this world.', font5, TAN, DISPLAYSURF, 675, 790)
 
             if(itemdisplay == 4):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Greeves", 0, image97, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Greeves", 0,'images/leatherpants.png', image97, 0, 2, 0, 2, 0, 0, 250)
                 draw_text('Can barely be called armor.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Made to be cheap and light.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if(itemdisplay == 5):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Scale Chestplate", 0, image98, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Chestplate", 0,'images/coralchestplate.png', image98, 1, 40, 0, 30, 0, 5, 125000)
                 draw_text('A chestplate crafted from the divine', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('blacksmith of Lucidea. Gain permanent 10%', font5, TAN, DISPLAYSURF, 675, 760)
-                draw_text('stat boost to all stats while wearing.', font5, TAN, DISPLAYSURF, 675, 790)
+                draw_text('blacksmith of Lucidea. This armor', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('was crafted within a star.', font5, TAN, DISPLAYSURF, 675, 790)
 
             if(itemdisplay == 6):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Wind Potion", 10, image99, 1, 2, 3, 4, 5, 6, 100)
-                draw_text('Increases Speed stat by 15% for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Wind Potion", 1,'images/bluepotion.png', image99, 0, 0, 0, 0, 0, 0, 250)
+                draw_text('Increases Speed stat for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
 
             if(itemdisplay == 7):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Aqua Amulet", 0, image100, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Aqua Amulet", 0,'images/whiteamulet.png', image100, 0, 5, 5, 5, 0, 0, 5000)
                 draw_text('An amulet inbued with the power of water.', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('Increases water resistence by 25%', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('Blessed by the goddest of water.', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('(equipable jewelry slot)', font5, TAN, DISPLAYSURF, 675, 790)
 
             if(itemdisplay == 8):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Bronze Sword", 0, image101, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Bronze Sword", 0,'images/bronzesword.png', image101, 5, 0, 3, 0, 1, 1, 1000)
                 draw_text('A sword forged by an amateur.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('A sword for beginners, to create', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('new beginnings.', font5, TAN, DISPLAYSURF, 675, 790)
 
             if(itemdisplay == 9):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Boots", 0, image102, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Boots", 0,'images/leatherboots.png', image102, 0, 2, 2, 2, 0, 0, 250)
                 draw_text('Can barely be called armor.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Made to be cheap and light.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if(itemdisplay == 10):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Scale Greeves", 0, image103, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Greeves", 0,'images/coralpants.png', image103, 0, 30, 10, 10, 0, 5, 100000)
                 draw_text('Greeves crafted from the divine', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('blacksmith of Lucidea. Gain permanent 10%', font5, TAN, DISPLAYSURF, 675, 760)
-                draw_text('stat boost to all stats while wearing.', font5, TAN, DISPLAYSURF, 675, 790)
+                draw_text('blacksmith of Lucidea. This armor', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('was crafted within a star.', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 11):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Lucky Potion", 10, image104,1, 2, 3, 4, 5, 6, 100)
-                draw_text('Increases Luck by 15% for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Lucky Potion", 1,'images/greenpotion.png', image104,0, 0, 0, 0, 0, 0, 250)
+                draw_text('Increases Luck by 10 min', font5, TAN, DISPLAYSURF, 675, 730)
 
             if (itemdisplay == 12):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Lava Amulet", 0, image105, 1, 2,3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Lava Amulet", 0,'images/redamulet.png', image105, 5, 0,0, 5, 5, 0, 5000)
                 draw_text('An amulet inbued with the power of Lava.', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('Increases fire resistence by 25%', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('Blessed by the goddest of fire.', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('(equipable jewelry slot)', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 13):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Silverline Sword", 0, image106,1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Silverline Sword", 0,'images/Ironsword.png', image106,10, 0, 5, 0, 10, 0, 3500)
                 draw_text('A sword used by all knights of the kingdom', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('A sword worshipped by the light and dreaded', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('by the dark.', font5, TAN, DISPLAYSURF, 705, 790)
 
             if (itemdisplay == 14):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Plated Helmet", 0,image107, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Plated Helmet", 0,'images/metalhelmet.png',image107, 0, 10, -5, 5, 0, 0, 5000)
                 draw_text('Heavy and reliable', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('this armor is made for war.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 15):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Scale Boots",0, image108, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Boots",0,'images/coralshoes.png', image108, 0, 20, 30, 5, 0, 5, 100000)
                 draw_text('Boots crafted from the divine', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('blacksmith of Lucidea. Gain permanent 10%', font5, TAN, DISPLAYSURF, 675, 760)
-                draw_text('stat boost to all stats.', font5, TAN, DISPLAYSURF, 675, 790)
+                draw_text('blacksmith of Lucidea. This armor', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('was crafted within a star.', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 16):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Resistence Potion", 10, image109,1, 2, 3, 4, 5, 6, 100)
-                draw_text('Increases Defense stat by 15% for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Resistence Potion", 1,'images/whitepotion.png', image109,0, 0, 0, 0, 0, 0, 250)
+                draw_text('Increases Defense stat for 10 min', font5, TAN, DISPLAYSURF, 675, 730)
 
             if (itemdisplay == 17):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Amulet of Heaven", 0, image110, 1, 2,3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Amulet of Heaven", 0,'images/purpleamulet.png', image110, 10, 10,10, 10, 10, 10, 1000000)
                 draw_text('An amulet of unknown origins,', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('blessed by the goddess of the sea.', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('blessed by the heavens.', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('Increases all elemental resistence by 10%', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 18):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Adamantine Sword", 0, image111,1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Adamantine Sword", 0,'images/diamondsword.png', image111,25, 5, 5, 0, 0, 0, 25000)
                 draw_text('A sword made for heroes.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Unlock the way of the sword.', font5, TAN, DISPLAYSURF, 675, 760)
-                draw_text('100% increase critical chance', font5, TAN, DISPLAYSURF, 675, 790)
+                draw_text(' ', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 19):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Plated Chestplate", 0,image112, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Plated Chestplate", 0,'images/metalchestplate.png',image112, 0, 10, -5, 5, 0, 0, 5000)
                 draw_text('Heavy and reliable', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('this armor is made for war.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 20):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Small EXP Pouch",-1, image113, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Small EXP Pouch",1,'images/expouch.png', image113, 0, 0, 0, 0, 0, 0, 1000)
                 draw_text('Used by Beast Tamers for fast results.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Increase a Beasts exp by 1-1,000 exp', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 21):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Healing Potion", 10, image114, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Healing Potion", 1,'images/healingpotion.png', image114, 0, 0, 0, 0, 0, 0, 500)
                 draw_text('Heals 25% hp', font5, TAN, DISPLAYSURF, 675, 730)
 
             if (itemdisplay == 22):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Lost Crown", 0, image115, 1,2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Lost Crown", 0,'images/underwatercrown.png', image115, 0, 3, 0, 0, 25, 10, 50000)
                 draw_text('The power of the king.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Stand on the corpse of a trillion souls,', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('and ask them how important honor is?', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 23):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Simple Staff", 0,image116, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Simple Staff", 0,'images/simplestaff.png', image116, 0, 0, 1, 0, 5, 0, 500)
                 draw_text('Tired of using a sword?', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Become a wizard!', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('(equipable weapon slot)', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 24):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Plated Greeves", 0,image117, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Plated Greeves", 0,'images/metalgreeves.png', image117, -1, 10, -5, 5, 0, 0, 5000)
                 draw_text('Heavy and reliable', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('this armor is made for war.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 25):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene,"Large EXP Pouch", -1, image118, 1, 2,3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene,"Large EXP Pouch", 1,'images/largeexppouch.png', image118, 0, 0,0, 0, 0, 0, 10000)
                 draw_text('Used by wealthy Beast Tamers for fast results.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Increase a Beasts exp by 1,000-10,000 exp', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 26):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Apple", -1, image119, 1,2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Apple", 1,'images/apple.png', image119, 0,0, 0, 0, 0, 0, 100)
                 draw_text('Apples exist underwater?', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Heals 25 hp', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 27):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Mystery bag", -1,image120, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Mystery bag", 1, 'images/mysterybag.png', image120, 0,0, 0, 0, 0, 0, 7500)
                 draw_text('obtain an #$*@ item', font5, TAN, DISPLAYSURF, 675, 730)
 
             if (itemdisplay == 28):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Cap", 0,image121, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Cap", 0,'images/leatherhelmet.png', image121, 0, 2, 3, 1, 0, 0, 250)
                 draw_text('Can barely be called armor.', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Made to be cheap and light.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 29):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene,"Plated Boots", 0, image122, 1, 2,3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene,"Plated Boots", 0,'images/metalboots.png', image122, 3, 10,-5, 5, 0, 0, 5000)
                 draw_text('Heavy and reliable', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('this armor is made for war.', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 30):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Time Dilator", -1, image123,1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Time Dilator", 1,'images/timedilator.png', image123,0, 0, 0, 0, 0, 0, 5000)
                 draw_text('??#?#$???9?????5????9?@?#??', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Revert a creature back to lvl 1', font5, TAN, DISPLAYSURF, 675, 760)
                 draw_text('??#?#$???9?????5????9?@?#??', font5, TAN, DISPLAYSURF, 675, 790)
 
             if (itemdisplay == 31):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Golden Apple", -1,image124, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Golden Apple", 1,'images/goldenapple.png', image124, 0, 0, 0, 0, 0, 0, 2222)
                 draw_text('whats next, enchanted golden apple?', font5, TAN, DISPLAYSURF, 675, 730)
                 draw_text('Heals 100 HP', font5, TAN, DISPLAYSURF, 675, 760)
 
             if (itemdisplay == 32):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Mysterious Dao Bag",-1, image125, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Mysterious Dao Bag",1,'images/supermysterybag.png', image125, 1, 2, 3, 4, 5, 6, 125000)
                 draw_text('obtain an rare or higher #$*@ item', font5, TAN, DISPLAYSURF, 675, 730)
 
             if (itemdisplay == 33):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Chestplate",0, image126, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Leather Chestplate",0,'images/leatherchestplate.png', image126, 0, 4, 4, 0, 0, 0, 500)
                 draw_text('You are broke arent you?', font5, TAN, DISPLAYSURF, 675, 730)
 
             if (itemdisplay == 34):
-                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Scale Helmet",0, image127, 1, 2, 3, 4, 5, 6, 100)
+                itemdisplay, self.gamescene = self.displayitemscene(itemdisplay, self.gamescene, "Ascendent Helmet",0,'images/coralhelmet.png', image127, 0, 30, 10, 5, 0, 5, 100000)
                 draw_text('A helmet crafted from the divine', font5, TAN, DISPLAYSURF, 675, 730)
-                draw_text('blacksmith of Lucidea. Gain permanent 10%', font5, TAN, DISPLAYSURF, 675, 760)
-                draw_text('stat boost to all stats.', font5, TAN, DISPLAYSURF, 675, 790)
+                draw_text('blacksmith of Lucidea. This armor', font5, TAN, DISPLAYSURF, 675, 760)
+                draw_text('was crafted within a star.', font5, TAN, DISPLAYSURF, 675, 790)
             pygame.display.update()
             if (self.gamescene == 10):
                 DISPLAYSURF.fill(BLACK)
@@ -9367,6 +9803,7 @@ class stash(pygame.sprite.Sprite):
         creatureexp = []
         clickedrect = -1
         creaturepage = 1
+        itempage = 1
 
         creatures = load_creatures("creaturedata.txt")
 
@@ -9388,6 +9825,73 @@ class stash(pygame.sprite.Sprite):
             creaturetype.append(attributes[13])
             creatureexp.append(attributes[14])
 
+
+#################################################
+        itemname = []
+        itemimagecore = []
+        regularimage = []
+        itemHP = []
+        itemarmor = []
+        itemAttack = []
+        itemspecialattack = []
+        itemspeed = []
+        itemluck = []
+
+        items = load_creatures("itemdata.txt")
+
+        for item in items:
+            attributes = list(item.values())
+            itemname.append(attributes[0])
+            regularimage.append(attributes[1])
+            tempimage = pygame.image.load(attributes[1])
+            tempimage = pygame.transform.scale(tempimage, (60, 60))
+            itemimagecore.append(tempimage)
+            itemHP.append(attributes[2])
+            itemarmor.append(attributes[3])
+            itemAttack.append(attributes[4])
+            itemspecialattack.append(attributes[5])
+            itemspeed.append(attributes[6])
+            itemluck.append(attributes[7])
+
+        equipmentimages = [[], [], [], [], [], [], []]
+        equipeditems = load_teamcreatures("equipeditems.txt")
+        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+            attributes = list(equipeditems[0].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[0] = tempimg
+        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+            attributes = list(equipeditems[1].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[1] = tempimg
+        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+            attributes = list(equipeditems[2].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[2] = tempimg
+        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+            attributes = list(equipeditems[3].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[3] = tempimg
+        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+            attributes = list(equipeditems[4].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[4] = tempimg
+        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+            attributes = list(equipeditems[5].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[5] = tempimg
+        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+            attributes = list(equipeditems[6].values())
+            tempimg = pygame.image.load(attributes[1])
+            tempimg = pygame.transform.scale(tempimg, (60, 60))
+            equipmentimages[6] = tempimg
+########################################################################################################################
         while self.stashloop:
             rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
             rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
@@ -9461,7 +9965,7 @@ class stash(pygame.sprite.Sprite):
                                 frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
                                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                                 frame = pygame.surfarray.make_surface(frame).convert()
-                                DISPLAYSURF.blit(frame, (140, 70))
+                                DISPLAYSURF.blit(frame, (140, 50))
                                 pygame.display.flip()  # Update the display
                                 clock.tick(fps)
                             video2.release()
@@ -9482,7 +9986,7 @@ class stash(pygame.sprite.Sprite):
                 DISPLAYSURF.fill(BLACK)
                 mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
-                print("x and y = " + str(mouseX) + " " + str(mouseY))
+                #print("x and y = " + str(mouseX) + " " + str(mouseY))
 
                 image264.set_alpha(150)
                 DISPLAYSURF.blit(image264, (197, 100))
@@ -9504,19 +10008,291 @@ class stash(pygame.sprite.Sprite):
 
                 DISPLAYSURF.blit(image267, (490, 190))
 
-                draw_text_center('Armory', font23, RED, DISPLAYSURF,885, 222)
+                draw_text_center('Armory', font23, RED, DISPLAYSURF, 885, 222)
                 draw_text_center('Beasts', font23, PURPLE, DISPLAYSURF, 1043, 222)
-                draw_text_center('Equipment', font23, AQUA, DISPLAYSURF, 580, 311)
-                draw_text_center('Page ', font23, EMERALD, DISPLAYSURF, halfdisplay + 5, 875)
+                draw_text_center('Equipment', font23, AQUA, DISPLAYSURF, 580, 310)
+                draw_text_center('Page ' + str(itempage), font23, EMERALD, DISPLAYSURF, halfdisplay + 5, 875)
 
                 DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
 
-                leftarrowrect = pygame.Rect(685, 835, 125, 60)
-                rightarrowrect = pygame.Rect(1130, 830, 125, 60)
+                rects = []
+                i = 0
+                amountitems = len(itemimagecore)
+                while (i != amountitems):
+
+                    ii = (i + (itempage - 1) * 36)
+                    size = len(itemimagecore) - 1
+
+                    if (i >= 0 and i <= 5):
+                        if (size >= ii):
+                            DISPLAYSURF.blit(itemimagecore[ii], (699 + (94 * i), 288))
+                            rect = pygame.Rect(695 + (94 * i), 282, 73, 71)
+                            rects.append(rect)
+                    if (i >= 6 and i <= 11):
+                        if (size >= ii):
+                            DISPLAYSURF.blit(itemimagecore[ii], (699 + (94 * (i - 6)), 379))
+                            rect = pygame.Rect(695 + (94 * (i - 6)), 373, 73, 71)
+                            rects.append(rect)
+                    if (i >= 12 and i <= 17):
+                        if (size >= ii):
+                            DISPLAYSURF.blit(itemimagecore[ii], (699 + (94 * (i - 12)), 465))
+                            rect = pygame.Rect(695 + (94 * (i - 12)), 460, 73, 71)
+                            rects.append(rect)
+                    if (i >= 18 and i <= 23):
+                        if (size >= ii):
+                            DISPLAYSURF.blit(itemimagecore[ii], (699 + (94 * (i - 18)), 555))
+                            rect = pygame.Rect(695 + (94 * (i - 18)), 549, 73, 71)
+                            rects.append(rect)
+                    if (i >= 24 and i <= 29):
+                        if (size >= ii):
+                            DISPLAYSURF.blit(itemimagecore[ii], (699 + (94 * (i - 24)), 642))
+                            rect = pygame.Rect(695 + (94 * (i - 24)), 636, 73, 71)
+                            rects.append(rect)
+                    if (i >= 30 and i <= 35):
+                        if (size >= ii):
+                            DISPLAYSURF.blit(itemimagecore[ii], (699 + (94 * (i - 30)), 731))
+                            rect = pygame.Rect(695 + (94 * (i - 30)), 726, 73, 71)
+                            rects.append(rect)
+
+                    i = i + 1
+
+                showbool = True
+                x = 0
+                helmetrect = pygame.Rect(576, 354, 107, 80)
+                chestplaterect = pygame.Rect(576, 450, 108, 80)
+                pantsrect = pygame.Rect(575, 546, 107, 80)
+                bootsrect = pygame.Rect(574, 644, 107, 80)
+
+                jewelry1rect = pygame.Rect(501, 364, 63, 55)
+                jewelry2rect = pygame.Rect(501, 443,  63, 53)
+
+                weaponrect = pygame.Rect(490, 510, 79, 107)
+
+                pygame.draw.ellipse(DISPLAYSURF, PINPPINK, helmetrect, 6)
+                pygame.draw.ellipse(DISPLAYSURF, PINPPINK, chestplaterect, 6)
+                pygame.draw.ellipse(DISPLAYSURF, PINPPINK, pantsrect, 6)
+                pygame.draw.ellipse(DISPLAYSURF, PINPPINK, bootsrect, 6)
+
+                pygame.draw.rect(DISPLAYSURF, LIME, jewelry1rect, 4, )
+                pygame.draw.rect(DISPLAYSURF, LIME, jewelry2rect, 4, )
+
+                pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, weaponrect, 6)
+
+                for rect in rects:
+                    pygame.draw.rect(DISPLAYSURF, PINK, rect, 6, 10)
+                    if rect.collidepoint(mouse_pos):
+                        showbool = False
+                        xx = x + ((itempage - 1) * 36)
+                        pygame.draw.rect(DISPLAYSURF, GOLD, rect, 6, 10)
+                        draw_text(str(itemname[xx]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                        draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                        draw_text('Hp- ' +str(itemHP[xx]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                        draw_text("Armor- " +str(itemarmor[xx]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                        draw_text("Attack- " +str(itemAttack[xx]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                        draw_text("Spec Att- " +str(itemspecialattack[xx]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                        draw_text("Speed- " +str(itemspeed[xx]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                        draw_text("luck- " +str(itemluck[xx]), font24, SKYBLUE, DISPLAYSURF, 230, 625)
+                        draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                        draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                        for event in pygame.event.get():
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                clickedrect = x + ((itempage - 1) * 36)
+
+                    x = x + 1
+                if (clickedrect != -1):
+                    if (clickedrect > ((itempage - 1) * 36) - 1) and (clickedrect <= ((itempage * 36) - 1)):
+                        pygame.draw.rect(DISPLAYSURF, AQUA, rects[clickedrect - ((itempage - 1) * 36)], 6, 10)
+
+                if (showbool == True):
+                    if helmetrect.collidepoint(mouse_pos):
+                        equipeditems = load_teamcreatures("equipeditems.txt")
+                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                            attributes = list(equipeditems[0].values())
+                            draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                    elif chestplaterect.collidepoint(mouse_pos):
+                        equipeditems = load_teamcreatures("equipeditems.txt")
+                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                            attributes = list(equipeditems[1].values())
+                            draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                    elif pantsrect.collidepoint(mouse_pos):
+                        equipeditems = load_teamcreatures("equipeditems.txt")
+                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                            attributes = list(equipeditems[2].values())
+                            draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                    elif bootsrect.collidepoint(mouse_pos):
+                        equipeditems = load_teamcreatures("equipeditems.txt")
+                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                            attributes = list(equipeditems[3].values())
+                            draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                    elif jewelry1rect.collidepoint(mouse_pos):
+                        equipeditems = load_teamcreatures("equipeditems.txt")
+                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                            attributes = list(equipeditems[4].values())
+                            draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                    elif jewelry2rect.collidepoint(mouse_pos):
+                        equipeditems = load_teamcreatures("equipeditems.txt")
+                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                            attributes = list(equipeditems[5].values())
+                            draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                        elif weaponrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                attributes = list(equipeditems[6].values())
+                                draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                                draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                                draw_text('Hp- ' + str(attributes[2]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                                draw_text("Armor- " + str(attributes[3]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                                draw_text("Attack- " + str(attributes[4]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                                draw_text("Spec Att- " + str(attributes[5]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                                draw_text("Speed- " + str(attributes[6]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                                draw_text("luck- " + str(attributes[7]), font24, SKYBLUE, DISPLAYSURF, 260, 625)
+                                draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                                draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+                    elif (clickedrect != -1):
+                        if (clickedrect > ((itempage - 1) * 36) - 1) and (clickedrect <= ((itempage * 36) - 1)):
+                            pygame.draw.rect(DISPLAYSURF, AQUA, rects[clickedrect - ((itempage - 1) * 36)], 6, 10)
+                            draw_text(str(itemname[clickedrect]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 290, 365)
+                            draw_text('Hp- ' +str(itemHP[clickedrect]), font24, SKYBLUE, DISPLAYSURF, 230, 425)
+                            draw_text("Armor- " +str(itemarmor[clickedrect]), font24, SKYBLUE, DISPLAYSURF, 230, 465)
+                            draw_text("Attack- " +str(itemAttack[clickedrect]), font24, SKYBLUE, DISPLAYSURF, 230, 505)
+                            draw_text("Spec Att- " +str(itemspecialattack[clickedrect]), font24, SKYBLUE, DISPLAYSURF, 230, 545)
+                            draw_text("Speed- " +str(itemspeed[clickedrect]), font24, SKYBLUE, DISPLAYSURF, 230, 585)
+                            draw_text("luck- " +str(itemluck[clickedrect]), font24, SKYBLUE, DISPLAYSURF, 230, 625)
+                            draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
+                            draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
+
+                if helmetrect.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, helmetrect, 6)
+
+                if chestplaterect.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, chestplaterect, 6)
+
+                if pantsrect.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, pantsrect, 6)
+
+                if bootsrect.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, rainbow, bootsrect, 6)
+
+                if jewelry1rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, rainbow, jewelry1rect, 5)
+
+                if jewelry2rect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, rainbow, jewelry2rect, 5)
+
+                if weaponrect.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, rainbow, weaponrect, 5)
+
+                equipeditems = load_teamcreatures("equipeditems.txt")
+                if (len(equipeditems) >= 1 and equipeditems[0] != {} and equipmentimages[0] != []):
+                    DISPLAYSURF.blit(equipmentimages[0], (600, 364))
+                if (len(equipeditems) >= 2 and equipeditems[1] != {} and equipmentimages[1] != []):
+                    DISPLAYSURF.blit(equipmentimages[1], (600, 457))
+                if (len(equipeditems) >= 3 and equipeditems[2] != {} and equipmentimages[2] != []):
+                    DISPLAYSURF.blit(equipmentimages[2], (600, 557))
+                if (len(equipeditems) >= 4 and equipeditems[3] != {} and equipmentimages[3] != []):
+                    DISPLAYSURF.blit(equipmentimages[3], (600, 652))
+                if (len(equipeditems) >= 5 and equipeditems[4] != {} and equipmentimages[4] != []):
+                    DISPLAYSURF.blit(equipmentimages[4], (501, 360))
+                if (len(equipeditems) >= 6 and equipeditems[5] != {} and equipmentimages[5] != []):
+                    DISPLAYSURF.blit(equipmentimages[5], (501, 440))
+                if (len(equipeditems) >= 7 and equipeditems[6] != {} and equipmentimages[6] != []):
+                    DISPLAYSURF.blit(equipmentimages[6], (499, 533))
+                draw_text('x', font4, RED, DISPLAYSURF, 669, 414)
+                draw_text('x', font4, RED, DISPLAYSURF, 669, 510)
+                draw_text('x', font4, RED, DISPLAYSURF, 669, 610)
+                draw_text('x', font4, RED, DISPLAYSURF, 669, 710)
+                draw_text('x', font4, RED, DISPLAYSURF, 465, 354)
+                draw_text('x', font4, RED, DISPLAYSURF, 469, 428)
+                draw_text('x', font4, RED, DISPLAYSURF, 460, 540)
+
+                helmetxrect = pygame.Rect(669, 414, 40, 40)
+                chestplatexrect = pygame.Rect(669, 510, 40, 40)
+                pantsxrect = pygame.Rect(669, 610, 40, 40)
+                bootsxrect = pygame.Rect(669, 710, 40, 40)
+                jewelry1xrect = pygame.Rect(465, 354, 40, 40)
+                jewelry2xrect = pygame.Rect(469, 428, 40, 40)
+                swordxrect = pygame.Rect(460, 540, 40, 40)
+
+                if helmetxrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 669, 414)
+                if chestplatexrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 669, 510)
+                if pantsxrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 669, 610)
+                if bootsxrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 669, 710)
+                if jewelry1xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 465, 354)
+                if jewelry2xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 469, 428)
+                if swordxrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, rainbow, DISPLAYSURF, 460, 540)
+                trashcanrect = pygame.Rect(930, 800, 80, 80)
+                if trashcanrect.collidepoint(mouse_pos):
+                    pygame.draw.ellipse(DISPLAYSURF, RED, trashcanrect, 4)
+                    draw_text_center("click trash can to delete item", font11, rainbow, DISPLAYSURF, halfdisplay,797)
 
                 armoryrect = pygame.Rect(815, 210, 150, 60)
                 companionrect = pygame.Rect(975, 210, 150, 60)
                 pygame.draw.rect(DISPLAYSURF, rainbow, armoryrect, 5)
+
+                leftarrowrect = pygame.Rect(685, 835, 125, 60)
+                rightarrowrect = pygame.Rect(1130, 830, 125, 60)
 
                 xrect = pygame.Rect(1680, 123, 35, 35)
                 returnarrowrect = pygame.Rect(153, 110, 120, 70)
@@ -9534,6 +10310,15 @@ class stash(pygame.sprite.Sprite):
                     DISPLAYSURF.blit(image165, (198, 110))
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
+                        if leftarrowrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
+                            sound_effect.play()
+                            if (itempage != 1):
+                                itempage = itempage - 1
+                        if rightarrowrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
+                            sound_effect.play()
+                            itempage = itempage + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             video.release()
                             transition(6)
@@ -9541,10 +10326,12 @@ class stash(pygame.sprite.Sprite):
                         if armoryrect.collidepoint(mouse_pos):
                             sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
                             sound_effect.play()
+                            clickedrect = -1
                             self.gamescene = 2
                         if companionrect.collidepoint(mouse_pos):
                             sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
                             sound_effect.play()
+                            clickedrect = -1
                             self.gamescene = 3
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
@@ -9552,12 +10339,1174 @@ class stash(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
+                        if helmetrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1):
+                                if (len(equipeditems) >= 1 and (itemname[clickedrect] == "Leather Cap" or itemname[clickedrect] == "Plated Helmet" or itemname[clickedrect] == "Ascendent Helmet")):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[0]):
+                                            save_creature(equipeditems[0], "itemdata.txt")
+                                        modify_teamcreature(0, {
+                                        "name": itemname[clickedrect],
+                                        "imagecore": regularimage[clickedrect],
+                                        "HP": itemHP[clickedrect],
+                                        "armor": itemarmor[clickedrect],
+                                        "Attack": itemAttack[clickedrect],
+                                        "specialattack": itemspecialattack[clickedrect],
+                                        "speed": itemspeed[clickedrect],
+                                        "luck": itemluck[clickedrect]}, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+                            clickedrect = -1
+                        if chestplaterect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1):
+                                if (len(equipeditems) >= 2 and (itemname[clickedrect] == "Leather Chestplate" or itemname[clickedrect] == "Plated Chestplate" or itemname[clickedrect] == "Ascendent Chestplate")):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[1]):
+                                            save_creature(equipeditems[1], "itemdata.txt")
+                                        modify_teamcreature(1, {
+                                            "name": itemname[clickedrect],
+                                            "imagecore": regularimage[clickedrect],
+                                            "HP": itemHP[clickedrect],
+                                            "armor": itemarmor[clickedrect],
+                                            "Attack": itemAttack[clickedrect],
+                                            "specialattack": itemspecialattack[clickedrect],
+                                            "speed": itemspeed[clickedrect],
+                                            "luck": itemluck[clickedrect],
+                                        }, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+                            clickedrect = -1
+                        if pantsrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1 and (itemname[clickedrect] == "Leather Greeves" or itemname[clickedrect] == "Plated Greeves" or itemname[clickedrect] == "Ascendent Greeves")):
+                                if (len(equipeditems) >= 3):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[2]):
+                                            save_creature(equipeditems[2], "itemdata.txt")
+                                        modify_teamcreature(2, {
+                                            "name": itemname[clickedrect],
+                                            "imagecore": regularimage[clickedrect],
+                                            "HP": itemHP[clickedrect],
+                                            "armor": itemarmor[clickedrect],
+                                            "Attack": itemAttack[clickedrect],
+                                            "specialattack": itemspecialattack[clickedrect],
+                                            "speed": itemspeed[clickedrect],
+                                            "luck": itemluck[clickedrect],
+                                        }, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+
+                            clickedrect = -1
+                        if bootsrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1 and (itemname[clickedrect] == "Leather Boots" or itemname[clickedrect] == "Plated Boots" or itemname[clickedrect] == "Ascendent Boots")):
+                                if (len(equipeditems) >= 4):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[3]):
+                                            save_creature(equipeditems[3], "itemdata.txt")
+                                        modify_teamcreature(3, {
+                                            "name": itemname[clickedrect],
+                                            "imagecore": regularimage[clickedrect],
+                                            "HP": itemHP[clickedrect],
+                                            "armor": itemarmor[clickedrect],
+                                            "Attack": itemAttack[clickedrect],
+                                            "specialattack": itemspecialattack[clickedrect],
+                                            "speed": itemspeed[clickedrect],
+                                            "luck": itemluck[clickedrect],
+                                        }, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+
+                            clickedrect = -1
+                        if jewelry1rect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1 and (itemname[clickedrect] == "Aqua Amulet" or itemname[clickedrect] == "Lava Amulet" or itemname[clickedrect] == "Amulet of Heaven" or itemname[clickedrect] == "Lost Crown")):
+                                if (len(equipeditems) >= 5):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[4]):
+                                            save_creature(equipeditems[4], "itemdata.txt")
+                                        modify_teamcreature(4, {
+                                            "name": itemname[clickedrect],
+                                            "imagecore": regularimage[clickedrect],
+                                            "HP": itemHP[clickedrect],
+                                            "armor": itemarmor[clickedrect],
+                                            "Attack": itemAttack[clickedrect],
+                                            "specialattack": itemspecialattack[clickedrect],
+                                            "speed": itemspeed[clickedrect],
+                                            "luck": itemluck[clickedrect],
+                                        }, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+
+                            clickedrect = -1
+                        if jewelry2rect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1 and (itemname[clickedrect] == "Aqua Amulet" or itemname[clickedrect] == "Lava Amulet" or itemname[clickedrect] == "Amulet of Heaven" or itemname[clickedrect] == "Lost Crown")):
+                                if (len(equipeditems) >= 6):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[5]):
+                                            save_creature(equipeditems[5], "itemdata.txt")
+                                        modify_teamcreature(5, {
+                                            "name": itemname[clickedrect],
+                                            "imagecore": regularimage[clickedrect],
+                                            "HP": itemHP[clickedrect],
+                                            "armor": itemarmor[clickedrect],
+                                            "Attack": itemAttack[clickedrect],
+                                            "specialattack": itemspecialattack[clickedrect],
+                                            "speed": itemspeed[clickedrect],
+                                            "luck": itemluck[clickedrect],
+                                        }, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+
+                            clickedrect = -1
+                        if weaponrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (clickedrect != -1 and (itemname[clickedrect] == "Rusty Sword" or itemname[clickedrect] == "Bronze Sword" or itemname[clickedrect] == "Silverline Sword" or itemname[clickedrect] == "Adamantine Sword" or itemname[clickedrect] == "Simple Staff")):
+                                if (len(equipeditems) >= 7):
+                                    if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                            clickedrect <= ((itempage * 36) - 1)):
+                                        if(equipeditems[6]):
+                                            save_creature(equipeditems[6], "itemdata.txt")
+                                        modify_teamcreature(6, {
+                                            "name": itemname[clickedrect],
+                                            "imagecore": regularimage[clickedrect],
+                                            "HP": itemHP[clickedrect],
+                                            "armor": itemarmor[clickedrect],
+                                            "Attack": itemAttack[clickedrect],
+                                            "specialattack": itemspecialattack[clickedrect],
+                                            "speed": itemspeed[clickedrect],
+                                            "luck": itemluck[clickedrect],
+                                        }, "equipeditems.txt")
+                                        delete_creature_by_index(clickedrect, "itemdata.txt")
+
+                                        itemname.clear()
+                                        regularimage.clear()
+                                        itemimagecore.clear()
+                                        itemHP.clear()
+                                        itemarmor.clear()
+                                        itemAttack.clear()
+                                        itemspecialattack.clear()
+                                        itemspeed.clear()
+                                        itemluck.clear()
+
+                                        items = load_creatures("itemdata.txt")
+
+                                        for item in items:
+                                            attributes = list(item.values())
+                                            itemname.append(attributes[0])
+                                            regularimage.append(attributes[1])
+                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                            itemimagecore.append(tempimage)
+                                            itemHP.append(attributes[2])
+                                            itemarmor.append(attributes[3])
+                                            itemAttack.append(attributes[4])
+                                            itemspecialattack.append(attributes[5])
+                                            itemspeed.append(attributes[6])
+                                            itemluck.append(attributes[7])
+
+                                        sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                                        pygame.mixer.music.set_volume(0.4)
+                                        sound_effect.play()
+                                        equipmentimages = [[], [], [], [], [], [], []]
+                                        equipeditems = load_teamcreatures("equipeditems.txt")
+                                        if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                            attributes = list(equipeditems[0].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[0] = tempimg
+                                        if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                            attributes = list(equipeditems[1].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[1] = tempimg
+                                        if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                            attributes = list(equipeditems[2].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[2] = tempimg
+                                        if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                            attributes = list(equipeditems[3].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[3] = tempimg
+                                        if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                            attributes = list(equipeditems[4].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[4] = tempimg
+                                        if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                            attributes = list(equipeditems[5].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[5] = tempimg
+                                        if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                            attributes = list(equipeditems[6].values())
+                                            tempimg = pygame.image.load(attributes[1])
+                                            tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                            equipmentimages[6] = tempimg
+
+                            clickedrect = -1
+                        if helmetxrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                save_creature(equipeditems[0], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(0, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if chestplatexrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                save_creature(equipeditems[1], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(1, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if pantsxrect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                save_creature(equipeditems[2], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(2, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if bootsxrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                save_creature(equipeditems[3], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(3, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if jewelry1xrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                save_creature(equipeditems[4], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(4, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if jewelry2xrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                save_creature(equipeditems[5], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(5, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if swordxrect.collidepoint(mouse_pos):
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+                            sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                            sound_effect.play()
+                            if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                save_creature(equipeditems[6], "itemdata.txt")
+                                itemname.clear()
+                                regularimage.clear()
+                                itemimagecore.clear()
+                                itemHP.clear()
+                                itemarmor.clear()
+                                itemAttack.clear()
+                                itemspecialattack.clear()
+                                itemspeed.clear()
+                                itemluck.clear()
+
+                                items = load_creatures("itemdata.txt")
+
+                                for item in items:
+                                    attributes = list(item.values())
+                                    itemname.append(attributes[0])
+                                    regularimage.append(attributes[1])
+                                    tempimage = pygame.image.load(attributes[1])
+                                    tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                    itemimagecore.append(tempimage)
+                                    itemHP.append(attributes[2])
+                                    itemarmor.append(attributes[3])
+                                    itemAttack.append(attributes[4])
+                                    itemspecialattack.append(attributes[5])
+                                    itemspeed.append(attributes[6])
+                                    itemluck.append(attributes[7])
+                                clickedrect = -1
+                                empty_item(6, "equipeditems.txt")
+                                equipmentimages = [[], [], [], [], [], [], []]
+                                equipeditems = load_teamcreatures("equipeditems.txt")
+                                if (len(equipeditems) >= 1 and equipeditems[0] != {}):
+                                    attributes = list(equipeditems[0].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[0] = tempimg
+                                if (len(equipeditems) >= 2 and equipeditems[1] != {}):
+                                    attributes = list(equipeditems[1].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[1] = tempimg
+                                if (len(equipeditems) >= 3 and equipeditems[2] != {}):
+                                    attributes = list(equipeditems[2].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[2] = tempimg
+                                if (len(equipeditems) >= 4 and equipeditems[3] != {}):
+                                    attributes = list(equipeditems[3].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[3] = tempimg
+                                if (len(equipeditems) >= 5 and equipeditems[4] != {}):
+                                    attributes = list(equipeditems[4].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[4] = tempimg
+                                if (len(equipeditems) >= 6 and equipeditems[5] != {}):
+                                    attributes = list(equipeditems[5].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[5] = tempimg
+                                if (len(equipeditems) >= 7 and equipeditems[6] != {}):
+                                    attributes = list(equipeditems[6].values())
+                                    tempimg = pygame.image.load(attributes[1])
+                                    tempimg = pygame.transform.scale(tempimg, (60, 60))
+                                    equipmentimages[6] = tempimg
+                        if trashcanrect.collidepoint(mouse_pos):
+                            if (clickedrect != -1):
+                                if (clickedrect > ((itempage - 1) * 36) - 1) and (
+                                        clickedrect <= ((itempage * 36) - 1)):
+                                    delete_creature_by_index(clickedrect, "itemdata.txt")
+                                    randomgold = random.randint(1, 200)
+                                    with open("gamedata.txt", "r") as file:
+                                        lines = file.readlines()
+                                        lines[0] = f"gold = {gold + randomgold}\n"
+                                    with open("gamedata.txt", "w") as file:
+                                        file.writelines(lines)
+                                    sound_effect = pygame.mixer.Sound("audio/thundersound1.mp3")
+                                    sound_effect.play()
+                                    looptimeg = pygame.time.get_ticks() + 700
+                                    timerg = pygame.time.get_ticks()
+                                    while (looptimeg > timerg):
+                                        draw_text('gained ' + str(randomgold) + " gold", font24, GOLD, DISPLAYSURF,
+                                                  1388, 710)
+                                        timerg = pygame.time.get_ticks()
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                                print("stop clicking so much")
+                                        pygame.display.update()
+
+                                    itemname.clear()
+                                    regularimage.clear()
+                                    itemimagecore.clear()
+                                    itemHP.clear()
+                                    itemarmor.clear()
+                                    itemAttack.clear()
+                                    itemspecialattack.clear()
+                                    itemspeed.clear()
+                                    itemluck.clear()
+
+                                    items = load_creatures("itemdata.txt")
+
+                                    for item in items:
+                                        attributes = list(item.values())
+                                        itemname.append(attributes[0])
+                                        regularimage.append(attributes[1])
+                                        tempimage = pygame.image.load(attributes[1])
+                                        tempimage = pygame.transform.scale(tempimage, (60, 60))
+                                        itemimagecore.append(tempimage)
+                                        itemHP.append(attributes[2])
+                                        itemarmor.append(attributes[3])
+                                        itemAttack.append(attributes[4])
+                                        itemspecialattack.append(attributes[5])
+                                        itemspeed.append(attributes[6])
+                                        itemluck.append(attributes[7])
+                                    clickedrect = -1
                 pygame.display.update()
+
             if (self.gamescene == 3):
                 DISPLAYSURF.fill(BLACK)
                 mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
-                print("x and y = " + str(mouseX) + " " + str(mouseY))
+                #print("x and y = " + str(mouseX) + " " + str(mouseY))
 
                 image264.set_alpha(150)
                 DISPLAYSURF.blit(image264, (197, 100))
@@ -9579,10 +11528,10 @@ class stash(pygame.sprite.Sprite):
 
                 DISPLAYSURF.blit(image266, (490, 190))
 
-                draw_text_center('Armory', font23, RED, DISPLAYSURF,885, 222)
+                draw_text_center('Armory', font23, RED, DISPLAYSURF, 885, 222)
                 draw_text_center('Beasts', font23, PURPLE, DISPLAYSURF, 1043, 222)
                 draw_text_center('Companions', font23, AQUA, DISPLAYSURF, 595, 361)
-                draw_text_center('Page ' +str(creaturepage), font23, EMERALD, DISPLAYSURF, halfdisplay + 5, 875)
+                draw_text_center('Page ' + str(creaturepage), font23, EMERALD, DISPLAYSURF, halfdisplay + 5, 875)
 
                 DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
 
@@ -9655,15 +11604,15 @@ class stash(pygame.sprite.Sprite):
                         draw_text_center(str(beast_lore[creatureimage[xx]]), font11, DARKPURPLE, DISPLAYSURF, 960, 930)
                         draw_text_center("lvl- " +str(creaturelvl[xx]), font24, GREEN, DISPLAYSURF, 1405, 415)
                         draw_text(str(creaturemove1[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                        draw_text(str(creaturemove2[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
-                        draw_text(str(creaturemove3[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
-                        draw_text(str(creaturemove4[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
-                        draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
-                        draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
-                        draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
-                        draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
-                        draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
-                        draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                        draw_text(str(creaturemove2[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                        draw_text(str(creaturemove3[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                        draw_text(str(creaturemove4[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                        draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
+                        draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
+                        draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
+                        draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 260, 505)
+                        draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 260, 545)
+                        draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 260, 585)
                         exprect = pygame.Rect(690, 157, 0  + creatureexp[xx], 50)
                         exprect2 = pygame.Rect(690, 157, 555, 50)
                         draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
@@ -9694,15 +11643,15 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
                             draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
                             draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
-                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
-                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
-                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
-                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
-                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
-                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
-                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
-                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 260, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 260, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 260, 585)
                             exprect = pygame.Rect(690, 157, 0 + attributes[14], 50)
                             exprect2 = pygame.Rect(690, 157, 555, 50)
                             draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
@@ -9726,12 +11675,12 @@ class stash(pygame.sprite.Sprite):
                             draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
                             draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
                             draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
-                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
-                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
-                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
-                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
-                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
-                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 260, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 260, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 260, 585)
                             exprect = pygame.Rect(690, 157, 0 + attributes[14], 50)
                             exprect2 = pygame.Rect(690, 157, 555, 50)
                             draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
@@ -9752,15 +11701,15 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
                             draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
                             draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
-                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
-                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
-                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
-                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
-                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
-                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
-                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
-                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 260, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 260, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 260, 585)
                             exprect = pygame.Rect(690, 157, 0 + attributes[14], 50)
                             exprect2 = pygame.Rect(690, 157, 555, 50)
                             draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
@@ -9789,15 +11738,15 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(beast_lore[creatureimage[clickedrect]]), font11, DARKPURPLE, DISPLAYSURF,960, 930)
                             draw_text_center("lvl- " + str(creaturelvl[clickedrect]), font24, GREEN, DISPLAYSURF, 1405, 415)
                             draw_text(str(creaturemove1[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(creaturemove2[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
-                            draw_text(str(creaturemove3[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
-                            draw_text(str(creaturemove4[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
-                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 360, 365)
-                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 300, 425)
-                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 300, 465)
-                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 300, 505)
-                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 300, 545)
-                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 300, 585)
+                            draw_text(str(creaturemove2[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            draw_text(str(creaturemove3[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            draw_text(str(creaturemove4[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                            draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
+                            draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
+                            draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
+                            draw_text(s4, font24, SKYBLUE, DISPLAYSURF, 260, 505)
+                            draw_text(s5, font24, SKYBLUE, DISPLAYSURF, 260, 545)
+                            draw_text(s6, font24, SKYBLUE, DISPLAYSURF, 260, 585)
                             exprect = pygame.Rect(690, 157, 0 + creatureexp[clickedrect], 50)
                             exprect2 = pygame.Rect(690, 157, 555, 50)
                             draw_text_center("exp", font24, PINK, DISPLAYSURF, halfdisplay + 5, 105)
@@ -9850,30 +11799,103 @@ class stash(pygame.sprite.Sprite):
                     pygame.draw.ellipse(DISPLAYSURF, RED, trashcanrect, 4)
                     draw_text_center("click trash can to delete creature", font11, rainbow, DISPLAYSURF, halfdisplay, 797)
 
-                move1rect = pygame.Rect(1257, 476, 290, 40)
-                move2rect = pygame.Rect(1257, 476, 290, 40)
-                move3rect = pygame.Rect(1257, 476, 290, 40)
-                move4rect = pygame.Rect(1257, 476, 290, 40)
-
-                if move1rect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move1rect, 5, 5)
-
-                if move2rect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move2rect, 5, 5)
-
-                if move3rect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF, (rainbowcolor2, 192, rainbowcolor2), move3rect, 5, 5)
-
-                if move4rect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move4rect, 5, 5)
-
-
-                leftarrowrect = pygame.Rect(685, 835, 125, 60)
-                rightarrowrect = pygame.Rect(1130, 830, 125, 60)
-
                 armoryrect = pygame.Rect(815, 210, 150, 60)
                 companionrect = pygame.Rect(975, 210, 150, 60)
                 pygame.draw.rect(DISPLAYSURF, rainbow, companionrect, 5)
+
+                move1rect = pygame.Rect(1257, 476, 450, 45)
+                move2rect = pygame.Rect(1257, 520, 450, 45)
+                move3rect = pygame.Rect(1257, 567, 450, 45)
+                move4rect = pygame.Rect(1257, 615, 450, 45)
+
+                if move1rect.collidepoint(mouse_pos):
+                    if(clickedrect != -1):
+                        if (creaturemove1[clickedrect] != " "):
+                            pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move1rect, 5, 5)
+                            imagebackdrop.set_alpha(240)
+                            DISPLAYSURF.blit(imagebackdrop, (585, 195))
+                            draw_text_center(str(creaturemove1[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            for index, move in enumerate(moves):
+                                if(creaturemove1[clickedrect] == move[0]):
+                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                                    if(move[2] != "empty"):
+                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                                    if(move[3] != "empty"):
+                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                                    if(move[4] != "empty"):
+                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+
+                if move2rect.collidepoint(mouse_pos):
+                    if(clickedrect != -1):
+                        if (creaturemove2[clickedrect] != " "):
+                            pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move2rect, 5, 5)
+                            imagebackdrop.set_alpha(240)
+                            DISPLAYSURF.blit(imagebackdrop, (585, 195))
+                            draw_text_center(str(creaturemove2[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            for index, move in enumerate(moves):
+                                if(creaturemove2[clickedrect] == move[0]):
+                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                                    if(move[2] != "empty"):
+                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                                    if(move[3] != "empty"):
+                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                                    if(move[4] != "empty"):
+                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+                if move3rect.collidepoint(mouse_pos):
+                    if(clickedrect != -1):
+                        if (creaturemove3[clickedrect] != " "):
+                            pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move3rect, 5, 5)
+                            imagebackdrop.set_alpha(240)
+                            DISPLAYSURF.blit(imagebackdrop, (585, 195))
+                            draw_text_center(str(creaturemove3[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            for index, move in enumerate(moves):
+                                if(creaturemove3[clickedrect] == move[0]):
+                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                                    if(move[2] != "empty"):
+                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                                    if(move[3] != "empty"):
+                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                                    if(move[4] != "empty"):
+                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+                if move4rect.collidepoint(mouse_pos):
+                    if(clickedrect != -1):
+                        if (creaturemove4[clickedrect] != " "):
+                            pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move4rect, 5, 5)
+                            imagebackdrop.set_alpha(240)
+                            DISPLAYSURF.blit(imagebackdrop, (585, 195))
+                            draw_text_center(str(creaturemove4[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            for index, move in enumerate(moves):
+                                if(creaturemove4[clickedrect] == move[0]):
+                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                                    if(move[2] != "empty"):
+                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                                    if(move[3] != "empty"):
+                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                                    if(move[4] != "empty"):
+                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+
+                leftarrowrect = pygame.Rect(685, 835, 125, 60)
+                rightarrowrect = pygame.Rect(1130, 830, 125, 60)
 
                 xrect = pygame.Rect(1680, 123, 35, 35)
                 returnarrowrect = pygame.Rect(153, 110, 120, 70)
@@ -9907,10 +11929,12 @@ class stash(pygame.sprite.Sprite):
                         if armoryrect.collidepoint(mouse_pos):
                             sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
                             sound_effect.play()
+                            clickedrect = -1
                             self.gamescene = 2
                         if companionrect.collidepoint(mouse_pos):
                             sound_effect = pygame.mixer.Sound("audio/pcsound.wav")
                             sound_effect.play()
+                            clickedrect = -1
                             self.gamescene = 3
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
@@ -10283,7 +12307,7 @@ class stash(pygame.sprite.Sprite):
                             teamcreatures = load_teamcreatures()
                             sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                             sound_effect.play()
-                            if(len(teamcreatures) >= 1):
+                            if (len(teamcreatures) >= 1):
                                 teamattributes = list(teamcreatures[0].values())
                                 save_creature(teamcreatures[0], "creaturedata.txt")
                                 creaturename.clear()
@@ -10327,7 +12351,7 @@ class stash(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                             sound_effect.play()
                             teamcreatures = load_teamcreatures()
-                            if(len(teamcreatures) >= 2):
+                            if (len(teamcreatures) >= 2):
                                 teamattributes = list(teamcreatures[1].values())
                                 save_creature(teamcreatures[1], "creaturedata.txt")
                                 creaturename.clear()
@@ -10371,7 +12395,7 @@ class stash(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
                             sound_effect.play()
                             teamcreatures = load_teamcreatures()
-                            if(len(teamcreatures) >= 3):
+                            if (len(teamcreatures) >= 3):
                                 teamattributes = list(teamcreatures[2].values())
                                 save_creature(teamcreatures[2], "creaturedata.txt")
                                 creaturename.clear()
@@ -10413,7 +12437,8 @@ class stash(pygame.sprite.Sprite):
                                 delete_creature_by_index(2, "teamdata.txt")
                         if trashcanrect.collidepoint(mouse_pos):
                             if (clickedrect != -1):
-                                if (clickedrect > ((creaturepage - 1) * 36) - 1) and (clickedrect <= ((creaturepage * 36) - 1)):
+                                if (clickedrect > ((creaturepage - 1) * 36) - 1) and (
+                                        clickedrect <= ((creaturepage * 36) - 1)):
                                     delete_creature_by_index(clickedrect)
                                     randomgem = random.randint(1, int(creaturelvl[clickedrect] / 4) + 2)
                                     with open("gamedata.txt", "r") as file:
@@ -10425,8 +12450,9 @@ class stash(pygame.sprite.Sprite):
                                     sound_effect.play()
                                     looptimeg = pygame.time.get_ticks() + 700
                                     timerg = pygame.time.get_ticks()
-                                    while(looptimeg > timerg):
-                                        draw_text('gained ' +str(randomgem) +" gems", font24, PURPLE, DISPLAYSURF, 1388, 710)
+                                    while (looptimeg > timerg):
+                                        draw_text('gained ' + str(randomgem) + " gems", font24, PURPLE, DISPLAYSURF,
+                                                  1388, 710)
                                         timerg = pygame.time.get_ticks()
                                         for event in pygame.event.get():
                                             if event.type == pygame.MOUSEBUTTONDOWN:

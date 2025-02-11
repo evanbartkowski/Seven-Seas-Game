@@ -36,6 +36,15 @@ DARKPURPLE = (130,20,255)
 AQUA = (0, 247, 255)
 EMERALD = (67, 192, 148)
 ORANGEDESERT = (241, 99, 1)
+LIGHTYELLOW = (255, 255, 153)
+SWAMPGREEN = (0, 51, 0)
+DARKGEMBLUE = (0, 0, 51)
+VELVET = (102, 0, 51)
+LIME = (102, 255, 102)
+PINPPINK = (255, 102, 102)
+MURKY = (51, 51, 0)
+CLOUD = (204, 229, 255)
+SLEEPPURPLE = (204, 153, 255)
 
 menu1_active = True
 menu2_active = False
@@ -209,6 +218,16 @@ font14 = pygame.font.Font("fonts/AsianFont.ttf", 20)
 font15 = pygame.font.Font("fonts/womenfont.ttf", 20)
 font16 = pygame.font.Font("fonts/runefont.otf", 50)
 font17 = pygame.font.Font("fonts/dragonfont.ttf", 20)
+font18 = pygame.font.Font("fonts/oldenFont.otf", 70)
+font19 = pygame.font.Font("fonts/Danger.otf", 100)
+font20 = pygame.font.Font("fonts/AsianFont.ttf", 60)
+font21 = pygame.font.SysFont("Comic Sans", 16)
+font22 = pygame.font.Font("fonts/AsianFont.ttf", 50)
+font23 = pygame.font.Font("fonts/oldenFont.otf", 35)
+font24 = pygame.font.Font("fonts/AsianFont.ttf", 40)
+font25 = pygame.font.SysFont("Comic Sans", 30)
+font26 = pygame.font.Font("fonts/AsianFont.ttf", 30)
+
 gameStatus = True
 ########################################################################################################################
 # Function to display text on the screen
@@ -730,6 +749,20 @@ class gameintro(pygame.sprite.Sprite):
             with open("teamdata.txt", "w") as file:
                 file.truncate(0)
 
+            with open("itemdata.txt", "w") as file:
+                file.truncate(0)
+
+            with open("equipeditems.txt", "w") as file:
+                file.truncate(0)
+            blankitem1 = {}
+            save_teamcreature(blankitem1, "equipeditems.txt")
+            save_teamcreature(blankitem1, "equipeditems.txt")
+            save_teamcreature(blankitem1, "equipeditems.txt")
+            save_teamcreature(blankitem1, "equipeditems.txt")
+            save_teamcreature(blankitem1, "equipeditems.txt")
+            save_teamcreature(blankitem1, "equipeditems.txt")
+            save_teamcreature(blankitem1, "equipeditems.txt")
+
             creature = {
                 "name": "Sacred Lumen",
                 "lvl": 1,
@@ -740,8 +773,8 @@ class gameintro(pygame.sprite.Sprite):
                 "speed": 10,
                 "tier": 1,
                 "beastimage": 46,
-                "move1": 75,
-                "move2": 76,
+                "move1": "Celestial Cascade",
+                "move2": "Light Bringer",
                 "move3": " ",
                 "move4": " ",
                 "type": "light",
@@ -1268,8 +1301,8 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 880))
                 if(textFader != 3000):
                     textFader = textFader + 20
-                draw_text_center('I would reclaim whats rightfully mine, as crown prince and rightful heir',font6, DARKRED, DISPLAYSURF, halfdisplay, 885)
-                draw_text_center('to the empire!',font6, DARKRED, DISPLAYSURF, halfdisplay, 925)
+                draw_text_center('I would take back whats rightfully mine!',font6, DARKRED, DISPLAYSURF, halfdisplay, 885)
+                draw_text_center(' ',font6, DARKRED, DISPLAYSURF, halfdisplay, 925)
                 image4.set_alpha(255)
                 DISPLAYSURF.blit(image4, ((textFader + 600), 880))
                 DISPLAYSURF.blit(image4, ((textFader + 100), 920))
@@ -1390,7 +1423,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 36):
                 if(music2):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("audio/blub.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/creaturetrashnoise.mp3")
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2206,7 +2239,12 @@ class gameintro(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, ((textFader + 100), 920))
                 gamescene = self.xbutton(gamescene)
                 pygame.display.update()
+                music2 = True
             if (gamescene == 89):
+                if(music2):
+                    sound_effect = pygame.mixer.Sound("audio/die.wav")
+                    sound_effect.play()
+                    music2 = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image26, (200, 100))
                 image4.set_alpha(240)
@@ -2221,7 +2259,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 90):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/underwatergrowl.mp3")
+                    sound_effect = pygame.mixer.Sound("audio/regret.mp3")
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
