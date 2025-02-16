@@ -1,45 +1,9 @@
 [
-    {
-        "name": "Ascendent Helmet",
-        "imagecore": "images/coralhelmet.png",
-        "HP": 5,
-        "armor": 30,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 10,
-        "luck": 5
-    },
-    {
-        "name": "Ascendent Chestplate",
-        "imagecore": "images/coralchestplate.png",
-        "HP": 30,
-        "armor": 40,
-        "Attack": 1,
-        "specialattack": 0,
-        "speed": 0,
-        "luck": 5
-    },
-    {
-        "name": "Ascendent Greeves",
-        "imagecore": "images/coralpants.png",
-        "HP": 10,
-        "armor": 30,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 10,
-        "luck": 5
-    },
     {},
     {},
     {},
-    {
-        "name": "Adamantine Sword",
-        "imagecore": "images/diamondsword.png",
-        "HP": 0,
-        "armor": 5,
-        "Attack": 25,
-        "specialattack": 0,
-        "speed": 5,
-        "luck": 0
-    }
+    {},
+    {},
+    {},
+    {}
 ]

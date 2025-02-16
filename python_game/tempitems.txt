@@ -228,5 +228,25 @@
         "specialattack": 0,
         "speed": 0,
         "luck": 0
+    },
+    {
+        "name": "Time Dilator",
+        "imagecore": "images/timedilator.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Healing Potion",
+        "imagecore": "images/healingpotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
     }
 ]

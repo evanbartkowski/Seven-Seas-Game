@@ -13,7 +13,14 @@ import json
 pygame.init()
 pygame.mixer.init()
 ########################################################################################################################
-image0 = pygame.image.load('images/sevenseaslogo.webp')
+def resource_path(relative_path):
+    if getattr(sys, 'frozen', False):  # Running as an .exe
+        base_path = sys._MEIPASS
+    else:  # Running as a script
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+########################################################################################################################
+image0 = pygame.image.load(resource_path('images/sevenseaslogo.webp'))
 pygame.display.set_caption("Seven Seas")
 pygame.display.set_icon(image0)
 ########################################################################################################################
@@ -57,142 +64,143 @@ Fader = 1.00
 textFader = 0
 characterName = ''
 gold = 0
+########################################################################################################################
 
-cap = cv2.VideoCapture("video/intromovie3.mov")
-capv2 = cv2.VideoCapture("video/monsterdissapear.mov")
-capv3 = cv2.VideoCapture("video/characterchoosevideo.mp4")
-capv4 = cv2.VideoCapture("video/wavetransitionknight.mp4")
+cap = cv2.VideoCapture(resource_path("video/intromovie3.mov"))
+capv2 = cv2.VideoCapture(resource_path("video/monsterdissapear.mov"))
+capv3 = cv2.VideoCapture(resource_path("video/characterchoosevideo.mp4"))
+capv4 = cv2.VideoCapture(resource_path("video/wavetransitionknight.mp4"))
 
-imagen1 = pygame.image.load('images/scroll1.png')
+imagen1 = pygame.image.load(resource_path('images/scroll1.png'))
 imagen1 = pygame.transform.scale(imagen1, (300, 100))
-imagen2 = pygame.image.load('images/scroll2.png')
+imagen2 = pygame.image.load(resource_path('images/scroll2.png'))
 imagen2 = pygame.transform.scale(imagen2, (300, 100))
-imagen3 = pygame.image.load('images/scroll3.png')
+imagen3 = pygame.image.load(resource_path('images/scroll3.png'))
 imagen3 = pygame.transform.scale(imagen3, (300, 100))
-imagen4 = pygame.image.load('images/scroll4.png')
+imagen4 = pygame.image.load(resource_path('images/scroll4.png'))
 imagen4 = pygame.transform.scale(imagen4, (300, 100))
-imagen6 = pygame.image.load('images/goldglow.png')
+imagen6 = pygame.image.load(resource_path('images/goldglow.png'))
 imagen6 = pygame.transform.scale(imagen6, (100, 100))
-image1 = pygame.image.load('images/SevenSeasStartScreen.jfif')
+image1 = pygame.image.load(resource_path('images/SevenSeasStartScreen.jfif'))
 image1 = pygame.transform.scale(image1, (1550, 870))
-image2 = pygame.image.load('images/parchment.png')
+image2 = pygame.image.load(resource_path('images/parchment.png'))
 image2 = pygame.transform.scale(image2, (750, 800))
 image3 = pygame.transform.rotate(image2, 180)
-image4 = pygame.image.load('images/blackscreen.jpg')
+image4 = pygame.image.load(resource_path('images/blackscreen.jpg'))
 image4 = pygame.transform.scale(image4, (3920, 1080))
-image5 = pygame.image.load('images/loadmenu.jpg')
+image5 = pygame.image.load(resource_path('images/loadmenu.jpg'))
 image5 = pygame.transform.scale(image5, (1550, 870))
-image6 = pygame.image.load('images/goldbox.png')
-image12 = pygame.image.load('images/darkwater1.webp')
+image6 = pygame.image.load(resource_path('images/goldbox.png'))
+image12 = pygame.image.load(resource_path('images/darkwater1.webp'))
 image12 = pygame.transform.scale(image12, (1550, 870))
-image13 = pygame.image.load('images/darkwater2.webp')
+image13 = pygame.image.load(resource_path('images/darkwater2.webp'))
 image13 = pygame.transform.scale(image13, (1550, 870))
-image14 = pygame.image.load('images/darkwater3.webp')
+image14 = pygame.image.load(resource_path('images/darkwater3.webp'))
 image14 = pygame.transform.scale(image14, (1550, 870))
-image15 = pygame.image.load('images/darkwater4.webp')
+image15 = pygame.image.load(resource_path('images/darkwater4.webp'))
 image15 = pygame.transform.scale(image15, (1550, 870))
-image16 = pygame.image.load('images/strangefish.webp')
+image16 = pygame.image.load(resource_path('images/strangefish.webp'))
 image16 = pygame.transform.scale(image16, (1550, 870))
-image17 = pygame.image.load('images/mermaid1.jpg')
+image17 = pygame.image.load(resource_path('images/mermaid1.jpg'))
 image17 = pygame.transform.scale(image17, (1550, 870))
 
-imagemermaid1 = pygame.image.load('images/mermaidd1.jpeg')
+imagemermaid1 = pygame.image.load(resource_path('images/mermaidd1.jpeg'))
 imagemermaid1 = pygame.transform.scale(imagemermaid1, (1550, 870))
-imagemermaid2 = pygame.image.load('images/mermaidd2.jpeg')
+imagemermaid2 = pygame.image.load(resource_path('images/mermaidd2.jpeg'))
 imagemermaid2 = pygame.transform.scale(imagemermaid2, (1550, 870))
-imagemermaid3 = pygame.image.load('images/mermaidd3.webp')
+imagemermaid3 = pygame.image.load(resource_path('images/mermaidd3.webp'))
 imagemermaid3 = pygame.transform.scale(imagemermaid3, (1550, 870))
 
 
-image19 = pygame.image.load('images/lucidea.jpg')
+image19 = pygame.image.load(resource_path('images/lucidea.jpg'))
 image19 = pygame.transform.scale(image19, (1550, 870))
 
-image21 = pygame.image.load('images/nightmare1.jpg')
+image21 = pygame.image.load(resource_path('images/nightmare1.jpg'))
 image21 = pygame.transform.scale(image21, (1550, 870))
-image22 = pygame.image.load('images/orb.webp')
+image22 = pygame.image.load(resource_path('images/orb.webp'))
 image22 = pygame.transform.scale(image22, (300, 300))
-image23 = pygame.image.load('images/injured.jpg')
+image23 = pygame.image.load(resource_path('images/injured.jpg'))
 image23 = pygame.transform.scale(image23, (1550, 870))
-image24 = pygame.image.load('images/mermaidguards.jpg')
+image24 = pygame.image.load(resource_path('images/mermaidguards.jpg'))
 image24 = pygame.transform.scale(image24, (1550, 870))
-image25 = pygame.image.load('images/nightmare2.jpg')
+image25 = pygame.image.load(resource_path('images/nightmare2.jpg'))
 image25 = pygame.transform.scale(image25, (1550, 870))
-image26 = pygame.image.load('images/goldendragon.webp')
+image26 = pygame.image.load(resource_path('images/goldendragon.webp'))
 image26 = pygame.transform.scale(image26, (1550, 870))
-image27 = pygame.image.load('images/goldbeam1.jfif')
+image27 = pygame.image.load(resource_path('images/goldbeam1.jfif'))
 image27 = pygame.transform.scale(image27, (1550, 870))
-image28 = pygame.image.load('images/goldbeam2.jfif')
+image28 = pygame.image.load(resource_path('images/goldbeam2.jfif'))
 image28 = pygame.transform.scale(image28, (1550, 870))
-image29 = pygame.image.load('images/aura.png')
+image29 = pygame.image.load(resource_path('images/aura.png'))
 image29 = pygame.transform.scale(image29, (500, 500))
-image30 = pygame.image.load('images/skipbutton.png')
+image30 = pygame.image.load(resource_path('images/skipbutton.png'))
 image30 = pygame.transform.scale(image30, (90, 50))
-image31 = pygame.image.load('images/purplerect.png')
+image31 = pygame.image.load(resource_path('images/purplerect.png'))
 image31 = pygame.transform.scale(image31, (50, 80))
-image32 = pygame.image.load('images/button.png')
+image32 = pygame.image.load(resource_path('images/button.png'))
 image32 = pygame.transform.scale(image32, (700, 700))
-image33 = pygame.image.load('images/greencircle.png')
+image33 = pygame.image.load(resource_path('images/greencircle.png'))
 image33 = pygame.transform.scale(image33, (630, 630))
-image34 = pygame.image.load('images/kneelingknight.webp')
+image34 = pygame.image.load(resource_path('images/kneelingknight.webp'))
 image34 = pygame.transform.scale(image34, (1550, 870))
-image35 = pygame.image.load('images/standingknight.webp')
+image35 = pygame.image.load(resource_path('images/standingknight.webp'))
 image35 = pygame.transform.scale(image35, (1550, 870))
-image36 = pygame.image.load('images/Nightmarecloseup.webp')
+image36 = pygame.image.load(resource_path('images/Nightmarecloseup.webp'))
 image36 = pygame.transform.scale(image36, (1550, 870))
-image37 = pygame.image.load('images/teleportingnightmare.webp')
+image37 = pygame.image.load(resource_path('images/teleportingnightmare.webp'))
 image37 = pygame.transform.scale(image37, (1550, 870))
-image38 = pygame.image.load('images/seafloordark.webp')
+image38 = pygame.image.load(resource_path('images/seafloordark.webp'))
 image38 = pygame.transform.scale(image38, (1550, 870))
-image39 = pygame.image.load('images/fancygoldline.webp')
+image39 = pygame.image.load(resource_path('images/fancygoldline.webp'))
 image39 = pygame.transform.scale(image39, (700, 200))
-image40 = pygame.image.load('images/tridentstab.webp')
-image41 = pygame.image.load('images/mainmap.JPG')
+image40 = pygame.image.load(resource_path('images/tridentstab.webp'))
+image41 = pygame.image.load(resource_path('images/mainmap.JPG'))
 image41 = pygame.transform.scale(image41, (1550, 870))
-image42 = pygame.image.load('images/yellowdiamond.png')
+image42 = pygame.image.load(resource_path('images/yellowdiamond.png'))
 image42 = pygame.transform.scale(image42, (30, 30))
-image43 = pygame.image.load('images/gamblemap.jpg')
+image43 = pygame.image.load(resource_path('images/gamblemap.jpg'))
 image43 = pygame.transform.scale(image43, (1550, 870))
-image44 = pygame.image.load('images/paimonmap.jpg')
+image44 = pygame.image.load(resource_path('images/paimonmap.jpg'))
 image44 = pygame.transform.scale(image44, (1550, 870))
-image45 = pygame.image.load('images/colleseummap.jpg')
+image45 = pygame.image.load(resource_path('images/colleseummap.jpg'))
 image45 = pygame.transform.scale(image45, (1550, 870))
-image46 = pygame.image.load('images/workmap.jpg')
+image46 = pygame.image.load(resource_path('images/workmap.jpg'))
 image46 = pygame.transform.scale(image46, (1550, 870))
-image47 = pygame.image.load('images/castlemap.jpg')
+image47 = pygame.image.load(resource_path('images/castlemap.jpg'))
 image47 = pygame.transform.scale(image47, (1550, 870))
-image48 = pygame.image.load('images/adventuremap.jpg')
+image48 = pygame.image.load(resource_path('images/adventuremap.jpg'))
 image48 = pygame.transform.scale(image48, (1550, 870))
-image49 = pygame.image.load('images/guildmap.jpg')
+image49 = pygame.image.load(resource_path('images/guildmap.jpg'))
 image49 = pygame.transform.scale(image49, (1550, 870))
-image50 = pygame.image.load('images/stashmap.jpg')
+image50 = pygame.image.load(resource_path('images/stashmap.jpg'))
 image50 = pygame.transform.scale(image50, (1550, 870))
-image51 = pygame.image.load('images/blackmarketmap.jpg')
+image51 = pygame.image.load(resource_path('images/blackmarketmap.jpg'))
 image51 = pygame.transform.scale(image51, (1550, 870))
-image52 = pygame.image.load('images/knightwalkthrough.png')
+image52 = pygame.image.load(resource_path('images/knightwalkthrough.png'))
 image52 = pygame.transform.scale(image52, (500, 250))
-image53 = pygame.image.load('images/speechbubble.png')
+image53 = pygame.image.load(resource_path('images/speechbubble.png'))
 image53 = pygame.transform.scale(image53, (400, 200))
-image55 = pygame.image.load('images/mainmap.JPG')
+image55 = pygame.image.load(resource_path('images/mainmap.JPG'))
 image55 = pygame.transform.scale(image55, (1550, 870))
-image56 = pygame.image.load('images/blueglow.png')
+image56 = pygame.image.load(resource_path('images/blueglow.png'))
 image56 = pygame.transform.scale(image56, (100, 100))
-image57 = pygame.image.load('images/crack.png')
+image57 = pygame.image.load(resource_path('images/crack.png'))
 image57 = pygame.transform.scale(image57, (1200, 1200))
-image58 = pygame.image.load('images/paimonshop.webp')
+image58 = pygame.image.load(resource_path('images/paimonshop.webp'))
 image58 = pygame.transform.scale(image58, (1550, 870))
-image59 = pygame.image.load('images/bubble.png')
+image59 = pygame.image.load(resource_path('images/bubble.png'))
 image59 = pygame.transform.scale(image59, (25, 25))
-image60 = pygame.image.load('images/bubble.png')
+image60 = pygame.image.load(resource_path('images/bubble.png'))
 image60 = pygame.transform.scale(image60, (35, 35))
-image61 = pygame.image.load('images/bubble.png')
+image61 = pygame.image.load(resource_path('images/bubble.png'))
 image61 = pygame.transform.scale(image61, (55, 55))
-image62 = pygame.image.load('images/cardboardbox.png')
+image62 = pygame.image.load(resource_path('images/cardboardbox.png'))
 image62 = pygame.transform.scale(image62, (120, 100))
-image63 = pygame.image.load('images/glowbox.png')
+image63 = pygame.image.load(resource_path('images/glowbox.png'))
 image63 = pygame.transform.scale(image63, (120, 100))
-image64 = pygame.image.load('images/sillycrab.png')
+image64 = pygame.image.load(resource_path('images/sillycrab.png'))
 image64 = pygame.transform.scale(image64, (100, 100))
-image65 = pygame.image.load('images/reddownarrow.png')
+image65 = pygame.image.load(resource_path('images/reddownarrow.png'))
 image65 = pygame.transform.scale(image65, (75, 150))
 ########################################################################################################################
 displaylength = 1920
@@ -206,27 +214,27 @@ font2 = pygame.font.SysFont("Arial", 60)
 font3 = pygame.font.SysFont("Times New Roman", 40)
 font4 = pygame.font.SysFont("Comic Sans", 40)
 font5 = pygame.font.SysFont("Comic Sans", 20)
-font6 = pygame.font.Font("fonts/Danger.otf", 25)
-font7 = pygame.font.Font("fonts/eroded.ttf", 20)
-font8 = pygame.font.Font("fonts/HelpMe.ttf", 20)
-font9 = pygame.font.Font("fonts/Overwave.otf", 20)
-font10 = pygame.font.Font("fonts/Comfy.otf", 22)
-font11 = pygame.font.Font("fonts/anime.otf", 15)
-font12 = pygame.font.Font("fonts/oldenFont.otf", 50)
-font13 = pygame.font.Font("fonts/SwordsmanFont.TTF", 20)
-font14 = pygame.font.Font("fonts/AsianFont.ttf", 20)
-font15 = pygame.font.Font("fonts/womenfont.ttf", 20)
-font16 = pygame.font.Font("fonts/runefont.otf", 50)
-font17 = pygame.font.Font("fonts/dragonfont.ttf", 20)
-font18 = pygame.font.Font("fonts/oldenFont.otf", 70)
-font19 = pygame.font.Font("fonts/Danger.otf", 100)
-font20 = pygame.font.Font("fonts/AsianFont.ttf", 60)
+font6 = pygame.font.Font(resource_path("fonts/Danger.otf"), 25)
+font7 = pygame.font.Font(resource_path("fonts/eroded.ttf"), 20)
+font8 = pygame.font.Font(resource_path("fonts/HelpMe.ttf"), 20)
+font9 = pygame.font.Font(resource_path("fonts/Overwave.otf"), 20)
+font10 = pygame.font.Font(resource_path("fonts/Comfy.otf"), 22)
+font11 = pygame.font.Font(resource_path("fonts/anime.otf"), 15)
+font12 = pygame.font.Font(resource_path("fonts/oldenFont.otf"), 50)
+font13 = pygame.font.Font(resource_path("fonts/SwordsmanFont.TTF"), 20)
+font14 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 20)
+font15 = pygame.font.Font(resource_path("fonts/womenfont.ttf"), 20)
+font16 = pygame.font.Font(resource_path("fonts/runefont.otf"), 50)
+font17 = pygame.font.Font(resource_path("fonts/dragonfont.ttf"), 20)
+font18 = pygame.font.Font(resource_path("fonts/oldenFont.otf"), 70)
+font19 = pygame.font.Font(resource_path("fonts/Danger.otf"), 100)
+font20 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 60)
 font21 = pygame.font.SysFont("Comic Sans", 16)
-font22 = pygame.font.Font("fonts/AsianFont.ttf", 50)
-font23 = pygame.font.Font("fonts/oldenFont.otf", 35)
-font24 = pygame.font.Font("fonts/AsianFont.ttf", 40)
+font22 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 50)
+font23 = pygame.font.Font(resource_path("fonts/oldenFont.otf"), 35)
+font24 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 40)
 font25 = pygame.font.SysFont("Comic Sans", 30)
-font26 = pygame.font.Font("fonts/AsianFont.ttf", 30)
+font26 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 30)
 
 gameStatus = True
 ########################################################################################################################
@@ -247,14 +255,14 @@ def draw_text_center(text, font, color, surface, x, y, alpha=255):
 ########################################################################################################################
 def save_teamcreature(creature_data, filename="teamdata.txt"):
     try:
-        with open(filename, "r") as file:
+        with open(resource_path(filename), "r") as file:
             data = json.load(file)  # Load existing data
     except (FileNotFoundError, json.JSONDecodeError):
         data = []  # If file doesn't exist or is empty, start with an empty list
 
     data.append(creature_data)  # Add new creature data
 
-    with open(filename, "w") as file:
+    with open(resource_path(filename), "w") as file:
         json.dump(data, file, indent=4)  # Save updated data
 ########################################################################################################################
 class StartMenu(pygame.sprite.Sprite):
@@ -272,7 +280,7 @@ class StartMenu(pygame.sprite.Sprite):
 
         fade_surface = pygame.Surface(DISPLAYSURF.get_size())
         fade_surface.fill(BLACK)
-        pygame.mixer.music.load("audio/background_music1.mp3")
+        pygame.mixer.music.load(resource_path("audio/background_music1.mp3"))
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
 
@@ -397,7 +405,7 @@ class StartMenu(pygame.sprite.Sprite):
                     mouseX, mouseY = pygame.mouse.get_pos()
                     # Check if "Start Game" is clicked
                     if scrollrect3.collidepoint(mouse_pos):
-                        sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/nextlevel.mp3"))
                         pygame.mixer.music.set_volume(0.5)
                         sound_effect.play()
                         print("Game Exited")
@@ -410,14 +418,14 @@ class StartMenu(pygame.sprite.Sprite):
                         self.menu_active = False  # Exit the menu, start game
                     # Check if "Quit" is clicked
                     if scrollrect1.collidepoint(mouse_pos):
-                        sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/scrollsound.mp3"))
                         sound_effect.play()
                         if(scrollflip1 == False):
                             scrollflip1 = True
                         else:
                             scrollflip1 = False
                     if scrollrect2.collidepoint(mouse_pos):
-                        sound_effect = pygame.mixer.Sound("audio/scrollsound.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/scrollsound.mp3"))
                         pygame.mixer.music.set_volume(0.5)
                         sound_effect.play()
                         if(scrollflip2 == False):
@@ -439,11 +447,11 @@ class StartMenu2(pygame.sprite.Sprite):
         self.menu_active2 = True
 ########################################################################################################################
     def ChooseMenu(self):
-        pygame.mixer.music.load("audio/background_music2.mp3")
+        pygame.mixer.music.load(resource_path("audio/background_music2.mp3"))
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("Choose Menu initialized")
-        video = cv2.VideoCapture("video/SevenSeasMenu.mov")
+        video = cv2.VideoCapture(resource_path("video/SevenSeasMenu.mov"))
         global gold
         global completetutorial
         global characterName
@@ -544,21 +552,21 @@ class StartMenu2(pygame.sprite.Sprite):
                     sys.exit()
                 if event.type == MOUSEBUTTONDOWN:
                     if(0 <= mouseY <= 900):
-                        sound_effect = pygame.mixer.Sound("audio/nextlevel.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/nextlevel.mp3"))
                         sound_effect.play()
                     mouseX, mouseY = pygame.mouse.get_pos()
                     # IF LOAD GAME IS CLICKED
                     if hover_rect5.collidepoint(mouse_pos):
                         caveswitch = True
-                        sound_effect = pygame.mixer.Sound("audio/dragonroar.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/dragonroar.mp3"))
                         sound_effect.play()
                     if hover_rect4.collidepoint(mouse_pos):
                         crabswitch = True
-                        sound_effect = pygame.mixer.Sound("audio/shopclicksound.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/shopclicksound.mp3"))
                         sound_effect.play()
                     if 810 <= mouseX <= 1110 and 535 <= mouseY <= 595:
                         print("Clicked load game")
-                        with open("gamedata.txt", "r") as file:
+                        with open(resource_path("gamedata.txt"), "r") as file:
                             lines = file.readlines()
                             if len(lines) >= 4:
                                 first_line = lines[0].strip()  # Access the first line and strip newline
@@ -678,7 +686,7 @@ class gameintro(pygame.sprite.Sprite):
                         sys.exit()
             elif xrect2.collidepoint(mouse_pos):
                 if event.type == MOUSEBUTTONDOWN:
-                    sound_effect = pygame.mixer.Sound("audio/teleportnoise.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/teleportnoise.mp3"))
                     sound_effect.play()
                     pygame.display.update()
                     if(gamescene < 55):
@@ -694,7 +702,7 @@ class gameintro(pygame.sprite.Sprite):
             else:
                 if event.type == MOUSEBUTTONDOWN:
                     if 0 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                        sound_effect = pygame.mixer.Sound("audio/clicknoise.mp3")
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                         sound_effect.play()
                         pygame.display.update()
                         textFader = 0
@@ -718,7 +726,7 @@ class gameintro(pygame.sprite.Sprite):
         global textFader
         global characterName
         global menu3_active
-        with open("gamedata.txt", "w") as file:
+        with open(resource_path("gamedata.txt"), "w") as file:
             file.write("gold = 0\n")
             file.write("gem = 0\n")
             file.write("name = 0\n")
@@ -743,16 +751,16 @@ class gameintro(pygame.sprite.Sprite):
             file.write("luck = 1 \n")
             file.write("firstblackmarket = true \n")
 
-            with open("creaturedata.txt", "w") as file:
+            with open(resource_path("creaturedata.txt"), "w") as file:
                 file.truncate(0)
 
-            with open("teamdata.txt", "w") as file:
+            with open(resource_path("teamdata.txt"), "w") as file:
                 file.truncate(0)
 
-            with open("itemdata.txt", "w") as file:
+            with open(resource_path("itemdata.txt"), "w") as file:
                 file.truncate(0)
 
-            with open("equipeditems.txt", "w") as file:
+            with open(resource_path("equipeditems.txt"), "w") as file:
                 file.truncate(0)
             blankitem1 = {}
             save_teamcreature(blankitem1, "equipeditems.txt")
@@ -787,7 +795,7 @@ class gameintro(pygame.sprite.Sprite):
             DISPLAYSURF.fill(BLACK)
             DISPLAYSURF.blit(image5, (190, 105))
             if(gamescene == -2):
-                sound_effect = pygame.mixer.Sound("audio/intromoviesound.mp3")
+                sound_effect = pygame.mixer.Sound(resource_path("audio/intromoviesound.mp3"))
                 sound_effect.play()
                 fps = int(cap.get(cv2.CAP_PROP_FPS))
                 clock = pygame.time.Clock()
@@ -811,7 +819,7 @@ class gameintro(pygame.sprite.Sprite):
 
             if(gamescene == -1):
                 if(music1):
-                    pygame.mixer.music.load("audio/thundermusic.mp3")
+                    pygame.mixer.music.load(resource_path("audio/thundermusic.mp3"))
                     pygame.mixer.music.set_volume(0.8)
                     pygame.mixer.music.play(-1)
                     music1 = False
@@ -834,7 +842,7 @@ class gameintro(pygame.sprite.Sprite):
                             if(i > 6):
                                 i = i - 5
                             if (music2):
-                                sound_effect = pygame.mixer.Sound("audio/choose1.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/choose1.mp3"))
                                 pygame.mixer.music.set_volume(0.3)
                                 sound_effect.play()
                                 pygame.mixer.music.play(-1)
@@ -866,11 +874,11 @@ class gameintro(pygame.sprite.Sprite):
                                         firstchar = pygame.Rect(420, 370, 180, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, firstchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
-                                            with open("gamedata.txt", "r") as file:
+                                            sound_effect = pygame.mixer.Sound(resource_path("audio/chosencharacternoise.mp3"))
+                                            with open(resource_path("gamedata.txt"), "r") as file:
                                                 lines = file.readlines()
                                                 lines[17] = f"defense = {6}\n"
-                                            with open("gamedata.txt", "w") as file:
+                                            with open(resource_path("gamedata.txt"), "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
                                             gamescene = gamescene + 1
@@ -879,11 +887,11 @@ class gameintro(pygame.sprite.Sprite):
                                         secondchar = pygame.Rect(660, 360, 170, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, secondchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
-                                            with open("gamedata.txt", "r") as file:
+                                            sound_effect = pygame.mixer.Sound(resource_path("audio/chosencharacternoise.mp3"))
+                                            with open(resource_path("gamedata.txt"), "r") as file:
                                                 lines = file.readlines()
                                                 lines[16] = f"strength = {6}\n"
-                                            with open("gamedata.txt", "w") as file:
+                                            with open(resource_path("gamedata.txt"), "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
                                             gamescene = gamescene + 1
@@ -892,11 +900,11 @@ class gameintro(pygame.sprite.Sprite):
                                         thirdchar = pygame.Rect(860, 380, 170, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, thirdchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
-                                            with open("gamedata.txt", "r") as file:
+                                            sound_effect = pygame.mixer.Sound(resource_path("audio/chosencharacternoise.mp3"))
+                                            with open(resource_path("gamedata.txt"), "r") as file:
                                                 lines = file.readlines()
                                                 lines[18] = f"health = {6}\n"
-                                            with open("gamedata.txt", "w") as file:
+                                            with open(resource_path("gamedata.txt"), "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
                                             gamescene = gamescene + 1
@@ -905,11 +913,11 @@ class gameintro(pygame.sprite.Sprite):
                                         fourthchar = pygame.Rect(1050, 380, 140, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, fourthchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
-                                            with open("gamedata.txt", "r") as file:
+                                            sound_effect = pygame.mixer.Sound(resource_path("audio/chosencharacternoise.mp3"))
+                                            with open(resource_path("gamedata.txt"), "r") as file:
                                                 lines = file.readlines()
                                                 lines[19] = f"speed = {6}\n"
-                                            with open("gamedata.txt", "w") as file:
+                                            with open(resource_path("gamedata.txt"), "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
                                             gamescene = gamescene + 1
@@ -918,11 +926,11 @@ class gameintro(pygame.sprite.Sprite):
                                         fifthchar = pygame.Rect(1220, 380, 140, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, fifthchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
-                                            with open("gamedata.txt", "r") as file:
+                                            sound_effect = pygame.mixer.Sound(resource_path("audio/chosencharacternoise.mp3"))
+                                            with open(resource_path("gamedata.txt"), "r") as file:
                                                 lines = file.readlines()
                                                 lines[20] = f"specattack = {6}\n"
-                                            with open("gamedata.txt", "w") as file:
+                                            with open(resource_path("gamedata.txt"), "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
                                             gamescene = gamescene + 1
@@ -931,11 +939,11 @@ class gameintro(pygame.sprite.Sprite):
                                         sixthchar = pygame.Rect(1380, 380, 150, 500)
                                         pygame.draw.rect(DISPLAYSURF, PURPLE, sixthchar, 4)
                                         if(event.type == MOUSEBUTTONDOWN):
-                                            sound_effect = pygame.mixer.Sound("audio/chosencharacternoise.mp3")
-                                            with open("gamedata.txt", "r") as file:
+                                            sound_effect = pygame.mixer.Sound(resource_path("audio/chosencharacternoise.mp3"))
+                                            with open(resource_path("gamedata.txt"), "r") as file:
                                                 lines = file.readlines()
                                                 lines[21] = f"luck = {6}\n"
-                                            with open("gamedata.txt", "w") as file:
+                                            with open(resource_path("gamedata.txt"), "w") as file:
                                                 file.writelines(lines)
                                             sound_effect.play()
                                             gamescene = gamescene + 1
@@ -978,7 +986,7 @@ class gameintro(pygame.sprite.Sprite):
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 3):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("audio/kick.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/kick.mp3"))
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
@@ -994,7 +1002,7 @@ class gameintro(pygame.sprite.Sprite):
                             music2 = True
                         if (gamescene == 4):
                             if (music2):
-                                sound_effect = pygame.mixer.Sound("audio/thundersound2.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/thundersound2.mp3"))
                                 sound_effect.play()
                                 music2 = False
                             image4.set_alpha(240)
@@ -1023,7 +1031,7 @@ class gameintro(pygame.sprite.Sprite):
                             music1 = True
                         if (gamescene == 6):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("audio/giantwaves.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/giantwaves.mp3"))
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
@@ -1061,7 +1069,7 @@ class gameintro(pygame.sprite.Sprite):
                             music1 = True
                         if (gamescene == 9):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("audio/thundersound1.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/thundersound1.mp3"))
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
@@ -1107,7 +1115,7 @@ class gameintro(pygame.sprite.Sprite):
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 13):
                             if (music2):
-                                sound_effect = pygame.mixer.Sound("audio/gunload.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/gunload.mp3"))
                                 sound_effect.play()
                                 music2 = False
                             image4.set_alpha(240)
@@ -1125,7 +1133,7 @@ class gameintro(pygame.sprite.Sprite):
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 14):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("audio/pistolshot.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/pistolshot.mp3"))
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
@@ -1137,7 +1145,7 @@ class gameintro(pygame.sprite.Sprite):
                             gamescene = self.xbutton(gamescene)
                         if (gamescene == 15):
                             if (music1):
-                                sound_effect = pygame.mixer.Sound("audio/kick.mp3")
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/kick.mp3"))
                                 sound_effect.play()
                                 music1 = False
                             image4.set_alpha(240)
@@ -1195,10 +1203,10 @@ class gameintro(pygame.sprite.Sprite):
                 capv3.release()
             if (gamescene == 23):
                 if(music2):
-                    pygame.mixer.music.load("audio/ominiousmusic.mp3")
+                    pygame.mixer.music.load(resource_path("audio/ominiousmusic.mp3"))
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.6)
-                    sound_effect = pygame.mixer.Sound("audio/kick.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/kick.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1218,7 +1226,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 24):
                 if(music1):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("audio/splash2.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/splash2.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1239,7 +1247,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 25):
                 if(music2):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("audio/heartbeat.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/heartbeat.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1276,7 +1284,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 27):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/bubbles.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/bubbles.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1329,7 +1337,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 30):
                 if(music1):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("audio/drowningnoise.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/drowningnoise.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1404,7 +1412,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 35):
                 if(music1):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("audio/blub.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/blub.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1423,7 +1431,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 36):
                 if(music2):
                     pygame.mixer.music.set_volume(0.7)
-                    sound_effect = pygame.mixer.Sound("audio/creaturetrashnoise.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/creaturetrashnoise.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1454,9 +1462,9 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 38):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/underwateranimalnoise.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/underwateranimalnoise.mp3"))
                     sound_effect.play()
-                    pygame.mixer.music.load("audio/heavencalm.mp3")
+                    pygame.mixer.music.load(resource_path("audio/heavencalm.mp3"))
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.9)
                     music1 = False
@@ -1504,7 +1512,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 41):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/humming.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/humming.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1528,7 +1536,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 43):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/girlgiggle.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/girlgiggle.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1739,10 +1747,10 @@ class gameintro(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if (int(len(characterName)) > 1):
-                            with open("gamedata.txt", "r") as file:
+                            with open(resource_path("gamedata.txt"), "r") as file:
                                 lines = file.readlines()
                                 lines[2] = f"name = {characterName}\n"
-                            with open("gamedata.txt", "w") as file:
+                            with open(resource_path("gamedata.txt"), "w") as file:
                                 file.writelines(lines)  # Write the modified lines back to the file
                             gamescene += 1
                             break
@@ -1912,7 +1920,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 69):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/chestopen.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/chestopen.mp3"))
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.2)
                     music1 = False
@@ -1946,9 +1954,9 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 71):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/stab.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/stab.mp3"))
                     sound_effect.play()
-                    pygame.mixer.music.load("audio/battlemusic2.mp3")
+                    pygame.mixer.music.load(resource_path("audio/battlemusic2.mp3"))
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.8)
                     music1 = False
@@ -1968,7 +1976,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 72):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/gasping.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/gasping.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -1985,7 +1993,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 73):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/dragonroar.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/dragonroar.mp3"))
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.6)
                     music1 = False
@@ -2012,7 +2020,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 75):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/gasping.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/gasping.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2030,7 +2038,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 76):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/monsterroar.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/monsterroar.mp3"))
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.5)
                     music1 = False
@@ -2048,7 +2056,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 77):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/underwaterimpact.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/underwaterimpact.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2070,7 +2078,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 79):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/swordsound.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/swordsound.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2087,7 +2095,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 80):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/marching.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/marching.mp3"))
                     sound_effect.play()
                     pygame.mixer.music.set_volume(0.5)
                     music1 = False
@@ -2105,7 +2113,7 @@ class gameintro(pygame.sprite.Sprite):
                 pygame.display.update()
             if (gamescene == 81):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/evilmusic.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/evilmusic.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2137,11 +2145,11 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 83):
                 if(music2):
                     pygame.mixer.stop()
-                    pygame.mixer.music.load("audio/rebornmusic.mp3")
+                    pygame.mixer.music.load(resource_path("audio/rebornmusic.mp3"))
                     pygame.mixer.music.play(-1)
-                    sound_effect = pygame.mixer.Sound("audio/underwaterimpact.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/underwaterimpact.mp3"))
                     sound_effect.play()
-                    sound_effect = pygame.mixer.Sound("audio/scifinoise.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2159,7 +2167,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 84):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/action.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/action.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2176,9 +2184,9 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 85):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/warhornblast.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/warhornblast.mp3"))
                     sound_effect.play()
-                    sound_effect = pygame.mixer.Sound("audio/explosion.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/explosion.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2195,7 +2203,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 86):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/monsterscream.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/monsterscream.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2210,7 +2218,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 87):
                 if(music2):
-                    pygame.mixer.music.load("audio/epicbattle.mp3")
+                    pygame.mixer.music.load(resource_path("audio/epicbattle.mp3"))
                     pygame.mixer.music.play(-1)
                     pygame.mixer.music.set_volume(0.8)
                     music2 = False
@@ -2242,7 +2250,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 89):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/die.wav")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/die.wav"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2259,7 +2267,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 90):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/regret.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/regret.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2276,7 +2284,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 91):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/glassbreaking.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/glassbreaking.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2295,7 +2303,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene ==92):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/warp.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/warp.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2326,7 +2334,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 94):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/dinosaurgrowl.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/dinosaurgrowl.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2344,7 +2352,7 @@ class gameintro(pygame.sprite.Sprite):
                 pygame.display.update()
                 music2 = True
             if (gamescene == 95):
-                sound_effect = pygame.mixer.Sound("audio/monsterdissapear.mp3")
+                sound_effect = pygame.mixer.Sound(resource_path("audio/monsterdissapear.mp3"))
                 sound_effect.play()
                 fps = int(capv2.get(cv2.CAP_PROP_FPS))
                 clock = pygame.time.Clock()
@@ -2367,7 +2375,7 @@ class gameintro(pygame.sprite.Sprite):
             if (gamescene == 96):
                 if(music2):
                     pygame.mixer.stop()
-                    pygame.mixer.music.load("audio/dramaticheavenmusic.mp3")
+                    pygame.mixer.music.load(resource_path("audio/dramaticheavenmusic.mp3"))
                     pygame.mixer.music.play(-1)
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2398,7 +2406,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 98):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/sighnoise.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/sighnoise.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2453,7 +2461,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 102):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/bubbles.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/bubbles.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -2548,7 +2556,7 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 106):
                 if(music1):
-                    sound_effect = pygame.mixer.Sound("audio/bubbles.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/bubbles.mp3"))
                     sound_effect.play()
                     music1 = False
                 music2 = True
@@ -2581,7 +2589,7 @@ class gameintro(pygame.sprite.Sprite):
                 if(textFader != 3000):
                     textFader = textFader + 12
                 if(music2):
-                    pygame.mixer.music.load("audio/dramaticheavenmusic.mp3")
+                    pygame.mixer.music.load(resource_path("audio/dramaticheavenmusic.mp3"))
                     pygame.mixer.music.play(-1)
                     music2 = False
                 draw_text_center('You travel along with the golden knight.', font5, WHITE, DISPLAYSURF, halfdisplay, 890)
@@ -3023,7 +3031,7 @@ class gameintro(pygame.sprite.Sprite):
                 music2 = True
             if (gamescene == 155):
                 if(music2):
-                    sound_effect = pygame.mixer.Sound("audio/backopen.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/backopen.mp3"))
                     sound_effect.play()
                     music2 = False
                 DISPLAYSURF.fill(BLACK)
@@ -3038,12 +3046,12 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 156):
                 if(music1):
-                    with open("gamedata.txt", "r") as file:
+                    with open(resource_path("gamedata.txt"), "r") as file:
                         lines = file.readlines()
                         lines[0] = f"gold = {1000}\n"
-                    with open("gamedata.txt", "w") as file:
+                    with open(resource_path("gamedata.txt"), "w") as file:
                         file.writelines(lines)
-                    sound_effect = pygame.mixer.Sound("audio/itempickup.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/itempickup.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)
@@ -3071,12 +3079,12 @@ class gameintro(pygame.sprite.Sprite):
                 music1 = True
             if (gamescene == 159):
                 if(music1):
-                    with open("gamedata.txt", "r") as file:
+                    with open(resource_path("gamedata.txt"), "r") as file:
                         lines = file.readlines()
                         lines[3] = f"finishedtutorial = true\n"
-                    with open("gamedata.txt", "w") as file:
+                    with open(resource_path("gamedata.txt"), "w") as file:
                         file.writelines(lines)  # Write the modified lines back to the file
-                    sound_effect = pygame.mixer.Sound("audio/swoosh.mp3")
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/swoosh.mp3"))
                     sound_effect.play()
                     music1 = False
                 DISPLAYSURF.fill(BLACK)

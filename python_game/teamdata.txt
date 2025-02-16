@@ -1,22 +1,5 @@
 [
     {
-        "name": "Gleamfin",
-        "lvl": 1,
-        "hp": 8,
-        "defense": 9,
-        "strength": 11,
-        "special attack": 14,
-        "speed": 10,
-        "tier": 1,
-        "beastimage": 25,
-        "move1": "Ocean Voice",
-        "move2": "Seafoam Barrage",
-        "move3": " ",
-        "move4": " ",
-        "type": "water",
-        "experience": 0
-    },
-    {
         "name": "Sacred Lumen",
         "lvl": 1,
         "hp": 10,
@@ -31,23 +14,6 @@
         "move3": " ",
         "move4": " ",
         "type": "light",
-        "experience": 0
-    },
-    {
-        "name": "Aether Terror",
-        "lvl": 1,
-        "hp": 6,
-        "defense": 3,
-        "strength": 4,
-        "special attack": 6,
-        "speed": 13,
-        "tier": 1,
-        "beastimage": 7,
-        "move1": "Spore Zone",
-        "move2": "Spore Zone",
-        "move3": " ",
-        "move4": " ",
-        "type": "normal",
         "experience": 0
     }
 ]

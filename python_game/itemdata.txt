@@ -1,32 +1,12 @@
 [
     {
-        "name": "Silverline Sword",
-        "imagecore": "images/Ironsword.png",
+        "name": "Bronze Sword",
+        "imagecore": "images/bronzesword.png",
         "HP": 0,
         "armor": 0,
-        "Attack": 10,
-        "specialattack": 10,
-        "speed": 5,
-        "luck": 0
-    },
-    {
-        "name": "Leather Cap",
-        "imagecore": "images/leatherhelmet.png",
-        "HP": 1,
-        "armor": 2,
-        "Attack": 0,
-        "specialattack": 0,
+        "Attack": 5,
+        "specialattack": 1,
         "speed": 3,
-        "luck": 0
-    },
-    {
-        "name": "Plated Chestplate",
-        "imagecore": "images/metalchestplate.png",
-        "HP": 5,
-        "armor": 10,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": -5,
-        "luck": 0
+        "luck": 1
     }
 ]
