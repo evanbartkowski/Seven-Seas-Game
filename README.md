@@ -7,7 +7,10 @@ If you have any questions or need help with anything, please email me at evan.ba
 
 # How to Play
 
-
+1. in the top right corner click on the code button. Click download zip
+2. extract the zip folder
+3. click the folder, click python game, click dist folder
+4. In there you will see a executable file called Main. run that and the game should load
 
 # Start Screen
 
