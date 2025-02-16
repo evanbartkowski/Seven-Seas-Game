@@ -7,10 +7,9 @@ If you have any questions or need help with anything, please email me at evan.ba
 
 # How to Play
 
-1. in the top right corner click on the code button. Click download zip
-2. extract the zip folder
-3. click the folder, click python game, click dist folder
-4. In there you will see a executable file called Main. run that and the game should load
+1. Download the executable from this link. (its to big to put on github)
+
+https://drive.google.com/file/d/1g4cDYNti_Cx1Mn8nUGQyiRVohtSySwwf/view?usp=sharing
 
 # Start Screen
 
@@ -165,5 +164,25 @@ There are currently 76 different mythical creatures you can get in the game. Ill
 
 Each creature has its own movesets and stats. There are base stats that the creature has and then random stats that are added ontop of that. Essentially that means each creature is unique in its strength and 2 of the same creature are not the same stat wise. 
 
+# How to Compile game from code
 
+1. in the top right corner click on the code button. Click download zip
+2. extract the zip folder
+3. open python coding software
+4. run the following commands in  terminal
 
+pip install pyinstaller
+
+pyinstaller --onefile --noconsole `
+--add-data "audio;audio" `
+--add-data "fonts;fonts" `
+--add-data "video;video" `
+--add-data "images;images" `
+--add-data "gamedata.txt;." `
+--add-data "itemdata.txt;." `
+--add-data "creaturedata.txt;." `
+--add-data "equipeditems.txt;." `
+--add-data "teamdata.txt;." `
+--add-data "tempitems.txt;." Main.py
+
+5. Click on the Dist Folder in python project and run the executable.
