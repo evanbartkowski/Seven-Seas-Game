@@ -7,9 +7,10 @@ If you have any questions or need help with anything, please email me at evan.ba
 
 # How to Play
 
-1. Download the executable from this link. (its to big to put on github)
-
-https://drive.google.com/file/d/1g4cDYNti_Cx1Mn8nUGQyiRVohtSySwwf/view?usp=sharing
+1. Click the Code button in the top right corner of the github repository
+2. Click download zip file
+3. extract zip file
+4. navigate to the dist folder, run Main.exe in the folder
 
 # Start Screen
 
@@ -173,16 +174,7 @@ Each creature has its own movesets and stats. There are base stats that the crea
 
 pip install pyinstaller
 
-pyinstaller --onefile --noconsole `
---add-data "audio;audio" `
---add-data "fonts;fonts" `
---add-data "video;video" `
---add-data "images;images" `
---add-data "gamedata.txt;." `
---add-data "itemdata.txt;." `
---add-data "creaturedata.txt;." `
---add-data "equipeditems.txt;." `
---add-data "teamdata.txt;." `
---add-data "tempitems.txt;." Main.py
+pyinstaller --onefile --noconsole Main.py
+
 
 5. Click on the Dist Folder in python project and run the executable.
