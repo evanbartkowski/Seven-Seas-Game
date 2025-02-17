@@ -1,9 +1,54 @@
 [
+    {
+        "name": "Plated Helmet",
+        "imagecore": "images/metalhelmet.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
+    {
+        "name": "Plated Chestplate",
+        "imagecore": "images/metalchestplate.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
+    {
+        "name": "Plated Greeves",
+        "imagecore": "images/metalgreeves.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": -1,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
+    {
+        "name": "Plated Boots",
+        "imagecore": "images/metalboots.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": 3,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
     {},
     {},
-    {},
-    {},
-    {},
-    {},
-    {}
+    {
+        "name": "Rusty Sword",
+        "imagecore": "images/rustysword.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 2,
+        "specialattack": 0,
+        "speed": 2,
+        "luck": 0
+    }
 ]

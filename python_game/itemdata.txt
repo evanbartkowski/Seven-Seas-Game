@@ -1,5 +1,25 @@
 [
     {
+        "name": "Ascendent Chestplate",
+        "imagecore": "images/coralchestplate.png",
+        "HP": 30,
+        "armor": 40,
+        "Attack": 1,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 5
+    },
+    {
+        "name": "Adamantine Sword",
+        "imagecore": "images/diamondsword.png",
+        "HP": 0,
+        "armor": 5,
+        "Attack": 25,
+        "specialattack": 0,
+        "speed": 5,
+        "luck": 0
+    },
+    {
         "name": "Bronze Sword",
         "imagecore": "images/bronzesword.png",
         "HP": 0,
@@ -8,5 +28,85 @@
         "specialattack": 1,
         "speed": 3,
         "luck": 1
+    },
+    {
+        "name": "Ascendent Helmet",
+        "imagecore": "images/coralhelmet.png",
+        "HP": 5,
+        "armor": 30,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 10,
+        "luck": 5
+    },
+    {
+        "name": "Leather Chestplate",
+        "imagecore": "images/leatherchestplate.png",
+        "HP": 0,
+        "armor": 4,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 4,
+        "luck": 0
+    },
+    {
+        "name": "Ascendent Greeves",
+        "imagecore": "images/coralpants.png",
+        "HP": 10,
+        "armor": 30,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 10,
+        "luck": 5
+    },
+    {
+        "name": "Ascendent Boots",
+        "imagecore": "images/coralshoes.png",
+        "HP": 5,
+        "armor": 20,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 30,
+        "luck": 5
+    },
+    {
+        "name": "Bronze Sword",
+        "imagecore": "images/bronzesword.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 5,
+        "specialattack": 1,
+        "speed": 3,
+        "luck": 1
+    },
+    {
+        "name": "Bronze Sword",
+        "imagecore": "images/bronzesword.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 5,
+        "specialattack": 1,
+        "speed": 3,
+        "luck": 1
+    },
+    {
+        "name": "Silverline Sword",
+        "imagecore": "images/Ironsword.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 10,
+        "specialattack": 10,
+        "speed": 5,
+        "luck": 0
+    },
+    {
+        "name": "Simple Staff",
+        "imagecore": "images/simplestaff.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 5,
+        "speed": 1,
+        "luck": 0
     }
 ]

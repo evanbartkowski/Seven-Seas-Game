@@ -12,9 +12,9 @@ import string
 ########################################################################################################################
 ########################################################################################################################
 def resource_path(relative_path):
-    if getattr(sys, 'frozen', False):  # Running as an .exe
-        base_path = sys._MEIPASS
-    else:  # Running as a script
+    if getattr(sys, 'frozen', False):
+        base_path = os.path.dirname(sys.executable)
+    else:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 ########################################################################################################################
@@ -10498,7 +10498,7 @@ class stash(pygame.sprite.Sprite):
                                             attributes = list(item.values())
                                             itemname.append(attributes[0])
                                             regularimage.append(attributes[1])
-                                            tempimage = pygame.image.load(attributes[1])
+                                            tempimage = pygame.image.load(resource_path(attributes[1]))
                                             tempimage = pygame.transform.scale(tempimage, (60, 60))
                                             itemimagecore.append(tempimage)
                                             itemHP.append(attributes[2])

@@ -14,9 +14,9 @@ pygame.init()
 pygame.mixer.init()
 ########################################################################################################################
 def resource_path(relative_path):
-    if getattr(sys, 'frozen', False):  # Running as an .exe
-        base_path = sys._MEIPASS
-    else:  # Running as a script
+    if getattr(sys, 'frozen', False):
+        base_path = os.path.dirname(sys.executable)
+    else:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 ########################################################################################################################
