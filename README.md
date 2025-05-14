@@ -10,7 +10,7 @@ If you have any questions or need help with anything, please email me at evan.ba
 1. Click the Code button in the top right corner of the github repository
 2. Click download zip file
 3. extract zip file
-4. navigate to the dist folder, run Main.exe in the folder
+4. Run Main.exe in the folder
 
 # Start Screen
 
