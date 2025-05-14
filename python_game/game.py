@@ -76,94 +76,55 @@ alchemyexp = 0
 guildtutorial = 0
 ########################################################################################################################
 ########################################################################################################################
-imagebeast1 = pygame.image.load(resource_path('images/f1.png'))
-imagebeast2 = pygame.image.load(resource_path('images/f2.png'))
-imagebeast3 = pygame.image.load(resource_path('images/f3.png'))
-imagebeast4 = pygame.image.load(resource_path('images/f4.png'))
-imagebeast5 = pygame.image.load(resource_path('images/f5.png'))
-imagebeast6 = pygame.image.load(resource_path('images/f6.png'))
-imagebeast7 = pygame.image.load(resource_path('images/f7.png'))
-imagebeast8 = pygame.image.load(resource_path('images/f8.png'))
-imagebeast9 = pygame.image.load(resource_path('images/f9.png'))
-imagebeast10 = pygame.image.load(resource_path('images/f10.png'))
-imagebeast11 = pygame.image.load(resource_path('images/f11.png'))
-imagebeast12 = pygame.image.load(resource_path('images/f12.png'))
-imagebeast13 = pygame.image.load(resource_path('images/f13.png'))
-imagebeast14 = pygame.image.load(resource_path('images/f14.png'))
-imagebeast15 = pygame.image.load(resource_path('images/f15.png'))
-imagebeast16 = pygame.image.load(resource_path('images/f16.png'))
-imagebeast17 = pygame.image.load(resource_path('images/f17.png'))
-imagebeast18 = pygame.image.load(resource_path('images/f18.png'))
-imagebeast19 = pygame.image.load(resource_path('images/f19.png'))
-imagebeast20 = pygame.image.load(resource_path('images/f20.png'))
-imagebeast21 = pygame.image.load(resource_path('images/f21.png'))
-imagebeast22 = pygame.image.load(resource_path('images/f22.png'))
-imagebeast23 = pygame.image.load(resource_path('images/f23.png'))
-imagebeast24 = pygame.image.load(resource_path('images/f24.png'))
-imagebeast25 = pygame.image.load(resource_path('images/f25.png'))
-imagebeast26 = pygame.image.load(resource_path('images/f26.png'))
-imagebeast27 = pygame.image.load(resource_path('images/f27.png'))
-imagebeast28 = pygame.image.load(resource_path('images/f28.png'))
-imagebeast29 = pygame.image.load(resource_path('images/f29.png'))
-imagebeast30 = pygame.image.load(resource_path('images/f30.png'))
-imagebeast31 = pygame.image.load(resource_path('images/f31.png'))
-imagebeast32 = pygame.image.load(resource_path('images/f32.png'))
-imagebeast33 = pygame.image.load(resource_path('images/f33.png'))
-imagebeast34 = pygame.image.load(resource_path('images/f34.png'))
-imagebeast35 = pygame.image.load(resource_path('images/f35.png'))
-imagebeast36 = pygame.image.load(resource_path('images/f36.png'))
-imagebeast37 = pygame.image.load(resource_path('images/f37.png'))
-imagebeast38 = pygame.image.load(resource_path('images/f38.png'))
-imagebeast39 = pygame.image.load(resource_path('images/f39.png'))
-imagebeast40 = pygame.image.load(resource_path('images/f40.png'))
-imagebeast41 = pygame.image.load(resource_path('images/f41.png'))
-imagebeast42 = pygame.image.load(resource_path('images/f42.png'))
-imagebeast43 = pygame.image.load(resource_path('images/f43.png'))
-imagebeast44 = pygame.image.load(resource_path('images/f44.png'))
-imagebeast45 = pygame.image.load(resource_path('images/f45.png'))
-imagebeast46 = pygame.image.load(resource_path('images/f46.png'))
-imagebeast47 = pygame.image.load(resource_path('images/f47.png'))
-imagebeast48 = pygame.image.load(resource_path('images/f48.png'))
-imagebeast49 = pygame.image.load(resource_path('images/f49.png'))
-imagebeast50 = pygame.image.load(resource_path('images/f50.png'))
-imagebeast51 = pygame.image.load(resource_path('images/f51.png'))
-imagebeast52 = pygame.image.load(resource_path('images/f52.png'))
-imagebeast53 = pygame.image.load(resource_path('images/f53.png'))
-imagebeast54 = pygame.image.load(resource_path('images/f54.png'))
-imagebeast55 = pygame.image.load(resource_path('images/f55.png'))
-imagebeast56 = pygame.image.load(resource_path('images/f56.png'))
-imagebeast57 = pygame.image.load(resource_path('images/f57.png'))
-imagebeast58 = pygame.image.load(resource_path('images/f58.png'))
-imagebeast59 = pygame.image.load(resource_path('images/f59.png'))
-imagebeast60 = pygame.image.load(resource_path('images/f60.png'))
-imagebeast61 = pygame.image.load(resource_path('images/f61.png'))
-imagebeast62 = pygame.image.load(resource_path('images/f62.png'))
-imagebeast63 = pygame.image.load(resource_path('images/f63.png'))
-imagebeast64 = pygame.image.load(resource_path('images/f64.png'))
-imagebeast65 = pygame.image.load(resource_path('images/f65.png'))
-imagebeast66 = pygame.image.load(resource_path('images/f66.png'))
-imagebeast67 = pygame.image.load(resource_path('images/f67.png'))
-imagebeast68 = pygame.image.load(resource_path('images/f68.png'))
-imagebeast69 = pygame.image.load(resource_path('images/f69.png'))
-imagebeast70 = pygame.image.load(resource_path('images/f70.png'))
-imagebeast71 = pygame.image.load(resource_path('images/f71.png'))
-imagebeast72 = pygame.image.load(resource_path('images/f72.png'))
-imagebeast73 = pygame.image.load(resource_path('images/f73.png'))
-imagebeast74 = pygame.image.load(resource_path('images/f74.png'))
-imagebeast75 = pygame.image.load(resource_path('images/f75.png'))
-imagebeast76 = pygame.image.load(resource_path('images/f76.png'))
+trainers = [pygame.image.load(resource_path(f'images/trainer{i}.png')) for i in range(1, 118)]
+
+fantasy_names = [
+    "Azrin", "Velthar", "Xyphos", "Zereth", "Kaelor", "Myrris", "Orlith", "Tivrax", "Ythren", "Vexil",
+    "Quorin", "Jaskir", "Sylvaris", "Eryndor", "Nyxil", "Vaelith", "Torren", "Zyren", "Drisken", "Lioran",
+    "Xarith", "Zyndor", "Khyros", "Yvaris", "Talsyn", "Rhavik", "Vaedren", "Xytris", "Korwyn", "Zephiron",
+    "Vareth", "Myxil", "Elthar", "Thrynn", "Auren", "Solren", "Veyrin", "Rhyvos", "Kyreth", "Zorric",
+    "Nivrel", "Thalorin", "Draxen", "Veldric", "Eryxis", "Zyphir", "Xenil", "Taryn", "Jorath", "Lyricen",
+    "Zyric", "Norwyn", "Valtheris", "Tyveris", "Orinax", "Quenvar", "Sylrik", "Xalith", "Zyrell", "Nyvaris",
+    "Kalren", "Othar", "Vaesryn", "Lirien", "Tzarin", "Vexir", "Zyndel", "Rhaxil", "Kytheris", "Eldrin",
+    "Toril", "Myrthis", "Draven", "Kaelix", "Xyther", "Voriel", "Lazren", "Jorvik", "Zerik", "Nyvos",
+    "Eldros", "Thrylen", "Velkor", "Zybrus", "Kyvos", "Tahrin", "Orannis", "Veylis", "Xalren", "Quorin",
+    "Myndral", "Thalren", "Drivex", "Sylveris", "Jorlen", "Zyvor", "Tarnis", "Vaelor", "Xyphrin", "Ythrel",
+    "Korren", "Zyrix", "Valcen", "Rhazil", "Torvyn", "Kaelis", "Xyros", "Zyndir", "Elvaris", "Myxen",
+    "Vaelric", "Rhylen", "Nythorin", "Zolric", "Kyrenis", "Varethin", "Tylorin", "Drexil", "Lioris", "Jorannis",
+    "Veyric", "Orlithis", "Thalryn", "Xythar", "Zyven", "Tarnyx", "Velros", "Quenril", "Myrion", "Elthrin",
+    "Rhyxis", "Kaeloris", "Zyphrin", "Vorren", "Jaskor", "Nytheris", "Vaedros", "Torvalis", "Xyrris", "Lazorin",
+    "Driskenis", "Zephiros", "Rhazin", "Khyrris", "Tivor", "Xynthis", "Veydris", "Zorith", "Jorinex", "Valyros",
+    "Orlien", "Sylvarin", "Zyrelis", "Tig", "Taylor", "Amica", "Abrar", "Ahmad", "Evan", "Thomas",
+    "Thaliris", "Drexan", "Xyvaren", "Kaelthar", "Tornis", "Velithis", "Rhivor", "Zyrexil", "Noriel", "Lirianis",
+    "Vaelithor", "Torannis", "Zyndris", "Kyveris", "Erythorin", "Tahris", "Jaskoris", "Vorannis", "Xylarin",
+    "Nyroth", "Vaeloris", "Korvellis", "Zythorin", "Thyrris", "Elvryn", "Sylverith", "Zyronis", "Toriel",
+    "Vaelorin", "Jorinexis", "Myrrithis", "Xyrithor", "Kaelrin", "Velthoris", "Rhyveris", "Zyphorian", "Tylvren",
+    "Aegirion", "Thalvros", "Zyphriel", "Nautiris", "Corvellen", "Typhorin", "Velythas", "Rhyvriel", "Kelmareth", "Myrvion",
+    "Azryth", "Thryssalis", "Vaelthos", "Nytheris", "Drexmar", "Sylvarith", "Kaelthar", "Ocevaris", "Zorvyn", "Tivmareth",
+    "Quorvyn", "Jaskarian", "Eldorin", "Xyphoros", "Vorynth", "Lirvannis", "Rhavion", "Nautirion", "Talsirith", "Zyndrith",
+    "Kyvannis", "Vaelmar", "Xythorin", "Orvandis", "Tarnis", "Kaelmaris", "Thalovrin", "Erynthel", "Zorvath", "Nyxthorin",
+    "Tivmaris", "Dravaryn", "Kelvren", "Vaelundis", "Rhovarel", "Xalvian", "Tyzareth", "Orynthos", "Zyphoros", "Nivmarith",
+    "Lirvandis", "Vorvannis", "Eryzmar", "Thrymoras", "Nyxaris", "Vaelrion", "Torvannis", "Xyphirel", "Zyvarith", "Quellion",
+    "Ocevaren", "Tyvaren", "Velmareth", "Sylvion", "Thalmaris", "Drisaryn", "Xalvorith", "Kelthar", "Nyrovar", "Myrithis",
+    "Valtorin", "Tarnith", "Rhyvalis", "Thalvion", "Ocevarion", "Zorion", "Vaeloris", "Nymaren", "Elvarion", "Tazareth",
+    "Xanvion", "Kyrelth", "Zyndris", "Thryvalis", "Eldros", "Rhydrian", "Orlithis", "Vaelmaris", "Zytheron", "Quellar",
+    "Tylmaris", "Jaskorin", "Nyxaros", "Vorrenis", "Sylvalis", "Torvelis", "Azmoran", "Xandros", "Velmarith", "Drexion",
+    "Vaelthorin", "Kyrelis", "Thrymoran", "Zyphiren", "Tivoras", "Myrvalis", "Lirithis", "Orzareth", "Xelvarin", "Kelmaris",
+    "Tyvoris", "Zyvaris", "Thalvoris", "Quorvelis", "Ocevaris", "Rhydaris", "Nyvren", "Kaelvoris", "Vaelion", "Torlenis",
+    "Xylmaris", "Drisvarin", "Kelrian", "Lirvaris", "Zyndrion", "Tornis", "Eldrian", "Rhyveris", "Orynthal", "Vaelundor",
+    "Thryzanis", "Zyrion", "Vorion", "Nytherion", "Myranthor", "Tivorath", "Xanvaris", "Azvion", "Kelvaris", "Quorin",
+    "Lirvion", "Jaskorin", "Sylvaren", "Thalvorian", "Xyvaris", "Vaelorin", "Zorvannis", "Eldvaris", "Typhorien", "Orvannis",
+    "Tynorin", "Kyrenis", "Myrion", "Xalvaris", "Drexoris", "Tornethis", "Velorien", "Lirzorin", "Rhavialis", "Zytheris",
+    "Thrymoris", "Nautiris", "Xandoris", "Jaskorin", "Zyvarion", "Nyxvaris", "Orynvaris", "Tivorius", "Vaelthar", "Kaelvion",
+    "Syltharin", "Tarnithis", "Kelvarion", "Orzarian", "Lirzareth", "Xytherion", "Vorthalis", "Tyverian", "Nyxvalis",
+    "Thalvior", "Tylvren", "Zyndarian", "Dravaris", "Eldorian", "Quellaris", "Xelvaris", "Jaskarian", "Nymarian", "Azmaris",
+    "Rhydorian", "Thryvarion", "Velorian", "Tornithis", "Vaelorian", "Zyphorian", "Xanveris", "Myranthos", "Kyvarion"
+]
 
 
 
-beasts = [imagebeast1,imagebeast2,imagebeast3,imagebeast4,imagebeast5,imagebeast6,imagebeast7,imagebeast8,imagebeast9,imagebeast10,
-imagebeast11,imagebeast12,imagebeast13,imagebeast14,imagebeast15,imagebeast16,imagebeast17,imagebeast18,imagebeast19,imagebeast20,
-imagebeast21,imagebeast22,imagebeast23,imagebeast24,imagebeast25,imagebeast26,imagebeast27,imagebeast28,imagebeast29,imagebeast30,
-imagebeast31,imagebeast32,imagebeast33,imagebeast34,imagebeast35,imagebeast36,imagebeast37,imagebeast38,imagebeast39,imagebeast40,
-imagebeast41,imagebeast42,imagebeast43,imagebeast44,imagebeast45,imagebeast46,imagebeast47,imagebeast48,imagebeast49,imagebeast50,
-imagebeast51,imagebeast52,imagebeast53,imagebeast54,imagebeast55,imagebeast56,imagebeast57,imagebeast58,imagebeast59,imagebeast60,
-imagebeast61,imagebeast62,imagebeast63,imagebeast64,imagebeast65,imagebeast66,imagebeast67,imagebeast68,imagebeast69,imagebeast70,
-imagebeast71,imagebeast72,imagebeast73,imagebeast74,imagebeast75,imagebeast76]
 
+beasts = [pygame.image.load(resource_path(f'images/f{i}.png')) for i in range(1, 77)]
 smallBeasts = [pygame.transform.scale(image, (60, 60)) for image in beasts]
 
 
@@ -1235,11 +1196,15 @@ image279 = pygame.image.load(resource_path('images/colleseummenu3.jpg'))
 
 image280 = pygame.image.load(resource_path('images/entercolleseum.webp'))
 image280 = pygame.transform.scale(image280, (1550, 870))
+
+image281 = pygame.image.load(resource_path('images/battlebutton1.png'))
+image282 = pygame.image.load(resource_path('images/battlebutton2.png'))
+
 ########################################################################################################################
 displaylength = 1920
 displaywidth = 1080
 halfdisplay = displaylength / 2
-DISPLAYSURF = pygame.display.set_mode((1920, 1080))
+DISPLAYSURF = pygame.display.set_mode((displaylength, displaywidth), pygame.RESIZABLE)
 DISPLAYSURF.fill(WHITE)
 pygame.display.set_caption("Game")
 font = pygame.font.SysFont(None, 75)
@@ -1606,6 +1571,7 @@ class maingameareas(pygame.sprite.Sprite):
         global gold
         global gem
         global level
+        global characterName
         starx = random.randint(200,1500)
         stary = random.randint(00,1100)
         starfader = 1
@@ -1638,11 +1604,14 @@ class maingameareas(pygame.sprite.Sprite):
                 goldline = goldline[7:]
                 gemline = lines[1].strip()
                 gemline = gemline[6:]
+                nameline = lines[2].strip()
+                nameline = nameline[7:]
                 level = lines[15].strip()
                 level = level[8:]
                 level = int(level)
                 gem = int(gemline)
                 gold = int(goldline)
+                characterName = str(nameline)
 
             startTime = pygame.time.get_ticks()
             rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
@@ -9131,8 +9100,8 @@ class blackmarket(pygame.sprite.Sprite):
                         sound_effect = pygame.mixer.Sound(resource_path("audio/beastsummon.mp3"))
                         sound_effect.play()
 
-                    copy_beast = beasts[randombeast].copy()
-                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    copy_beast = beasts[randombeast].copy()  # Create a copy of the surface
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)  # Apply the fill effect
                     DISPLAYSURF.blit(copy_beast, (700, 380))
 
                     randomhp = random.randint(0,4)
@@ -9311,8 +9280,8 @@ class blackmarket(pygame.sprite.Sprite):
                         sound_effect = pygame.mixer.Sound(resource_path("audio/beastsummon2.wav"))
                         sound_effect.play()
 
-                    copy_beast = beasts[randombeast].copy()
-                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    copy_beast = beasts[randombeast].copy()  # Create a copy of the surface
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)  # Apply the fill effect
                     DISPLAYSURF.blit(copy_beast, (700, 380))
 
                     randomhp = random.randint(0,4)
@@ -9491,8 +9460,8 @@ class blackmarket(pygame.sprite.Sprite):
                         sound_effect = pygame.mixer.Sound(resource_path("audio/beastsummon2.wav"))
                         sound_effect.play()
 
-                    copy_beast = beasts[randombeast].copy()
-                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+                    copy_beast = beasts[randombeast].copy()  # Create a copy of the surface
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)  # Apply the fill effect
                     DISPLAYSURF.blit(copy_beast, (700, 380))
 
                     randomhp = random.randint(0,4)
@@ -9672,8 +9641,9 @@ class blackmarket(pygame.sprite.Sprite):
                         sound_effect = pygame.mixer.Sound(resource_path("audio/beastsummon2.wav"))
                         sound_effect.play()
 
-                    copy_beast = beasts[randombeast].copy()
-                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+
+                    copy_beast = beasts[randombeast].copy()  # Create a copy of the surface
+                    copy_beast.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)  # Apply the fill effect
                     DISPLAYSURF.blit(copy_beast, (700, 380))
 
                     randomhp = random.randint(0,4)
@@ -10174,7 +10144,6 @@ class stash(pygame.sprite.Sprite):
 
                 if (showbool == True):
                     if helmetrect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 1 and equipeditems[0] != {}):
                             attributes = list(equipeditems[0].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10188,7 +10157,6 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
                             draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
                     elif chestplaterect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 2 and equipeditems[1] != {}):
                             attributes = list(equipeditems[1].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10202,7 +10170,6 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
                             draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
                     elif pantsrect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 3 and equipeditems[2] != {}):
                             attributes = list(equipeditems[2].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10216,7 +10183,6 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
                             draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
                     elif bootsrect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 4 and equipeditems[3] != {}):
                             attributes = list(equipeditems[3].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10230,7 +10196,6 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
                             draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
                     elif jewelry1rect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 5 and equipeditems[4] != {}):
                             attributes = list(equipeditems[4].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10244,7 +10209,6 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
                             draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
                     elif jewelry2rect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 6 and equipeditems[5] != {}):
                             attributes = list(equipeditems[5].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10258,7 +10222,6 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center("Lore", font5, SLEEPPURPLE, DISPLAYSURF, halfdisplay + 5, 940)
                             draw_text_center("Rarity- ", font24, CLOUD, DISPLAYSURF, 1368, 440)
                     elif weaponrect.collidepoint(mouse_pos):
-                        equipeditems = load_teamcreatures("equipeditems.txt")
                         if (len(equipeditems) >= 7 and equipeditems[6] != {}):
                             attributes = list(equipeditems[6].values())
                             draw_text(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1270, 365)
@@ -10306,7 +10269,6 @@ class stash(pygame.sprite.Sprite):
                 if weaponrect.collidepoint(mouse_pos):
                     pygame.draw.rect(DISPLAYSURF, rainbow, weaponrect, 5)
 
-                equipeditems = load_teamcreatures("equipeditems.txt")
                 if (len(equipeditems) >= 1 and equipeditems[0] != {} and equipmentimages[0] != []):
                     DISPLAYSURF.blit(equipmentimages[0], (600, 364))
                 if (len(equipeditems) >= 2 and equipeditems[1] != {} and equipmentimages[1] != []):
@@ -10549,6 +10511,7 @@ class stash(pygame.sprite.Sprite):
                                             tempimg = pygame.transform.scale(tempimg, (60, 60))
                                             equipmentimages[6] = tempimg
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
                         if chestplaterect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             attributes = list(equipeditems[1].values())
@@ -10697,6 +10660,8 @@ class stash(pygame.sprite.Sprite):
                                             tempimg = pygame.transform.scale(tempimg, (60, 60))
                                             equipmentimages[6] = tempimg
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if pantsrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             attributes = list(equipeditems[2].values())
@@ -10847,6 +10812,8 @@ class stash(pygame.sprite.Sprite):
                                             equipmentimages[6] = tempimg
 
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if bootsrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             attributes = list(equipeditems[3].values())
@@ -10997,6 +10964,8 @@ class stash(pygame.sprite.Sprite):
                                             equipmentimages[6] = tempimg
 
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if jewelry1rect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             attributes = list(equipeditems[4].values())
@@ -11147,6 +11116,8 @@ class stash(pygame.sprite.Sprite):
                                             equipmentimages[6] = tempimg
 
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if jewelry2rect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             attributes = list(equipeditems[5].values())
@@ -11297,6 +11268,8 @@ class stash(pygame.sprite.Sprite):
                                             equipmentimages[6] = tempimg
 
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if weaponrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             attributes = list(equipeditems[6].values())
@@ -11447,6 +11420,8 @@ class stash(pygame.sprite.Sprite):
                                             equipmentimages[6] = tempimg
 
                             clickedrect = -1
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if helmetxrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
@@ -11550,6 +11525,7 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
                         if chestplatexrect.collidepoint(mouse_pos):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
                             sound_effect.play()
@@ -11653,6 +11629,8 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if pantsxrect.collidepoint(mouse_pos):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
                             sound_effect.play()
@@ -11756,6 +11734,8 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
+
                         if bootsxrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
@@ -11859,6 +11839,7 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
                         if jewelry1xrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
@@ -11961,6 +11942,7 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
                         if jewelry2xrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
@@ -12063,6 +12045,7 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
                         if swordxrect.collidepoint(mouse_pos):
                             equipeditems = load_teamcreatures("equipeditems.txt")
                             sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
@@ -12165,6 +12148,7 @@ class stash(pygame.sprite.Sprite):
                                     tempimg = pygame.image.load(resource_path(attributes[1]))
                                     tempimg = pygame.transform.scale(tempimg, (60, 60))
                                     equipmentimages[6] = tempimg
+                            equipeditems = load_teamcreatures("equipeditems.txt")
                         if trashcanrect.collidepoint(mouse_pos):
                             if (clickedrect != -1):
                                 if (clickedrect > ((itempage - 1) * 36) - 1) and (
@@ -13239,9 +13223,127 @@ class colleseum(pygame.sprite.Sprite):
         global gold
         global gem
         video = cv2.VideoCapture(resource_path("video/glowparticlevideo.mp4"))
+        video2 = cv2.VideoCapture(resource_path("video/battlebackground.mp4"))
+        video3 = cv2.VideoCapture(resource_path("video/battlestartvideo.mp4"))
+
         startTime = pygame.time.get_ticks()
         endTime = startTime + 3000
         npcdifficulty = 2
+        randomtrainer = 0
+        randomtrainername = " "
+        i = 1200
+
+        strength = 0
+        defense = 0
+        health = 0
+        speed = 0
+        specattack = 0
+        luck = 0
+
+        beast1strength = 0
+        beast1defense = 0
+        beast1health = 0
+        beast1speed = 0
+        beast1specattack = 0
+        beast1luck = 0
+
+        beast2strength = 0
+        beast2defense = 0
+        beast2health = 0
+        beast2speed = 0
+        beast2specattack = 0
+        beast2luck = 0
+
+        beast3strength = 0
+        beast3defense = 0
+        beast3health = 0
+        beast3speed = 0
+        beast3specattack = 0
+        beast3luck = 0
+
+        with open(resource_path("gamedata.txt"), "r") as file:
+            lines = file.readlines()
+            strength = lines[16].strip()
+            strength = int(strength[11:])
+            defense = lines[17].strip()
+            defense = int(defense[10:])
+            health = lines[18].strip()
+            health = int(health[9:])
+            speed = lines[19].strip()
+            speed = int(speed[8:])
+            specattack = lines[20].strip()
+            specattack = int(specattack[13:])
+            luck = lines[21].strip()
+            luck = int(luck[7:])
+
+        teamchoosen = 1
+        teamsize = 0
+
+        time1 = pygame.time.get_ticks()
+        time2 = time1 + 3000
+
+
+        teamcreatures = load_teamcreatures()
+        if (len(teamcreatures) >= 1):
+            attributes1 = list(teamcreatures[0].values())
+            beast1strength = strength + attributes1[4]
+            beast1defense = defense + attributes1[3]
+            beast1health = health + attributes1[2]
+            beast1speed = speed + attributes1[5]
+            beast1specattack = specattack + attributes1[6]
+            beast1luck = luck
+        if (len(teamcreatures) >= 2):
+            attributes2 = list(teamcreatures[1].values())
+            beast2strength = strength + attributes2[4]
+            beast2defense = defense + attributes2[3]
+            beast2health = health + attributes2[2]
+            beast2speed = speed + attributes2[5]
+            beast2specattack = specattack + attributes2[6]
+            beast2luck = luck
+        if (len(teamcreatures) >= 3):
+            attributes3 = list(teamcreatures[2].values())
+            beast3strength = strength + attributes3[4]
+            beast3defense = defense + attributes3[3]
+            beast3health = health + attributes3[2]
+            beast3speed = speed + attributes3[5]
+            beast3specattack = specattack + attributes3[6]
+            beast3luck = luck
+
+        beast1strengthlive = beast1strength
+        beast1defenselive = beast1defense
+        beast1healthlive = beast1health
+        beast1speedlive = beast1speed
+        beast1specattacklive = beast1specattack
+        beast1lucklive = beast1luck
+
+        beast2strengthlive = beast2strength
+        beast2defenselive = beast2defense
+        beast2healthlive = beast2health
+        beast2speedlive = beast2speed
+        beast2specattacklive = beast2specattack
+        beast2lucklive = beast2luck
+
+        beast3strengthlive = beast3strength
+        beast3defenselive = beast3defense
+        beast3healthlive = beast3health
+        beast3speedlive = beast3speed
+        beast3specattacklive = beast3specattack
+        beast3lucklive = beast3luck
+
+        if (len(teamcreatures) == 1):
+            teamsize = 1
+        if (len(teamcreatures) == 2):
+            teamsize = 2
+        if (len(teamcreatures) == 3):
+            teamsize = 3
+        if (len(teamcreatures) == 0):
+            while (time2 > time1):
+                time1 = pygame.time.get_ticks()
+                DISPLAYSURF.fill(BLACK)
+                draw_text_center('No Beasts found in team', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 400)
+                pygame.display.update()
+            self.colleseumloop = False
+            print("there is no creatures in team found")
 ########################################################################################################################
         while self.colleseumloop:
             rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
@@ -13273,6 +13375,18 @@ class colleseum(pygame.sprite.Sprite):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image275, (197, 100))
 
+                ret, frame = video2.read()
+                if not ret:
+                    video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(60)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
@@ -13293,10 +13407,14 @@ class colleseum(pygame.sprite.Sprite):
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
+                            video2.release()
+                            video3.release()
                             self.colleseumloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            video2.release()
+                            video3.release()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -13304,6 +13422,19 @@ class colleseum(pygame.sprite.Sprite):
             if (self.gamescene == 2):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image275, (197, 100))
+
+                ret, frame = video2.read()
+                if not ret:
+                    video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(60)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
                 image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('To live on your knees, or die standing.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
@@ -13328,10 +13459,14 @@ class colleseum(pygame.sprite.Sprite):
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
+                            video2.release()
+                            video3.release()
                             self.colleseumloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            video2.release()
+                            video3.release()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -13358,8 +13493,8 @@ class colleseum(pygame.sprite.Sprite):
                 choice2 = pygame.Rect(896, 290, 190, 300)
                 choice3 = pygame.Rect(1105, 290, 190, 300)
 
-                mouseX, mouseY = pygame.mouse.get_pos()
-                print("x and y = " + str(mouseX) + " " + str(mouseY))
+                #mouseX, mouseY = pygame.mouse.get_pos()
+                #print("x and y = " + str(mouseX) + " " + str(mouseY))
 
                 if choice1.collidepoint(mouse_pos):
                     DISPLAYSURF.blit(image277, (630, 190))
@@ -13368,6 +13503,7 @@ class colleseum(pygame.sprite.Sprite):
                 if choice3.collidepoint(mouse_pos):
                     DISPLAYSURF.blit(image279, (630, 190))
 
+                redgloww.set_alpha(170)
                 DISPLAYSURF.blit(redgloww, (mouseX - 47, mouseY - 44))
 
                 mouse_pos = pygame.mouse.get_pos()
@@ -13381,17 +13517,17 @@ class colleseum(pygame.sprite.Sprite):
                     DISPLAYSURF.blit(image165, (198, 110))
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound(resource_path("audio/vaultopen.mp3"))
-                            sound_effect.play()
-                            self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
+                            video2.release()
+                            video3.release()
                             self.colleseumloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            video2.release()
+                            video3.release()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -13409,9 +13545,20 @@ class colleseum(pygame.sprite.Sprite):
             if (self.gamescene == 10):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image280, (197, 100))
-                image4.set_alpha(240)
-                DISPLAYSURF.blit(image4, (0, 880))
-                draw_text_center('Click to Begin', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+
+                ret, frame = video2.read()
+                if not ret:
+                    video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(80)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                draw_text_center('Click to Begin', font19, RED, DISPLAYSURF, halfdisplay, 340)
 
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -13425,19 +13572,26 @@ class colleseum(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound(resource_path("audio/vaultopen.mp3"))
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/kicksound.mp3"))
                             sound_effect.play()
                             startTime = pygame.time.get_ticks()
                             endTime = startTime + 3000
                             npcdifficulty = random.randint(1,6)
+                            npcdifficulty = random.randint(1,npcdifficulty)
+                            npcdifficulty = random.randint(1,npcdifficulty)
+                            randomtrainername = fantasy_names[random.randint(0, len(fantasy_names))]
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
+                            video2.release()
+                            video3.release()
                             self.colleseumloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            video2.release()
+                            video3.release()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -13445,9 +13599,20 @@ class colleseum(pygame.sprite.Sprite):
             if (self.gamescene == 11):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image280, (197, 100))
-                image4.set_alpha(240)
-                DISPLAYSURF.blit(image4, (0, 880))
-                draw_text_center('Generating Opponent...', font22, VELVET, DISPLAYSURF, halfdisplay, 290)
+
+                ret, frame = video2.read()
+                if not ret:
+                    video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(150)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                draw_text_center('Generating Opponent...', font22, rainbow, DISPLAYSURF, halfdisplay, 240)
 
                 if(endTime > startTime):
                     startTime = pygame.time.get_ticks()
@@ -13457,21 +13622,30 @@ class colleseum(pygame.sprite.Sprite):
                         loop = loop - 1
                         randomcipher = randomcipher+(random.choice(string.ascii_letters))
 
-                    draw_text_center(randomcipher, font22, VELVET, DISPLAYSURF, halfdisplay, 390)
+                    draw_text_center(randomcipher, font22, VELVET, DISPLAYSURF, halfdisplay, 340)
+                    randomtrainer = random.randint(0,116)
+
+                    copy_trainer = trainers[randomtrainer].copy()  # Create a copy of the surface
+                    copy_trainer.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)  # Apply the fill effect
+                    DISPLAYSURF.blit(copy_trainer, (725, 380))
 
                 if(endTime < startTime):
+                    DISPLAYSURF.blit(trainers[randomtrainer], (725, 380))
+                    draw_text_center("Opponent: " +randomtrainername, font22, BLUE, DISPLAYSURF, halfdisplay, 880)
+                    draw_text_center('Generating Opponent...', font22, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 240)
+
                     if(npcdifficulty == 1):
-                        draw_text_center("Difficulty: Easy", font22, WHITE, DISPLAYSURF, halfdisplay, 390)
+                        draw_text_center("Difficulty: Easy", font22, WHITE, DISPLAYSURF, halfdisplay, 340)
                     if(npcdifficulty == 2):
-                        draw_text_center("Difficulty: Medium", font22, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 390)
+                        draw_text_center("Difficulty: Medium", font22, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 340)
                     if(npcdifficulty == 3):
-                        draw_text_center("Difficulty: Hard", font22, EMERALD, DISPLAYSURF, halfdisplay, 390)
+                        draw_text_center("Difficulty: Hard", font22, EMERALD, DISPLAYSURF, halfdisplay, 340)
                     if(npcdifficulty == 4):
-                        draw_text_center("Difficulty: Try Hard", font22, DARKGEMBLUE, DISPLAYSURF, halfdisplay, 390)
+                        draw_text_center("Difficulty: Try Hard", font22, DARKGEMBLUE, DISPLAYSURF, halfdisplay, 340)
                     if(npcdifficulty == 5):
-                        draw_text_center("Difficulty: Insane", font22, RED, DISPLAYSURF, halfdisplay, 390)
+                        draw_text_center("Difficulty: Insane", font22, RED, DISPLAYSURF, halfdisplay, 340)
                     if(npcdifficulty == 6):
-                        draw_text_center("Difficulty: God", font22, BLACK, DISPLAYSURF, halfdisplay, 390)
+                        draw_text_center("Difficulty: God", font22, BLACK, DISPLAYSURF, halfdisplay, 340)
 
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -13492,10 +13666,14 @@ class colleseum(pygame.sprite.Sprite):
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
+                            video2.release()
+                            video3.release()
                             self.colleseumloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            video2.release()
+                            video3.release()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -13503,9 +13681,24 @@ class colleseum(pygame.sprite.Sprite):
             if (self.gamescene == 12):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image280, (197, 100))
-                image4.set_alpha(240)
-                DISPLAYSURF.blit(image4, (0, 880))
-                draw_text_center('Battle!', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
+
+                ret, frame = video2.read()
+                if not ret:
+                    video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(160)
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                battlerect = pygame.Rect(745, 390, 460, 290)
+                DISPLAYSURF.blit(image281, (725, 300))
+
+                if battlerect.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(image282, (725, 300))
 
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -13518,17 +13711,154 @@ class colleseum(pygame.sprite.Sprite):
                     DISPLAYSURF.blit(image165, (198, 110))
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound(resource_path("audio/vaultopen.mp3"))
+                        if battlerect.collidepoint(mouse_pos):
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/sworddraw.mp3"))
                             sound_effect.play()
+                            transition(6)
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
+                            video2.release()
+                            video3.release()
                             self.colleseumloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            video2.release()
+                            video3.release()
+                            pygame.mixer.music.stop()
+                            pygame.quit()
+                            sys.exit()
+                pygame.display.update()
+            if (self.gamescene == 13):
+                DISPLAYSURF.fill(BLACK)
+
+                sound_effect = pygame.mixer.Sound(resource_path("audio/battleopener.mp3"))
+                sound_effect.play()
+
+                fps = 22
+                clock = pygame.time.Clock()
+                startTime = pygame.time.get_ticks()
+                endTime = pygame.time.get_ticks() + 2500
+                while video3.isOpened():
+                    ret, frame = video3.read()
+                    if not ret:
+                        break
+                    frame = cv2.resize(frame, (1550, 880))
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    frame_surface = pygame.surfarray.make_surface(frame)
+                    frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                    frame_surface = pygame.transform.flip(frame_surface, True, False)
+                    frame_surface.set_alpha(160)
+                    DISPLAYSURF.blit(frame_surface, (190, 100))
+                    clock.tick(fps)
+                    shakeval = random.randint(-6,6)
+
+                    startTime = pygame.time.get_ticks()
+                    if(startTime > endTime):
+                        draw_text_center(characterName + '     VS     ' + randomtrainername, font19, RED, DISPLAYSURF, halfdisplay + shakeval, 240 + shakeval)
+                        DISPLAYSURF.blit(trainers[randomtrainer], (725, 380))
+                    pygame.display.update()
+
+                    for event in pygame.event.get():
+                        if (event.type == MOUSEBUTTONDOWN):
+                            print("stop clicking so much")
+                transition(5)
+                self.gamescene = self.gamescene + 1
+            if (self.gamescene == 14):
+                DISPLAYSURF.fill(BLACK)
+                if(i > 0):
+                    i = i - 50
+                DISPLAYSURF.blit(image268, (197 + i, 100))
+                fps = 25
+                clock = pygame.time.Clock()
+                ret, frame = video.read()
+                if not ret:
+                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue  # Continue to the next loop iteration
+                frame = cv2.resize(frame, (1550, 880))
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_surface = pygame.surfarray.make_surface(frame)
+                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.flip(frame_surface, True, False)
+                frame_surface.set_alpha(100)
+                DISPLAYSURF.blit(frame_surface, (190 + i, 100))
+                clock.tick(fps)
+
+                mouseX, mouseY = pygame.mouse.get_pos()
+                print("x and y = " + str(mouseX) + " " + str(mouseY))
+
+                battlebutton = pygame.Rect(halfdisplay - 250 + i, 800, 240, 70)
+                switchCharactersbutton = pygame.Rect(halfdisplay - 250 + i, 880, 240, 70)
+                itemsbutton = pygame.Rect(halfdisplay + 10 + i, 800, 240, 70)
+                forfeitbutton = pygame.Rect(halfdisplay + 10 + i, 880, 240, 70)
+                tempbeastdisplayed = None
+
+                pygame.draw.rect(DISPLAYSURF, CLOUD, battlebutton)
+                pygame.draw.rect(DISPLAYSURF, CLOUD, switchCharactersbutton)
+                pygame.draw.rect(DISPLAYSURF, CLOUD, itemsbutton)
+                pygame.draw.rect(DISPLAYSURF, CLOUD, forfeitbutton)
+                if battlebutton.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, WHITE, battlebutton)
+                    pygame.draw.rect(DISPLAYSURF, rainbow, battlebutton, 4)
+                if switchCharactersbutton.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, WHITE, switchCharactersbutton)
+                    pygame.draw.rect(DISPLAYSURF, rainbow, switchCharactersbutton, 4)
+                if itemsbutton.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, WHITE, itemsbutton)
+                    pygame.draw.rect(DISPLAYSURF, rainbow, itemsbutton, 4)
+                if forfeitbutton.collidepoint(mouse_pos):
+                    pygame.draw.rect(DISPLAYSURF, WHITE, forfeitbutton)
+                    pygame.draw.rect(DISPLAYSURF, rainbow, forfeitbutton, 4)
+                draw_text_center("Battle", font22, DARKPURPLE, DISPLAYSURF, 822 + i, 805)
+                draw_text_center("Switch", font22, AQUA, DISPLAYSURF, 822 + i, 885)
+                draw_text_center("Items", font22, GOLD, DISPLAYSURF, 1086 + i, 805)
+                draw_text_center("Forfeit", font22, BLACK, DISPLAYSURF, 1086 + i, 885)
+
+
+                if(teamchoosen == 1 and teamsize >= 1):
+                    DISPLAYSURF.blit(beasts[attributes1[8]], (165 + i, 400))
+                    draw_text_center(attributes1[0], font22, WHITE, DISPLAYSURF, halfdisplay - 450 + i, 140)
+                    healthrect = pygame.Rect(halfdisplay - 600 + i, 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    healthrectlive = pygame.Rect(halfdisplay - 600 + i, 210, (300 * (beast1healthlive / beast1health)),40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
+                    draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 + i, 265)
+
+                if(teamchoosen == 2 and teamsize >= 2):
+                    DISPLAYSURF.blit(beasts[attributes2[8]], (165 + i, 400))
+
+                if(teamchoosen == 3 and teamsize >= 3):
+                    DISPLAYSURF.blit(beasts[attributes3[8]], (165 + i, 400))
+
+
+
+                redgloww.set_alpha(170)
+                DISPLAYSURF.blit(redgloww, (mouseX - 47, mouseY - 44))
+
+                mouse_pos = pygame.mouse.get_pos()
+                draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
+                DISPLAYSURF.blit(image164, (198, 110))
+                xrect = pygame.Rect(1680, 123, 35, 35)
+                returnarrowrect = pygame.Rect(153, 110, 120, 70)
+                if xrect.collidepoint(mouse_pos):
+                    draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
+                if returnarrowrect.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(image165, (198, 110))
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if returnarrowrect.collidepoint(mouse_pos):
+                            transition(6)
+                            video.release()
+                            video2.release()
+                            video3.release()
+                            self.colleseumloop = False
+                        if xrect.collidepoint(mouse_pos):
+                            print("Quit clicked")
+                            video.release()
+                            video2.release()
+                            video3.release()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
