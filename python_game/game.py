@@ -19,6 +19,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 ########################################################################################################################
 ########################################################################################################################
+clock = pygame.time.Clock()
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -129,7 +130,7 @@ smallBeasts = [pygame.transform.scale(image, (60, 60)) for image in beasts]
 
 
 #Each element corresponds to the following
-# spawn level, hp, defense strength, spec attack, speed, Tier, Name, image location with beast[], move1, move2, move3, move4, type, exp
+# spawn level, hp, defense, strength, spec attack, speed, Tier, Name, image location with beast[], move1, move2, move3, move4, type, exp
 beastattributes = [
     [1, 4, 4, 4, 4, 4, 1, "gallo", 0, 171, 172, 'empty', 'empty', 'normal'],
     [25, 4, 4, 4, 4, 4, 2, "gallodus", 1, 94, 176, 180, 175, 'normal'],
@@ -755,12 +756,12 @@ imagewhitecircle = pygame.image.load(resource_path('images/whitehalocircle.png')
 
 image4 = pygame.image.load(resource_path('images/blackscreen.jpg'))
 image4 = pygame.transform.scale(image4, (3920, 1080))
+image4_1 = pygame.image.load(resource_path('images/blackscreen.jpg'))
+image4_1 = pygame.transform.scale(image4_1, (3920, 1080))
 image30 = pygame.image.load(resource_path('images/skipbutton.png'))
 image30 = pygame.transform.scale(image30, (90, 50))
 image31 = pygame.image.load(resource_path('images/purplerect.png'))
 image31 = pygame.transform.scale(image31, (50, 80))
-image42 = pygame.image.load(resource_path('images/yellowdiamond.png'))
-image42 = pygame.transform.scale(image42, (30, 30))
 image52 = pygame.image.load(resource_path('images/knightwalkthrough.png'))
 image52 = pygame.transform.scale(image52, (500, 250))
 image53 = pygame.image.load(resource_path('images/speechbubble.png'))
@@ -777,6 +778,8 @@ image59 = pygame.image.load(resource_path('images/paimonmenushop.png'))
 image59 = pygame.transform.scale(image59, (900, 900))
 imageBlack = pygame.image.load(resource_path('images/blackscreen.jpg'))
 imageBlack = pygame.transform.scale(imageBlack, (765, 700))
+imageBlack_1 = pygame.image.load(resource_path('images/labormarketblackscreen.jpg'))
+imageBlack_1 = pygame.transform.scale(imageBlack_1, (765, 700))
 imagebackdrop = pygame.image.load(resource_path('images/STASHBACKDROP.jpg'))
 imagebackdrop = pygame.transform.scale(imagebackdrop, (765, 700))
 image60 = pygame.image.load(resource_path('images/returnarrow.png'))
@@ -986,7 +989,6 @@ image139 = pygame.image.load(resource_path('images/redx.png'))
 image139 = pygame.transform.scale(image139, (400, 100))
 image140 = pygame.image.load(resource_path('images/laborchoiceshover1.png'))
 image140 = pygame.transform.scale(image140, (800, 600))
-image141 = pygame.image.load(resource_path('images/mininggameworld.jpg'))
 image142 = pygame.image.load(resource_path('images/betacharacter.png'))
 image142 = pygame.transform.scale(image142, (50, 50))
 image143 = pygame.image.load(resource_path('images/lightbluegem.png'))
@@ -1155,8 +1157,6 @@ image261 = pygame.image.load(resource_path('images/boulder.png'))
 
 image262 = pygame.image.load(resource_path('images/vault.jpg'))
 image262 = pygame.transform.scale(image262, (1550, 870))
-image263 = pygame.image.load(resource_path('images/seaofstars.webp'))
-image263 = pygame.transform.scale(image263, (1550, 870))
 
 image264 = pygame.image.load(resource_path('images/stashchoose.jpg'))
 image264 = pygame.transform.scale(image264, (1550, 870))
@@ -1305,7 +1305,7 @@ def modify_creature(index, new_attributes, filename="creaturedata.txt"):
         json.dump(creatures, file, indent=4)  # Save changes
 
     print(f"Creature '{creatures[index][0]}' updated successfully!")
-# modify_creature(index, {"health": 120, "attack": 25})  # Updates Dragon's health and attack
+# modify_creature(index, {"health": 120, "attack": 25})
 ########################################################################################################################
 def delete_creature_by_index(index, filename="creaturedata.txt"):
     try:
@@ -1357,19 +1357,19 @@ def modify_teamcreature(index, new_attributes, filename="teamdata.txt"):
         json.dump(creatures, file, indent=4)  # Save changes
 
     print(f"Creature updated successfully!")
-# modify_creature(index, {"health": 120, "attack": 25})  # Updates Dragon's health and attack
+# modify_creature(index, {"health": 120, "attack": 25})
 ########################################################################################################################
 def save_teamcreature(creature_data, filename="teamdata.txt"):
     try:
         with open(resource_path(filename), "r") as file:
-            data = json.load(file)  # Load existing data
+            data = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        data = []  # If file doesn't exist or is empty, start with an empty list
+        data = []
 
     data.append(creature_data)  # Add new creature data
 
     with open(resource_path(filename), "w") as file:
-        json.dump(data, file, indent=4)  # Save updated data
+        json.dump(data, file, indent=4)
 ########################################################################################################################
 def empty_item(index, filename="equipeditems.txt"):
     try:
@@ -1559,6 +1559,30 @@ def moveprint(movestatus, target = "opponent"):
 
     return movereturn
 ########################################################################################################################
+def white_flash(screen, duration=500):
+    flash_surface = pygame.Surface(screen.get_size())
+    flash_surface.fill((255, 255, 255))
+
+    clock = pygame.time.Clock()
+    start_time = pygame.time.get_ticks()
+    alpha = 255
+
+    while alpha > 0:
+        current_time = pygame.time.get_ticks()
+        elapsed = current_time - start_time
+        alpha = max(255 - int((elapsed / duration) * 255), 0)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+
+        screen.fill((0, 0, 0))  # Or your background
+        flash_surface.set_alpha(alpha)
+        screen.blit(flash_surface, (0, 0))
+        pygame.display.flip()
+        clock.tick(60)
+########################################################################################################################
 class maingameareas(pygame.sprite.Sprite):
     def __init__(self, inputvalue=""):
         super().__init__()
@@ -1567,51 +1591,108 @@ class maingameareas(pygame.sprite.Sprite):
         if self.inputvalue == "mainscreen":
             self.mainscreen()
 ########################################################################################################################
+    def preload_video_frames(self, video_path, frame_size=(1550, 880), rotate_angle=-90, flip_x=True, flip_y=False,alpha=100):
+
+        cap = cv2.VideoCapture(video_path)
+        frames = []
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+
+            frame = cv2.resize(frame, frame_size)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            surface = pygame.surfarray.make_surface(frame)
+            surface = pygame.transform.rotate(surface, rotate_angle)
+            surface = pygame.transform.flip(surface, flip_x, flip_y)
+            surface.set_alpha(alpha)
+            frames.append(surface)
+        cap.release()
+        return frames
+########################################################################################################################
     def mainscreen(self):
         global gold
         global gem
         global level
         global characterName
-        starx = random.randint(200,1500)
-        stary = random.randint(00,1100)
-        starfader = 1
-        starbool = True
         chestcollected = 0
         randomgold = 0
         randomgem = 0
         random2 = 0
         chestbool = 0
-        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+        randomsong = random.randint(1, 7)
+
+        if (randomsong == 1):
+            songchoosen1 = "audio/fantasyhomemusic.mp3"
+            songchoosen2 = "audio/beachmusic1.mp3"
+
+        if (randomsong == 2):
+            songchoosen1 = "audio/fantasyhomemusic2.mp3"
+            songchoosen2 = "audio/fantasyhomemusic.mp3"
+
+        if (randomsong == 3):
+            songchoosen1 = "audio/fantasyhomemusic3.mp3"
+            songchoosen2 = "audio/fantasyhomemusic4.mp3"
+
+        if (randomsong == 4):
+            songchoosen1 = "audio/fantasyhomemusic4.mp3"
+            songchoosen2 = "audio/fantasyhomemusic5.mp3"
+
+        if (randomsong == 5):
+            songchoosen1 = "audio/beachmusic1.mp3"
+            songchoosen2 = "audio/fantasyhomemusic3.mp3"
+
+        if (randomsong == 6):
+            songchoosen1 = "audio/medievalmusic1.mp3"
+            songchoosen2 = "audio/fantasyhomemusic5.mp3"
+
+        if (randomsong == 7):
+            songchoosen1 = "audio/fantasyhomemusic5.mp3"
+            songchoosen2 = "audio/fantasyhomemusic3.mp3"
+        pygame.mixer.music.load(resource_path(songchoosen1))
+        pygame.mixer.music.queue(resource_path(songchoosen2))
+
         pygame.mixer.music.play(-1)
         mainloop = True
-        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
 
-        bubbles = 800
+        video_frames = self.preload_video_frames(resource_path("video/underwater.mp4"),(1550, 880), -90, True, False, 70)
+        frame_index = 0
+        frame_timer = 0
+        frame_delay = 3  # Slows video to ~15 FPS
+
+        image133.set_alpha(150)
+
+        bubbles = 200
         bubblex = []
         bubbley = []
         bubblechooser = []
+        image00.set_alpha(210)
+        image01.set_alpha(210)
+        image02.set_alpha(210)
+
         while(bubbles != 0):
             bubblex.append(random.randint(1, 2000))
             bubbley.append((bubbles * 100) + (random.randint(1, 12000)))
             bubblechooser.append(random.randint(0, 2))
             bubbles = bubbles - 1
 
+        with open(resource_path("gamedata.txt"), "r") as file:
+            lines = file.readlines()
+            goldline = lines[0].strip()
+            goldline = goldline[7:]
+            gemline = lines[1].strip()
+            gemline = gemline[6:]
+            nameline = lines[2].strip()
+            nameline = nameline[7:]
+            level = lines[15].strip()
+            level = level[8:]
+            level = int(level)
+            gem = int(gemline)
+            gold = int(goldline)
+            characterName = str(nameline)
         while(mainloop):
-            with open(resource_path("gamedata.txt"), "r") as file:
-                lines = file.readlines()
-                goldline = lines[0].strip()
-                goldline = goldline[7:]
-                gemline = lines[1].strip()
-                gemline = gemline[6:]
-                nameline = lines[2].strip()
-                nameline = nameline[7:]
-                level = lines[15].strip()
-                level = level[8:]
-                level = int(level)
-                gem = int(gemline)
-                gold = int(goldline)
-                characterName = str(nameline)
+            clock.tick(60)
 
             startTime = pygame.time.get_ticks()
             rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
@@ -1620,9 +1701,7 @@ class maingameareas(pygame.sprite.Sprite):
 
             mouseX, mouseY = pygame.mouse.get_pos()
             mouse_pos = pygame.mouse.get_pos()
-            global textFader
             DISPLAYSURF.fill(BLACK)
-            image4.set_alpha(textFader)
             DISPLAYSURF.blit(image132, (195, 100))
 
             paimonrect = pygame.Rect(1300, 420, 270, 130)
@@ -1671,20 +1750,12 @@ class maingameareas(pygame.sprite.Sprite):
             if adventurerect.collidepoint(mouse_pos):
                 DISPLAYSURF.blit(image0138, (195, 100))
 
-            ret, frame = video.read()
-            if not ret:
-                video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                continue  # Continue to the next loop iteration
-            frame = cv2.resize(frame, (1550, 880))
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_surface = pygame.surfarray.make_surface(frame)
-            frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
-            frame_surface = pygame.transform.flip(frame_surface, True, False)
-            frame_surface.set_alpha(70)
+            if frame_timer == 0:
+                frame_surface = video_frames[frame_index]
+                frame_index = (frame_index + 1) % len(video_frames)
+            frame_timer = (frame_timer + 1) % frame_delay
             DISPLAYSURF.blit(frame_surface, (190, 100))
 
-
-            image133.set_alpha(150)
             DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
 
             chesttimer = pygame.time.get_ticks()
@@ -1704,20 +1775,6 @@ class maingameareas(pygame.sprite.Sprite):
                 if(random2 == 1):
                     draw_text_center("You received " +str(randomgem) +" gems from the treasure chest!", font5, PURPLE, DISPLAYSURF, halfdisplay, 270)
 
-            if(starbool):
-                starfader = starfader + 1
-            if(starbool == False):
-                starfader = starfader - 1
-            if(starfader == 0):
-                starbool = True
-                starx = random.randint(200, 1500)
-                stary = random.randint(00, 1100)
-            if(starfader == 255):
-                starbool = False
-
-            image128.set_alpha(starfader)
-            DISPLAYSURF.blit(image128, (starx, stary))
-
             DISPLAYSURF.blit(image220, (360, 130))
             DISPLAYSURF.blit(image221, (655, 125))
             DISPLAYSURF.blit(image222, (1260, 130))
@@ -1731,8 +1788,6 @@ class maingameareas(pygame.sprite.Sprite):
             draw_text_center("Coming Soon", font13, DARKRED, DISPLAYSURF, 960, 460)
             draw_text_center("Coming Soon", font13, DARKRED, DISPLAYSURF, 780, 254)
 
-            mouseX, mouseY = pygame.mouse.get_pos()
-
             # pygame.draw.rect(DISPLAYSURF, PURPLE, paimonrect, 6)
             # pygame.draw.rect(DISPLAYSURF, BLUE, labormarketrect, 6)
             # pygame.draw.rect(DISPLAYSURF, RED, gamblingdenrect, 6)
@@ -1743,12 +1798,9 @@ class maingameareas(pygame.sprite.Sprite):
             # pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, blackmarketrect, 6)
             # pygame.draw.rect(DISPLAYSURF, GOLD, adventurerect, 6)
 
-            bubblecounter = 799
+            bubblecounter = 199
             while (bubblecounter > 0):
                 bubbley[bubblecounter] = bubbley[bubblecounter] - 1
-                image00.set_alpha(210)
-                image01.set_alpha(210)
-                image02.set_alpha(210)
                 if(bubblechooser[bubblecounter] == 0):
                     DISPLAYSURF.blit(image00, (bubblex[bubblecounter], bubbley[bubblecounter]))
                 elif(bubblechooser[bubblecounter] == 1):
@@ -1756,10 +1808,6 @@ class maingameareas(pygame.sprite.Sprite):
                 elif(bubblechooser[bubblecounter] == 2):
                     DISPLAYSURF.blit(image02, (bubblex[bubblecounter], bubbley[bubblecounter]))
                 bubblecounter = bubblecounter - 1
-
-
-            if (textFader < 253):
-                textFader = textFader + 2
 
             draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
             xrect = pygame.Rect(1680, 123, 35, 35)
@@ -1797,88 +1845,175 @@ class maingameareas(pygame.sprite.Sprite):
                             sound_effect.play()
                             chestbool = 150
                             chestcollected = chesttimer
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                lines[0] = f"gold = {gold}\n"
+                                lines[1] = f"gem = {gem}\n"
+                            with open(resource_path("gamedata.txt"), "w") as file:
+                                file.writelines(lines)
+
                     if paimonrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         PaimonShop()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if labormarketrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         labormarket()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if gamblingdenrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         casino()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if guildrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
+                        draw_text_center('Lucidea has lost its light, becoming a Bastion of War. Good and evil coexist.',font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 895)
+                        draw_text_center('The question remains on which side you will choose...', font5,LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         guild()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if blackmarketrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         blackmarket()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if stashrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         stash()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if colesseumrect.collidepoint(mouse_pos):
-                        video.release()
                         transition(6)
                         sound_effect = pygame.mixer.Sound(resource_path("audio/dissapearwhoosh.mp3"))
                         sound_effect.play()
                         colleseum()
-                        pygame.mixer.music.load(resource_path("audio/fantasyhomemusic.mp3"))
-                        pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+                        pygame.mixer.music.load(resource_path(songchoosen1))
+                        pygame.mixer.music.queue(resource_path(songchoosen2))
                         pygame.mixer.music.play(-1)
-                        video = cv2.VideoCapture(resource_path("video/underwater.mp4"))
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            nameline = lines[2].strip()
+                            nameline = nameline[7:]
+                            level = lines[15].strip()
+                            level = level[8:]
+                            level = int(level)
+                            gem = int(gemline)
+                            gold = int(goldline)
+                            characterName = str(nameline)
                     if xrect.collidepoint(mouse_pos):
                         print("Quit clicked")
-                        video.release()
                         pygame.mixer.music.stop()
                         pygame.quit()
                         sys.exit()
-            with open(resource_path("gamedata.txt"), "r") as file:
-                lines = file.readlines()
-                lines[0] = f"gold = {gold}\n"
-                lines[1] = f"gem = {gem}\n"
-            with open(resource_path("gamedata.txt"), "w") as file:
-                file.writelines(lines)
+
             pygame.display.update()
 ########################################################################################################################
 class PaimonShop(pygame.sprite.Sprite):
@@ -1886,6 +2021,23 @@ class PaimonShop(pygame.sprite.Sprite):
         super().__init__()
         self.menu_activepaimon = True
         self.paimonshop()
+        imageBlack2.set_alpha(220)
+        imageBlack.set_alpha(210)
+########################################################################################################################
+    def yourbroke(self):
+        startTime  = pygame.time.get_ticks()
+        completeTime = startTime + 600
+        sound_effect = pygame.mixer.Sound(resource_path("audio/error.mp3"))
+        sound_effect.play()
+        while(completeTime > startTime):
+            startTime = pygame.time.get_ticks()
+            draw_text_center("NOT ENOUGH GOLD", font20, PINK, DISPLAYSURF, halfdisplay, 500)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    print("stop clicking so damn much")
+
+        return 0
 ########################################################################################################################
     def displayitemscene(self, itemdisplay, gamescene, name, temporary, imagecore, image, attack=0, armor=0, speed=0,
                          hp=0, specialattack=0, luck=0, price=0):
@@ -1894,12 +2046,10 @@ class PaimonShop(pygame.sprite.Sprite):
         rainbowcolor2 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
         rainbowcolor3 = int((math.sin(startTime * 0.005 + 2) + 1) * 127.5)
         mouse_pos = pygame.mouse.get_pos()
-        errorswitch = False
         global gold
         global itemlist
         global itemboughtswitch
 
-        imageBlack.set_alpha(210)
         DISPLAYSURF.blit(imageBlack, (600, 195))
         image128.set_alpha(rainbowcolor1)
         DISPLAYSURF.blit(image128, (570, 155))
@@ -1911,16 +2061,6 @@ class PaimonShop(pygame.sprite.Sprite):
         else:
             DISPLAYSURF.blit(image130, (1350, 630))
 
-        errorimagecounter = 0
-        if(errorswitch):
-            DISPLAYSURF.blit(image136, (1350, 630))
-            if (errorimagecounter < 100):
-                errorimagecounter = errorimagecounter + 1
-            else:
-                errorimagecounter = 0
-                itemboughtswitch = False
-
-        imageBlack2.set_alpha(220)
         DISPLAYSURF.blit(imageBlack2, (1385, 550))
         draw_text("Current Gold- ", font11, WHITE, DISPLAYSURF, 1395, 565)
         draw_text(str(gold), font11, GOLD, DISPLAYSURF, 1560, 565)
@@ -1959,6 +2099,12 @@ class PaimonShop(pygame.sprite.Sprite):
                         sound_effect = pygame.mixer.Sound(resource_path("audio/coinsound.mp3"))
                         itemboughtswitch = True
                         sound_effect.play()
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            lines[0] = f"gold = {gold}\n"
+                            lines[1] = f"gem = {gem}\n"
+                        with open(resource_path("gamedata.txt"), "w") as file:
+                            file.writelines(lines)
                         item = {
                             "name": name,
                             "imagecore": imagecore,
@@ -1975,10 +2121,8 @@ class PaimonShop(pygame.sprite.Sprite):
                             save_creature(item, "tempitems.txt")
                         return (0, 7)
                     else:
-                        sound_effect = pygame.mixer.Sound(resource_path("audio/error.mp3"))
-                        errorswitch = True
-                        sound_effect.play()
-                        pygame.mixer.music.set_volume(0.5)
+                        self.yourbroke()
+                        itemboughtswitch = False
 
         return (itemdisplay, gamescene)
     ########################################################################################################################
@@ -1986,23 +2130,10 @@ class PaimonShop(pygame.sprite.Sprite):
         global FaderBool
         global Fader
         global textFader
-        if (FaderBool):
-            Fader = Fader + .5
-            if (Fader > 110):
-                FaderBool = False
-        if (FaderBool == False):
-            Fader = Fader - .5
-            if (Fader < 10):
-                FaderBool = True
-        mouse_pos = pygame.mouse.get_pos()
         mouseX, mouseY = pygame.mouse.get_pos()
         DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
         xrect = pygame.Rect(1680, 123, 35, 35)
-        xrect2 = pygame.Rect(130, 100, 120, 80)
-        mouseX, mouseY = pygame.mouse.get_pos()
         mouse_pos = pygame.mouse.get_pos()
-        image42.set_alpha(Fader)
-        DISPLAYSURF.blit(image42, (1655, 917))
         draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
         if xrect.collidepoint(mouse_pos):
             draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -2032,11 +2163,9 @@ class PaimonShop(pygame.sprite.Sprite):
         global Fader
         global textFader
         global itemboughtswitch
-        startTime = pygame.time.get_ticks()
         self.gamescene = 1
         itemdisplay = 0
         xcounter = 0
-        mouse_pos = pygame.mouse.get_pos()
         pygame.mixer.music.load(resource_path("audio/celestialmusic.mp3"))
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
@@ -2044,6 +2173,31 @@ class PaimonShop(pygame.sprite.Sprite):
         global textFader
         global characterName
         global firsttimepaimon
+
+        image59.set_alpha(230)
+        image4.set_alpha(100)
+
+        channel1 = pygame.mixer.Channel(0)
+        channel2 = pygame.mixer.Channel(1)
+        channel1.set_volume(1.0)
+        channel2.set_volume(1.0)
+
+        voicebool = True
+        paimon2 = pygame.mixer.Sound("audio/paimon2.mp3")
+        paimon3 = pygame.mixer.Sound("audio/paimon3.mp3")
+        paimon4 = pygame.mixer.Sound("audio/paimon4.mp3")
+        paimon5 = pygame.mixer.Sound("audio/paimon5.mp3")
+        paimon6 = pygame.mixer.Sound("audio/paimon6.mp3")
+        paimon12 = pygame.mixer.Sound("audio/paimon12.mp3")
+
+        paimonintro1 = pygame.mixer.Sound("audio/paimonintro1.mp3")
+        paimonintro2 = pygame.mixer.Sound("audio/paimonintro2.mp3")
+        paimonintro3 = pygame.mixer.Sound("audio/paimonintro3.mp3")
+        paimonintro4 = pygame.mixer.Sound("audio/paimonintro4.mp3")
+        paimonintro5 = pygame.mixer.Sound("audio/paimonintro5.mp3")
+        paimonintro6 = pygame.mixer.Sound("audio/paimonintro6.mp3")
+        paimonintro7 = pygame.mixer.Sound("audio/paimonintro7.mp3")
+        paimonintro8 = pygame.mixer.Sound("audio/paimonintro8.mp3")
 
         with open(resource_path("gamedata.txt"), "r") as file:
             lines = file.readlines()
@@ -2056,6 +2210,7 @@ class PaimonShop(pygame.sprite.Sprite):
             self.gamescene = 10
 
         while self.menu_activepaimon:
+            clock.tick(60)
             with open(resource_path("gamedata.txt"), "r") as file:
                 lines = file.readlines()
                 if len(lines) >= 8:
@@ -2072,6 +2227,10 @@ class PaimonShop(pygame.sprite.Sprite):
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
             if (self.gamescene == 2):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(paimon2)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image58, (200, 100))
                 DISPLAYSURF.blit(image53, (1070, 110))
@@ -2080,7 +2239,13 @@ class PaimonShop(pygame.sprite.Sprite):
                 draw_text('its so nice to meet you!', font5, PINK, DISPLAYSURF, 1210, 200)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
+                if(self.gamescene != 2):
+                    voicebool = True
             if (self.gamescene == 3):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(paimon3)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image58, (200, 100))
                 DISPLAYSURF.blit(image53, (1070, 110))
@@ -2089,7 +2254,13 @@ class PaimonShop(pygame.sprite.Sprite):
                 draw_text('with a human', font5, PINK, DISPLAYSURF, 1240, 200)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
+                if(self.gamescene != 3):
+                    voicebool = True
             if (self.gamescene == 4):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(paimon4)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image58, (200, 100))
                 DISPLAYSURF.blit(image53, (1070, 110))
@@ -2097,7 +2268,13 @@ class PaimonShop(pygame.sprite.Sprite):
                 draw_text('you must come here often okay?', font5, PINK, DISPLAYSURF, 1175, 200)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
+                if(self.gamescene != 4):
+                    voicebool = True
             if (self.gamescene == 5):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(paimon5)
+                    voicebool = False
                 with open(resource_path("gamedata.txt"), "r") as file:
                     lines = file.readlines()
                     lines[11] = f"firstpaimonshop = false\n"
@@ -2111,7 +2288,13 @@ class PaimonShop(pygame.sprite.Sprite):
                 draw_text('g', font15, SKYBLUE, DISPLAYSURF, 1345, 190)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
+                if(self.gamescene != 5):
+                    voicebool = True
             if (self.gamescene == 6):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(paimon6)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image58, (200, 100))
                 DISPLAYSURF.blit(image53, (1070, 110))
@@ -2119,7 +2302,12 @@ class PaimonShop(pygame.sprite.Sprite):
                 draw_text('for you.', font5, PINK, DISPLAYSURF, 1280, 200)
                 self.gamescene = self.xbutton(self.gamescene)
                 pygame.display.update()
+                if(self.gamescene != 6):
+                    voicebool = True
             if ((self.gamescene == 7)and (itemdisplay == 0)):
+                if(voicebool):
+                    channel1.stop()
+                    voicebool = False
                 startTime = pygame.time.get_ticks()
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
@@ -2127,8 +2315,6 @@ class PaimonShop(pygame.sprite.Sprite):
                 rainbow = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image58, (200, 100))
-                image59.set_alpha(230)
-                image4.set_alpha(100)
                 DISPLAYSURF.blit(image4, (0, 0))
                 DISPLAYSURF.blit(image59, (530, 80))
                 DISPLAYSURF.blit(image60, (1430, 130))
@@ -2302,7 +2488,6 @@ class PaimonShop(pygame.sprite.Sprite):
                         pygame.draw.rect(DISPLAYSURF, (rainbow), hover_rect34, 6)
                 ################
                 if (itemboughtswitch):
-                    imageBlack2.set_alpha(220)
                     DISPLAYSURF.blit(imageBlack2, (800, 450))
                     DISPLAYSURF.blit(imageBlack2, (860, 450))
 
@@ -2594,23 +2779,10 @@ class PaimonShop(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-                if (FaderBool):
-                    Fader = Fader + .5
-                    if (Fader > 110):
-                        FaderBool = False
-                if (FaderBool == False):
-                    Fader = Fader - .5
-                    if (Fader < 10):
-                        FaderBool = True
-                mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 xrect = pygame.Rect(1680, 123, 35, 35)
-                xrect2 = pygame.Rect(130, 100, 120, 80)
-                mouseX, mouseY = pygame.mouse.get_pos()
                 mouse_pos = pygame.mouse.get_pos()
-                image42.set_alpha(Fader)
-                DISPLAYSURF.blit(image42, (1655, 917))
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -2650,24 +2822,10 @@ class PaimonShop(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-
-                if (FaderBool):
-                    Fader = Fader + .5
-                    if (Fader > 110):
-                        FaderBool = False
-                if (FaderBool == False):
-                    Fader = Fader - .5
-                    if (Fader < 10):
-                        FaderBool = True
-                mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 xrect = pygame.Rect(1680, 123, 35, 35)
-                xrect2 = pygame.Rect(130, 100, 120, 80)
-                mouseX, mouseY = pygame.mouse.get_pos()
                 mouse_pos = pygame.mouse.get_pos()
-                image42.set_alpha(Fader)
-                DISPLAYSURF.blit(image42, (1655, 917))
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -2694,27 +2852,46 @@ class PaimonShop(pygame.sprite.Sprite):
                                 textFader = 0
                                 self.gamescene = self.gamescene + 1
 
+                choosendialogue = paimonintro1
                 if(randomtext == 0):
+                    choosendialogue = paimonintro1
                     draw_text('Hey cutie your back again I see!', font5, PINK, DISPLAYSURF, 1145, 175)
                 elif(randomtext == 1):
+                    choosendialogue = paimonintro2
                     draw_text('Did you miss me ' +characterName +"?", font5, PINK, DISPLAYSURF, 1235, 175)
                 elif(randomtext == 2):
+                    choosendialogue = paimonintro3
                     draw_text('I missed you so much ' +characterName +"!", font5, PINK, DISPLAYSURF, 1205, 175)
                 elif(randomtext == 3):
+                    choosendialogue = paimonintro4
                     draw_text('Mmm look who it is, my cutest customer.', font5, PINK, DISPLAYSURF, 1135, 175)
                 elif(randomtext == 4):
-                    draw_text('Ahhh, my future husband has come back !', font5, PINK, DISPLAYSURF, 1135, 175)
+                    choosendialogue = paimonintro5
+                    draw_text('Ahhh, my future husband has come back!', font5, PINK, DISPLAYSURF, 1135, 175)
                     draw_text('finally!', font5, PINK, DISPLAYSURF, 1270, 200)
                 elif(randomtext == 5):
+                    choosendialogue = paimonintro6
                     draw_text('Welcome back master <3', font5, PINK, DISPLAYSURF, 1170, 175)
                 elif(randomtext == 6):
+                    choosendialogue = paimonintro7
                     draw_text('I got some interesting new items for you', font5, PINK, DISPLAYSURF, 1135, 175)
                     draw_text('sweetie!', font5, PINK, DISPLAYSURF, 1270, 200)
                 elif(randomtext == 7):
+                    choosendialogue = paimonintro8
                     draw_text('How come you havent been coming as much', font5, PINK, DISPLAYSURF, 1135, 175)
                     draw_text('lately? :(', font5, PINK, DISPLAYSURF, 1270, 200)
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(choosendialogue)
+                    voicebool = False
+                if(self.gamescene != 11):
+                    voicebool = True
                 pygame.display.update()
             if (self.gamescene == 12):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(paimon12)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image58, (200, 100))
                 DISPLAYSURF.blit(image53, (1070, 110))
@@ -2725,23 +2902,11 @@ class PaimonShop(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-                if (FaderBool):
-                    Fader = Fader + .5
-                    if (Fader > 110):
-                        FaderBool = False
-                if (FaderBool == False):
-                    Fader = Fader - .5
-                    if (Fader < 10):
-                        FaderBool = True
-                mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 xrect = pygame.Rect(1680, 123, 35, 35)
-                xrect2 = pygame.Rect(130, 100, 120, 80)
-                mouseX, mouseY = pygame.mouse.get_pos()
                 mouse_pos = pygame.mouse.get_pos()
-                image42.set_alpha(Fader)
-                DISPLAYSURF.blit(image42, (1655, 917))
+
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -2772,12 +2937,6 @@ class PaimonShop(pygame.sprite.Sprite):
                 pygame.display.update()
             if (self.gamescene == 13):
                 self.gamescene = 7
-        with open(resource_path("gamedata.txt"), "r") as file:
-            lines = file.readlines()
-            lines[0] = f"gold = {gold}\n"
-            lines[1] = f"gem = {gem}\n"
-        with open(resource_path("gamedata.txt"), "w") as file:
-            file.writelines(lines)
         return 0
 ########################################################################################################################
 ########################################################################################################################
@@ -2792,22 +2951,9 @@ class labormarket(pygame.sprite.Sprite):
         global FaderBool
         global Fader
         global textFader
-        if (FaderBool):
-            Fader = Fader + .5
-            if (Fader > 110):
-                FaderBool = False
-        if (FaderBool == False):
-            Fader = Fader - .5
-            if (Fader < 10):
-                FaderBool = True
-        mouse_pos = pygame.mouse.get_pos()
-        mouseX, mouseY = pygame.mouse.get_pos()
+
         xrect = pygame.Rect(1680, 123, 35, 35)
-        xrect2 = pygame.Rect(130, 100, 120, 80)
-        mouseX, mouseY = pygame.mouse.get_pos()
         mouse_pos = pygame.mouse.get_pos()
-        image42.set_alpha(Fader)
-        DISPLAYSURF.blit(image42, (1655, 917))
         draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
         if xrect.collidepoint(mouse_pos):
             draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -2832,20 +2978,34 @@ class labormarket(pygame.sprite.Sprite):
         return gamescene
     ########################################################################################################################
     def labormarketmenu(self):
+        clock = pygame.time.Clock()
         global FaderBool
         global Fader
         global textFader
         video = cv2.VideoCapture(resource_path("video/goldglitterbackground.mp4"))
-        startTime = pygame.time.get_ticks()
         self.gamescene = 1
-        mouse_pos = pygame.mouse.get_pos()
         pygame.mixer.music.load(resource_path("audio/goblindancemusic.mp3"))
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         print("labor market initialized")
         global textFader
         global characterName
+        image133.set_alpha(150)
+        imageBlack.set_alpha(210)
+        image4.set_alpha(210)
+
+        channel1 = pygame.mixer.Channel(0)
+        channel2 = pygame.mixer.Channel(1)
+        channel1.set_volume(1.0)
+        channel2.set_volume(1.0)
+        voicebool = True
+        labor2 = pygame.mixer.Sound("audio/labor2.mp3")
+        labor3 = pygame.mixer.Sound("audio/labor3.mp3")
+        labor4 = pygame.mixer.Sound("audio/labor4.mp3")
+
+        clock = pygame.time.Clock()
         while self.goblinmenubool:
+            clock.tick(60)
             if (self.gamescene == 1):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image137, (200, 100))
@@ -2864,6 +3024,7 @@ class labormarket(pygame.sprite.Sprite):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if clickrect.collidepoint(mouse_pos):
                             self.gamescene = self.gamescene + 1
+                            voicebool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.goblinmenubool = False
@@ -2872,11 +3033,15 @@ class labormarket(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
-
+                if(self.gamescene != 1):
+                    voicebool = True
             if (self.gamescene == 2):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(labor2)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image137, (200, 100))
-                image4.set_alpha(210)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('Welcome friend,', font13, RED, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('what brings you here today?', font13, RED, DISPLAYSURF, halfdisplay, 925)
@@ -2897,16 +3062,21 @@ class labormarket(pygame.sprite.Sprite):
                             self.goblinmenubool = False
                         if clickrect.collidepoint(mouse_pos):
                             self.gamescene = self.gamescene + 1
+                            voicebool = True
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
-
+                if(self.gamescene != 2):
+                    voicebool = True
             if (self.gamescene == 3):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(labor3)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image137, (200, 100))
-                image4.set_alpha(210)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('Are you looking to make some quick gold?', font13, RED, DISPLAYSURF, halfdisplay, 890)
                 self.gamescene = self.xbutton(self.gamescene)
@@ -2924,6 +3094,7 @@ class labormarket(pygame.sprite.Sprite):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if clickrect.collidepoint(mouse_pos):
                             self.gamescene = self.gamescene + 1
+                            voicebool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.goblinmenubool = False
@@ -2932,11 +3103,15 @@ class labormarket(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
-
+                if(self.gamescene != 3):
+                    voicebool = True
             if (self.gamescene == 4):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(labor4)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image137, (200, 100))
-                image4.set_alpha(210)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('Come, Come, I have a job for you', font13, RED, DISPLAYSURF, halfdisplay, 890)
                 self.gamescene = self.xbutton(self.gamescene)
@@ -2954,6 +3129,7 @@ class labormarket(pygame.sprite.Sprite):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if clickrect.collidepoint(mouse_pos):
                             self.gamescene = self.gamescene + 1
+                            voicebool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.goblinmenubool = False
@@ -2962,21 +3138,24 @@ class labormarket(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
-
+                if(self.gamescene != 4):
+                    voicebool = True
             if (self.gamescene == 5):
+                if(voicebool):
+                    channel1.stop()
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image137, (200, 100))
-                imageBlack.set_alpha(210)
-                DISPLAYSURF.blit(imageBlack, (620, 160))
+                DISPLAYSURF.blit(imageBlack_1, (620, 160))
 
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -2996,9 +3175,6 @@ class labormarket(pygame.sprite.Sprite):
                 if mininrect.collidepoint(mouse_pos):
                     DISPLAYSURF.blit(image140, (590, 230))
                     pygame.draw.rect(DISPLAYSURF, PURPLE, mininrect, 6)
-                DISPLAYSURF.blit(image139, (650, 485))
-                DISPLAYSURF.blit(image139, (650, 590))
-                DISPLAYSURF.blit(image139, (650, 695))
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if mininrect.collidepoint(mouse_pos):
@@ -3016,7 +3192,6 @@ class labormarket(pygame.sprite.Sprite):
                             sys.exit()
 
             mouseX, mouseY = pygame.mouse.get_pos()
-            image133.set_alpha(150)
             DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
             pygame.display.update()
 ########################################################################################################################
@@ -3030,11 +3205,32 @@ class labormarket(pygame.sprite.Sprite):
             global spawnchance
             global specialefficiency
             startTime = pygame.time.get_ticks()
+            dig_surface = pygame.Surface((9498, 19408), pygame.SRCALPHA)
             scene = 1
-            popcounter = 1
-            mouse_pos = pygame.mouse.get_pos()
-            pygame.mixer.music.load(resource_path("audio/beachmusic.mp3"))
-            pygame.mixer.music.queue(resource_path("audio/fantasyhomemusic2.mp3"))
+            randomsong = random.randint(1,5)
+            if(randomsong == 1):
+                songchoosen1 = "audio/beachmusic.mp3"
+                songchoosen2 = "audio/beachmusic3.mp3"
+
+            if(randomsong == 2):
+                songchoosen1 = "audio/beachmusic2.mp3"
+                songchoosen2 = "audio/beachmusic3.mp3"
+
+            if(randomsong == 3):
+                songchoosen1 = "audio/beachmusic3.mp3"
+                songchoosen2 = "audio/beachmusic4.mp3"
+
+            if(randomsong == 4):
+                songchoosen1 = "audio/beachmusic4.mp3"
+                songchoosen2 = "audio/beachmusic2.mp3"
+
+            if(randomsong == 5):
+                songchoosen1 = "audio/beachmusic3.mp3"
+                songchoosen2 = "audio/beachmusic.mp3"
+
+
+            pygame.mixer.music.load(resource_path(songchoosen1))
+            pygame.mixer.music.queue(resource_path(songchoosen2))
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
             secondsextra = 0
@@ -3048,6 +3244,7 @@ class labormarket(pygame.sprite.Sprite):
             looptimet =0
             timert = 0
             digs = []
+            digbool = False
             tempgold = 0
             tempgem = 0
             global gold
@@ -3057,6 +3254,8 @@ class labormarket(pygame.sprite.Sprite):
             spawncounter = 10000
             tempgold2 = 0
             tempgem2 = 0
+            image171.set_alpha(220)
+
 
             sunlightfader = 1
             sunlightbool = True
@@ -3069,42 +3268,37 @@ class labormarket(pygame.sprite.Sprite):
             timecount = True
             begintime = 0
             start_ticks = 0
+
+            with open(resource_path("gamedata.txt"), "r") as file:
+                lines = file.readlines()
+                if len(lines) >= 8:
+                    goldline = lines[0].strip()
+                    goldline = goldline[7:]
+                    gemline = lines[1].strip()
+                    gemline = gemline[6:]
+                    miningspeedline = lines[5].strip()
+                    miningspeedline = miningspeedline[14:]
+                    miningefficiencyline = lines[6].strip()
+                    miningefficiencyline = miningefficiencyline[19:]
+                    timeline = lines[7].strip()
+                    timeline = timeline[7:]
+                    luckline = lines[8].strip()
+                    luckline = luckline[7:]
+                    spawnchanceline = lines[9].strip()
+                    spawnchanceline = spawnchanceline[14:]
+                    specialefficiencyline = lines[10].strip()
+                    specialefficiencyline = specialefficiencyline[20:]
+                    miningspeed = int(miningspeedline)
+                    miningefficiency = int(miningefficiencyline)
+                    time = int(timeline)
+                    luck = int(luckline)
+                    gold = int(goldline)
+                    gem = int(gemline)
+                    spawnchance = int(spawnchanceline)
+                    specialefficiency = int(specialefficiencyline)
+            clock = pygame.time.Clock()
             while(self.diggingbool):
-                with open(resource_path("gamedata.txt"), "r") as file:
-                    lines = file.readlines()
-                    if len(lines) >= 8:
-                        goldline = lines[0].strip()
-                        goldline = goldline[7:]
-                        gemline = lines[1].strip()
-                        gemline = gemline[6:]
-                        miningspeedline = lines[5].strip()
-                        miningspeedline = miningspeedline[14:]
-                        miningefficiencyline = lines[6].strip()
-                        miningefficiencyline = miningefficiencyline[19:]
-                        timeline = lines[7].strip()
-                        timeline = timeline[7:]
-                        luckline = lines[8].strip()
-                        luckline = luckline[7:]
-                        spawnchanceline = lines[9].strip()
-                        spawnchanceline = spawnchanceline[14:]
-                        specialefficiencyline = lines[10].strip()
-                        specialefficiencyline = specialefficiencyline[20:]
-                        miningspeed = int(miningspeedline)
-                        miningefficiency = int(miningefficiencyline)
-                        time = int(timeline)
-                        luck = int(luckline)
-                        gold = int(goldline)
-                        gem = int(gemline)
-                        spawnchance = int(spawnchanceline)
-                        specialefficiency = int(specialefficiencyline)
-                        ######
-                        miningspeedtemp = int(miningspeedline)
-                        miningefficiencytemp = int(miningefficiencyline)
-                        timetemp = int(timeline)
-                        lucktemp = int(luckline)
-                        spawnchancetemp = int(spawnchanceline)
-                        specialefficiencytemp = int(specialefficiencyline)
-                        ######
+                clock.tick(60)
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 rainbowcolor3 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
@@ -3135,8 +3329,6 @@ class labormarket(pygame.sprite.Sprite):
                     beginrect = pygame.Rect(760, 680, 440, 95)
                     returnarrowrect = pygame.Rect(153, 110, 120, 70)
                     statsrect = pygame.Rect(1450, 340, 210, 180)
-                    pygame.draw.rect(DISPLAYSURF, (DARKGREEN), statsrect, 6)
-                    pygame.draw.rect(DISPLAYSURF, (RED), returnarrowrect, 6)
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                     if statsrect.collidepoint(mouse_pos):
                         DISPLAYSURF.blit(image169, (1450, 340))
@@ -3172,11 +3364,6 @@ class labormarket(pygame.sprite.Sprite):
                     movementbool3 = True
                     movementbool4 = True
 
-                    if(popcounter <= 5):
-                        popcounter = popcounter + 1
-                    if(popcounter > 5):
-                        popcounter = 0
-
                     if(tempgold > 0):
                         tempgold2 = tempgold
                     if(tempgem > 0):
@@ -3189,23 +3376,6 @@ class labormarket(pygame.sprite.Sprite):
                         x = 964
                     if(x < -8480):
                         x = -8480
-                    if (miningspeedtemp < 5):
-                        if(len(digs) > 53):
-                            digs.pop(0)
-                            digs.pop(1)
-                            digs.pop(2)
-
-                    if (5 <= miningspeedtemp < 10):
-                        if(len(digs) > 53):
-                            digs.pop(0)
-                            digs.pop(1)
-                            digs.pop(2)
-
-                    if (10 <= miningspeedtemp):
-                        if(len(digs) > 53):
-                            digs.pop(0)
-                            digs.pop(1)
-                            digs.pop(2)
 
                     if(timecount == True):
                         begintime = 45000 + (3000 * time)
@@ -3216,13 +3386,18 @@ class labormarket(pygame.sprite.Sprite):
                     seconds = (remaining_time // 1000) + secondsextra
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image150, (x, y))
-                    for element in digs:
-                        if (miningspeedtemp < 5):
-                            DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
-                        if (5 <= miningspeedtemp < 10):
-                            DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
-                        if (10 <= miningspeedtemp):
-                            DISPLAYSURF.blit(image151, (element[0] + x, element[1] + y))
+
+                    if digbool:
+                        if len(digs) > 50:
+                            digs = digs[-50:]
+                        dig_x = (-x + screen_width / 2)
+                        dig_y = (-y + screen_height / 2)
+                        digs.append((dig_x, dig_y))
+                        dig_surface.blit(image151, (dig_x, dig_y))
+                        digbool = False
+
+                    DISPLAYSURF.blit(dig_surface, (x, y))
+
                     screen_width, screen_height = DISPLAYSURF.get_size()
                     DISPLAYSURF.blit(image142, (screen_width/2, screen_height/2))
                     itemgenerationcounter = (90 + (4 * int(spawnchance)))
@@ -3401,13 +3576,13 @@ class labormarket(pygame.sprite.Sprite):
 
                         randomcritter = itemgenerationcounter % 4
                         if (randomcritter == 1):
-                            DISPLAYSURF.blit(image257, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                            DISPLAYSURF.blit(image257, (int(xlocation[itemgenerationcounter + 4250] + x), int(ylocation[itemgenerationcounter + 4250] + y + 3000)))
                         if (randomcritter == 2):
-                            DISPLAYSURF.blit(image258, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                            DISPLAYSURF.blit(image258, (int(xlocation[itemgenerationcounter + 4250] + x), int(ylocation[itemgenerationcounter + 4250] + y + 3000)))
                         if (randomcritter == 0):
-                            DISPLAYSURF.blit(image259, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                            DISPLAYSURF.blit(image259, (int(xlocation[itemgenerationcounter + 4250] + x), int(ylocation[itemgenerationcounter + 4250] + y + 3000)))
                         if (randomcritter == 3):
-                            DISPLAYSURF.blit(image260, (xlocation[itemgenerationcounter + 4250] + x, ylocation[itemgenerationcounter + 4250] + y + 3000))
+                            DISPLAYSURF.blit(image260, (int(xlocation[itemgenerationcounter + 4250] + x), int(ylocation[itemgenerationcounter + 4250] + y + 3000)))
 
                         batrect = pygame.Rect((xlocation[itemgenerationcounter + 4250] + x - 16, ylocation[itemgenerationcounter + 4250] + y - 30 + 3000, 120, 90))
 
@@ -3452,13 +3627,13 @@ class labormarket(pygame.sprite.Sprite):
 
                         if batrect2.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                             if((screen_center[0] + 10) >  xlocation[itemgenerationcounter + 4250] + x):
-                                xlocation[itemgenerationcounter + 4250] = xlocation[itemgenerationcounter + 4250] + 1
+                                xlocation[itemgenerationcounter + 4250] = xlocation[itemgenerationcounter + 4250] + .8
                             if((screen_center[0] + 10) <  xlocation[itemgenerationcounter + 4250] + x):
-                                xlocation[itemgenerationcounter + 4250] = xlocation[itemgenerationcounter + 4250] - 1
+                                xlocation[itemgenerationcounter + 4250] = xlocation[itemgenerationcounter + 4250] - .8
                             if ((screen_center[1] + 10) > ylocation[itemgenerationcounter + 4250] + y + 3000):
-                                ylocation[itemgenerationcounter + 4250] = ylocation[itemgenerationcounter + 4250] + 1
+                                ylocation[itemgenerationcounter + 4250] = ylocation[itemgenerationcounter + 4250] + .8
                             if ((screen_center[1] + 10) < ylocation[itemgenerationcounter + 4250] + y + 3000):
-                                ylocation[itemgenerationcounter + 4250] = ylocation[itemgenerationcounter + 4250] - 1
+                                ylocation[itemgenerationcounter + 4250] = ylocation[itemgenerationcounter + 4250] - .8
 
                         if batrect.collidepoint((screen_center[0] + 10, screen_center[1] + 10)):
                             xlocation[itemgenerationcounter + 4250] = (-20000)
@@ -3593,49 +3768,48 @@ class labormarket(pygame.sprite.Sprite):
                     if(looptimet > timert):
                         timert = pygame.time.get_ticks()
                         draw_text_center('gained ' +str(secondstouch) +' seconds!', font5, (0, 0, rainbowcolor3), DISPLAYSURF, halfdisplay, screen_height/2 - 180)
-                    speed = .9 + (.20 * miningspeed)
+                    speed = 1.2 + (.20 * miningspeed)
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_s:
                                 if(movementbool1 == True):
                                     y = y - speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
                             elif event.key == pygame.K_w:
                                 if(movementbool2 == True):
                                     y = y + speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                             elif event.key == pygame.K_d:
                                 if(movementbool3 == True):
                                     x = x - speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                             elif event.key == pygame.K_a:
                                 if(movementbool4 == True):
                                     x = x + speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                             elif event.key == pygame.K_UP:
                                 if(movementbool2 == True):
                                     y = y + speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                             elif event.key == pygame.K_DOWN:
                                 if(movementbool1 == True):
                                     y = y - speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                             elif event.key == pygame.K_LEFT:
                                 if(movementbool4 == True):
                                     x = x + speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                             elif event.key == pygame.K_RIGHT:
                                 if(movementbool3 == True):
                                     x = x - speed
-                                    if(popcounter == 3):
-                                        digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                                    digbool = True
+
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if returnarrowrect.collidepoint(mouse_pos):
                                 transition(6)
@@ -3656,43 +3830,35 @@ class labormarket(pygame.sprite.Sprite):
                     if keys[pygame.K_s]:
                         if (movementbool1 == True):
                             y = y - speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_w]:
                         if (movementbool2 == True):
                             y = y + speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_d]:
                         if (movementbool3 == True):
                             x = x - speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_a]:
                         if (movementbool4 == True):
                             x = x + speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_UP]:
                         if (movementbool2 == True):
                             y = y + speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_DOWN]:
                         if (movementbool1 == True):
                             y = y - speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_LEFT]:
                         if (movementbool4 == True):
                             x = x + speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     if keys[pygame.K_RIGHT]:
                         if (movementbool3 == True):
                             x = x - speed
-                            if (popcounter == 3):
-                                digs.append(((-x + screen_width / 2), (-y + screen_height / 2)))
+                            digbool = True
                     draw_text_center(str(seconds) +" seconds remaining", font4, rainbowcol, DISPLAYSURF, halfdisplay, screen_height/2 - 400)
                     if seconds <= 0:
                         print("Time's up!")
@@ -3706,6 +3872,40 @@ class labormarket(pygame.sprite.Sprite):
                             lines[1] = f"gem = {gem}\n"
                         with open(resource_path("gamedata.txt"), "w") as file:
                             file.writelines(lines)
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            if len(lines) >= 8:
+                                goldline = lines[0].strip()
+                                goldline = goldline[7:]
+                                gemline = lines[1].strip()
+                                gemline = gemline[6:]
+                                miningspeedline = lines[5].strip()
+                                miningspeedline = miningspeedline[14:]
+                                miningefficiencyline = lines[6].strip()
+                                miningefficiencyline = miningefficiencyline[19:]
+                                timeline = lines[7].strip()
+                                timeline = timeline[7:]
+                                luckline = lines[8].strip()
+                                luckline = luckline[7:]
+                                spawnchanceline = lines[9].strip()
+                                spawnchanceline = spawnchanceline[14:]
+                                specialefficiencyline = lines[10].strip()
+                                specialefficiencyline = specialefficiencyline[20:]
+                                miningspeed = int(miningspeedline)
+                                miningefficiency = int(miningefficiencyline)
+                                time = int(timeline)
+                                luck = int(luckline)
+                                gold = int(goldline)
+                                gem = int(gemline)
+                                spawnchance = int(spawnchanceline)
+                                specialefficiency = int(specialefficiencyline)
+                                ######
+                                miningspeedtemp = int(miningspeedline)
+                                miningefficiencytemp = int(miningefficiencyline)
+                                timetemp = int(timeline)
+                                lucktemp = int(luckline)
+                                spawnchancetemp = int(spawnchanceline)
+                                specialefficiencytemp = int(specialefficiencyline)
                         scene = 3
                     xrect = pygame.Rect(1680, 123, 35, 35)
                     returnarrowrect = pygame.Rect(150, 110, 120, 70)
@@ -3715,8 +3915,6 @@ class labormarket(pygame.sprite.Sprite):
                     draw_text(str(tempgem2), font5, BLUE, DISPLAYSURF, 665, 135)
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                     DISPLAYSURF.blit(image152, (198, 110))
-                    pygame.draw.rect(DISPLAYSURF, (RED), xrect, 6)
-                    pygame.draw.rect(DISPLAYSURF, (RED), returnarrowrect, 6)
                     if xrect.collidepoint(mouse_pos):
                         draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                     if returnarrowrect.collidepoint(mouse_pos):
@@ -3731,7 +3929,9 @@ class labormarket(pygame.sprite.Sprite):
                     pygame.draw.rect(DISPLAYSURF, (BLACK), enddayrect)
                     draw_text("End Day?", font4, (rainbowcolor2,0,0), DISPLAYSURF, screen_width/2 - 60, screen_height/2 - 45)
                     xrect = pygame.Rect(1680, 123, 35, 35)
+                    DISPLAYSURF.blit(image152, (198, 110))
                     returnarrowrect = pygame.Rect(150, 110, 120, 70)
+                    draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                     if enddayrect.collidepoint(mouse_pos):
                         pygame.draw.rect(DISPLAYSURF, (WHITE), enddayrect2, 5)
                     if xrect.collidepoint(mouse_pos):
@@ -3742,7 +3942,7 @@ class labormarket(pygame.sprite.Sprite):
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if enddayrect.collidepoint(mouse_pos):
                                 transition(6)
-                                sound_effect = pygame.mixer.Sound(resource_path("audio/scifinoise.mp3"))
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/happy.mp3"))
                                 sound_effect.play()
                                 self.diggingbool = False
                                 tempgold2 = 0
@@ -3768,13 +3968,16 @@ class labormarket(pygame.sprite.Sprite):
                 if(scene == 4):
                     mouse_pos = pygame.mouse.get_pos()
                     screen_width, screen_height = DISPLAYSURF.get_size()
+                    draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                     draw_text_center("YOU DIED", font19, RED, DISPLAYSURF, halfdisplay, screen_height/2 - 300)
-                    enddayrect = pygame.Rect(screen_width/2 - 50, screen_height/2 - 70, 230, 105)
-                    enddayrect2 = pygame.Rect(screen_width/2 - 50, screen_height/2 - 70, 230, 105)
+                    enddayrect = pygame.Rect(screen_width/2 - 90, screen_height/2 - 70, 230, 105)
+                    enddayrect2 = pygame.Rect(screen_width/2 - 90, screen_height/2 - 70, 230, 105)
                     pygame.draw.rect(DISPLAYSURF, (BLACK), enddayrect)
-                    draw_text("Try Again?", font4, PURPLE, DISPLAYSURF, screen_width/2 - 55, screen_height/2 - 35)
+                    draw_text("Try Again?", font4, PURPLE, DISPLAYSURF, screen_width/2 - 70, screen_height/2 - 35)
                     xrect = pygame.Rect(1680, 123, 35, 35)
                     returnarrowrect = pygame.Rect(150, 110, 120, 70)
+                    DISPLAYSURF.blit(image152, (198, 110))
+
                     if enddayrect.collidepoint(mouse_pos):
                         pygame.draw.rect(DISPLAYSURF, (WHITE), enddayrect2, 5)
                     if xrect.collidepoint(mouse_pos):
@@ -3805,13 +4008,18 @@ class labormarket(pygame.sprite.Sprite):
                                 sys.exit()
 
                 if(scene == 5):
+                    miningspeedtemp = int(miningspeedline)
+                    miningefficiencytemp = int(miningefficiencyline)
+                    timetemp = int(timeline)
+                    lucktemp = int(luckline)
+                    spawnchancetemp = int(spawnchanceline)
+                    specialefficiencytemp = int(specialefficiencyline)
                     startTime = pygame.time.get_ticks()
                     rainbowcolor1 = int((math.sin(startTime * 0.001) + 1) * 127.5)
                     rainbowcolor2 = int((math.sin(startTime * 0.006 + 2) + 1) * 127.5)
                     rainbowcolor3 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                     color1 = (rainbowcolor1,rainbowcolor3,rainbowcolor2)
                     mouse_pos = pygame.mouse.get_pos()
-                    imageBlack.set_alpha(210)
                     DISPLAYSURF.blit(imageBlack, (620, 160))
                     DISPLAYSURF.blit(image170, (380, 105))
                     draw_text('gold-', font5, GOLD, DISPLAYSURF, 300, 135)
@@ -3839,7 +4047,7 @@ class labormarket(pygame.sprite.Sprite):
                     pygame.draw.rect(DISPLAYSURF, (RED), plusrect5, 5)
                     pygame.draw.rect(DISPLAYSURF, (RED), plusrect6, 5)
 
-                    DISPLAYSURF.blit(image152, (198, 110))
+                    DISPLAYSURF.blit(image153, (198, 110))
                     xrect = pygame.Rect(1680, 123, 35, 35)
                     returnarrowrect = pygame.Rect(150, 110, 120, 70)
 
@@ -3863,7 +4071,6 @@ class labormarket(pygame.sprite.Sprite):
                         draw_text('+', font2, color1, DISPLAYSURF, 1380, 310)
 
 
-                    image171.set_alpha(220)
                     while(miningspeedtemp > 0):
                         DISPLAYSURF.blit(image171, (535 + (49.4 * miningspeedtemp), 321))
                         miningspeedtemp = miningspeedtemp - 1
@@ -3886,7 +4093,7 @@ class labormarket(pygame.sprite.Sprite):
                     if xrect.collidepoint(mouse_pos):
                         draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                     if returnarrowrect.collidepoint(mouse_pos):
-                        DISPLAYSURF.blit(image153, (198, 110))
+                        DISPLAYSURF.blit(image152, (198, 110))
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if returnarrowrect.collidepoint(mouse_pos):
@@ -3950,7 +4157,33 @@ class labormarket(pygame.sprite.Sprite):
                                 lines[10] = f"specialefficiency = {specialefficiency}\n"
                             with open(resource_path("gamedata.txt"), "w") as file:
                                 file.writelines(lines)
-
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                if len(lines) >= 8:
+                                    goldline = lines[0].strip()
+                                    goldline = goldline[7:]
+                                    gemline = lines[1].strip()
+                                    gemline = gemline[6:]
+                                    miningspeedline = lines[5].strip()
+                                    miningspeedline = miningspeedline[14:]
+                                    miningefficiencyline = lines[6].strip()
+                                    miningefficiencyline = miningefficiencyline[19:]
+                                    timeline = lines[7].strip()
+                                    timeline = timeline[7:]
+                                    luckline = lines[8].strip()
+                                    luckline = luckline[7:]
+                                    spawnchanceline = lines[9].strip()
+                                    spawnchanceline = spawnchanceline[14:]
+                                    specialefficiencyline = lines[10].strip()
+                                    specialefficiencyline = specialefficiencyline[20:]
+                                    miningspeed = int(miningspeedline)
+                                    miningefficiency = int(miningefficiencyline)
+                                    time = int(timeline)
+                                    luck = int(luckline)
+                                    gold = int(goldline)
+                                    gem = int(gemline)
+                                    spawnchance = int(spawnchanceline)
+                                    specialefficiency = int(specialefficiencyline)
                 pygame.display.update()
 ########################################################################################################################
 
@@ -3959,6 +4192,7 @@ class casino(pygame.sprite.Sprite):
         super().__init__()
         self.casinomenubool = True
         self.casinomenu()
+        clock = pygame.time.Clock()
 ########################################################################################################################
     def yourbroke(self):
         startTime  = pygame.time.get_ticks()
@@ -3980,9 +4214,7 @@ class casino(pygame.sprite.Sprite):
         global Fader
         global textFader
         video = cv2.VideoCapture(resource_path("video/casinobackgroundglow.mp4"))
-        startTime = pygame.time.get_ticks()
         self.gamescene = 1
-        mouse_pos = pygame.mouse.get_pos()
         pygame.mixer.music.load(resource_path("audio/casinostartmusic.mp3"))
         pygame.mixer.music.queue(resource_path("audio/slotsmusic.mp3"))
         pygame.mixer.music.set_volume(0.5)
@@ -3990,7 +4222,22 @@ class casino(pygame.sprite.Sprite):
         print("Casino initialized")
         global textFader
         global characterName
+
+        channel1 = pygame.mixer.Channel(0)
+        channel2 = pygame.mixer.Channel(1)
+        channel1.set_volume(1.0)
+        channel2.set_volume(1.0)
+
+        neko1 = pygame.mixer.Sound("audio/neko1.mp3")
+        neko2 = pygame.mixer.Sound("audio/neko2.mp3")
+        neko3 = pygame.mixer.Sound("audio/neko3.mp3")
+
+        imagee133.set_alpha(150)
+        image4.set_alpha(240)
+        imageBlack.set_alpha(240)
+        clock = pygame.time.Clock()
         while self.casinomenubool:
+            clock.tick(60)
             startTime = pygame.time.get_ticks()
             mouseX, mouseY = pygame.mouse.get_pos()
             if (self.gamescene == 1):
@@ -4011,8 +4258,11 @@ class casino(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channel1.stop()
+                            channel1.play(neko1)
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
+                            channel1.stop()
                             self.casinomenubool = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
@@ -4023,7 +4273,6 @@ class casino(pygame.sprite.Sprite):
             if (self.gamescene == 2):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image172, (200, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('Hello young master,', font5, GREY, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('welcome back! ', font5, GREY, DISPLAYSURF, halfdisplay, 925)
@@ -4040,11 +4289,14 @@ class casino(pygame.sprite.Sprite):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
+                            channel1.stop()
                             self.casinomenubool = False
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channel1.stop()
+                            channel1.play(neko2)
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             pygame.mixer.music.stop()
@@ -4054,7 +4306,6 @@ class casino(pygame.sprite.Sprite):
             if (self.gamescene == 3):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image172, (200, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('I hope we can fulfill all of your needs,', font5, GREY, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('and more..', font5, GREY, DISPLAYSURF, halfdisplay, 925)
@@ -4073,8 +4324,11 @@ class casino(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channel1.stop()
+                            channel1.play(neko3)
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
+                            channel1.stop()
                             self.casinomenubool = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
@@ -4085,7 +4339,6 @@ class casino(pygame.sprite.Sprite):
             if (self.gamescene == 4):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image172, (200, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('Please follow me master', font5, GREY, DISPLAYSURF, halfdisplay, 890)
                 mouse_pos = pygame.mouse.get_pos()
@@ -4102,9 +4355,11 @@ class casino(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channel1.stop()
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
+                            channel1.stop()
                             self.casinomenubool = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
@@ -4114,10 +4369,8 @@ class casino(pygame.sprite.Sprite):
 
             if (self.gamescene == 5):
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
-                rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image172, (200, 100))
-                imageBlack.set_alpha(240)
                 DISPLAYSURF.blit(imageBlack, (620, 160))
 
                 ret, frame = video.read()
@@ -4127,7 +4380,7 @@ class casino(pygame.sprite.Sprite):
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -4190,7 +4443,6 @@ class casino(pygame.sprite.Sprite):
                             sys.exit()
 
             mouseX, mouseY = pygame.mouse.get_pos()
-            imagee133.set_alpha(150)
             DISPLAYSURF.blit(imagee133, (mouseX - 40, mouseY - 42))
             pygame.display.update()
 ########################################################################################################################
@@ -4202,6 +4454,7 @@ class casino(pygame.sprite.Sprite):
         itemchoosen = " "
         blackorred = 0
         moneychoosen = 0
+        image4.set_alpha(100)
         while(self.repeatcasinoloop):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
@@ -4210,17 +4463,18 @@ class casino(pygame.sprite.Sprite):
             pygame.mixer.music.load(resource_path("audio/roulettemusic.mp3"))
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
+            with open(resource_path("gamedata.txt"), "r") as file:
+                lines = file.readlines()
+                if len(lines) >= 8:
+                    goldline = lines[0].strip()
+                    goldline = goldline[7:]
+                    gemline = lines[1].strip()
+                    gemline = gemline[6:]
+                    gem = int(gemline)
+                    gold = int(goldline)
+            clock = pygame.time.Clock()
             while(self.casinogamebool):
-                with open(resource_path("gamedata.txt"), "r") as file:
-                    lines = file.readlines()
-                    if len(lines) >= 8:
-                        goldline = lines[0].strip()
-                        goldline = goldline[7:]
-                        gemline = lines[1].strip()
-                        gemline = gemline[6:]
-                        gem = int(gemline)
-                        gold = int(goldline)
-                        ######
+                clock.tick(60)
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 rainbowcolor3 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
@@ -4230,7 +4484,6 @@ class casino(pygame.sprite.Sprite):
                     mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image174, (190, 100))
-                    image4.set_alpha(100)
                     DISPLAYSURF.blit(image4, (0, 0))
                     DISPLAYSURF.blit(image164, (198, 110))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
@@ -4397,6 +4650,11 @@ class casino(pygame.sprite.Sprite):
                         else:
                             won = False
                             gold = gold - moneychoosen
+                        with open(resource_path("gamedata.txt"), "r") as file:
+                            lines = file.readlines()
+                            lines[0] = f"gold = {gold}\n"
+                        with open(resource_path("gamedata.txt"), "w") as file:
+                            file.writelines(lines)
                         fps = int(cap1.get(cv2.CAP_PROP_FPS))
                         clock = pygame.time.Clock()
                         while cap1.isOpened():
@@ -4436,6 +4694,7 @@ class casino(pygame.sprite.Sprite):
                             clock.tick(fps)
                         cap2.release()
                     scene = scene + 1
+
                     pygame.display.update()
                 if(scene == 3):
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
@@ -4446,14 +4705,22 @@ class casino(pygame.sprite.Sprite):
                         draw_text('You lost ' +str(moneychoosen) +" gold", font2, (rainbowcolor1, 0 ,rainbowcolor1), DISPLAYSURF, 725, 220)
 
                     pygame.display.flip()
-                    mouse_pos = pygame.mouse.get_pos()
                     for event in pygame.event.get():
-                        with open(resource_path("gamedata.txt"), "r") as file:
-                            lines = file.readlines()
-                            lines[0] = f"gold = {gold}\n"
-                        with open(resource_path("gamedata.txt"), "w") as file:
-                            file.writelines(lines)
                         if event.type == pygame.MOUSEBUTTONDOWN:
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                lines[0] = f"gold = {gold}\n"
+                            with open(resource_path("gamedata.txt"), "w") as file:
+                                file.writelines(lines)
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                if len(lines) >= 8:
+                                    goldline = lines[0].strip()
+                                    goldline = goldline[7:]
+                                    gemline = lines[1].strip()
+                                    gemline = gemline[6:]
+                                    gem = int(gemline)
+                                    gold = int(goldline)
                             scene = 1
                     pygame.display.update()
 ########################################################################################################################
@@ -4461,6 +4728,8 @@ class casino(pygame.sprite.Sprite):
         global gem
         global gold
         moneychoosen = 0
+        image180.set_alpha(100)
+
         while(self.repeatslotloop):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
@@ -4469,28 +4738,25 @@ class casino(pygame.sprite.Sprite):
             pygame.mixer.music.queue(resource_path("audio/slotsmusic2.mp3"))
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
+            with open(resource_path("gamedata.txt"), "r") as file:
+                lines = file.readlines()
+                if len(lines) >= 8:
+                    goldline = lines[0].strip()
+                    goldline = goldline[7:]
+                    gemline = lines[1].strip()
+                    gemline = gemline[6:]
+                    gem = int(gemline)
+                    gold = int(goldline)
+            clock = pygame.time.Clock()
             while(self.casinogamebool):
-                with open(resource_path("gamedata.txt"), "r") as file:
-                    lines = file.readlines()
-                    if len(lines) >= 8:
-                        goldline = lines[0].strip()
-                        goldline = goldline[7:]
-                        gemline = lines[1].strip()
-                        gemline = gemline[6:]
-                        gem = int(gemline)
-                        gold = int(goldline)
-                        ######
+                clock.tick(60)
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 rainbowcolor3 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
                 rainbowcol = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
                 startTime = pygame.time.get_ticks()
                 mouseX, mouseY = pygame.mouse.get_pos()
-                randomnumber1 = random.randint(1,9)
-                randomnumber2 = random.randint(1,9)
-                randomnumber3 = random.randint(1,9)
                 if(scene == 1):
-                    mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image176, (190, 100))
                     mouse_pos = pygame.mouse.get_pos()
@@ -4548,10 +4814,8 @@ class casino(pygame.sprite.Sprite):
                                 sys.exit()
                     pygame.display.update()
                 if (scene == 3):
-                    mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image176, (190, 100))
-                    image180.set_alpha(100)
                     DISPLAYSURF.blit(image180, (0, 0))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
                     draw_text(str(gold), font5, YELLOW, DISPLAYSURF, 445, 135)
@@ -4667,9 +4931,7 @@ class casino(pygame.sprite.Sprite):
                     draw_text('100000', font3, GREY, DISPLAYSURF, 1391, 860)
                     pygame.display.update()
                 if (scene == 4):
-                    mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image176, (190, 100))
-                    image180.set_alpha(100)
                     DISPLAYSURF.blit(image180, (0, 0))
                     DISPLAYSURF.blit(image177, (360, 60))
                     mouse_pos = pygame.mouse.get_pos()
@@ -4701,12 +4963,25 @@ class casino(pygame.sprite.Sprite):
                                 if(gold >= moneychoosen):
                                     gold = gold - moneychoosen
                                     scene = scene + 1
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        lines[0] = f"gold = {gold}\n"
+                                    with open(resource_path("gamedata.txt"), "w") as file:
+                                        file.writelines(lines)
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        if len(lines) >= 8:
+                                            goldline = lines[0].strip()
+                                            goldline = goldline[7:]
+                                            gemline = lines[1].strip()
+                                            gemline = gemline[6:]
+                                            gem = int(gemline)
+                                            gold = int(goldline)
                     pygame.display.update()
                 if (scene == 5):
                     time1 = pygame.time.get_ticks()
                     loop = True
                     DISPLAYSURF.blit(image176, (190, 100))
-                    image180.set_alpha(100)
                     DISPLAYSURF.blit(image180, (0, 0))
                     DISPLAYSURF.blit(image178, (360, 60))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
@@ -4898,6 +5173,15 @@ class casino(pygame.sprite.Sprite):
                                 lines[1] = f"gem = {gem}\n"
                             with open(resource_path("gamedata.txt"), "w") as file:
                                 file.writelines(lines)
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                if len(lines) >= 8:
+                                    goldline = lines[0].strip()
+                                    goldline = goldline[7:]
+                                    gemline = lines[1].strip()
+                                    gemline = gemline[6:]
+                                    gem = int(gemline)
+                                    gold = int(goldline)
                             scene = scene + 1
                         pygame.display.update()
                     pygame.display.update()
@@ -4933,6 +5217,8 @@ class casino(pygame.sprite.Sprite):
         global gold
         dicechoosen = 0
         moneychoosen = 0
+        image199.set_alpha(150)
+
         while(self.repeatdiceloop):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
@@ -4940,28 +5226,25 @@ class casino(pygame.sprite.Sprite):
             pygame.mixer.music.load(resource_path("audio/dicemusic.mp3"))
             pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play(-1)
+            with open(resource_path("gamedata.txt"), "r") as file:
+                lines = file.readlines()
+                if len(lines) >= 8:
+                    goldline = lines[0].strip()
+                    goldline = goldline[7:]
+                    gemline = lines[1].strip()
+                    gemline = gemline[6:]
+                    gem = int(gemline)
+                    gold = int(goldline)
+            clock = pygame.time.Clock()
             while(self.casinogamebool):
-                with open(resource_path("gamedata.txt"), "r") as file:
-                    lines = file.readlines()
-                    if len(lines) >= 8:
-                        goldline = lines[0].strip()
-                        goldline = goldline[7:]
-                        gemline = lines[1].strip()
-                        gemline = gemline[6:]
-                        gem = int(gemline)
-                        gold = int(goldline)
-                        ######
+                clock.tick(60)
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 rainbowcolor3 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
                 rainbowcol = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
                 startTime = pygame.time.get_ticks()
                 mouseX, mouseY = pygame.mouse.get_pos()
-                randomnumber1 = random.randint(1,9)
-                randomnumber2 = random.randint(1,9)
-                randomnumber3 = random.randint(1,9)
                 if (scene == -1):
-                    mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image191, (190, 100))
                     mouse_pos = pygame.mouse.get_pos()
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -4989,10 +5272,8 @@ class casino(pygame.sprite.Sprite):
                                 scene = scene + 1
                     pygame.display.update()
                 if(scene == 0):
-                    mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image191, (190, 100))
-                    image199.set_alpha(150)
                     DISPLAYSURF.blit(image199, (0, 0))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
                     draw_text(str(gold), font5, YELLOW, DISPLAYSURF, 445, 135)
@@ -5170,9 +5451,7 @@ class casino(pygame.sprite.Sprite):
                     draw_text('1000000', font3, GREY, DISPLAYSURF, 1380, 860)
                     pygame.display.update()
                 if (scene == 1):
-                    mouse_pos = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image191, (190, 100))
-                    image199.set_alpha(150)
                     DISPLAYSURF.blit(image199, (0, 0))
                     DISPLAYSURF.blit(image197, (800, 325))
                     mouse_pos = pygame.mouse.get_pos()
@@ -5204,10 +5483,23 @@ class casino(pygame.sprite.Sprite):
                                 if(gold >= moneychoosen):
                                     gold = gold - moneychoosen
                                     scene = scene + 1
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        lines[0] = f"gold = {gold}\n"
+                                    with open(resource_path("gamedata.txt"), "w") as file:
+                                        file.writelines(lines)
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        if len(lines) >= 8:
+                                            goldline = lines[0].strip()
+                                            goldline = goldline[7:]
+                                            gemline = lines[1].strip()
+                                            gemline = gemline[6:]
+                                            gem = int(gemline)
+                                            gold = int(goldline)
                     pygame.display.update()
                 if (scene == 2):
                     DISPLAYSURF.blit(image191, (190, 100))
-                    image199.set_alpha(150)
                     DISPLAYSURF.blit(image199, (0, 0))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
                     draw_text(str(gold), font5, YELLOW, DISPLAYSURF, 445, 135)
@@ -5282,6 +5574,15 @@ class casino(pygame.sprite.Sprite):
                         lines[1] = f"gem = {gem}\n"
                     with open(resource_path("gamedata.txt"), "w") as file:
                         file.writelines(lines)
+                    with open(resource_path("gamedata.txt"), "r") as file:
+                        lines = file.readlines()
+                        if len(lines) >= 8:
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            gem = int(gemline)
+                            gold = int(goldline)
                     scene = scene + 1
                     pygame.display.update()
 
@@ -5333,24 +5634,25 @@ class casino(pygame.sprite.Sprite):
         timer = 0
         standswitch = False
         moneychoosen = 0
-        standcounter = 0
+        image4.set_alpha(70)
         while(self.repeatblackjackloop):
             self.casinogamebool = True
             startTime = pygame.time.get_ticks()
             scene = -1
             pygame.mixer.music.load(resource_path("audio/blackjack1.mp3"))
             pygame.mixer.music.play(-1)
+            with open(resource_path("gamedata.txt"), "r") as file:
+                lines = file.readlines()
+                if len(lines) >= 8:
+                    goldline = lines[0].strip()
+                    goldline = goldline[7:]
+                    gemline = lines[1].strip()
+                    gemline = gemline[6:]
+                    gem = int(gemline)
+                    gold = int(goldline)
+            clock = pygame.time.Clock()
             while(self.casinogamebool):
-                with open(resource_path("gamedata.txt"), "r") as file:
-                    lines = file.readlines()
-                    if len(lines) >= 8:
-                        goldline = lines[0].strip()
-                        goldline = goldline[7:]
-                        gemline = lines[1].strip()
-                        gemline = gemline[6:]
-                        gem = int(gemline)
-                        gold = int(goldline)
-                        ######
+                clock.tick(60)
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 rainbowcolor3 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
@@ -5598,10 +5900,8 @@ class casino(pygame.sprite.Sprite):
                                 scene = scene + 1
                     pygame.display.update()
                 if(scene == 0):
-                    mouseX, mouseY = pygame.mouse.get_pos()
                     DISPLAYSURF.fill(BLACK)
                     DISPLAYSURF.blit(image232, (190, 100))
-                    image4.set_alpha(70)
                     DISPLAYSURF.blit(image4, (0, 0))
                     draw_text('gold - ', font5, WHITE, DISPLAYSURF, 375, 135)
                     draw_text(str(gold), font5, YELLOW, DISPLAYSURF, 445, 135)
@@ -5708,7 +6008,6 @@ class casino(pygame.sprite.Sprite):
                                 card2y = -100
                                 card3y = -400
                                 card4y = -400
-                                gold = gold - moneychoosen
                                 scene = scene + 1
                                 timer = 125
                     draw_text('100', font3, RED, DISPLAYSURF, 435, 755)
@@ -5721,9 +6020,7 @@ class casino(pygame.sprite.Sprite):
                     pygame.display.update()
 
                 if (scene == 1):
-                    mouseX, mouseY = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image232, (190, 100))
-                    image4.set_alpha(70)
                     DISPLAYSURF.blit(image4, (0, 0))
                     mouse_pos = pygame.mouse.get_pos()
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -6007,9 +6304,7 @@ class casino(pygame.sprite.Sprite):
                                     standswitch = True
                     pygame.display.update()
                 if (scene == 2):
-                    mouseX, mouseY = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image232, (190, 100))
-                    image4.set_alpha(70)
                     DISPLAYSURF.blit(image4, (0, 0))
                     mouse_pos = pygame.mouse.get_pos()
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -6318,9 +6613,7 @@ class casino(pygame.sprite.Sprite):
                                     standswitch = True
                     pygame.display.update()
                 if (scene == 3):
-                    mouseX, mouseY = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image232, (190, 100))
-                    image4.set_alpha(70)
                     DISPLAYSURF.blit(image4, (0, 0))
                     mouse_pos = pygame.mouse.get_pos()
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -6645,9 +6938,7 @@ class casino(pygame.sprite.Sprite):
                                     standswitch = True
                     pygame.display.update()
                 if (scene == 4):
-                    mouseX, mouseY = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image232, (190, 100))
-                    image4.set_alpha(70)
                     DISPLAYSURF.blit(image4, (0, 0))
                     mouse_pos = pygame.mouse.get_pos()
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -6986,9 +7277,7 @@ class casino(pygame.sprite.Sprite):
                                     standswitch = True
                     pygame.display.update()
                 if (scene == 5):
-                    mouseX, mouseY = pygame.mouse.get_pos()
                     DISPLAYSURF.blit(image232, (190, 100))
-                    image4.set_alpha(70)
                     DISPLAYSURF.blit(image4, (0, 0))
                     mouse_pos = pygame.mouse.get_pos()
                     draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -7333,6 +7622,15 @@ class casino(pygame.sprite.Sprite):
                                     lines[0] = f"gold = {gold}\n"
                                 with open(resource_path("gamedata.txt"), "w") as file:
                                     file.writelines(lines)
+                                with open(resource_path("gamedata.txt"), "r") as file:
+                                    lines = file.readlines()
+                                    if len(lines) >= 8:
+                                        goldline = lines[0].strip()
+                                        goldline = goldline[7:]
+                                        gemline = lines[1].strip()
+                                        gemline = gemline[6:]
+                                        gem = int(gemline)
+                                        gold = int(goldline)
                                 standswitch = False
                                 scene = 0
                     pygame.display.update()
@@ -7349,6 +7647,15 @@ class casino(pygame.sprite.Sprite):
                                     lines[0] = f"gold = {gold}\n"
                                 with open(resource_path("gamedata.txt"), "w") as file:
                                     file.writelines(lines)
+                                with open(resource_path("gamedata.txt"), "r") as file:
+                                    lines = file.readlines()
+                                    if len(lines) >= 8:
+                                        goldline = lines[0].strip()
+                                        goldline = goldline[7:]
+                                        gemline = lines[1].strip()
+                                        gemline = gemline[6:]
+                                        gem = int(gemline)
+                                        gold = int(goldline)
                                 standswitch = False
                                 scene = 0
                     pygame.display.update()
@@ -7365,6 +7672,15 @@ class casino(pygame.sprite.Sprite):
                                     lines[0] = f"gold = {gold}\n"
                                 with open(resource_path("gamedata.txt"), "w") as file:
                                     file.writelines(lines)
+                                with open(resource_path("gamedata.txt"), "r") as file:
+                                    lines = file.readlines()
+                                    if len(lines) >= 8:
+                                        goldline = lines[0].strip()
+                                        goldline = goldline[7:]
+                                        gemline = lines[1].strip()
+                                        gemline = gemline[6:]
+                                        gem = int(gemline)
+                                        gold = int(goldline)
                                 standswitch = False
                                 scene = 0
                     pygame.display.update()
@@ -7376,22 +7692,79 @@ class guild(pygame.sprite.Sprite):
         self.guildbool2 = True
         self.guildroom()
 ########################################################################################################################
+    def preload_video_frames(self, video_path, frame_size=(1550, 880), rotate_angle=-90, flip_x=True, flip_y=False,alpha=100):
+
+        cap = cv2.VideoCapture(video_path)
+        frames = []
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+
+            frame = cv2.resize(frame, frame_size)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            surface = pygame.surfarray.make_surface(frame)
+            surface = pygame.transform.rotate(surface, rotate_angle)
+            surface = pygame.transform.flip(surface, flip_x, flip_y)
+            surface.set_alpha(alpha)
+            frames.append(surface)
+        cap.release()
+        return frames
+    ########################################################################################################################
     def guildroom(self):
         global FaderBool
         global Fader
         global textFader
-        video = cv2.VideoCapture(resource_path("video/glowparticlevideo.mp4"))
 
-        startTime = pygame.time.get_ticks()
+        video_frames = self.preload_video_frames(resource_path("video/glowparticlevideo.mp4"),(1550, 880), -90, True, False, 100)
+
+        frame_index = 0
+        imageBlack.set_alpha(120)
         self.gamescene = 1
         x = 390
         y = 600
         alchemylevelupbool = False
         boolleftorright = True
-        mouse_pos = pygame.mouse.get_pos()
-        pygame.mixer.music.load(resource_path("audio/bardmusic.mp3"))
-        pygame.mixer.music.queue(resource_path("audio/bardmusic2.mp3"))
-        pygame.mixer.music.set_volume(0.5)
+
+        channel1 = pygame.mixer.Channel(0)
+        channel2 = pygame.mixer.Channel(1)
+        channel1.set_volume(1.0)
+        channel2.set_volume(1.0)
+        channelbool = True
+
+        guild2 = pygame.mixer.Sound("audio/guild2.mp3")
+        guild3 = pygame.mixer.Sound("audio/guild3.mp3")
+        guild4 = pygame.mixer.Sound("audio/guild4.mp3")
+        guild5 = pygame.mixer.Sound("audio/guild5.mp3")
+        guild6 = pygame.mixer.Sound("audio/guild6.mp3")
+        guild7 = pygame.mixer.Sound("audio/guild7.mp3")
+        guild8 = pygame.mixer.Sound("audio/guild8.mp3")
+        guild9 = pygame.mixer.Sound("audio/guild9.mp3")
+        guild100 = pygame.mixer.Sound("audio/guild100.mp3")
+        guild11 = pygame.mixer.Sound("audio/guild11.mp3")
+        guild50 = pygame.mixer.Sound("audio/guild50.mp3")
+        guild51 = pygame.mixer.Sound("audio/guild51.mp3")
+        guild52 = pygame.mixer.Sound("audio/guild52.mp3")
+        guild53 = pygame.mixer.Sound("audio/guild53.mp3")
+
+        randomsong = random.randint(1,5)
+        if (randomsong == 1):
+            songchoosen1 = "audio/bardmusic.mp3"
+
+        if (randomsong == 2):
+            songchoosen1 = "audio/bardmusic2.mp3"
+
+        if (randomsong == 3):
+            songchoosen1 = "audio/guildmusic3.mp3"
+
+        if (randomsong == 4):
+            songchoosen1 = "audio/guildmusic4.mp3"
+
+        if (randomsong == 5):
+            songchoosen1 = "audio/guildmusic5.mp3"
+
+        pygame.mixer.music.load(resource_path(songchoosen1))
         pygame.mixer.music.play(-1)
         print("Guild initialized")
         global textFader
@@ -7406,6 +7779,10 @@ class guild(pygame.sprite.Sprite):
         imagechoosen = image215
         potionimage = 1
         streak = 0
+        image4.set_alpha(240)
+        image4_1.set_alpha(150)
+        image56.set_alpha(200)
+
         with open(resource_path("gamedata.txt"), "r") as file:
             lines = file.readlines()
             guildtutorial = lines[14].strip()
@@ -7414,23 +7791,25 @@ class guild(pygame.sprite.Sprite):
             self.gamescene = 1
         elif (guildtutorial == 'false'):
             self.gamescene = 11
+        clock = pygame.time.Clock()
+        with open(resource_path("gamedata.txt"), "r") as file:
+            lines = file.readlines()
+            goldline = lines[0].strip()
+            goldline = goldline[7:]
+            gemline = lines[1].strip()
+            gemline = gemline[6:]
+            gold = int(goldline)
+            gem = int(gemline)
+            alchemyexp = lines[12].strip()
+            alchemyexp = alchemyexp[13:]
+            alchemylevel = lines[13].strip()
+            alchemylevel = alchemylevel[15:]
+            alchemyexp = int(alchemyexp)
+            alchemylevel = int(alchemylevel)
+            guildtutorial = lines[14].strip()
+            guildtutorial = guildtutorial[16:]
         while self.guildbool1:
-            with open(resource_path("gamedata.txt"), "r") as file:
-                lines = file.readlines()
-                goldline = lines[0].strip()
-                goldline = goldline[7:]
-                gemline = lines[1].strip()
-                gemline = gemline[6:]
-                gold = int(goldline)
-                gem = int(gemline)
-                alchemyexp = lines[12].strip()
-                alchemyexp = alchemyexp[13:]
-                alchemylevel = lines[13].strip()
-                alchemylevel = alchemylevel[15:]
-                alchemyexp = int(alchemyexp)
-                alchemylevel = int(alchemylevel)
-                guildtutorial = lines[14].strip()
-                guildtutorial = guildtutorial[16:]
+            clock.tick(60)
 
             if(staropacity >= 255):
                 starbool = False
@@ -7463,6 +7842,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -7473,9 +7853,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 2):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild2)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Well well well, if it isnt the new rookie in town.', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('Ive been waiting for you to show up. Its tough', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7498,6 +7881,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             pygame.mixer.music.stop()
@@ -7505,9 +7889,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 3):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild3)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('What was your name again...', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('Johnathon.. Bartholomule.. Ahmad...', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7527,6 +7914,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -7537,9 +7925,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 4):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild4)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Its a pleasure to meet you my name is Coal. ', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('Im the one and only Leader of the Adventurers Guild,', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7558,6 +7949,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -7569,9 +7961,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 5):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild5)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('We adventurers need a place to stick together and the guild provides just that.', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('You can accept quests here and you can also work on a profession.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7590,6 +7985,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -7601,11 +7997,14 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 6):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild6)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
-                draw_text_center('If you are lucky you might even find a beatiful lady ', font5, GREY, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('If you are lucky you might even find a beautiful lady ', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('to accompany you as well HahUhahahaAhaAaaaa', font5, GREY, DISPLAYSURF, halfdisplay, 910)
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -7622,6 +8021,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -7633,9 +8033,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 7):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild7)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Whatever you need, the adventurers guild can provide it.We work as one cohesive family', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('always watching each others backs, never leaving a guild member behind.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7654,6 +8057,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -7665,11 +8069,13 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 8):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild8)
+                    channelbool = False
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
-                rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Say, ' +characterName, font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('would you like to join?', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7682,8 +8088,8 @@ class guild(pygame.sprite.Sprite):
                 yesrect = pygame.Rect(660, 157, 300, 300)
                 pygame.draw.rect(DISPLAYSURF, GREEN, yesrect)
                 pygame.draw.rect(DISPLAYSURF, RED, norect)
-                draw_text('No', font2, BLACK, DISPLAYSURF, 1070, 227)
-                draw_text('Yes', font2, BLACK, DISPLAYSURF, 750, 227)
+                draw_text('No', font2, BLACK, DISPLAYSURF, 1095, 227)
+                draw_text('Yes', font2, BLACK, DISPLAYSURF, 760, 227)
                 if yesrect.collidepoint(mouse_pos):
                     pygame.draw.rect(DISPLAYSURF,(rainbowcolor1,130,130), yesrect, 11)
                 if norect.collidepoint(mouse_pos):
@@ -7695,21 +8101,19 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if yesrect.collidepoint(mouse_pos):
-                            sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/videogamebonus.mp3"))
                             sound_effect.play()
 
                             with open(resource_path("gamedata.txt"), "r") as file:
                                 lines = file.readlines()
                                 lines[14] = f"guildtutorial = false\n"
                             with open(resource_path("gamedata.txt"), "w") as file:
-                                file.writelines(lines)  # Write the modified lines back to the file
-
-
-
+                                file.writelines(lines)
                             self.gamescene = self.gamescene + 1
+                            channelbool = True
                             print("guild join initiated")
                         if norect.collidepoint(mouse_pos):
-                            sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/guildmad.mp3"))
                             sound_effect.play()
                             transition(6)
                             self.guildbool1 = False
@@ -7725,9 +8129,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 9):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild9)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('HAHAHHAHAHAAHAHAA, THATS WONDERFUL. WELCOME LITTLE BROTHER TO THE GUILD,', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('COME COME LET ME SHOW YOU WHAT WE HAVE TO OFFER!', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7757,10 +8164,8 @@ class guild(pygame.sprite.Sprite):
 
             if (self.gamescene == 10):
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
-                rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                imageBlack.set_alpha(120)
                 DISPLAYSURF.blit(imageBlack, (620, 160))
                 questsrect = pygame.Rect(860, 210, 290, 120)
                 professionrect = pygame.Rect(810, 440, 370, 120)
@@ -7783,9 +8188,11 @@ class guild(pygame.sprite.Sprite):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if questsrect.collidepoint(mouse_pos):
                             print("quests clicked")
+                            channelbool = True
                             self.gamescene = 30
                         if professionrect.collidepoint(mouse_pos):
                             print("profession clicked")
+                            channelbool = True
                             if(guildtutorial == "false"):
                                 self.gamescene = 54
                             elif (guildtutorial == "true"):
@@ -7800,9 +8207,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 100):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild100)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Farewell young adventurer,', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('May lady luck be in love with you.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7820,6 +8230,7 @@ class guild(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channelbool = True
                             transition(6)
                             self.guildbool1 = False
                         if returnarrowrect.collidepoint(mouse_pos):
@@ -7832,9 +8243,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 11):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild11)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Welcome back brother to the guild.', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('What can we do for you today?', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7852,6 +8266,7 @@ class guild(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channelbool = True
                             self.gamescene = 10
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -7863,9 +8278,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 50):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild50)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Welcome to the alchemy room, where magic happens.', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('Here you can work for the guild and earn some gold.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7883,6 +8301,7 @@ class guild(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channelbool = True
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -7894,9 +8313,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 51):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild51)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('We only have one profession now, but we will have more in the future.', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('Its not at all because the game developer is lazy...', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7914,6 +8336,7 @@ class guild(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channelbool = True
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -7925,9 +8348,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 52):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild52)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Oh, i forgot to mention brother, the more you practice your skills,', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('the more you will level up, giving you more gold.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
@@ -7945,6 +8371,7 @@ class guild(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channelbool = True
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -7956,9 +8383,12 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 53):
+                if(channelbool):
+                    channel1.stop()
+                    channel1.play(guild53)
+                    channelbool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Ill leave you to it now, try not to destroy the continent', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 mouse_pos = pygame.mouse.get_pos()
@@ -7975,6 +8405,7 @@ class guild(pygame.sprite.Sprite):
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
                             sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                             sound_effect.play()
+                            channelbool = True
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -7986,26 +8417,17 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
 
             if (self.gamescene == 54):
-                guildguide = "false"
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(150)
-                DISPLAYSURF.blit(image4, (0, 0))
-                image223.set_alpha(staropacity)
+                DISPLAYSURF.blit(image4_1, (0, 0))
+                temp_image233 = image223.copy()
+                temp_image233.set_alpha(staropacity)
 
-                ret, frame = video.read()
-                if not ret:
-                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
-                frame = cv2.resize(frame, (1550, 880))
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
-                frame_surface = pygame.transform.flip(frame_surface, True, False)
-                frame_surface.set_alpha(100)
+                frame_surface = video_frames[frame_index]
                 DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
 
-                DISPLAYSURF.blit(image223, (455, 100))
+                DISPLAYSURF.blit(temp_image233, (455, 100))
                 DISPLAYSURF.blit(image210, (755, 330))
                 DISPLAYSURF.blit(image213, (500, 200))
 
@@ -8034,20 +8456,29 @@ class guild(pygame.sprite.Sprite):
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 0 <= mouseX <= 1920 and 250 <= mouseY <= 1080:
-                            sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
-                            pygame.mixer.music.load(resource_path("audio/alchemy2.mp3"))
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/videogameselect.mp3"))
+                            sound_effect.play()
+                            randomsong = random.randint(1, 3)
+                            if (randomsong == 1):
+                                songchoosen1 = "audio/alchemy2.mp3"
+
+                            if (randomsong == 2):
+                                songchoosen1 = "audio/alchemy3.mp3"
+
+                            if (randomsong == 3):
+                                songchoosen1 = "audio/alchemy1.mp3"
+
+                            pygame.mixer.music.load(resource_path(songchoosen1))
                             pygame.mixer.music.play(-1)
-                            pygame.mixer.music.queue(resource_path("audio/alchemy3.mp3"))
-                            pygame.mixer.music.queue(resource_path("audio/alchemy1.mp3"))
                             pygame.mixer.music.set_volume(0.5)
+                            channelbool = True
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
-                            video.release()
                             self.guildbool1 = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
-                            video.release()
+
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -8055,23 +8486,15 @@ class guild(pygame.sprite.Sprite):
             if (self.gamescene == 55):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(150)
                 DISPLAYSURF.blit(image4, (0, 0))
-                image223.set_alpha(staropacity)
+                temp_image233 = image223.copy()
+                temp_image233.set_alpha(staropacity)
 
-                ret, frame = video.read()
-                if not ret:
-                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
-                frame = cv2.resize(frame, (1550, 880))
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
-                frame_surface = pygame.transform.flip(frame_surface, True, False)
-                frame_surface.set_alpha(100)
+                frame_surface = video_frames[frame_index]
                 DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
 
-                DISPLAYSURF.blit(image223, (455, 100))
+                DISPLAYSURF.blit(temp_image233, (455, 100))
                 DISPLAYSURF.blit(image210, (755, 330))
                 DISPLAYSURF.blit(image211, (880, 780))
                 DISPLAYSURF.blit(image213, (500, 200))
@@ -8113,11 +8536,11 @@ class guild(pygame.sprite.Sprite):
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
-                            video.release()
+
                             self.guildbool1 = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
-                            video.release()
+
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -8125,23 +8548,15 @@ class guild(pygame.sprite.Sprite):
             if (self.gamescene == 56):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(150)
                 DISPLAYSURF.blit(image4, (0, 0))
-                image223.set_alpha(staropacity)
+                temp_image233 = image223.copy()
+                temp_image233.set_alpha(staropacity)
 
-                ret, frame = video.read()
-                if not ret:
-                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
-                frame = cv2.resize(frame, (1550, 880))
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
-                frame_surface = pygame.transform.flip(frame_surface, True, False)
-                frame_surface.set_alpha(100)
+                frame_surface = video_frames[frame_index]
                 DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
 
-                DISPLAYSURF.blit(image223, (455, 100))
+                DISPLAYSURF.blit(temp_image233, (455, 100))
                 DISPLAYSURF.blit(image210, (755, 330))
                 DISPLAYSURF.blit(image211, (880, 780))
                 DISPLAYSURF.blit(image213, (500, 200))
@@ -8174,7 +8589,7 @@ class guild(pygame.sprite.Sprite):
                         alchemylevel = alchemylevel + 1
                         alchemylevelupbool = True
                 if superalchemyhitrect.collidepoint(x + 47, 150):
-                    sound_effect = pygame.mixer.Sound(resource_path("audio/potioncreation.mp3"))
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/magicsoundeffect.mp3"))
                     sound_effect.play()
                     streak = streak + 1
                     alchemyexp = alchemyexp + 5 + streak
@@ -8183,6 +8598,8 @@ class guild(pygame.sprite.Sprite):
                         alchemyexp = 0
                         alchemylevel = alchemylevel + 1
                         alchemylevelupbool = True
+                        sound_effect = pygame.mixer.Sound(resource_path("audio/videogamebonus.mp3"))
+                        sound_effect.play()
                 if(streakrect.collidepoint(x + 47, 150)):
                     print("streak increased")
                 else:
@@ -8200,6 +8617,22 @@ class guild(pygame.sprite.Sprite):
                     lines[14] = f"guildtutorial = false\n"
                 with open(resource_path("gamedata.txt"), "w") as file:
                     file.writelines(lines)
+                with open(resource_path("gamedata.txt"), "r") as file:
+                    lines = file.readlines()
+                    goldline = lines[0].strip()
+                    goldline = goldline[7:]
+                    gemline = lines[1].strip()
+                    gemline = gemline[6:]
+                    gold = int(goldline)
+                    gem = int(gemline)
+                    alchemyexp = lines[12].strip()
+                    alchemyexp = alchemyexp[13:]
+                    alchemylevel = lines[13].strip()
+                    alchemylevel = alchemylevel[15:]
+                    alchemyexp = int(alchemyexp)
+                    alchemylevel = int(alchemylevel)
+                    guildtutorial = lines[14].strip()
+                    guildtutorial = guildtutorial[16:]
                 potionimage = random.randint(1, 5)
                 self.gamescene = self.gamescene + 1
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
@@ -8207,23 +8640,15 @@ class guild(pygame.sprite.Sprite):
             if (self.gamescene == 57):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
-                image4.set_alpha(150)
                 DISPLAYSURF.blit(image4, (0, 0))
-                image223.set_alpha(staropacity)
+                temp_image233 = image223.copy()
+                temp_image233.set_alpha(staropacity)
 
-                ret, frame = video.read()
-                if not ret:
-                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
-                frame = cv2.resize(frame, (1550, 880))
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
-                frame_surface = pygame.transform.flip(frame_surface, True, False)
-                frame_surface.set_alpha(100)
+                frame_surface = video_frames[frame_index]
                 DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
 
-                DISPLAYSURF.blit(image223, (455, 100))
+                DISPLAYSURF.blit(temp_image233, (455, 100))
                 DISPLAYSURF.blit(image210, (755, 330))
                 DISPLAYSURF.blit(image211, (880, 780))
                 DISPLAYSURF.blit(image213, (500, 200))
@@ -8292,11 +8717,11 @@ class guild(pygame.sprite.Sprite):
                             self.gamescene = self.gamescene - 2
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
-                            video.release()
+
                             self.guildbool1 = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
-                            video.release()
+
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -8305,21 +8730,14 @@ class guild(pygame.sprite.Sprite):
             if (self.gamescene == 30):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image208, (197, 100))
-                image128.set_alpha(staropacity)
-                DISPLAYSURF.blit(image128, (150, 150))
-                DISPLAYSURF.blit(image128, (1000, 150))
+                temp_image128 = image128.copy()
+                temp_image128.set_alpha(staropacity)
+                DISPLAYSURF.blit(temp_image128, (150, 150))
+                DISPLAYSURF.blit(temp_image128, (1000, 150))
 
-                ret, frame = video.read()
-                if not ret:
-                    video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
-                frame = cv2.resize(frame, (1550, 880))
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
-                frame_surface = pygame.transform.flip(frame_surface, True, False)
-                frame_surface.set_alpha(100)
+                frame_surface = video_frames[frame_index]
                 DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
 
 
                 mouse_pos = pygame.mouse.get_pos()
@@ -8339,11 +8757,11 @@ class guild(pygame.sprite.Sprite):
                             self.gamescene = self.gamescene
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
-                            video.release()
+
                             self.guildbool1 = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
-                            video.release()
+
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -8351,7 +8769,6 @@ class guild(pygame.sprite.Sprite):
                 pygame.display.update()
 
             mouseX, mouseY = pygame.mouse.get_pos()
-            image56.set_alpha(200)
             DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
             if(self.gamescene != 57):
                 pygame.display.update()
@@ -8367,23 +8784,10 @@ class blackmarket(pygame.sprite.Sprite):
         global Fader
         global textFader
         global level
-        if (FaderBool):
-            Fader = Fader + .5
-            if (Fader > 110):
-                FaderBool = False
-        if (FaderBool == False):
-            Fader = Fader - .5
-            if (Fader < 10):
-                FaderBool = True
-        mouse_pos = pygame.mouse.get_pos()
         mouseX, mouseY = pygame.mouse.get_pos()
         DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
         xrect = pygame.Rect(1680, 123, 35, 35)
-        xrect2 = pygame.Rect(130, 100, 120, 80)
-        mouseX, mouseY = pygame.mouse.get_pos()
         mouse_pos = pygame.mouse.get_pos()
-        image42.set_alpha(Fader)
-        DISPLAYSURF.blit(image42, (1655, 917))
         draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
         if xrect.collidepoint(mouse_pos):
             draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -8431,7 +8835,6 @@ class blackmarket(pygame.sprite.Sprite):
         self.gamescene = 1
         itemdisplay = 0
         xcounter = 0
-        mouse_pos = pygame.mouse.get_pos()
         pygame.mixer.music.load(resource_path("audio/battletheme.mp3"))
         pygame.mixer.music.queue(resource_path("audio/etherealmusic.mp3"))
         pygame.mixer.music.set_volume(0.5)
@@ -8440,6 +8843,34 @@ class blackmarket(pygame.sprite.Sprite):
         global textFader
         global characterName
         global firsttimeblackmarket
+        image244.set_alpha(255)
+        image4.set_alpha(150)
+        imagewhitehalo.set_alpha(120)
+        imagewhiteground.set_alpha(200)
+        imagewhitecircle.set_alpha(160)
+
+
+        channel1 = pygame.mixer.Channel(0)
+        channel2 = pygame.mixer.Channel(1)
+        channel1.set_volume(1.0)
+        channel2.set_volume(1.0)
+
+        byron2 = pygame.mixer.Sound("audio/byron2.mp3")
+        byron3 = pygame.mixer.Sound("audio/byron3.mp3")
+        byron4 = pygame.mixer.Sound("audio/byron4.mp3")
+        byron5 = pygame.mixer.Sound("audio/byron5.mp3")
+        byron6 = pygame.mixer.Sound("audio/byron6.mp3")
+        byron12 = pygame.mixer.Sound("audio/byron12.mp3")
+
+        byronrandom1 = pygame.mixer.Sound("audio/byronrandom1.mp3")
+        byronrandom2 = pygame.mixer.Sound("audio/byronrandom2.mp3")
+        byronrandom3 = pygame.mixer.Sound("audio/byronrandom3.mp3")
+        byronrandom4 = pygame.mixer.Sound("audio/byronrandom4.mp3")
+        byronrandom5 = pygame.mixer.Sound("audio/byronrandom5.mp3")
+        byronrandom6 = pygame.mixer.Sound("audio/byronrandom6.mp3")
+        byronrandom7 = pygame.mixer.Sound("audio/byronrandom7.mp3")
+        byronrandom8 = pygame.mixer.Sound("audio/byronrandom8.mp3")
+        voicebool = True
 
         with open(resource_path("gamedata.txt"), "r") as file:
             lines = file.readlines()
@@ -8452,10 +8883,9 @@ class blackmarket(pygame.sprite.Sprite):
             self.gamescene = 1
         elif(blackmarketshopline == 'false'):
             self.gamescene = 10
-
+        clock = pygame.time.Clock()
         while self.menu_activeblackmarket:
-
-            start = pygame.time.get_ticks()
+            clock.tick(60)
 
             if(opacitybool == True):
                 opacitynum = opacitynum + 5
@@ -8466,22 +8896,16 @@ class blackmarket(pygame.sprite.Sprite):
                 if(opacitynum <= 6):
                     opacitybool = True
 
-            with open(resource_path("gamedata.txt"), "r") as file:
-                lines = file.readlines()
-                if len(lines) >= 8:
-                    goldline = lines[0].strip()
-                    goldline = goldline[7:]
-                    gemline = lines[1].strip()
-                    gemline = gemline[6:]
-                    gold = int(goldline)
-                    gem = int(gemline)
             if (self.gamescene == 1):
                 firsttimeblackmarket = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 self.gamescene = self.xbutton(self.gamescene)
-                pygame.display.update()
             if (self.gamescene == 2):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(byron2)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
@@ -8489,35 +8913,44 @@ class blackmarket(pygame.sprite.Sprite):
                 draw_text_center('handsome arent you. You can call me Byron,', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 draw_text_center('im the owner of this humble establishment.', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
                 draw_text_center('Come let me show you the merchandise.', font21, DARKGREEN, DISPLAYSURF, 1300, 275)
-
                 self.gamescene = self.xbutton(self.gamescene)
-                pygame.display.update()
+                if(self.gamescene != 2):
+                    voicebool = True
             if (self.gamescene == 3):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(byron3)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
 
-                draw_text_center('Your not collaborating with the royal guards', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                draw_text_center('You are not collaborating with the royal guards', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
                 draw_text_center('are you? Those bastards have been on my ass', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 draw_text_center('for a while. Not that it matters much anyways,', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
                 draw_text_center('ill just take care of you like the rest', font21, DARKGREEN, DISPLAYSURF, 1300, 275)
                 self.gamescene = self.xbutton(self.gamescene)
-                pygame.display.update()
+                if(self.gamescene != 3):
+                    voicebool = True
             if (self.gamescene == 4):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(byron4)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
 
                 draw_text_center('Im just kidding, dont be so tense handsome.', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                draw_text_center(' I dont bite, much...', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                draw_text_center('I dont bite, much...', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 self.gamescene = self.xbutton(self.gamescene)
-                pygame.display.update()
+                if(self.gamescene != 4):
+                    voicebool = True
             if (self.gamescene == 5):
-                with open(resource_path("gamedata.txt"), "r") as file:
-                    lines = file.readlines()
-                    lines[22] = f"firstblackmarket = false\n"
-                with open(resource_path("gamedata.txt"), "w") as file:
-                    file.writelines(lines)  # Write the modified lines back to the file
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(byron5)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
@@ -8526,8 +8959,28 @@ class blackmarket(pygame.sprite.Sprite):
                 draw_text_center('creatures or are you here for me? *wink*', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
                 draw_text_center('p', font15, SKYBLUE, DISPLAYSURF, 1300, 250)
                 self.gamescene = self.xbutton(self.gamescene)
-                pygame.display.update()
+                if(self.gamescene != 5):
+                    voicebool = True
+                if(self.gamescene == 6):
+                    with open(resource_path("gamedata.txt"), "r") as file:
+                        lines = file.readlines()
+                        lines[22] = f"firstblackmarket = false\n"
+                    with open(resource_path("gamedata.txt"), "w") as file:
+                        file.writelines(lines)
+                    with open(resource_path("gamedata.txt"), "r") as file:
+                        lines = file.readlines()
+                        if len(lines) >= 8:
+                            goldline = lines[0].strip()
+                            goldline = goldline[7:]
+                            gemline = lines[1].strip()
+                            gemline = gemline[6:]
+                            gold = int(goldline)
+                            gem = int(gemline)
             if (self.gamescene == 6):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(byron6)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
@@ -8536,8 +8989,9 @@ class blackmarket(pygame.sprite.Sprite):
                 draw_text_center('Follow me ill show you our merchandise.', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
 
                 self.gamescene = self.xbutton(self.gamescene)
-                pygame.display.update()
                 music1 = True
+                if(self.gamescene != 6):
+                    voicebool = True
             if (self.gamescene == 7):
                 if(music1):
                     pygame.mixer.music.load(resource_path("audio/angels.mp3"))
@@ -8549,19 +9003,17 @@ class blackmarket(pygame.sprite.Sprite):
                 rainbowcolor3 = int((math.sin(startTime * 0.004 + 2) + 1) * 127.5)
                 rainbow = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
                 DISPLAYSURF.fill(BLACK)
-                image244.set_alpha(255)
                 DISPLAYSURF.blit(image244, (195, 100))
-                image4.set_alpha(150)
                 DISPLAYSURF.blit(image4, (0, 0))
 
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -8580,10 +9032,6 @@ class blackmarket(pygame.sprite.Sprite):
                 rightclickrect = pygame.Rect(1355, 560, 250, 200)
                 buyrect = pygame.Rect(805, 765, 310, 135)
                 xrect = pygame.Rect(1680, 123, 35, 35)
-
-                mouseX, mouseY = pygame.mouse.get_pos()
-                # print("x and y = " + str(mouseX) + " " + str(mouseY))
-                mouseX, mouseY = pygame.mouse.get_pos()
 
                 mouse_pos = pygame.mouse.get_pos()
                 returnmenurect = pygame.Rect(200, 40, 140, 190)
@@ -8657,14 +9105,21 @@ class blackmarket(pygame.sprite.Sprite):
                                         lines[0] = f"gold = {gold}\n"
                                     with open(resource_path("gamedata.txt"), "w") as file:
                                         file.writelines(lines)
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        if len(lines) >= 8:
+                                            goldline = lines[0].strip()
+                                            goldline = goldline[7:]
+                                            gemline = lines[1].strip()
+                                            gemline = gemline[6:]
+                                            gold = int(goldline)
+                                            gem = int(gemline)
                                     transition(1)
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/treasureopen.mp3"))
                                     sound_effect.play()
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/lootcratechestsound.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 17
-
-
                 if(itemdisplay == 1):
                     draw_text('10,000 Gold', font11, YELLOW, DISPLAYSURF, 1430, 260)
                     draw_text_center('Diamond Treasure Chest', Bigswordfont, WHITE, DISPLAYSURF, halfdisplay, 175)
@@ -8697,6 +9152,7 @@ class blackmarket(pygame.sprite.Sprite):
                                 sys.exit()
                             if returnmenurect.collidepoint(mouse_pos):
                                 self.gamescene = 10
+                                channel1.stop()
                                 pygame.event.clear()
                             if leftclickrect.collidepoint(mouse_pos):
                                 itemdisplay = itemdisplay - 1
@@ -8716,11 +9172,19 @@ class blackmarket(pygame.sprite.Sprite):
                                         lines[0] = f"gold = {gold}\n"
                                     with open(resource_path("gamedata.txt"), "w") as file:
                                         file.writelines(lines)
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        if len(lines) >= 8:
+                                            goldline = lines[0].strip()
+                                            goldline = goldline[7:]
+                                            gemline = lines[1].strip()
+                                            gemline = gemline[6:]
+                                            gold = int(goldline)
+                                            gem = int(gemline)
                                     transition(1)
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/lootcratechestsound.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 16
-
                 if(itemdisplay == 2):
                     draw_text('100,000 Gold', font11, YELLOW, DISPLAYSURF, 1430, 260)
                     draw_text_center('Emerald Treasure Chest', Bigswordfont, BLACK, DISPLAYSURF, halfdisplay, 175)
@@ -8773,14 +9237,21 @@ class blackmarket(pygame.sprite.Sprite):
                                         lines[0] = f"gold = {gold}\n"
                                     with open(resource_path("gamedata.txt"), "w") as file:
                                         file.writelines(lines)
-
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        if len(lines) >= 8:
+                                            goldline = lines[0].strip()
+                                            goldline = goldline[7:]
+                                            gemline = lines[1].strip()
+                                            gemline = gemline[6:]
+                                            gold = int(goldline)
+                                            gem = int(gemline)
                                     transition(1)
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/treasureopen.mp3"))
                                     sound_effect.play()
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/lootcratechestsound.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 15
-
                 if(itemdisplay == 3):
                     draw_text('200 Gems', font11, rainbow, DISPLAYSURF, 1430, 260)
                     draw_text_center('Cosmic Door', Bigswordfont, BLACK, DISPLAYSURF, halfdisplay, 175)
@@ -8842,7 +9313,15 @@ class blackmarket(pygame.sprite.Sprite):
                                         lines[1] = f"gem = {gem}\n"
                                     with open(resource_path("gamedata.txt"), "w") as file:
                                         file.writelines(lines)
-
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        if len(lines) >= 8:
+                                            goldline = lines[0].strip()
+                                            goldline = goldline[7:]
+                                            gemline = lines[1].strip()
+                                            gemline = gemline[6:]
+                                            gold = int(goldline)
+                                            gem = int(gemline)
                                     transition(1)
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/treasureopen.mp3"))
                                     sound_effect.play()
@@ -8863,23 +9342,10 @@ class blackmarket(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-                if (FaderBool):
-                    Fader = Fader + .5
-                    if (Fader > 110):
-                        FaderBool = False
-                if (FaderBool == False):
-                    Fader = Fader - .5
-                    if (Fader < 10):
-                        FaderBool = True
-                mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 xrect = pygame.Rect(1680, 123, 35, 35)
-                xrect2 = pygame.Rect(130, 100, 120, 80)
-                mouseX, mouseY = pygame.mouse.get_pos()
                 mouse_pos = pygame.mouse.get_pos()
-                image42.set_alpha(Fader)
-                DISPLAYSURF.blit(image42, (1655, 917))
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -8896,13 +9362,13 @@ class blackmarket(pygame.sprite.Sprite):
                         if event.type == MOUSEBUTTONDOWN:
                             if returnmenurect.collidepoint(mouse_pos):
                                 transition(6)
+                                channel1.stop()
                                 self.menu_activeblackmarket = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
                                 sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
-                                pygame.display.update()
                                 textFader = 0
                                 self.gamescene = self.gamescene + 1
 
@@ -8920,25 +9386,50 @@ class blackmarket(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-
-                if (FaderBool):
-                    Fader = Fader + .5
-                    if (Fader > 110):
-                        FaderBool = False
-                if (FaderBool == False):
-                    Fader = Fader - .5
-                    if (Fader < 10):
-                        FaderBool = True
-                mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 xrect = pygame.Rect(1680, 123, 35, 35)
-                xrect2 = pygame.Rect(130, 100, 120, 80)
-                mouseX, mouseY = pygame.mouse.get_pos()
                 mouse_pos = pygame.mouse.get_pos()
-                image42.set_alpha(Fader)
-                DISPLAYSURF.blit(image42, (1655, 917))
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
+
+                randomquote = byronrandom1
+                if(randomtext == 0):
+                    randomquote = byronrandom1
+                    draw_text_center('Hey cutie your back again I see!', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                elif(randomtext == 1):
+                    randomquote = byronrandom2
+                    draw_text_center('Awwww did you miss me that much? You are' +characterName +"?", font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('back already '+str(characterName), font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                elif(randomtext == 2):
+                    randomquote = byronrandom3
+                    draw_text_center('My richest customer is back again!', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('please be gentle with me '+str(characterName) +"!", font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                elif(randomtext == 3):
+                    randomquote = byronrandom4
+                    draw_text_center('Well well well, look who it is,', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('my cutest customer.', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                elif(randomtext == 4):
+                    draw_text_center('Where have you been? You havent visited', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('in so long! Humphh', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    randomquote = byronrandom5
+                elif(randomtext == 5):
+                    randomquote = byronrandom6
+                    draw_text_center('hufph, Im not in a good mood, the siren', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('slave shipment escaped earlier...', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                elif(randomtext == 6):
+                    randomquote = byronrandom7
+                    draw_text_center('I got some interesting new mechandise just', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('for you sweetheart!', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                elif(randomtext == 7):
+                    randomquote = byronrandom8
+                    draw_text_center('Should I open a brothel, im sure you', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
+                    draw_text_center('would be my biggest customer..', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
+                    draw_text_center('or would you like to work there?', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
+
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(randomquote)
+                    voicebool = False
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 for event in pygame.event.get():
@@ -8946,6 +9437,7 @@ class blackmarket(pygame.sprite.Sprite):
                     if xrect.collidepoint(mouse_pos):
                         if event.type == MOUSEBUTTONDOWN:
                             if xrect.collidepoint(mouse_pos):
+                                channel1.stop()
                                 print("Quit clicked")
                                 pygame.mixer.music.stop()
                                 pygame.quit()
@@ -8955,6 +9447,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if returnmenurect.collidepoint(mouse_pos):
                                 transition(6)
                                 self.menu_activeblackmarket = False
+                                channel1.stop()
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
                                 sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
@@ -8963,37 +9456,14 @@ class blackmarket(pygame.sprite.Sprite):
                                 pygame.display.update()
                                 textFader = 0
                                 self.gamescene = self.gamescene + 1
-
-                if(randomtext == 0):
-                    draw_text_center('Hey cutie your back again I see!', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                elif(randomtext == 1):
-                    draw_text_center('Awwww did you miss me that much? You are' +characterName +"?", font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('back already '+str(characterName), font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-                elif(randomtext == 2):
-                    draw_text_center('My richest customer is back again!', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center(' please be gentle with me '+str(characterName) +"!", font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-
-                elif(randomtext == 3):
-                    draw_text_center('Well well well, look who it is,', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('my cutest customer.', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-
-                elif(randomtext == 4):
-                    draw_text_center('Where have you been? You havent visited', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('in so long! Humphh', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-                elif(randomtext == 5):
-                    draw_text_center('hufph, Im not in a good mood, the siren', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('slave shipment escaped earlier...', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-
-                elif(randomtext == 6):
-                    draw_text_center('I got some interesting new mechandise just', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('for you sweetheart!', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-                elif(randomtext == 7):
-                    draw_text_center('Should I open a brothel, im sure you', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
-                    draw_text_center('would be my biggest customer..', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
-                    draw_text_center('or would you like to work there?', font21, DARKGREEN, DISPLAYSURF, 1300, 250)
+                                voicebool = True
 
                 pygame.display.update()
             if (self.gamescene == 12):
+                if(voicebool):
+                    channel1.stop()
+                    channel1.play(byron12)
+                    voicebool = False
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image243, (195, 100))
                 DISPLAYSURF.blit(image53, (1050, 150))
@@ -9004,23 +9474,10 @@ class blackmarket(pygame.sprite.Sprite):
                 else:
                     DISPLAYSURF.blit(image134, (200, 100))
 
-                if (FaderBool):
-                    Fader = Fader + .5
-                    if (Fader > 110):
-                        FaderBool = False
-                if (FaderBool == False):
-                    Fader = Fader - .5
-                    if (Fader < 10):
-                        FaderBool = True
-                mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 xrect = pygame.Rect(1680, 123, 35, 35)
-                xrect2 = pygame.Rect(130, 100, 120, 80)
-                mouseX, mouseY = pygame.mouse.get_pos()
                 mouse_pos = pygame.mouse.get_pos()
-                image42.set_alpha(Fader)
-                DISPLAYSURF.blit(image42, (1655, 917))
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
@@ -9037,6 +9494,7 @@ class blackmarket(pygame.sprite.Sprite):
                         if event.type == MOUSEBUTTONDOWN:
                             if returnmenurect.collidepoint(mouse_pos):
                                 transition(6)
+                                channel1.stop()
                                 self.menu_activeblackmarket = False
                                 pygame.event.clear()
                             if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
@@ -9044,7 +9502,9 @@ class blackmarket(pygame.sprite.Sprite):
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 pygame.display.update()
+                                channel1.stop()
                                 textFader = 0
+                                voicebool = True
                                 self.gamescene = self.gamescene + 1
                 draw_text_center('what are you waiting for darling,', font21, DARKGREEN, DISPLAYSURF, 1300, 200)
                 draw_text_center('go on and take a look around', font21, DARKGREEN, DISPLAYSURF, 1300, 225)
@@ -9053,9 +9513,7 @@ class blackmarket(pygame.sprite.Sprite):
             if (self.gamescene == 13):
                 self.gamescene = 7
 
-
             if (self.gamescene == 14):
-                currentTime = pygame.time.get_ticks()
                 startTime = pygame.time.get_ticks()
                 i = 0
                 while (lootcratespeed != 20):
@@ -9063,11 +9521,11 @@ class blackmarket(pygame.sprite.Sprite):
                     ret, frame = video2.read()
                     if not ret:
                         video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                        continue  # Continue to the next loop iteration
+                        continue
                     frame = cv2.resize(frame, (1550, 880))
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     frame_surface = pygame.surfarray.make_surface(frame)
-                    frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                    frame_surface = pygame.transform.rotate(frame_surface, -90)
                     frame_surface = pygame.transform.flip(frame_surface, True, False)
                     frame_surface.set_alpha(100)
                     DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -9132,18 +9590,14 @@ class blackmarket(pygame.sprite.Sprite):
                 ret, frame = video3.read()
                 if not ret:
                     video3.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
-
-                imagewhitehalo.set_alpha(120)
-                imagewhiteground.set_alpha(200)
-                imagewhitecircle.set_alpha(160)
 
                 DISPLAYSURF.blit(imagewhitehalo, (500, 170))
                 DISPLAYSURF.blit(imagewhiteground, (630, 500))
@@ -9243,11 +9697,11 @@ class blackmarket(pygame.sprite.Sprite):
                     ret, frame = video2.read()
                     if not ret:
                         video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                        continue  # Continue to the next loop iteration
+                        continue
                     frame = cv2.resize(frame, (1550, 880))
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     frame_surface = pygame.surfarray.make_surface(frame)
-                    frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                    frame_surface = pygame.transform.rotate(frame_surface, -90)
                     frame_surface = pygame.transform.flip(frame_surface, True, False)
                     frame_surface.set_alpha(100)
                     DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -9312,18 +9766,14 @@ class blackmarket(pygame.sprite.Sprite):
                 ret, frame = video3.read()
                 if not ret:
                     video3.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
-
-                imagewhitehalo.set_alpha(120)
-                imagewhiteground.set_alpha(200)
-                imagewhitecircle.set_alpha(160)
 
                 DISPLAYSURF.blit(imagewhitehalo, (500, 170))
                 DISPLAYSURF.blit(imagewhiteground, (630, 500))
@@ -9423,11 +9873,11 @@ class blackmarket(pygame.sprite.Sprite):
                     ret, frame = video2.read()
                     if not ret:
                         video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                        continue  # Continue to the next loop iteration
+                        continue
                     frame = cv2.resize(frame, (1550, 880))
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     frame_surface = pygame.surfarray.make_surface(frame)
-                    frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                    frame_surface = pygame.transform.rotate(frame_surface, -90)
                     frame_surface = pygame.transform.flip(frame_surface, True, False)
                     frame_surface.set_alpha(100)
                     DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -9493,18 +9943,14 @@ class blackmarket(pygame.sprite.Sprite):
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
-
-                imagewhitehalo.set_alpha(120)
-                imagewhiteground.set_alpha(200)
-                imagewhitecircle.set_alpha(160)
 
                 DISPLAYSURF.blit(imagewhitehalo, (500, 170))
                 DISPLAYSURF.blit(imagewhiteground, (630, 500))
@@ -9604,11 +10050,11 @@ class blackmarket(pygame.sprite.Sprite):
                     ret, frame = video2.read()
                     if not ret:
                         video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                        continue  # Continue to the next loop iteration
+                        continue
                     frame = cv2.resize(frame, (1550, 880))
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     frame_surface = pygame.surfarray.make_surface(frame)
-                    frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                    frame_surface = pygame.transform.rotate(frame_surface, -90)
                     frame_surface = pygame.transform.flip(frame_surface, True, False)
                     frame_surface.set_alpha(100)
                     DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -9676,18 +10122,14 @@ class blackmarket(pygame.sprite.Sprite):
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
-
-                imagewhitehalo.set_alpha(120)
-                imagewhiteground.set_alpha(200)
-                imagewhitecircle.set_alpha(160)
 
                 DISPLAYSURF.blit(imagewhitehalo, (500, 170))
                 DISPLAYSURF.blit(imagewhiteground, (630, 500))
@@ -9778,14 +10220,6 @@ class blackmarket(pygame.sprite.Sprite):
                             save_creature(creature)
                             lootcratespeed = 1
                             self.gamescene = 7
-
-
-        with open(resource_path("gamedata.txt"), "r") as file:
-            lines = file.readlines()
-            lines[0] = f"gold = {gold}\n"
-            lines[1] = f"gem = {gem}\n"
-        with open(resource_path("gamedata.txt"), "w") as file:
-            file.writelines(lines)
         return 0
 ########################################################################################################################
 class stash(pygame.sprite.Sprite):
@@ -9804,7 +10238,8 @@ class stash(pygame.sprite.Sprite):
         opacitybool = True
         startTime = pygame.time.get_ticks()
         self.gamescene = 1
-        mouse_pos = pygame.mouse.get_pos()
+        imagebackdrop.set_alpha(240)
+        image264.set_alpha(150)
         pygame.mixer.music.load(resource_path("audio/stashambient1.mp3"))
         pygame.mixer.music.queue(resource_path("audio/stashambient2.mp3"))
         pygame.mixer.music.set_volume(0.5)
@@ -9926,20 +10361,22 @@ class stash(pygame.sprite.Sprite):
             tempimg = pygame.image.load(resource_path(attributes[1]))
             tempimg = pygame.transform.scale(tempimg, (60, 60))
             equipmentimages[6] = tempimg
+        with open(resource_path("gamedata.txt"), "r") as file:
+            lines = file.readlines()
+            goldline = lines[0].strip()
+            goldline = goldline[7:]
+            gemline = lines[1].strip()
+            gemline = gemline[6:]
+            gold = int(goldline)
+            gem = int(gemline)
 ########################################################################################################################
+        clock = pygame.time.Clock()
         while self.stashloop:
+            clock.tick(60)
             rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
             rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
             rainbowcolor3 = int((math.sin(startTime * 0.005 + 2) + 1) * 127.5)
             rainbow = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
-            with open(resource_path("gamedata.txt"), "r") as file:
-                lines = file.readlines()
-                goldline = lines[0].strip()
-                goldline = goldline[7:]
-                gemline = lines[1].strip()
-                gemline = gemline[6:]
-                gold = int(goldline)
-                gem = int(gemline)
 
             startTime = pygame.time.get_ticks()
             mouseX, mouseY = pygame.mouse.get_pos()
@@ -9961,11 +10398,11 @@ class stash(pygame.sprite.Sprite):
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(70)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -10013,10 +10450,12 @@ class stash(pygame.sprite.Sprite):
                         if returnarrowrect.collidepoint(mouse_pos):
                             video.release()
                             transition(6)
+                            sound_effect.stop()
                             self.stashloop = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
+                            sound_effect.stop()
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
@@ -10027,7 +10466,6 @@ class stash(pygame.sprite.Sprite):
                 mouseX, mouseY = pygame.mouse.get_pos()
                 #print("x and y = " + str(mouseX) + " " + str(mouseY))
 
-                image264.set_alpha(150)
                 DISPLAYSURF.blit(image264, (197, 100))
 
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -10036,11 +10474,11 @@ class stash(pygame.sprite.Sprite):
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(70)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -12160,6 +12598,14 @@ class stash(pygame.sprite.Sprite):
                                         lines[0] = f"gold = {gold + randomgold}\n"
                                     with open(resource_path("gamedata.txt"), "w") as file:
                                         file.writelines(lines)
+                                    with open(resource_path("gamedata.txt"), "r") as file:
+                                        lines = file.readlines()
+                                        goldline = lines[0].strip()
+                                        goldline = goldline[7:]
+                                        gemline = lines[1].strip()
+                                        gemline = gemline[6:]
+                                        gold = int(goldline)
+                                        gem = int(gemline)
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/thundersound1.mp3"))
                                     sound_effect.play()
                                     looptimeg = pygame.time.get_ticks() + 700
@@ -12207,7 +12653,6 @@ class stash(pygame.sprite.Sprite):
                 mouseX, mouseY = pygame.mouse.get_pos()
                 #print("x and y = " + str(mouseX) + " " + str(mouseY))
 
-                image264.set_alpha(150)
                 DISPLAYSURF.blit(image264, (197, 100))
 
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -12216,11 +12661,11 @@ class stash(pygame.sprite.Sprite):
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(70)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -12511,7 +12956,6 @@ class stash(pygame.sprite.Sprite):
                     if(clickedrect != -1):
                         if (creaturemove1[clickedrect] != " "):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move1rect, 5, 5)
-                            imagebackdrop.set_alpha(240)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
                             draw_text_center(str(creaturemove1[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
                             for index, move in enumerate(moves):
@@ -12533,7 +12977,6 @@ class stash(pygame.sprite.Sprite):
                     if(clickedrect != -1):
                         if (creaturemove2[clickedrect] != " "):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move2rect, 5, 5)
-                            imagebackdrop.set_alpha(240)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
                             draw_text_center(str(creaturemove2[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
                             for index, move in enumerate(moves):
@@ -12554,7 +12997,6 @@ class stash(pygame.sprite.Sprite):
                     if(clickedrect != -1):
                         if (creaturemove3[clickedrect] != " "):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move3rect, 5, 5)
-                            imagebackdrop.set_alpha(240)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
                             draw_text_center(str(creaturemove3[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
                             for index, move in enumerate(moves):
@@ -12575,7 +13017,6 @@ class stash(pygame.sprite.Sprite):
                     if(clickedrect != -1):
                         if (creaturemove4[clickedrect] != " "):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move4rect, 5, 5)
-                            imagebackdrop.set_alpha(240)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
                             draw_text_center(str(creaturemove4[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
                             for index, move in enumerate(moves):
@@ -13210,13 +13651,19 @@ class colleseum(pygame.sprite.Sprite):
         global textFader
         opacityvalue = 1
         opacitybool = True
-        startTime = pygame.time.get_ticks()
+        image4.set_alpha(240)
+        redgloww.set_alpha(170)
+
         self.gamescene = 1
         mouse_pos = pygame.mouse.get_pos()
         pygame.mixer.music.load(resource_path("audio/rebornmusic.mp3"))
-        pygame.mixer.music.queue(resource_path("audio/colleseummusic1.mp3"))
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
+
+        channel1 = pygame.mixer.Channel(0)
+        channel1.set_volume(1.0)
+        warriorvoice = pygame.mixer.Sound("audio/colleseum1.mp3")
+
         print("Stash initialized")
         global textFader
         global characterName
@@ -13233,6 +13680,67 @@ class colleseum(pygame.sprite.Sprite):
         randomtrainername = " "
         i = 1200
 
+        enemyteamchoosen = 1
+
+        enemybeast1namecolor = BLACK
+        enemybeast2namecolor = BLACK
+        enemybeast3namecolor = BLACK
+
+        beastnamecolor1 = BLACK
+        beastnamecolor2 = BLACK
+        beastnamecolor3 = BLACK
+
+        # Monster 1 (placeholder values)
+        monsterchoosen1 = 0
+        enemymonstername1 = ""
+        enemymonsterlvl1 = 0
+        enemymonsterimage1 = None
+        enemymonsterhp1 = 0
+        enemymonsterdefense1 = 0
+        enemymonsterstrength1 = 0
+        enemymonsterspecialattack1 = 0
+        enemymonsterspeed1 = 0
+        enemymonstermove1_1 = ""
+        enemymonstermove2_1 = ""
+        enemymonstermove3_1 = ""
+        enemymonstermove4_1 = ""
+        enemymonstertype1 = ""
+        enemymonstertier1 = 0
+
+        # Monster 2 (placeholder values)
+        monsterchoosen2 = 0
+        enemymonstername2 = ""
+        enemymonsterlvl2 = 0
+        enemymonsterimage2 = None
+        enemymonsterhp2 = 0
+        enemymonsterdefense2 = 0
+        enemymonsterstrength2 = 0
+        enemymonsterspecialattack2 = 0
+        enemymonsterspeed2 = 0
+        enemymonstermove1_2 = ""
+        enemymonstermove2_2 = ""
+        enemymonstermove3_2 = ""
+        enemymonstermove4_2 = ""
+        enemymonstertype2 = ""
+        enemymonstertier2 = 0
+
+        # Monster 3 (placeholder values)
+        monsterchoosen3 = 0
+        enemymonstername3 = ""
+        enemymonsterlvl3 = 0
+        enemymonsterimage3 = None
+        enemymonsterhp3 = 0
+        enemymonsterdefense3 = 0
+        enemymonsterstrength3 = 0
+        enemymonsterspecialattack3 = 0
+        enemymonsterspeed3 = 0
+        enemymonstermove1_3 = ""
+        enemymonstermove2_3 = ""
+        enemymonstermove3_3 = ""
+        enemymonstermove4_3 = ""
+        enemymonstertype3 = ""
+        enemymonstertier3 = 0
+
         strength = 0
         defense = 0
         health = 0
@@ -13240,26 +13748,53 @@ class colleseum(pygame.sprite.Sprite):
         specattack = 0
         luck = 0
 
+        beast1name = " "
+        beast1level = 0
         beast1strength = 0
         beast1defense = 0
         beast1health = 0
         beast1speed = 0
         beast1specattack = 0
-        beast1luck = 0
+        beast1tier = 0
+        beast1beastimage = 0
+        beast1move1 = " "
+        beast1move2 = " "
+        beast1move3 = " "
+        beast1move4 = " "
+        beast1type = " "
+        beast1experience = 0
 
+        beast2name = " "
+        beast2level = 0
         beast2strength = 0
         beast2defense = 0
         beast2health = 0
         beast2speed = 0
         beast2specattack = 0
-        beast2luck = 0
+        beast2tier = 0
+        beast2beastimage = 0
+        beast2move1 = " "
+        beast2move2 = " "
+        beast2move3 = " "
+        beast2move4 = " "
+        beast2type = " "
+        beast2experience = 0
 
+        beast3name = " "
+        beast3level = 0
         beast3strength = 0
         beast3defense = 0
         beast3health = 0
         beast3speed = 0
         beast3specattack = 0
-        beast3luck = 0
+        beast3tier = 0
+        beast3beastimage = 0
+        beast3move1 = " "
+        beast3move2 = " "
+        beast3move3 = " "
+        beast3move4 = " "
+        beast3type = " "
+        beast3experience = 0
 
         with open(resource_path("gamedata.txt"), "r") as file:
             lines = file.readlines()
@@ -13282,53 +13817,121 @@ class colleseum(pygame.sprite.Sprite):
         time1 = pygame.time.get_ticks()
         time2 = time1 + 3000
 
+        highestlvlmonster = 0
 
         teamcreatures = load_teamcreatures()
         if (len(teamcreatures) >= 1):
             attributes1 = list(teamcreatures[0].values())
+            beast1name = attributes1[0]
+            beast1level = attributes1[1]
             beast1strength = strength + attributes1[4]
             beast1defense = defense + attributes1[3]
             beast1health = health + attributes1[2]
-            beast1speed = speed + attributes1[5]
-            beast1specattack = specattack + attributes1[6]
-            beast1luck = luck
+            beast1speed = speed + attributes1[6]
+            beast1specattack = specattack + attributes1[5]
+            beast1tier = attributes1[7]
+            beast1beastimage = attributes1[8]
+            beast1move1 = attributes1[9]
+            beast1move2 = attributes1[10]
+            beast1move3 = attributes1[11]
+            beast1move4 = attributes1[12]
+            beast1type = attributes1[13]
+            beast1experience = attributes1[14]
+            highestlvlmonster = beast1level
+
         if (len(teamcreatures) >= 2):
             attributes2 = list(teamcreatures[1].values())
+            beast2name = attributes2[0]
+            beast2level = attributes2[1]
             beast2strength = strength + attributes2[4]
             beast2defense = defense + attributes2[3]
             beast2health = health + attributes2[2]
-            beast2speed = speed + attributes2[5]
-            beast2specattack = specattack + attributes2[6]
-            beast2luck = luck
+            beast2speed = speed + attributes2[6]
+            beast2specattack = specattack + attributes2[5]
+            beast2tier = attributes2[7]
+            beast2beastimage = attributes2[8]
+            beast2move1 = attributes2[9]
+            beast2move2 = attributes2[10]
+            beast2move3 = attributes2[11]
+            beast2move4 = attributes2[12]
+            beast2type = attributes2[13]
+            beast2experience = attributes2[14]
+            if(beast1level >= beast2level):
+                highestlvlmonster = beast1level
+            if(beast1level <= beast2level):
+                highestlvlmonster = beast2level
         if (len(teamcreatures) >= 3):
             attributes3 = list(teamcreatures[2].values())
+            beast2name = attributes2[0]
+            beast2level = attributes2[1]
             beast3strength = strength + attributes3[4]
             beast3defense = defense + attributes3[3]
             beast3health = health + attributes3[2]
-            beast3speed = speed + attributes3[5]
-            beast3specattack = specattack + attributes3[6]
-            beast3luck = luck
+            beast3speed = speed + attributes3[6]
+            beast3specattack = specattack + attributes3[5]
+            beast3tier = attributes3[7]
+            beast3beastimage = attributes3[8]
+            beast3move1 = attributes3[9]
+            beast3move2 = attributes3[10]
+            beast3move3 = attributes3[11]
+            beast3move4 = attributes3[12]
+            beast3type = attributes3[13]
+            beast3experience = attributes3[14]
+            if(beast1level >= beast2level):
+                highestlvlmonster = beast1level
+            if(beast1level <= beast2level):
+                highestlvlmonster = beast2level
+            if(highestlvlmonster <= beast3level):
+                highestlvlmonster = beast3level
+
+        if (highestlvlmonster <= 10):
+            highestlvlmonster = 10
+
+        if (beast1tier == 1):
+            beastnamecolor1 = WHITE
+        if (beast1tier == 2):
+            beastnamecolor1 = GREEN
+        if (beast1tier == 3):
+            beastnamecolor1 = YELLOW
+        if (beast1tier == 4):
+            beastnamecolor1 = DARKPURPLE
+
+        if (beast2tier == 1):
+            beastnamecolor2 = WHITE
+        if (beast2tier == 2):
+            beastnamecolor2 = GREEN
+        if (beast2tier == 3):
+            beastnamecolor2 = YELLOW
+        if (beast2tier == 4):
+            beastnamecolor2 = DARKPURPLE
+
+        if (beast3tier == 1):
+            beastnamecolor3 = WHITE
+        if (beast3tier == 2):
+            beastnamecolor3 = GREEN
+        if (beast3tier == 3):
+            beastnamecolor3 = YELLOW
+        if (beast3tier == 4):
+            beastnamecolor3 = DARKPURPLE
+
 
         beast1strengthlive = beast1strength
         beast1defenselive = beast1defense
         beast1healthlive = beast1health
         beast1speedlive = beast1speed
         beast1specattacklive = beast1specattack
-        beast1lucklive = beast1luck
 
         beast2strengthlive = beast2strength
         beast2defenselive = beast2defense
         beast2healthlive = beast2health
         beast2speedlive = beast2speed
         beast2specattacklive = beast2specattack
-        beast2lucklive = beast2luck
 
         beast3strengthlive = beast3strength
         beast3defenselive = beast3defense
         beast3healthlive = beast3health
         beast3speedlive = beast3speed
         beast3specattacklive = beast3specattack
-        beast3lucklive = beast3luck
 
         if (len(teamcreatures) == 1):
             teamsize = 1
@@ -13344,20 +13947,22 @@ class colleseum(pygame.sprite.Sprite):
                 pygame.display.update()
             self.colleseumloop = False
             print("there is no creatures in team found")
+        with open(resource_path("gamedata.txt"), "r") as file:
+            lines = file.readlines()
+            goldline = lines[0].strip()
+            goldline = goldline[7:]
+            gemline = lines[1].strip()
+            gemline = gemline[6:]
+            gold = int(goldline)
+            gem = int(gemline)
 ########################################################################################################################
+        clock = pygame.time.Clock()
         while self.colleseumloop:
+            clock.tick(60)
             rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
             rainbowcolor2 = int((math.sin(startTime * 0.003 + 2) + 1) * 127.5)
             rainbowcolor3 = int((math.sin(startTime * 0.005 + 2) + 1) * 127.5)
             rainbow = (rainbowcolor1, rainbowcolor2, rainbowcolor3)
-            with open(resource_path("gamedata.txt"), "r") as file:
-                lines = file.readlines()
-                goldline = lines[0].strip()
-                goldline = goldline[7:]
-                gemline = lines[1].strip()
-                gemline = gemline[6:]
-                gold = int(goldline)
-                gem = int(gemline)
 
             startTime = pygame.time.get_ticks()
             mouseX, mouseY = pygame.mouse.get_pos()
@@ -13378,11 +13983,11 @@ class colleseum(pygame.sprite.Sprite):
                 ret, frame = video2.read()
                 if not ret:
                     video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(60)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -13404,8 +14009,10 @@ class colleseum(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/vaultopen.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channel1.play(warriorvoice)
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
+                            channel1.stop()
                             video.release()
                             video2.release()
                             video3.release()
@@ -13426,16 +14033,15 @@ class colleseum(pygame.sprite.Sprite):
                 ret, frame = video2.read()
                 if not ret:
                     video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(60)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
 
-                image4.set_alpha(240)
                 DISPLAYSURF.blit(image4, (0, 880))
                 draw_text_center('To live on your knees, or die standing.', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 890)
                 draw_text_center('which do you desire?', font5, LIGHTBLUE, DISPLAYSURF, halfdisplay, 925)
@@ -13456,12 +14062,14 @@ class colleseum(pygame.sprite.Sprite):
                             sound_effect = pygame.mixer.Sound(resource_path("audio/vaultopen.mp3"))
                             sound_effect.play()
                             self.gamescene = self.gamescene + 1
+                            channel1.stop()
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             video.release()
                             video2.release()
                             video3.release()
                             self.colleseumloop = False
+                            channel1.stop()
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
                             video.release()
@@ -13478,11 +14086,11 @@ class colleseum(pygame.sprite.Sprite):
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
 
@@ -13503,7 +14111,6 @@ class colleseum(pygame.sprite.Sprite):
                 if choice3.collidepoint(mouse_pos):
                     DISPLAYSURF.blit(image279, (630, 190))
 
-                redgloww.set_alpha(170)
                 DISPLAYSURF.blit(redgloww, (mouseX - 47, mouseY - 44))
 
                 mouse_pos = pygame.mouse.get_pos()
@@ -13549,11 +14156,11 @@ class colleseum(pygame.sprite.Sprite):
                 ret, frame = video2.read()
                 if not ret:
                     video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(80)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -13603,11 +14210,11 @@ class colleseum(pygame.sprite.Sprite):
                 ret, frame = video2.read()
                 if not ret:
                     video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(150)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -13685,11 +14292,11 @@ class colleseum(pygame.sprite.Sprite):
                 ret, frame = video2.read()
                 if not ret:
                     video2.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(160)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -13748,7 +14355,7 @@ class colleseum(pygame.sprite.Sprite):
                     frame = cv2.resize(frame, (1550, 880))
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     frame_surface = pygame.surfarray.make_surface(frame)
-                    frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                    frame_surface = pygame.transform.rotate(frame_surface, -90)
                     frame_surface = pygame.transform.flip(frame_surface, True, False)
                     frame_surface.set_alpha(160)
                     DISPLAYSURF.blit(frame_surface, (190, 100))
@@ -13764,36 +14371,426 @@ class colleseum(pygame.sprite.Sprite):
                     for event in pygame.event.get():
                         if (event.type == MOUSEBUTTONDOWN):
                             print("stop clicking so much")
-                transition(5)
+                transition(4)
+                sound_effect = pygame.mixer.Sound(resource_path("audio/glitch.mp3"))
+                sound_effect.play()
+                DISPLAYSURF.blit(image268, (197, 100))
+                white_flash(DISPLAYSURF, duration=1000)
+                if (npcdifficulty == 1):
+                    pygame.mixer.music.load(resource_path("audio/easymusic.mp3"))
+                    pygame.mixer.music.play(-1)
+                    # Monster 1
+                    monsterchoosen1 = random.randint(0, 15)
+                    enemymonstername1 = beastattributes[monsterchoosen1][7]
+                    enemymonsterlvl1 = highestlvlmonster + random.randint(-8, -5)
+                    enemymonsterimage1 = beasts[beastattributes[monsterchoosen1][8]]
+                    enemymonsterhp1 = beastattributes[monsterchoosen1][1]
+                    enemymonsterdefense1 = beastattributes[monsterchoosen1][2]
+                    enemymonsterstrength1 = beastattributes[monsterchoosen1][3]
+                    enemymonsterspecialattack1 = beastattributes[monsterchoosen1][4]
+                    enemymonsterspeed1 = beastattributes[monsterchoosen1][5]
+                    enemymonstermove1_1 = beastattributes[monsterchoosen1][9]
+                    enemymonstermove2_1 = beastattributes[monsterchoosen1][10]
+                    enemymonstermove3_1 = beastattributes[monsterchoosen1][11]
+                    enemymonstermove4_1 = beastattributes[monsterchoosen1][12]
+                    enemymonstertype1 = beastattributes[monsterchoosen1][13]
+                    enemymonstertier1 = beastattributes[monsterchoosen1][6]
+
+                    # Monster 2
+                    monsterchoosen2 = random.randint(0, 15)
+                    enemymonstername2 = beastattributes[monsterchoosen2][7]
+                    enemymonsterlvl2 = highestlvlmonster + random.randint(-6, -4)
+                    enemymonsterimage2 = beasts[beastattributes[monsterchoosen2][8]]
+                    enemymonsterhp2 = beastattributes[monsterchoosen2][1]
+                    enemymonsterdefense2 = beastattributes[monsterchoosen2][2]
+                    enemymonsterstrength2 = beastattributes[monsterchoosen2][3]
+                    enemymonsterspecialattack2 = beastattributes[monsterchoosen2][4]
+                    enemymonsterspeed2 = beastattributes[monsterchoosen2][5]
+                    enemymonstermove1_2 = beastattributes[monsterchoosen2][9]
+                    enemymonstermove2_2 = beastattributes[monsterchoosen2][10]
+                    enemymonstermove3_2 = beastattributes[monsterchoosen2][11]
+                    enemymonstermove4_2 = beastattributes[monsterchoosen2][12]
+                    enemymonstertype2 = beastattributes[monsterchoosen2][13]
+                    enemymonstertier2 = beastattributes[monsterchoosen2][6]
+
+                    # Monster 3
+                    monsterchoosen3 = random.randint(0, 20)
+                    enemymonstername3 = beastattributes[monsterchoosen3][7]
+                    enemymonsterlvl3 = highestlvlmonster + random.randint(-5, -4)
+                    enemymonsterimage3 = beasts[beastattributes[monsterchoosen3][8]]
+                    enemymonsterhp3 = beastattributes[monsterchoosen3][1]
+                    enemymonsterdefense3 = beastattributes[monsterchoosen3][2]
+                    enemymonsterstrength3 = beastattributes[monsterchoosen3][3]
+                    enemymonsterspecialattack3 = beastattributes[monsterchoosen3][4]
+                    enemymonsterspeed3 = beastattributes[monsterchoosen3][5]
+                    enemymonstermove1_3 = beastattributes[monsterchoosen3][9]
+                    enemymonstermove2_3 = beastattributes[monsterchoosen3][10]
+                    enemymonstermove3_3 = beastattributes[monsterchoosen3][11]
+                    enemymonstermove4_3 = beastattributes[monsterchoosen3][12]
+                    enemymonstertype3 = beastattributes[monsterchoosen3][13]
+                    enemymonstertier3 = beastattributes[monsterchoosen3][6]
+
+                if (npcdifficulty == 2):
+                    pygame.mixer.music.load(resource_path("audio/mediummusic.mp3"))
+                    pygame.mixer.music.play(-1)
+                    # Monster 1
+                    monsterchoosen1 = random.randint(0, 30)
+                    enemymonstername1 = beastattributes[monsterchoosen1][7]
+                    enemymonsterlvl1 = highestlvlmonster + random.randint(-5, 0)
+                    enemymonsterimage1 = beasts[beastattributes[monsterchoosen1][8]]
+                    enemymonsterhp1 = beastattributes[monsterchoosen1][1]
+                    enemymonsterdefense1 = beastattributes[monsterchoosen1][2]
+                    enemymonsterstrength1 = beastattributes[monsterchoosen1][3]
+                    enemymonsterspecialattack1 = beastattributes[monsterchoosen1][4]
+                    enemymonsterspeed1 = beastattributes[monsterchoosen1][5]
+                    enemymonstermove1_1 = beastattributes[monsterchoosen1][9]
+                    enemymonstermove2_1 = beastattributes[monsterchoosen1][10]
+                    enemymonstermove3_1 = beastattributes[monsterchoosen1][11]
+                    enemymonstermove4_1 = beastattributes[monsterchoosen1][12]
+                    enemymonstertype1 = beastattributes[monsterchoosen1][13]
+                    enemymonstertier1 = beastattributes[monsterchoosen1][6]
+
+                    # Monster 2
+                    monsterchoosen2 = random.randint(0, 30)
+                    enemymonstername2 = beastattributes[monsterchoosen2][7]
+                    enemymonsterlvl2 = highestlvlmonster + random.randint(-4, 0)
+                    enemymonsterimage2 = beasts[beastattributes[monsterchoosen2][8]]
+                    enemymonsterhp2 = beastattributes[monsterchoosen2][1]
+                    enemymonsterdefense2 = beastattributes[monsterchoosen2][2]
+                    enemymonsterstrength2 = beastattributes[monsterchoosen2][3]
+                    enemymonsterspecialattack2 = beastattributes[monsterchoosen2][4]
+                    enemymonsterspeed2 = beastattributes[monsterchoosen2][5]
+                    enemymonstermove1_2 = beastattributes[monsterchoosen2][9]
+                    enemymonstermove2_2 = beastattributes[monsterchoosen2][10]
+                    enemymonstermove3_2 = beastattributes[monsterchoosen2][11]
+                    enemymonstermove4_2 = beastattributes[monsterchoosen2][12]
+                    enemymonstertype2 = beastattributes[monsterchoosen2][13]
+                    enemymonstertier2 = beastattributes[monsterchoosen2][6]
+
+                    # Monster 3
+                    monsterchoosen3 = random.randint(0, 35)
+                    enemymonstername3 = beastattributes[monsterchoosen3][7]
+                    enemymonsterlvl3 = highestlvlmonster + random.randint(-3, 0)
+                    enemymonsterimage3 = beasts[beastattributes[monsterchoosen3][8]]
+                    enemymonsterhp3 = beastattributes[monsterchoosen3][1]
+                    enemymonsterdefense3 = beastattributes[monsterchoosen3][2]
+                    enemymonsterstrength3 = beastattributes[monsterchoosen3][3]
+                    enemymonsterspecialattack3 = beastattributes[monsterchoosen3][4]
+                    enemymonsterspeed3 = beastattributes[monsterchoosen3][5]
+                    enemymonstermove1_3 = beastattributes[monsterchoosen3][9]
+                    enemymonstermove2_3 = beastattributes[monsterchoosen3][10]
+                    enemymonstermove3_3 = beastattributes[monsterchoosen3][11]
+                    enemymonstermove4_3 = beastattributes[monsterchoosen3][12]
+                    enemymonstertype3 = beastattributes[monsterchoosen3][13]
+                    enemymonstertier3 = beastattributes[monsterchoosen3][6]
+
+                if (npcdifficulty == 3):
+                    pygame.mixer.music.load(resource_path("audio/hardmusic.mp3"))
+                    pygame.mixer.music.play(-1)
+                    # Monster 1
+                    monsterchoosen1 = random.randint(0, 35)
+                    enemymonstername1 = beastattributes[monsterchoosen1][7]
+                    enemymonsterlvl1 = highestlvlmonster + random.randint(-4, 0)
+                    enemymonsterimage1 = beasts[beastattributes[monsterchoosen1][8]]
+                    enemymonsterhp1 = beastattributes[monsterchoosen1][1]
+                    enemymonsterdefense1 = beastattributes[monsterchoosen1][2]
+                    enemymonsterstrength1 = beastattributes[monsterchoosen1][3]
+                    enemymonsterspecialattack1 = beastattributes[monsterchoosen1][4]
+                    enemymonsterspeed1 = beastattributes[monsterchoosen1][5]
+                    enemymonstermove1_1 = beastattributes[monsterchoosen1][9]
+                    enemymonstermove2_1 = beastattributes[monsterchoosen1][10]
+                    enemymonstermove3_1 = beastattributes[monsterchoosen1][11]
+                    enemymonstermove4_1 = beastattributes[monsterchoosen1][12]
+                    enemymonstertype1 = beastattributes[monsterchoosen1][13]
+                    enemymonstertier1 = beastattributes[monsterchoosen1][6]
+
+                    # Monster 2
+                    monsterchoosen2 = random.randint(10, 40)
+                    enemymonstername2 = beastattributes[monsterchoosen2][7]
+                    enemymonsterlvl2 = highestlvlmonster + random.randint(-4, 2)
+                    enemymonsterimage2 = beasts[beastattributes[monsterchoosen2][8]]
+                    enemymonsterhp2 = beastattributes[monsterchoosen2][1]
+                    enemymonsterdefense2 = beastattributes[monsterchoosen2][2]
+                    enemymonsterstrength2 = beastattributes[monsterchoosen2][3]
+                    enemymonsterspecialattack2 = beastattributes[monsterchoosen2][4]
+                    enemymonsterspeed2 = beastattributes[monsterchoosen2][5]
+                    enemymonstermove1_2 = beastattributes[monsterchoosen2][9]
+                    enemymonstermove2_2 = beastattributes[monsterchoosen2][10]
+                    enemymonstermove3_2 = beastattributes[monsterchoosen2][11]
+                    enemymonstermove4_2 = beastattributes[monsterchoosen2][12]
+                    enemymonstertype2 = beastattributes[monsterchoosen2][13]
+                    enemymonstertier2 = beastattributes[monsterchoosen2][6]
+
+                    # Monster 3
+                    monsterchoosen3 = random.randint(20, 45)
+                    enemymonstername3 = beastattributes[monsterchoosen3][7]
+                    enemymonsterlvl3 = highestlvlmonster + random.randint(-2, 4)
+                    enemymonsterimage3 = beasts[beastattributes[monsterchoosen3][8]]
+                    enemymonsterhp3 = beastattributes[monsterchoosen3][1]
+                    enemymonsterdefense3 = beastattributes[monsterchoosen3][2]
+                    enemymonsterstrength3 = beastattributes[monsterchoosen3][3]
+                    enemymonsterspecialattack3 = beastattributes[monsterchoosen3][4]
+                    enemymonsterspeed3 = beastattributes[monsterchoosen3][5]
+                    enemymonstermove1_3 = beastattributes[monsterchoosen3][9]
+                    enemymonstermove2_3 = beastattributes[monsterchoosen3][10]
+                    enemymonstermove3_3 = beastattributes[monsterchoosen3][11]
+                    enemymonstermove4_3 = beastattributes[monsterchoosen3][12]
+                    enemymonstertype3 = beastattributes[monsterchoosen3][13]
+                    enemymonstertier3 = beastattributes[monsterchoosen3][6]
+
+                if (npcdifficulty == 4):
+                    pygame.mixer.music.load(resource_path("audio/tryhardmusic.mp3"))
+                    pygame.mixer.music.play(-1)
+                    # Monster 1
+                    monsterchoosen1 = random.randint(20, 45)
+                    enemymonstername1 = beastattributes[monsterchoosen1][7]
+                    enemymonsterlvl1 = highestlvlmonster + random.randint(-1, 4)
+                    enemymonsterimage1 = beasts[beastattributes[monsterchoosen1][8]]
+                    enemymonsterhp1 = beastattributes[monsterchoosen1][1]
+                    enemymonsterdefense1 = beastattributes[monsterchoosen1][2]
+                    enemymonsterstrength1 = beastattributes[monsterchoosen1][3]
+                    enemymonsterspecialattack1 = beastattributes[monsterchoosen1][4]
+                    enemymonsterspeed1 = beastattributes[monsterchoosen1][5]
+                    enemymonstermove1_1 = beastattributes[monsterchoosen1][9]
+                    enemymonstermove2_1 = beastattributes[monsterchoosen1][10]
+                    enemymonstermove3_1 = beastattributes[monsterchoosen1][11]
+                    enemymonstermove4_1 = beastattributes[monsterchoosen1][12]
+                    enemymonstertype1 = beastattributes[monsterchoosen1][13]
+                    enemymonstertier1 = beastattributes[monsterchoosen1][6]
+
+                    # Monster 2
+                    monsterchoosen2 = random.randint(25, 50)
+                    enemymonstername2 = beastattributes[monsterchoosen2][7]
+                    enemymonsterlvl2 = highestlvlmonster + random.randint(1, 6)
+                    enemymonsterimage2 = beasts[beastattributes[monsterchoosen2][8]]
+                    enemymonsterhp2 = beastattributes[monsterchoosen2][1]
+                    enemymonsterdefense2 = beastattributes[monsterchoosen2][2]
+                    enemymonsterstrength2 = beastattributes[monsterchoosen2][3]
+                    enemymonsterspecialattack2 = beastattributes[monsterchoosen2][4]
+                    enemymonsterspeed2 = beastattributes[monsterchoosen2][5]
+                    enemymonstermove1_2 = beastattributes[monsterchoosen2][9]
+                    enemymonstermove2_2 = beastattributes[monsterchoosen2][10]
+                    enemymonstermove3_2 = beastattributes[monsterchoosen2][11]
+                    enemymonstermove4_2 = beastattributes[monsterchoosen2][12]
+                    enemymonstertype2 = beastattributes[monsterchoosen2][13]
+                    enemymonstertier2 = beastattributes[monsterchoosen2][6]
+
+                    # Monster 3
+                    monsterchoosen3 = random.randint(40, 55)
+                    enemymonstername3 = beastattributes[monsterchoosen3][7]
+                    enemymonsterlvl3 = highestlvlmonster + random.randint(4, 8)
+                    enemymonsterimage3 = beasts[beastattributes[monsterchoosen3][8]]
+                    enemymonsterhp3 = beastattributes[monsterchoosen3][1]
+                    enemymonsterdefense3 = beastattributes[monsterchoosen3][2]
+                    enemymonsterstrength3 = beastattributes[monsterchoosen3][3]
+                    enemymonsterspecialattack3 = beastattributes[monsterchoosen3][4]
+                    enemymonsterspeed3 = beastattributes[monsterchoosen3][5]
+                    enemymonstermove1_3 = beastattributes[monsterchoosen3][9]
+                    enemymonstermove2_3 = beastattributes[monsterchoosen3][10]
+                    enemymonstermove3_3 = beastattributes[monsterchoosen3][11]
+                    enemymonstermove4_3 = beastattributes[monsterchoosen3][12]
+                    enemymonstertype3 = beastattributes[monsterchoosen3][13]
+                    enemymonstertier3 = beastattributes[monsterchoosen3][6]
+
+                if (npcdifficulty == 5):
+                    pygame.mixer.music.load(resource_path("audio/insanemusic.mp3"))
+                    pygame.mixer.music.play(-1)
+                    # Monster 1
+                    monsterchoosen1 = random.randint(20, 60)
+                    enemymonstername1 = beastattributes[monsterchoosen1][7]
+                    enemymonsterlvl1 = highestlvlmonster + random.randint(5, 12)
+                    enemymonsterimage1 = beasts[beastattributes[monsterchoosen1][8]]
+                    enemymonsterhp1 = beastattributes[monsterchoosen1][1]
+                    enemymonsterdefense1 = beastattributes[monsterchoosen1][2]
+                    enemymonsterstrength1 = beastattributes[monsterchoosen1][3]
+                    enemymonsterspecialattack1 = beastattributes[monsterchoosen1][4]
+                    enemymonsterspeed1 = beastattributes[monsterchoosen1][5]
+                    enemymonstermove1_1 = beastattributes[monsterchoosen1][9]
+                    enemymonstermove2_1 = beastattributes[monsterchoosen1][10]
+                    enemymonstermove3_1 = beastattributes[monsterchoosen1][11]
+                    enemymonstermove4_1 = beastattributes[monsterchoosen1][12]
+                    enemymonstertype1 = beastattributes[monsterchoosen1][13]
+                    enemymonstertier1 = beastattributes[monsterchoosen1][6]
+
+                    # Monster 2
+                    monsterchoosen2 = random.randint(40, 60)
+                    enemymonstername2 = beastattributes[monsterchoosen2][7]
+                    enemymonsterlvl2 = highestlvlmonster + random.randint(7, 15)
+                    enemymonsterimage2 = beasts[beastattributes[monsterchoosen2][8]]
+                    enemymonsterhp2 = beastattributes[monsterchoosen2][1]
+                    enemymonsterdefense2 = beastattributes[monsterchoosen2][2]
+                    enemymonsterstrength2 = beastattributes[monsterchoosen2][3]
+                    enemymonsterspecialattack2 = beastattributes[monsterchoosen2][4]
+                    enemymonsterspeed2 = beastattributes[monsterchoosen2][5]
+                    enemymonstermove1_2 = beastattributes[monsterchoosen2][9]
+                    enemymonstermove2_2 = beastattributes[monsterchoosen2][10]
+                    enemymonstermove3_2 = beastattributes[monsterchoosen2][11]
+                    enemymonstermove4_2 = beastattributes[monsterchoosen2][12]
+                    enemymonstertype2 = beastattributes[monsterchoosen2][13]
+                    enemymonstertier2 = beastattributes[monsterchoosen2][6]
+
+                    # Monster 3
+                    monsterchoosen3 = random.randint(50, 68)
+                    enemymonstername3 = beastattributes[monsterchoosen3][7]
+                    enemymonsterlvl3 = highestlvlmonster + random.randint(10, 20)
+                    enemymonsterimage3 = beasts[beastattributes[monsterchoosen3][8]]
+                    enemymonsterhp3 = beastattributes[monsterchoosen3][1]
+                    enemymonsterdefense3 = beastattributes[monsterchoosen3][2]
+                    enemymonsterstrength3 = beastattributes[monsterchoosen3][3]
+                    enemymonsterspecialattack3 = beastattributes[monsterchoosen3][4]
+                    enemymonsterspeed3 = beastattributes[monsterchoosen3][5]
+                    enemymonstermove1_3 = beastattributes[monsterchoosen3][9]
+                    enemymonstermove2_3 = beastattributes[monsterchoosen3][10]
+                    enemymonstermove3_3 = beastattributes[monsterchoosen3][11]
+                    enemymonstermove4_3 = beastattributes[monsterchoosen3][12]
+                    enemymonstertype3 = beastattributes[monsterchoosen3][13]
+                    enemymonstertier3 = beastattributes[monsterchoosen3][6]
+
+                if (npcdifficulty == 6):
+                    pygame.mixer.music.load(resource_path("audio/legendarymusic.mp3"))
+                    pygame.mixer.music.play(-1)
+                    # Monster 1
+                    monsterchoosen1 = random.randint(45, 65)
+                    enemymonstername1 = beastattributes[monsterchoosen1][7]
+                    enemymonsterlvl1 = highestlvlmonster + random.randint(15, 25)
+                    enemymonsterimage1 = beasts[beastattributes[monsterchoosen1][8]]
+                    enemymonsterhp1 = beastattributes[monsterchoosen1][1]
+                    enemymonsterdefense1 = beastattributes[monsterchoosen1][2]
+                    enemymonsterstrength1 = beastattributes[monsterchoosen1][3]
+                    enemymonsterspecialattack1 = beastattributes[monsterchoosen1][4]
+                    enemymonsterspeed1 = beastattributes[monsterchoosen1][5]
+                    enemymonstermove1_1 = beastattributes[monsterchoosen1][9]
+                    enemymonstermove2_1 = beastattributes[monsterchoosen1][10]
+                    enemymonstermove3_1 = beastattributes[monsterchoosen1][11]
+                    enemymonstermove4_1 = beastattributes[monsterchoosen1][12]
+                    enemymonstertype1 = beastattributes[monsterchoosen1][13]
+                    enemymonstertier1 = beastattributes[monsterchoosen1][6]
+
+                    # Monster 2
+                    monsterchoosen2 = random.randint(45, 75)
+                    enemymonstername2 = beastattributes[monsterchoosen2][7]
+                    enemymonsterlvl2 = highestlvlmonster + random.randint(15, 25)
+                    enemymonsterimage2 = beasts[beastattributes[monsterchoosen2][8]]
+                    enemymonsterhp2 = beastattributes[monsterchoosen2][1]
+                    enemymonsterdefense2 = beastattributes[monsterchoosen2][2]
+                    enemymonsterstrength2 = beastattributes[monsterchoosen2][3]
+                    enemymonsterspecialattack2 = beastattributes[monsterchoosen2][4]
+                    enemymonsterspeed2 = beastattributes[monsterchoosen2][5]
+                    enemymonstermove1_2 = beastattributes[monsterchoosen2][9]
+                    enemymonstermove2_2 = beastattributes[monsterchoosen2][10]
+                    enemymonstermove3_2 = beastattributes[monsterchoosen2][11]
+                    enemymonstermove4_2 = beastattributes[monsterchoosen2][12]
+                    enemymonstertype2 = beastattributes[monsterchoosen2][13]
+                    enemymonstertier2 = beastattributes[monsterchoosen2][6]
+
+                    # Monster 3
+                    monsterchoosen3 = random.randint(65, 75)
+                    enemymonstername3 = beastattributes[monsterchoosen3][7]
+                    enemymonsterlvl3 = highestlvlmonster + random.randint(20, 35)
+                    enemymonsterimage3 = beasts[beastattributes[monsterchoosen3][8]]
+                    enemymonsterhp3 = beastattributes[monsterchoosen3][1]
+                    enemymonsterdefense3 = beastattributes[monsterchoosen3][2]
+                    enemymonsterstrength3 = beastattributes[monsterchoosen3][3]
+                    enemymonsterspecialattack3 = beastattributes[monsterchoosen3][4]
+                    enemymonsterspeed3 = beastattributes[monsterchoosen3][5]
+                    enemymonstermove1_3 = beastattributes[monsterchoosen3][9]
+                    enemymonstermove2_3 = beastattributes[monsterchoosen3][10]
+                    enemymonstermove3_3 = beastattributes[monsterchoosen3][11]
+                    enemymonstermove4_3 = beastattributes[monsterchoosen3][12]
+                    enemymonstertype3 = beastattributes[monsterchoosen3][13]
+                    enemymonstertier3 = beastattributes[monsterchoosen3][6]
+
+                enemybeast1strengthlive = (enemymonsterstrength1 + random.randint(0,4)) + ((enemymonsterstrength1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1) * (1 + enemymonstertier1 * .1)
+                enemybeast1defenselive = (enemymonsterdefense1 + random.randint(0,4)) + ((enemymonsterdefense1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
+                enemybeast1healthlive = (enemymonsterhp1 + random.randint(0,4)) + ((enemymonsterhp1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
+                enemybeast1speedlive = (enemymonsterspeed1 + random.randint(0,4)) + ((enemymonsterspeed1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
+                enemybeast1specattacklive = (enemymonsterspecialattack1 + random.randint(0,4)) + ((enemymonsterspecialattack1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
+
+                enemybeast2strengthlive = (enemymonsterstrength2 + random.randint(0,9)) + ((enemymonsterstrength2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
+                enemybeast2defenselive = (enemymonsterdefense2 + random.randint(0,9)) + ((enemymonsterdefense2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
+                enemybeast2healthlive = (enemymonsterhp2 + random.randint(0,9)) + ((enemymonsterhp2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
+                enemybeast2speedlive = (enemymonsterspeed2 + random.randint(0,9)) + ((enemymonsterspeed2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
+                enemybeast2specattacklive = (enemymonsterspecialattack2 + random.randint(0,9)) + ((enemymonsterspecialattack2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
+
+                enemybeast3strengthlive = (enemymonsterstrength3 + random.randint(2,10)) + ((enemymonsterstrength3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
+                enemybeast3defenselive = (enemymonsterdefense3 + random.randint(2,10)) + ((enemymonsterdefense3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
+                enemybeast3healthlive = (enemymonsterhp3 + random.randint(2,10)) + ((enemymonsterhp3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
+                enemybeast3speedlive = (enemymonsterspeed3 + random.randint(2,10)) + ((enemymonsterspeed3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
+                enemybeast3specattacklive = (enemymonsterspecialattack3 + random.randint(2,10)) + ((enemymonsterspecialattack3 + random.randint(2,10)) * .2 * enemymonsterlvl1) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
+
+                enemymonsterstrength1 = enemybeast1strengthlive
+                enemymonsterdefense1 = enemybeast1defenselive
+                enemymonsterhp1 = enemybeast1healthlive
+                enemymonsterspeed1 = enemybeast1speedlive
+                enemymonsterspecialattack1 = enemybeast1specattacklive
+
+                enemymonsterstrength2 = enemybeast2strengthlive
+                enemymonsterdefense2 = enemybeast2defenselive
+                enemymonsterhp2 = enemybeast2healthlive
+                enemymonsterspeed2 = enemybeast2speedlive
+                enemymonsterspecialattack2 = enemybeast2specattacklive
+
+                enemymonsterstrength3 = enemybeast3strengthlive
+                enemymonsterdefense3 = enemybeast3defenselive
+                enemymonsterhp3 = enemybeast3healthlive
+                enemymonsterspeed3 = enemybeast3speedlive
+                enemymonsterspecialattack3 = enemybeast3specattacklive
+
+                if(enemymonstertier1 == 1):
+                    enemybeast1namecolor = WHITE
+                if(enemymonstertier1 == 2):
+                    enemybeast1namecolor = GREEN
+                if(enemymonstertier1 == 3):
+                    enemybeast1namecolor = YELLOW
+                if(enemymonstertier1 == 4):
+                    enemybeast1namecolor = DARKPURPLE
+
+                if(enemymonstertier2 == 1):
+                    enemybeast2namecolor = WHITE
+                if(enemymonstertier2 == 2):
+                    enemybeast2namecolor = GREEN
+                if(enemymonstertier2 == 3):
+                    enemybeast2namecolor = YELLOW
+                if(enemymonstertier2 == 4):
+                    enemybeast2namecolor = DARKPURPLE
+
+                if(enemymonstertier3 == 1):
+                    enemybeast3namecolor = WHITE
+                if(enemymonstertier3 == 2):
+                    enemybeast3namecolor = GREEN
+                if(enemymonstertier3 == 3):
+                    enemybeast3namecolor = YELLOW
+                if(enemymonstertier3 == 4):
+                    enemybeast3namecolor = DARKPURPLE
+
+
+
                 self.gamescene = self.gamescene + 1
             if (self.gamescene == 14):
                 DISPLAYSURF.fill(BLACK)
-                if(i > 0):
-                    i = i - 50
-                DISPLAYSURF.blit(image268, (197 + i, 100))
-                fps = 25
+                DISPLAYSURF.blit(image268, (197, 100))
+                fps = 30
                 clock = pygame.time.Clock()
                 ret, frame = video.read()
                 if not ret:
                     video.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    continue  # Continue to the next loop iteration
+                    continue
                 frame = cv2.resize(frame, (1550, 880))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_surface = pygame.surfarray.make_surface(frame)
-                frame_surface = pygame.transform.rotate(frame_surface, -90)  # Rotate if necessary
+                frame_surface = pygame.transform.rotate(frame_surface, -90)
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(100)
-                DISPLAYSURF.blit(frame_surface, (190 + i, 100))
+                DISPLAYSURF.blit(frame_surface, (190 , 100))
                 clock.tick(fps)
 
                 mouseX, mouseY = pygame.mouse.get_pos()
                 print("x and y = " + str(mouseX) + " " + str(mouseY))
 
-                battlebutton = pygame.Rect(halfdisplay - 250 + i, 800, 240, 70)
-                switchCharactersbutton = pygame.Rect(halfdisplay - 250 + i, 880, 240, 70)
-                itemsbutton = pygame.Rect(halfdisplay + 10 + i, 800, 240, 70)
-                forfeitbutton = pygame.Rect(halfdisplay + 10 + i, 880, 240, 70)
-                tempbeastdisplayed = None
+                battlebutton = pygame.Rect(halfdisplay - 250, 800, 240, 70)
+                switchCharactersbutton = pygame.Rect(halfdisplay - 250, 880, 240, 70)
+                itemsbutton = pygame.Rect(halfdisplay + 10, 800, 240, 70)
+                forfeitbutton = pygame.Rect(halfdisplay + 10, 880, 240, 70)
 
                 pygame.draw.rect(DISPLAYSURF, CLOUD, battlebutton)
                 pygame.draw.rect(DISPLAYSURF, CLOUD, switchCharactersbutton)
@@ -13811,30 +14808,78 @@ class colleseum(pygame.sprite.Sprite):
                 if forfeitbutton.collidepoint(mouse_pos):
                     pygame.draw.rect(DISPLAYSURF, WHITE, forfeitbutton)
                     pygame.draw.rect(DISPLAYSURF, rainbow, forfeitbutton, 4)
-                draw_text_center("Battle", font22, DARKPURPLE, DISPLAYSURF, 822 + i, 805)
-                draw_text_center("Switch", font22, AQUA, DISPLAYSURF, 822 + i, 885)
-                draw_text_center("Items", font22, GOLD, DISPLAYSURF, 1086 + i, 805)
-                draw_text_center("Forfeit", font22, BLACK, DISPLAYSURF, 1086 + i, 885)
-
+                draw_text_center("Battle", font22, DARKPURPLE, DISPLAYSURF, 822 , 805)
+                draw_text_center("Switch", font22, AQUA, DISPLAYSURF, 822 , 885)
+                draw_text_center("Items", font22, GOLD, DISPLAYSURF, 1086 , 805)
+                draw_text_center("Forfeit", font22, BLACK, DISPLAYSURF, 1086 , 885)
 
                 if(teamchoosen == 1 and teamsize >= 1):
-                    DISPLAYSURF.blit(beasts[attributes1[8]], (165 + i, 400))
-                    draw_text_center(attributes1[0], font22, WHITE, DISPLAYSURF, halfdisplay - 450 + i, 140)
-                    healthrect = pygame.Rect(halfdisplay - 600 + i, 210, 300, 40)
+                    DISPLAYSURF.blit(beasts[beast1beastimage], (445 , 400))
+                    draw_text_center(beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 260 , 140)
+                    healthrect = pygame.Rect(halfdisplay - 410 , 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
-                    healthrectlive = pygame.Rect(halfdisplay - 600 + i, 210, (300 * (beast1healthlive / beast1health)),40)
+                    healthrectlive = pygame.Rect(halfdisplay - 410 , 210, (300 * (beast1healthlive / beast1health)),40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
-                    draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 + i, 265)
+                    if(beast1healthlive >= (beast1health/2)):
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 , 265)
+                    if((beast1healthlive >= (beast1health/4)) and (beast1healthlive < (beast1health/2))):
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 265)
+                    if(beast1healthlive < (beast1health/4)):
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, VELVET, DISPLAYSURF,halfdisplay - 450 , 265)
+
+                    draw_text_center("lvl " +str(beast1level), font5, WHITE, DISPLAYSURF, 287, 140)
+
+
+                    draw_text_center("Strength= " +str(beast1strength), font5, WHITE, DISPLAYSURF, halfdisplay - 550 , 240)
+                    draw_text_center("defense= " +str(beast1defense), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 270)
+                    draw_text_center("health= " +str(beast1health), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 300)
+                    draw_text_center("speed= " +str(beast1speed), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 330)
+                    draw_text_center("specattack= " +str(beast1specattack), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 360)
+                    draw_text_center("type= " +str(beast1type), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 390)
+                    draw_text_center("experience= " +str(beast1experience), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 420)
+                    draw_text_center("tier= " +str(beast1tier), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 450)
 
                 if(teamchoosen == 2 and teamsize >= 2):
-                    DISPLAYSURF.blit(beasts[attributes2[8]], (165 + i, 400))
+                    DISPLAYSURF.blit(beasts[attributes2[8]], (165, 400))
 
                 if(teamchoosen == 3 and teamsize >= 3):
-                    DISPLAYSURF.blit(beasts[attributes3[8]], (165 + i, 400))
+                    DISPLAYSURF.blit(beasts[attributes3[8]], (165, 400))
 
 
 
-                redgloww.set_alpha(170)
+                if(enemyteamchoosen == 1):
+                    DISPLAYSURF.blit(enemymonsterimage1 , (865 , 400))
+                    draw_text_center(enemymonstername1 , font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 350 , 140)
+                    healthrect = pygame.Rect(halfdisplay + 100 , 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    enemyhealthrectlive = pygame.Rect(halfdisplay + 100 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                    if(enemybeast1healthlive >= (beast1health/2)):
+                        draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 350 , 265)
+                    if((enemybeast1healthlive >= (enemymonsterhp1/4)) and (enemybeast1healthlive < (beast1health/2))):
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 265)
+                    if(beast1healthlive < (enemymonsterhp1/4)):
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF,halfdisplay + 350 , 265)
+                    draw_text_center("lvl " +str(enemymonsterlvl1), font5, WHITE, DISPLAYSURF, 1630, 140)
+
+                    draw_text_center("Strength= " +str(enemybeast1strengthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150 , 240)
+                    draw_text_center("defense= " +str(enemybeast1defenselive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 270)
+                    draw_text_center("health= " +str(enemybeast1speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 300)
+                    draw_text_center("speed= " +str(enemybeast1speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 330)
+                    draw_text_center("specattack= " +str(enemybeast1specattacklive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 360)
+                    draw_text_center("type= " +str(enemymonstertype1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 390)
+                    draw_text_center("tier= " +str(enemymonstertier1), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 450)
+                    draw_text_center("move1= " +str(enemymonstermove1_1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 510)
+                    draw_text_center("move2= " +str(enemymonstermove2_1)  , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 540)
+                    draw_text_center("move3= " +str(enemymonstermove3_1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 570)
+                    draw_text_center("move4= " +str(enemymonstermove4_1)  , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 600)
+
+                if(enemyteamchoosen == 2):
+                    DISPLAYSURF.blit(enemymonsterimage2 , (865 , 400))
+
+                if(enemyteamchoosen == 3):
+                    DISPLAYSURF.blit(enemymonsterimage3 , (865 , 400))
+
                 DISPLAYSURF.blit(redgloww, (mouseX - 47, mouseY - 44))
 
                 mouse_pos = pygame.mouse.get_pos()
