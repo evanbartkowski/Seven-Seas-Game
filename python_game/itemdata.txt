@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Leather Chestplate",
+        "imagecore": "images/leatherchestplate.png",
+        "HP": 0,
+        "armor": 4,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 4,
+        "luck": 0
+    }
+]

@@ -1,9 +1,45 @@
 [
+    {
+        "name": "Plated Helmet",
+        "imagecore": "images/metalhelmet.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
+    {
+        "name": "Plated Chestplate",
+        "imagecore": "images/metalchestplate.png",
+        "HP": 5,
+        "armor": 10,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": -5,
+        "luck": 0
+    },
+    {},
+    {
+        "name": "Ascendent Boots",
+        "imagecore": "images/coralshoes.png",
+        "HP": 5,
+        "armor": 20,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 30,
+        "luck": 5
+    },
     {},
     {},
-    {},
-    {},
-    {},
-    {},
-    {}
+    {
+        "name": "Rusty Sword",
+        "imagecore": "images/rustysword.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 2,
+        "specialattack": 0,
+        "speed": 2,
+        "luck": 0
+    }
 ]

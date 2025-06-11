@@ -50,16 +50,6 @@
         "luck": 0
     },
     {
-        "name": "Apple",
-        "imagecore": "images/apple.png",
-        "HP": 0,
-        "armor": 0,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 0,
-        "luck": 0
-    },
-    {
         "name": "Mysterious Dao Bag",
         "imagecore": "images/supermysterybag.png",
         "HP": 4,
@@ -72,16 +62,6 @@
     {
         "name": "Resistence Potion",
         "imagecore": "images/whitepotion.png",
-        "HP": 0,
-        "armor": 0,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 0,
-        "luck": 0
-    },
-    {
-        "name": "Healing Potion",
-        "imagecore": "images/healingpotion.png",
         "HP": 0,
         "armor": 0,
         "Attack": 0,
@@ -140,28 +120,8 @@
         "luck": 0
     },
     {
-        "name": "Golden Apple",
-        "imagecore": "images/goldenapple.png",
-        "HP": 0,
-        "armor": 0,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 0,
-        "luck": 0
-    },
-    {
         "name": "Codex",
         "imagecore": "images/enchantedbook1.png",
-        "HP": 0,
-        "armor": 0,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 0,
-        "luck": 0
-    },
-    {
-        "name": "Apple",
-        "imagecore": "images/apple.png",
         "HP": 0,
         "armor": 0,
         "Attack": 0,
@@ -182,16 +142,6 @@
     {
         "name": "Small EXP Pouch",
         "imagecore": "images/expouch.png",
-        "HP": 0,
-        "armor": 0,
-        "Attack": 0,
-        "specialattack": 0,
-        "speed": 0,
-        "luck": 0
-    },
-    {
-        "name": "Golden Apple",
-        "imagecore": "images/goldenapple.png",
         "HP": 0,
         "armor": 0,
         "Attack": 0,
@@ -252,6 +202,86 @@
     {
         "name": "Time Dilator",
         "imagecore": "images/timedilator.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Resistence Potion",
+        "imagecore": "images/whitepotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Healing Potion",
+        "imagecore": "images/healingpotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Healing Potion",
+        "imagecore": "images/healingpotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Wind Potion",
+        "imagecore": "images/bluepotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Lucky Potion",
+        "imagecore": "images/greenpotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Resistence Potion",
+        "imagecore": "images/whitepotion.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Codex",
+        "imagecore": "images/enchantedbook1.png",
+        "HP": 0,
+        "armor": 0,
+        "Attack": 0,
+        "specialattack": 0,
+        "speed": 0,
+        "luck": 0
+    },
+    {
+        "name": "Small EXP Pouch",
+        "imagecore": "images/expouch.png",
         "HP": 0,
         "armor": 0,
         "Attack": 0,

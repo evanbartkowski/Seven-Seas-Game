@@ -76,6 +76,12 @@ alchemylevel = 0
 alchemyexp = 0
 guildtutorial = 0
 ########################################################################################################################
+displaylength = 1920
+displaywidth = 1080
+halfdisplay = displaylength / 2
+DISPLAYSURF = pygame.display.set_mode((displaylength, displaywidth), pygame.RESIZABLE)
+DISPLAYSURF.fill(WHITE)
+pygame.display.set_caption("Game")
 ########################################################################################################################
 trainers = [pygame.image.load(resource_path(f'images/trainer{i}.png')) for i in range(1, 118)]
 
@@ -561,7 +567,7 @@ moves_lore = [
     "Mud: A move that covers enemies in mud, slowing them down.",
     "Jungle Gym: A move that creates a jungle-like environment, confusing enemies.",
     "Heal: A restorative move that uses nature's energy to heal wounds.",
-    "Jungle Juice: A potion made from jungle plants that restores health and energy.",
+    "Jungle Juice: A elixir made from jungle plants that restores health and energy.",
     "Petalstrike: A strike that uses flower petals to cut through enemies.",
     "Foliage: A move that creates a dense thicket, providing cover and protection.",
     "Bloomveil: A veil of blooming flowers that shields and heals allies.",
@@ -736,341 +742,355 @@ beast_lore = [
     "A titan of the deep, said to be the last remnant of an age when monsters ruled the seas."
 ]
 
+lightimage = pygame.image.load(resource_path('images/light.png')).convert_alpha()
+lightningimage = pygame.image.load(resource_path('images/lightning.png')).convert_alpha()
+poisonimage = pygame.image.load(resource_path('images/poison.png')).convert_alpha()
+iceimage = pygame.image.load(resource_path('images/ice.png')).convert_alpha()
+normalimage = pygame.image.load(resource_path('images/normal.png')).convert_alpha()
+psychicimage = pygame.image.load(resource_path('images/psychic.png')).convert_alpha()
+
+natureimage = pygame.image.load(resource_path('images/nature.png')).convert_alpha()
+darknessimage = pygame.image.load(resource_path('images/darkness.png')).convert_alpha()
+windimage = pygame.image.load(resource_path('images/wind.png')).convert_alpha()
+waterimage = pygame.image.load(resource_path('images/water.png')).convert_alpha()
+groundimage = pygame.image.load(resource_path('images/ground.png')).convert_alpha()
+fireimage = pygame.image.load(resource_path('images/fire.png')).convert_alpha()
 
 
 
-image00 = pygame.image.load(resource_path('images/bubble.png'))
+
+image00 = pygame.image.load(resource_path('images/bubble.png')).convert_alpha()
 image00 = pygame.transform.scale(image00, (15, 15))
-image01 = pygame.image.load(resource_path('images/bubble.png'))
+image01 = pygame.image.load(resource_path('images/bubble.png')).convert_alpha()
 image01 = pygame.transform.scale(image01, (25, 25))
-image02 = pygame.image.load(resource_path('images/bubble.png'))
+image02 = pygame.image.load(resource_path('images/bubble.png')).convert_alpha()
 image02 = pygame.transform.scale(image02, (35, 35))
 
-imagen6 = pygame.image.load(resource_path('images/goldglow.png'))
+imagen6 = pygame.image.load(resource_path('images/goldglow.png')).convert_alpha()
 imagen6 = pygame.transform.scale(imagen6, (100, 100))
 
-imagewhite = pygame.image.load(resource_path('images/blankwhitepage.jpg'))
-imagewhitehalo = pygame.image.load(resource_path('images/whiteglowhalo.png'))
-imagewhiteground = pygame.image.load(resource_path('images/whitehaloground.png'))
-imagewhitecircle = pygame.image.load(resource_path('images/whitehalocircle.png'))
+imagewhite = pygame.image.load(resource_path('images/blankwhitepage.jpg')).convert_alpha()
+imagewhitehalo = pygame.image.load(resource_path('images/whiteglowhalo.png')).convert_alpha()
+imagewhiteground = pygame.image.load(resource_path('images/whitehaloground.png')).convert_alpha()
+imagewhitecircle = pygame.image.load(resource_path('images/whitehalocircle.png')).convert_alpha()
 
-image4 = pygame.image.load(resource_path('images/blackscreen.jpg'))
+image4 = pygame.image.load(resource_path('images/blackscreen.jpg')).convert_alpha()
 image4 = pygame.transform.scale(image4, (3920, 1080))
-image4_1 = pygame.image.load(resource_path('images/blackscreen.jpg'))
+image4_1 = pygame.image.load(resource_path('images/blackscreen.jpg')).convert_alpha()
 image4_1 = pygame.transform.scale(image4_1, (3920, 1080))
-image30 = pygame.image.load(resource_path('images/skipbutton.png'))
+image30 = pygame.image.load(resource_path('images/skipbutton.png')).convert_alpha()
 image30 = pygame.transform.scale(image30, (90, 50))
-image31 = pygame.image.load(resource_path('images/purplerect.png'))
+image31 = pygame.image.load(resource_path('images/purplerect.png')).convert_alpha()
 image31 = pygame.transform.scale(image31, (50, 80))
-image52 = pygame.image.load(resource_path('images/knightwalkthrough.png'))
+image52 = pygame.image.load(resource_path('images/knightwalkthrough.png')).convert_alpha()
 image52 = pygame.transform.scale(image52, (500, 250))
-image53 = pygame.image.load(resource_path('images/speechbubble.png'))
+image53 = pygame.image.load(resource_path('images/speechbubble.png')).convert_alpha()
 image53 = pygame.transform.scale(image53, (500, 230))
-image56 = pygame.image.load(resource_path('images/blueglow.png'))
+image56 = pygame.image.load(resource_path('images/blueglow.png')).convert_alpha()
 image56 = pygame.transform.scale(image56, (100, 100))
 
-redgloww = pygame.image.load(resource_path('images/redglow2.png'))
+redgloww = pygame.image.load(resource_path('images/redglow2.png')).convert_alpha()
 redgloww = pygame.transform.scale(redgloww, (100, 100))
 #######paimons shop images##############
-image58 = pygame.image.load(resource_path('images/paimonshop.webp'))
+image58 = pygame.image.load(resource_path('images/paimonshop.webp')).convert()
 image58 = pygame.transform.scale(image58, (1550, 870))
-image59 = pygame.image.load(resource_path('images/paimonmenushop.png'))
+image59 = pygame.image.load(resource_path('images/paimonmenushop.png')).convert_alpha()
 image59 = pygame.transform.scale(image59, (900, 900))
-imageBlack = pygame.image.load(resource_path('images/blackscreen.jpg'))
+imageBlack = pygame.image.load(resource_path('images/blackscreen.jpg')).convert_alpha()
 imageBlack = pygame.transform.scale(imageBlack, (765, 700))
-imageBlack_1 = pygame.image.load(resource_path('images/labormarketblackscreen.jpg'))
+imageBlack_1 = pygame.image.load(resource_path('images/labormarketblackscreen.jpg')).convert_alpha()
 imageBlack_1 = pygame.transform.scale(imageBlack_1, (765, 700))
-imagebackdrop = pygame.image.load(resource_path('images/STASHBACKDROP.jpg'))
+imagebackdrop = pygame.image.load(resource_path('images/STASHBACKDROP.jpg')).convert_alpha()
 imagebackdrop = pygame.transform.scale(imagebackdrop, (765, 700))
-image60 = pygame.image.load(resource_path('images/returnarrow.png'))
+image60 = pygame.image.load(resource_path('images/returnarrow.png')).convert_alpha()
 image60 = pygame.transform.scale(image60, (75, 75))
-image61 = pygame.image.load(resource_path('images/whitereturnarrow.png'))
+image61 = pygame.image.load(resource_path('images/whitereturnarrow.png')).convert_alpha()
 image61 = pygame.transform.scale(image61, (75, 75))
 ########################################################################################################################
-image62 = pygame.image.load(resource_path('images/purplepotion.png'))
+image62 = pygame.image.load(resource_path('images/purplepotion.png')).convert_alpha()
 image62 = pygame.transform.scale(image62, (50, 50))
-image63 = pygame.image.load(resource_path('images/bluepotion.png'))
+image63 = pygame.image.load(resource_path('images/bluepotion.png')).convert_alpha()
 image63 = pygame.transform.scale(image63, (50, 50))
-image64 = pygame.image.load(resource_path('images/greenpotion.png'))
+image64 = pygame.image.load(resource_path('images/greenpotion.png')).convert_alpha()
 image64 = pygame.transform.scale(image64, (50, 50))
-image65 = pygame.image.load(resource_path('images/whitepotion.png'))
+image65 = pygame.image.load(resource_path('images/whitepotion.png')).convert_alpha()
 image65 = pygame.transform.scale(image65, (50, 50))
-image66 = pygame.image.load(resource_path('images/healingpotion.png'))
+image66 = pygame.image.load(resource_path('images/healingpotion.png')).convert_alpha()
 image66 = pygame.transform.scale(image66, (50, 50))
-image67 = pygame.image.load(resource_path('images/apple.png'))
+image67 = pygame.image.load(resource_path('images/apple.png')).convert_alpha()
 image67 = pygame.transform.scale(image67, (50, 50))
-image68 = pygame.image.load(resource_path('images/goldenapple.png'))
+image68 = pygame.image.load(resource_path('images/goldenapple.png')).convert_alpha()
 image68 = pygame.transform.scale(image68, (50, 50))
 
-image69 = pygame.image.load(resource_path('images/enchantedbook1.png'))
+image69 = pygame.image.load(resource_path('images/enchantedbook1.png')).convert_alpha()
 image69 = pygame.transform.scale(image69, (50, 50))
-image70 = pygame.image.load(resource_path('images/whiteamulet.png'))
+image70 = pygame.image.load(resource_path('images/whiteamulet.png')).convert_alpha()
 image70 = pygame.transform.scale(image70, (50, 50))
-image71 = pygame.image.load(resource_path('images/redamulet.png'))
+image71 = pygame.image.load(resource_path('images/redamulet.png')).convert_alpha()
 image71 = pygame.transform.scale(image71, (50, 50))
-image72 = pygame.image.load(resource_path('images/purpleamulet.png'))
+image72 = pygame.image.load(resource_path('images/purpleamulet.png')).convert_alpha()
 image72 = pygame.transform.scale(image72, (50, 50))
-image73 = pygame.image.load(resource_path('images/underwatercrown.png'))
+image73 = pygame.image.load(resource_path('images/underwatercrown.png')).convert_alpha()
 image73 = pygame.transform.scale(image73, (50, 50))
-image74 = pygame.image.load(resource_path('images/mysterybag.png'))
+image74 = pygame.image.load(resource_path('images/mysterybag.png')).convert_alpha()
 image74 = pygame.transform.scale(image74, (50, 50))
-image75 = pygame.image.load(resource_path('images/supermysterybag.png'))
+image75 = pygame.image.load(resource_path('images/supermysterybag.png')).convert_alpha()
 image75 = pygame.transform.scale(image75, (50, 50))
 
-image76 = pygame.image.load(resource_path('images/rustysword.png'))
+image76 = pygame.image.load(resource_path('images/rustysword.png')).convert_alpha()
 image76 = pygame.transform.scale(image76, (50, 50))
-image77 = pygame.image.load(resource_path('images/bronzesword.png'))
+image77 = pygame.image.load(resource_path('images/bronzesword.png')).convert_alpha()
 image77 = pygame.transform.scale(image77, (50, 50))
-image78 = pygame.image.load(resource_path('images/Ironsword.png'))
+image78 = pygame.image.load(resource_path('images/Ironsword.png')).convert_alpha()
 image78 = pygame.transform.scale(image78, (50, 50))
-image79 = pygame.image.load(resource_path('images/diamondsword.png'))
+image79 = pygame.image.load(resource_path('images/diamondsword.png')).convert_alpha()
 image79 = pygame.transform.scale(image79, (50, 50))
-image80 = pygame.image.load(resource_path('images/simplestaff.png'))
+image80 = pygame.image.load(resource_path('images/simplestaff.png')).convert_alpha()
 image80 = pygame.transform.scale(image80, (50, 50))
-image81 = pygame.image.load(resource_path('images/leatherhelmet.png'))
+image81 = pygame.image.load(resource_path('images/leatherhelmet.png')).convert_alpha()
 image81 = pygame.transform.scale(image81, (50, 50))
-image82 = pygame.image.load(resource_path('images/leatherchestplate.png'))
+image82 = pygame.image.load(resource_path('images/leatherchestplate.png')).convert_alpha()
 image82 = pygame.transform.scale(image82, (50, 50))
 
-imageesneak83 = pygame.image.load(resource_path('images/leatherpants.png'))
+imageesneak83 = pygame.image.load(resource_path('images/leatherpants.png')).convert_alpha()
 imageesneak83 = pygame.transform.scale(imageesneak83, (50, 50))
-imageesneak84 = pygame.image.load(resource_path('images/leatherboots.png'))
+imageesneak84 = pygame.image.load(resource_path('images/leatherboots.png')).convert_alpha()
 imageesneak84 = pygame.transform.scale(imageesneak84, (50, 50))
-image83 = pygame.image.load(resource_path('images/metalhelmet.png'))
+image83 = pygame.image.load(resource_path('images/metalhelmet.png')).convert_alpha()
 image83 = pygame.transform.scale(image83, (50, 50))
-image84 = pygame.image.load(resource_path('images/metalchestplate.png'))
+image84 = pygame.image.load(resource_path('images/metalchestplate.png')).convert_alpha()
 image84 = pygame.transform.scale(image84, (50, 50))
-image85 = pygame.image.load(resource_path('images/metalgreeves.png'))
+image85 = pygame.image.load(resource_path('images/metalgreeves.png')).convert_alpha()
 image85 = pygame.transform.scale(image85, (50, 50))
-image86 = pygame.image.load(resource_path('images/metalboots.png'))
+image86 = pygame.image.load(resource_path('images/metalboots.png')).convert_alpha()
 image86 = pygame.transform.scale(image86, (50, 50))
-image87 = pygame.image.load(resource_path('images/coralhelmet.png'))
+image87 = pygame.image.load(resource_path('images/coralhelmet.png')).convert_alpha()
 image87 = pygame.transform.scale(image87, (50, 50))
 
-image88 = pygame.image.load(resource_path('images/coralchestplate.png'))
+image88 = pygame.image.load(resource_path('images/coralchestplate.png')).convert_alpha()
 image88 = pygame.transform.scale(image88, (50, 50))
-image89 = pygame.image.load(resource_path('images/coralpants.png'))
+image89 = pygame.image.load(resource_path('images/coralpants.png')).convert_alpha()
 image89 = pygame.transform.scale(image89, (50, 50))
-image90 = pygame.image.load(resource_path('images/coralshoes.png'))
+image90 = pygame.image.load(resource_path('images/coralshoes.png')).convert_alpha()
 image90 = pygame.transform.scale(image90, (50, 50))
-image91 = pygame.image.load(resource_path('images/expouch.png'))
+image91 = pygame.image.load(resource_path('images/expouch.png')).convert_alpha()
 image91 = pygame.transform.scale(image91, (50, 50))
-image92 = pygame.image.load(resource_path('images/largeexppouch.png'))
+image92 = pygame.image.load(resource_path('images/largeexppouch.png')).convert_alpha()
 image92 = pygame.transform.scale(image92, (50, 50))
-image93 = pygame.image.load(resource_path('images/timedilator.png'))
+image93 = pygame.image.load(resource_path('images/timedilator.png')).convert_alpha()
 image93 = pygame.transform.scale(image93, (50, 50))
 ########################################################################################################################
-image94 = pygame.image.load(resource_path('images/purplepotion.png'))
+image94 = pygame.image.load(resource_path('images/purplepotion.png')).convert_alpha()
 image94 = pygame.transform.scale(image94, (350, 350))
-image95 = pygame.image.load(resource_path('images/enchantedbook1.png'))
+image95 = pygame.image.load(resource_path('images/enchantedbook1.png')).convert_alpha()
 image95 = pygame.transform.scale(image95, (350, 350))
-image96 = pygame.image.load(resource_path('images/rustysword.png'))
+image96 = pygame.image.load(resource_path('images/rustysword.png')).convert_alpha()
 image96 = pygame.transform.scale(image96, (350, 350))
-image97 = pygame.image.load(resource_path('images/leatherpants.png'))
+image97 = pygame.image.load(resource_path('images/leatherpants.png')).convert_alpha()
 image97 = pygame.transform.scale(image97, (350, 350))
-image98 = pygame.image.load(resource_path('images/coralchestplate.png'))
+image98 = pygame.image.load(resource_path('images/coralchestplate.png')).convert_alpha()
 image98 = pygame.transform.scale(image98, (350, 350))
 
-image99 = pygame.image.load(resource_path('images/bluepotion.png'))
+image99 = pygame.image.load(resource_path('images/bluepotion.png')).convert_alpha()
 image99 = pygame.transform.scale(image99, (350, 350))
-image100 = pygame.image.load(resource_path('images/whiteamulet.png'))
+image100 = pygame.image.load(resource_path('images/whiteamulet.png')).convert_alpha()
 image100 = pygame.transform.scale(image100, (350, 350))
-image101 = pygame.image.load(resource_path('images/bronzesword.png'))
+image101 = pygame.image.load(resource_path('images/bronzesword.png')).convert_alpha()
 image101 = pygame.transform.scale(image101, (350, 350))
-image102 = pygame.image.load(resource_path('images/leatherboots.png'))
+image102 = pygame.image.load(resource_path('images/leatherboots.png')).convert_alpha()
 image102 = pygame.transform.scale(image102, (350, 350))
-image103 = pygame.image.load(resource_path('images/coralpants.png'))
+image103 = pygame.image.load(resource_path('images/coralpants.png')).convert_alpha()
 image103 = pygame.transform.scale(image103, (350, 350))
 
-image104 = pygame.image.load(resource_path('images/greenpotion.png'))
+image104 = pygame.image.load(resource_path('images/greenpotion.png')).convert_alpha()
 image104 = pygame.transform.scale(image104, (350, 350))
-image105 = pygame.image.load(resource_path('images/redamulet.png'))
+image105 = pygame.image.load(resource_path('images/redamulet.png')).convert_alpha()
 image105 = pygame.transform.scale(image105, (350, 350))
-image106 = pygame.image.load(resource_path('images/Ironsword.png'))
+image106 = pygame.image.load(resource_path('images/Ironsword.png')).convert_alpha()
 image106 = pygame.transform.scale(image106, (350, 350))
-image107 = pygame.image.load(resource_path('images/metalhelmet.png'))
+image107 = pygame.image.load(resource_path('images/metalhelmet.png')).convert_alpha()
 image107 = pygame.transform.scale(image107, (350, 350))
-image108 = pygame.image.load(resource_path('images/coralshoes.png'))
+image108 = pygame.image.load(resource_path('images/coralshoes.png')).convert_alpha()
 image108 = pygame.transform.scale(image108, (350, 350))
 
-image109 = pygame.image.load(resource_path('images/whitepotion.png'))
+image109 = pygame.image.load(resource_path('images/whitepotion.png')).convert_alpha()
 image109 = pygame.transform.scale(image109, (350, 350))
-image110 = pygame.image.load(resource_path('images/purpleamulet.png'))
+image110 = pygame.image.load(resource_path('images/purpleamulet.png')).convert_alpha()
 image110 = pygame.transform.scale(image110, (350, 350))
-image111 = pygame.image.load(resource_path('images/diamondsword.png'))
+image111 = pygame.image.load(resource_path('images/diamondsword.png')).convert_alpha()
 image111 = pygame.transform.scale(image111, (350, 350))
-image112 = pygame.image.load(resource_path('images/metalchestplate.png'))
+image112 = pygame.image.load(resource_path('images/metalchestplate.png')).convert_alpha()
 image112 = pygame.transform.scale(image112, (350, 350))
-image113 = pygame.image.load(resource_path('images/expouch.png'))
+image113 = pygame.image.load(resource_path('images/expouch.png')).convert_alpha()
 image113 = pygame.transform.scale(image113, (350, 350))
 
-image114 = pygame.image.load(resource_path('images/healingpotion.png'))
+image114 = pygame.image.load(resource_path('images/healingpotion.png')).convert_alpha()
 image114 = pygame.transform.scale(image114, (350, 350))
-image115 = pygame.image.load(resource_path('images/underwatercrown.png'))
+image115 = pygame.image.load(resource_path('images/underwatercrown.png')).convert_alpha()
 image115 = pygame.transform.scale(image115, (350, 350))
-image116 = pygame.image.load(resource_path('images/simplestaff.png'))
+image116 = pygame.image.load(resource_path('images/simplestaff.png')).convert_alpha()
 image116 = pygame.transform.scale(image116, (350, 350))
-image117 = pygame.image.load(resource_path('images/metalgreeves.png'))
+image117 = pygame.image.load(resource_path('images/metalgreeves.png')).convert_alpha()
 image117 = pygame.transform.scale(image117, (350, 350))
-image118 = pygame.image.load(resource_path('images/largeexppouch.png'))
+image118 = pygame.image.load(resource_path('images/largeexppouch.png')).convert_alpha()
 image118 = pygame.transform.scale(image118, (350, 350))
 
-image119 = pygame.image.load(resource_path('images/apple.png'))
+image119 = pygame.image.load(resource_path('images/apple.png')).convert_alpha()
 image119 = pygame.transform.scale(image119, (350, 350))
-image120 = pygame.image.load(resource_path('images/mysterybag.png'))
+image120 = pygame.image.load(resource_path('images/mysterybag.png')).convert_alpha()
 image120 = pygame.transform.scale(image120, (350, 350))
-image121 = pygame.image.load(resource_path('images/leatherhelmet.png'))
+image121 = pygame.image.load(resource_path('images/leatherhelmet.png')).convert_alpha()
 image121 = pygame.transform.scale(image121, (350, 350))
-image122 = pygame.image.load(resource_path('images/metalboots.png'))
+image122 = pygame.image.load(resource_path('images/metalboots.png')).convert_alpha()
 image122 = pygame.transform.scale(image122, (350, 350))
-image123 = pygame.image.load(resource_path('images/timedilator.png'))
+image123 = pygame.image.load(resource_path('images/timedilator.png')).convert_alpha()
 image123 = pygame.transform.scale(image123, (350, 350))
 
-image124 = pygame.image.load(resource_path('images/goldenapple.png'))
+image124 = pygame.image.load(resource_path('images/goldenapple.png')).convert_alpha()
 image124 = pygame.transform.scale(image124, (350, 350))
-image125 = pygame.image.load(resource_path('images/supermysterybag.png'))
+image125 = pygame.image.load(resource_path('images/supermysterybag.png')).convert_alpha()
 image125 = pygame.transform.scale(image125, (350, 350))
-image126 = pygame.image.load(resource_path('images/leatherchestplate.png'))
+image126 = pygame.image.load(resource_path('images/leatherchestplate.png')).convert_alpha()
 image126 = pygame.transform.scale(image126, (350, 350))
-image127 = pygame.image.load(resource_path('images/coralhelmet.png'))
+image127 = pygame.image.load(resource_path('images/coralhelmet.png')).convert_alpha()
 image127 = pygame.transform.scale(image127, (350, 350))
 
 ########################################################################################################################
-image128 = pygame.image.load(resource_path('images/stars.png'))
+image128 = pygame.image.load(resource_path('images/stars.png')).convert_alpha()
 image128 = pygame.transform.scale(image128, ((770, 740)))
-image129 = pygame.image.load(resource_path('images/itemframe.png'))
+image129 = pygame.image.load(resource_path('images/itemframe.png')).convert_alpha()
 image129 = pygame.transform.scale(image129, ((950, 1150)))
-image130 = pygame.image.load(resource_path('images/buybutton.png'))
+image130 = pygame.image.load(resource_path('images/buybutton.png')).convert_alpha()
 image130 = pygame.transform.scale(image130, ((300, 300)))
-image131 = pygame.image.load(resource_path('images/glowbuybutton.png'))
+image131 = pygame.image.load(resource_path('images/glowbuybutton.png')).convert_alpha()
 image131 = pygame.transform.scale(image131, ((300, 300)))
-imageBlack2 = pygame.image.load(resource_path('images/blackscreen.jpg'))
+imageBlack2 = pygame.image.load(resource_path('images/blackscreen.jpg')).convert()
 imageBlack2 = pygame.transform.scale(imageBlack2, (275, 85))
 
 
-image132 = pygame.image.load(resource_path('images/mainmap.JPG'))
+image132 = pygame.image.load(resource_path('images/mainmap.JPG')).convert()
 image132 = pygame.transform.scale(image132, (1550, 870))
-image0133 = pygame.image.load(resource_path('images/workmap.jpg'))
+image0133 = pygame.image.load(resource_path('images/workmap.jpg')).convert_alpha()
 image0133 = pygame.transform.scale(image0133, (1550, 870))
-image0134 = pygame.image.load(resource_path('images/gamblemap.jpg'))
+image0134 = pygame.image.load(resource_path('images/gamblemap.jpg')).convert()
 image0134 = pygame.transform.scale(image0134, (1550, 870))
-image0135 = pygame.image.load(resource_path('images/paimonmap.jpg'))
+image0135 = pygame.image.load(resource_path('images/paimonmap.jpg')).convert()
 image0135 = pygame.transform.scale(image0135, (1550, 870))
-image0136 = pygame.image.load(resource_path('images/castlemap.jpg'))
+image0136 = pygame.image.load(resource_path('images/castlemap.jpg')).convert()
 image0136 = pygame.transform.scale(image0136, (1550, 870))
-image0137 = pygame.image.load(resource_path('images/colleseummap.jpg'))
+image0137 = pygame.image.load(resource_path('images/colleseummap.jpg')).convert()
 image0137 = pygame.transform.scale(image0137, (1550, 870))
-image0138 = pygame.image.load(resource_path('images/adventuremap.jpg'))
+image0138 = pygame.image.load(resource_path('images/adventuremap.jpg')).convert()
 image0138 = pygame.transform.scale(image0138, (1550, 870))
-image0139 = pygame.image.load(resource_path('images/guildmap.jpg'))
+image0139 = pygame.image.load(resource_path('images/guildmap.jpg')).convert()
 image0139 = pygame.transform.scale(image0139, (1550, 870))
-image0140 = pygame.image.load(resource_path('images/stashmap.jpg'))
+image0140 = pygame.image.load(resource_path('images/stashmap.jpg')).convert()
 image0140 = pygame.transform.scale(image0140, (1550, 870))
-image0141 = pygame.image.load(resource_path('images/blackmarketmap.jpg'))
+image0141 = pygame.image.load(resource_path('images/blackmarketmap.jpg')).convert()
 image0141 = pygame.transform.scale(image0141, (1550, 870))
 
 
-image133 = pygame.image.load(resource_path('images/greenglow.png'))
+image133 = pygame.image.load(resource_path('images/greenglow.png')).convert_alpha()
 image133 = pygame.transform.scale(image133, (80, 80))
-imagee133 = pygame.image.load(resource_path('images/redglow.png'))
+imagee133 = pygame.image.load(resource_path('images/redglow.png')).convert_alpha()
 imagee133 = pygame.transform.scale(imagee133, (80, 80))
-image134 = pygame.image.load(resource_path('images/returnbutton.png'))
+image134 = pygame.image.load(resource_path('images/returnbutton.png')).convert_alpha()
 image134 = pygame.transform.scale(image134, (125, 125))
-image135 = pygame.image.load(resource_path('images/returnbutton2.png'))
+image135 = pygame.image.load(resource_path('images/returnbutton2.png')).convert_alpha()
 image135 = pygame.transform.scale(image135, (125, 125))
-image136 = pygame.image.load(resource_path('images/returnbutton2.png'))
+image136 = pygame.image.load(resource_path('images/returnbutton2.png')).convert_alpha()
 image136 = pygame.transform.scale(image136, (250, 250))
 ########################################################################################################################
 image137 = pygame.image.load(resource_path('images/goblin.jpg'))
 image137 = pygame.transform.scale(image137, (1550, 870))
-image138 = pygame.image.load(resource_path('images/laborchoices.png'))
+image138 = pygame.image.load(resource_path('images/laborchoices.png')).convert_alpha()
 image138 = pygame.transform.scale(image138, (800, 600))
-image139 = pygame.image.load(resource_path('images/redx.png'))
+image139 = pygame.image.load(resource_path('images/redx.png')).convert_alpha()
 image139 = pygame.transform.scale(image139, (400, 100))
-image140 = pygame.image.load(resource_path('images/laborchoiceshover1.png'))
+image140 = pygame.image.load(resource_path('images/laborchoiceshover1.png')).convert_alpha()
 image140 = pygame.transform.scale(image140, (800, 600))
-image142 = pygame.image.load(resource_path('images/betacharacter.png'))
+image142 = pygame.image.load(resource_path('images/betacharacter.png')).convert_alpha()
 image142 = pygame.transform.scale(image142, (50, 50))
-image143 = pygame.image.load(resource_path('images/lightbluegem.png'))
-image144 = pygame.image.load(resource_path('images/pinkgem.png'))
-image145 = pygame.image.load(resource_path('images/rubygem.png'))
-image146 = pygame.image.load(resource_path('images/heartgem.png'))
-image147 = pygame.image.load(resource_path('images/diamondgem.png'))
-image148 = pygame.image.load(resource_path('images/purplegem.png'))
-image149 = pygame.image.load(resource_path('images/darkbluegem.png'))
-image150 = pygame.image.load(resource_path('images/miningworldgame2.jpg'))
-image151 = pygame.image.load(resource_path('images/dighole.png'))
+image143 = pygame.image.load(resource_path('images/lightbluegem.png')).convert_alpha()
+image144 = pygame.image.load(resource_path('images/pinkgem.png')).convert_alpha()
+image145 = pygame.image.load(resource_path('images/rubygem.png')).convert_alpha()
+image146 = pygame.image.load(resource_path('images/heartgem.png')).convert_alpha()
+image147 = pygame.image.load(resource_path('images/diamondgem.png')).convert_alpha()
+image148 = pygame.image.load(resource_path('images/purplegem.png')).convert_alpha()
+image149 = pygame.image.load(resource_path('images/darkbluegem.png')).convert_alpha()
+image150 = pygame.image.load(resource_path('images/miningworldgame2.jpg')).convert()
+image151 = pygame.image.load(resource_path('images/dighole.png')).convert_alpha()
 image151 = pygame.transform.scale(image151, (60, 60))
-image152 = pygame.image.load(resource_path('images/digholereturnarro.png'))
+image152 = pygame.image.load(resource_path('images/digholereturnarro.png')).convert_alpha()
 image152 = pygame.transform.scale(image152, (60, 60))
-image153 = pygame.image.load(resource_path('images/digholereturnarrow.png'))
+image153 = pygame.image.load(resource_path('images/digholereturnarrow.png')).convert_alpha()
 image153 = pygame.transform.scale(image153, (60, 60))
-image154 = pygame.image.load(resource_path('images/trilobite.png'))
-image155 = pygame.image.load(resource_path('images/gems.png'))
-image156 = pygame.image.load(resource_path('images/dinosaurbones.png'))
-image157 = pygame.image.load(resource_path('images/crown.png'))
-image158 = pygame.image.load(resource_path('images/spider.png'))
-image159 = pygame.image.load(resource_path('images/egg.png'))
-image160 = pygame.image.load(resource_path('images/digchest1.png'))
-image161 = pygame.image.load(resource_path('images/digchest2.png'))
-image162 = pygame.image.load(resource_path('images/digchest3.png'))
-image163 = pygame.image.load(resource_path('images/digchest4.png'))
-image164 = pygame.image.load(resource_path('images/invertreturnsign.png'))
+image154 = pygame.image.load(resource_path('images/trilobite.png')).convert_alpha()
+image155 = pygame.image.load(resource_path('images/gems.png')).convert_alpha()
+image156 = pygame.image.load(resource_path('images/dinosaurbones.png')).convert_alpha()
+image157 = pygame.image.load(resource_path('images/crown.png')).convert_alpha()
+image158 = pygame.image.load(resource_path('images/spider.png')).convert_alpha()
+image159 = pygame.image.load(resource_path('images/egg.png')).convert_alpha()
+image160 = pygame.image.load(resource_path('images/digchest1.png')).convert_alpha()
+image161 = pygame.image.load(resource_path('images/digchest2.png')).convert_alpha()
+image162 = pygame.image.load(resource_path('images/digchest3.png')).convert_alpha()
+image163 = pygame.image.load(resource_path('images/digchest4.png')).convert_alpha()
+image164 = pygame.image.load(resource_path('images/invertreturnsign.png')).convert_alpha()
 image164 = pygame.transform.scale(image164, (60, 60))
-image165 = pygame.image.load(resource_path('images/invertreturnsignpurple.png'))
+image165 = pygame.image.load(resource_path('images/invertreturnsignpurple.png')).convert_alpha()
 image165 = pygame.transform.scale(image165, (60, 60))
-image166 = pygame.image.load(resource_path('images/lava1.png'))
-image167 = pygame.image.load(resource_path('images/lava2.png'))
-image168 = pygame.image.load(resource_path('images/miningstatsimage1.png'))
-image169 = pygame.image.load(resource_path('images/miningstatsimage2.png'))
-image170 = pygame.image.load(resource_path('images/digginggameupgradescreen.png'))
-image171 = pygame.image.load(resource_path('images/statfilledbox.jpg'))
+image166 = pygame.image.load(resource_path('images/lava1.png')).convert_alpha()
+image167 = pygame.image.load(resource_path('images/lava2.png')).convert_alpha()
+image168 = pygame.image.load(resource_path('images/miningstatsimage1.png')).convert_alpha()
+image169 = pygame.image.load(resource_path('images/miningstatsimage2.png')).convert_alpha()
+image170 = pygame.image.load(resource_path('images/digginggameupgradescreen.png')).convert_alpha()
+image171 = pygame.image.load(resource_path('images/statfilledbox.jpg')).convert_alpha()
 ########################################################################################################################
-image172 = pygame.image.load(resource_path('images/casinoimage1.webp'))
+image172 = pygame.image.load(resource_path('images/casinoimage1.webp')).convert()
 image172 = pygame.transform.scale(image172, (1550, 870))
-image173 = pygame.image.load(resource_path('images/gamblingchoices.webp'))
+image173 = pygame.image.load(resource_path('images/gamblingchoices.webp')).convert()
 image173 = pygame.transform.scale(image173, (800, 800))
-image174 = pygame.image.load(resource_path('images/roulette1.jpg'))
+image174 = pygame.image.load(resource_path('images/roulette1.jpg')).convert()
 image174 = pygame.transform.scale(image174, (1550, 870))
-image175 = pygame.image.load(resource_path('images/reddownarrow.png'))
-image176 = pygame.image.load(resource_path('images/slotsimage.webp'))
+image175 = pygame.image.load(resource_path('images/reddownarrow.png')).convert_alpha()
+image176 = pygame.image.load(resource_path('images/slotsimage.webp')).convert()
 image176 = pygame.transform.scale(image176, (1550, 870))
-image177 = pygame.image.load(resource_path('images/slotimage.png'))
-image178 = pygame.image.load(resource_path('images/slotimage2.png'))
-image179 = pygame.image.load(resource_path('images/slotimage3.png'))
-image180 = pygame.image.load(resource_path('images/goldbackground.jpg'))
+image177 = pygame.image.load(resource_path('images/slotimage.png')).convert_alpha()
+image178 = pygame.image.load(resource_path('images/slotimage2.png')).convert_alpha()
+image179 = pygame.image.load(resource_path('images/slotimage3.png')).convert_alpha()
+image180 = pygame.image.load(resource_path('images/goldbackground.jpg')).convert_alpha()
 
-image181 = pygame.image.load(resource_path('images/slotnum1.jpg'))
-image182 = pygame.image.load(resource_path('images/slotnum2.jpg'))
-image183 = pygame.image.load(resource_path('images/slotnum3.jpg'))
-image184 = pygame.image.load(resource_path('images/slotnum4.jpg'))
-image185 = pygame.image.load(resource_path('images/slotnum5.jpg'))
-image186 = pygame.image.load(resource_path('images/slotnum6.jpg'))
-image187 = pygame.image.load(resource_path('images/slotnum7.jpg'))
-image188 = pygame.image.load(resource_path('images/slotnum8.jpg'))
-image189 = pygame.image.load(resource_path('images/slotnum9.jpg'))
+image181 = pygame.image.load(resource_path('images/slotnum1.jpg')).convert()
+image182 = pygame.image.load(resource_path('images/slotnum2.jpg')).convert()
+image183 = pygame.image.load(resource_path('images/slotnum3.jpg')).convert()
+image184 = pygame.image.load(resource_path('images/slotnum4.jpg')).convert()
+image185 = pygame.image.load(resource_path('images/slotnum5.jpg')).convert()
+image186 = pygame.image.load(resource_path('images/slotnum6.jpg')).convert()
+image187 = pygame.image.load(resource_path('images/slotnum7.jpg')).convert()
+image188 = pygame.image.load(resource_path('images/slotnum8.jpg')).convert()
+image189 = pygame.image.load(resource_path('images/slotnum9.jpg')).convert()
 
-image190 = pygame.image.load(resource_path('images/slotimage4.png'))
+image190 = pygame.image.load(resource_path('images/slotimage4.png')).convert_alpha()
 
-image191 = pygame.image.load(resource_path('images/diceimage.jpg'))
+image191 = pygame.image.load(resource_path('images/diceimage.jpg')).convert()
 image191 = pygame.transform.scale(image191, (1550, 870))
 
-image192 = pygame.image.load(resource_path('images/dice1.jpg'))
+image192 = pygame.image.load(resource_path('images/dice1.jpg')).convert()
 image192 = pygame.transform.scale(image192, (320, 320))
-image193 = pygame.image.load(resource_path('images/dice2.jpg'))
+image193 = pygame.image.load(resource_path('images/dice2.jpg')).convert()
 image193 = pygame.transform.scale(image193, (320, 320))
-image194 = pygame.image.load(resource_path('images/dice3.jpg'))
+image194 = pygame.image.load(resource_path('images/dice3.jpg')).convert()
 image194 = pygame.transform.scale(image194, (320, 320))
-image195 = pygame.image.load(resource_path('images/dice4.jpg'))
+image195 = pygame.image.load(resource_path('images/dice4.jpg')).convert()
 image195 = pygame.transform.scale(image195, (320, 320))
-image196 = pygame.image.load(resource_path('images/dice5.jpg'))
+image196 = pygame.image.load(resource_path('images/dice5.jpg')).convert()
 image196 = pygame.transform.scale(image196, (320, 320))
-image197 = pygame.image.load(resource_path('images/dice6.jpg'))
+image197 = pygame.image.load(resource_path('images/dice6.jpg')).convert()
 image197 = pygame.transform.scale(image197, (320, 320))
-image198 = pygame.image.load(resource_path('images/dice7.png'))
+image198 = pygame.image.load(resource_path('images/dice7.png')).convert_alpha()
 image198 = pygame.transform.scale(image198, (320, 320))
 
-image199 = pygame.image.load(resource_path('images/bluebakcground.jpg'))
+image199 = pygame.image.load(resource_path('images/bluebakcground.jpg')).convert_alpha()
 
 image201 = pygame.transform.scale(image192, (150, 150))
 image202 = pygame.transform.scale(image193, (150, 150))
@@ -1079,134 +1099,132 @@ image204 = pygame.transform.scale(image195, (150, 150))
 image205 = pygame.transform.scale(image196, (150, 150))
 image206 = pygame.transform.scale(image197, (150, 150))
 
-image207 = pygame.image.load(resource_path('images/guildroom.png'))
+image207 = pygame.image.load(resource_path('images/guildroom.png')).convert_alpha()
 image207 = pygame.transform.scale(image207, (1550, 870))
-image208 = pygame.image.load(resource_path('images/questboard.jpg'))
+image208 = pygame.image.load(resource_path('images/questboard.jpg')).convert()
 image208 = pygame.transform.scale(image208, (1550, 870))
-image209 = pygame.image.load(resource_path('images/alchemyroom.jpg'))
+image209 = pygame.image.load(resource_path('images/alchemyroom.jpg')).convert()
 image209 = pygame.transform.scale(image209, (1550, 870))
 
-image210 = pygame.image.load(resource_path('images/cauldron.png'))
-image211 = pygame.image.load(resource_path('images/stopbutton.png'))
-image212 = pygame.image.load(resource_path('images/glowstopbutton.png'))
-image213 = pygame.image.load(resource_path('images/meterimage.jpg'))
-image214 = pygame.image.load(resource_path('images/meterline.png'))
+image210 = pygame.image.load(resource_path('images/cauldron.png')).convert_alpha()
+image211 = pygame.image.load(resource_path('images/stopbutton.png')).convert_alpha()
+image212 = pygame.image.load(resource_path('images/glowstopbutton.png')).convert_alpha()
+image213 = pygame.image.load(resource_path('images/meterimage.jpg')).convert()
+image214 = pygame.image.load(resource_path('images/meterline.png')).convert_alpha()
 
-image215 = pygame.image.load(resource_path('images/pot1.png'))
-image216 = pygame.image.load(resource_path('images/pot2.png'))
-image217 = pygame.image.load(resource_path('images/pot3.png'))
-image218 = pygame.image.load(resource_path('images/pot4.png'))
-image219 = pygame.image.load(resource_path('images/pot5.png'))
+image215 = pygame.image.load(resource_path('images/pot1.png')).convert_alpha()
+image216 = pygame.image.load(resource_path('images/pot2.png')).convert_alpha()
+image217 = pygame.image.load(resource_path('images/pot3.png')).convert_alpha()
+image218 = pygame.image.load(resource_path('images/pot4.png')).convert_alpha()
+image219 = pygame.image.load(resource_path('images/pot5.png')).convert_alpha()
 
-image220 = pygame.image.load(resource_path('images/goldlabel.png'))
-image221 = pygame.image.load(resource_path('images/lvllabel.png'))
-image222 = pygame.image.load(resource_path('images/gemlabel.png'))
+image220 = pygame.image.load(resource_path('images/goldlabel.png')).convert_alpha()
+image221 = pygame.image.load(resource_path('images/lvllabel.png')).convert_alpha()
+image222 = pygame.image.load(resource_path('images/gemlabel.png')).convert_alpha()
 
-image223 = pygame.image.load(resource_path('images/cauldronstars.png'))
-image224 = pygame.image.load(resource_path('images/sunlight.png'))
+image223 = pygame.image.load(resource_path('images/cauldronstars.png')).convert_alpha()
+image224 = pygame.image.load(resource_path('images/sunlight.png')).convert_alpha()
 
-image225 = pygame.image.load(resource_path('images/chestopened.png'))
-image226 = pygame.image.load(resource_path('images/chestclosed.png'))
+image225 = pygame.image.load(resource_path('images/chestopened.png')).convert_alpha()
+image226 = pygame.image.load(resource_path('images/chestclosed.png')).convert_alpha()
 ########################################################################################################################
-image227 = pygame.image.load(resource_path('images/bluechip.png'))
-image228 = pygame.image.load(resource_path('images/redchip.png'))
-image229 = pygame.image.load(resource_path('images/blackchip.png'))
-image230 = pygame.image.load(resource_path('images/allchip.png'))
-image231 = pygame.image.load(resource_path('images/goldchip.png'))
+image227 = pygame.image.load(resource_path('images/bluechip.png')).convert_alpha()
+image228 = pygame.image.load(resource_path('images/redchip.png')).convert_alpha()
+image229 = pygame.image.load(resource_path('images/blackchip.png')).convert_alpha()
+image230 = pygame.image.load(resource_path('images/allchip.png')).convert_alpha()
+image231 = pygame.image.load(resource_path('images/goldchip.png')).convert_alpha()
 
-image232 = pygame.image.load(resource_path('images/pokertable.webp'))
+image232 = pygame.image.load(resource_path('images/pokertable.webp')).convert()
 image232 = pygame.transform.scale(image232, (1550, 870))
 
-image233 = pygame.image.load(resource_path('images/outlinechipblue.png'))
-image234 = pygame.image.load(resource_path('images/outlinechipred.png'))
-image235 = pygame.image.load(resource_path('images/outlinechipblack.png'))
-image236 = pygame.image.load(resource_path('images/outlinechipall.png'))
-image237 = pygame.image.load(resource_path('images/outlinechipgold.png'))
+image233 = pygame.image.load(resource_path('images/outlinechipblue.png')).convert_alpha()
+image234 = pygame.image.load(resource_path('images/outlinechipred.png')).convert_alpha()
+image235 = pygame.image.load(resource_path('images/outlinechipblack.png')).convert_alpha()
+image236 = pygame.image.load(resource_path('images/outlinechipall.png')).convert_alpha()
+image237 = pygame.image.load(resource_path('images/outlinechipgold.png')).convert_alpha()
 
-image238 = pygame.image.load(resource_path('images/hearts.png'))
-image239 = pygame.image.load(resource_path('images/diamonds.png'))
-image240 = pygame.image.load(resource_path('images/spades.png'))
-image241 = pygame.image.load(resource_path('images/clovers.png'))
-image242 = pygame.image.load(resource_path('images/facedowncard.png'))
+image238 = pygame.image.load(resource_path('images/hearts.png')).convert_alpha()
+image239 = pygame.image.load(resource_path('images/diamonds.png')).convert_alpha()
+image240 = pygame.image.load(resource_path('images/spades.png')).convert_alpha()
+image241 = pygame.image.load(resource_path('images/clovers.png')).convert_alpha()
+image242 = pygame.image.load(resource_path('images/facedowncard.png')).convert_alpha()
 
-image243 = pygame.image.load(resource_path('images/blackmarketbyron.jpg'))
+image243 = pygame.image.load(resource_path('images/blackmarketbyron.jpg')).convert()
 image243 = pygame.transform.scale(image243, (1550, 870))
-image244 = pygame.image.load(resource_path('images/blackmarketloot.webp'))
+image244 = pygame.image.load(resource_path('images/blackmarketloot.webp')).convert_alpha()
 image244 = pygame.transform.scale(image244, (1550, 870))
 
-image245 = pygame.image.load(resource_path('images/arrowleft.png'))
-image246 = pygame.image.load(resource_path('images/arrowright.png'))
+image245 = pygame.image.load(resource_path('images/arrowleft.png')).convert_alpha()
+image246 = pygame.image.load(resource_path('images/arrowright.png')).convert_alpha()
 
-image247 = pygame.image.load(resource_path('images/woodchest.png'))
-image248 = pygame.image.load(resource_path('images/diamondchest.png'))
-image249 = pygame.image.load(resource_path('images/emeraldchest.png'))
-image250 = pygame.image.load(resource_path('images/blackdoor.png'))
-image251 = pygame.image.load(resource_path('images/redarrowleft.png'))
-image252 = pygame.image.load(resource_path('images/redarrowright.png'))
+image247 = pygame.image.load(resource_path('images/woodchest.png')).convert_alpha()
+image248 = pygame.image.load(resource_path('images/diamondchest.png')).convert_alpha()
+image249 = pygame.image.load(resource_path('images/emeraldchest.png')).convert_alpha()
+image250 = pygame.image.load(resource_path('images/blackdoor.png')).convert_alpha()
+image251 = pygame.image.load(resource_path('images/redarrowleft.png')).convert_alpha()
+image252 = pygame.image.load(resource_path('images/redarrowright.png')).convert_alpha()
 
-image253 = pygame.image.load(resource_path('images/glowwoodentreasurechest.png'))
-image254 = pygame.image.load(resource_path('images/glowdiamondtreasurechest.png'))
-image255 = pygame.image.load(resource_path('images/glowemeraldtreasurechest.png'))
-image256 = pygame.image.load(resource_path('images/glowblackdoor.png'))
+image253 = pygame.image.load(resource_path('images/glowwoodentreasurechest.png')).convert_alpha()
+image254 = pygame.image.load(resource_path('images/glowdiamondtreasurechest.png')).convert_alpha()
+image255 = pygame.image.load(resource_path('images/glowemeraldtreasurechest.png')).convert_alpha()
+image256 = pygame.image.load(resource_path('images/glowblackdoor.png')).convert_alpha()
 
-image257 = pygame.image.load(resource_path('images/bat.png'))
-image258 = pygame.image.load(resource_path('images/ant.png'))
-image259 = pygame.image.load(resource_path('images/snake.png'))
-image260 = pygame.image.load(resource_path('images/dino.png'))
-image261 = pygame.image.load(resource_path('images/boulder.png'))
+image257 = pygame.image.load(resource_path('images/bat.png')).convert_alpha()
+image258 = pygame.image.load(resource_path('images/ant.png')).convert_alpha()
+image259 = pygame.image.load(resource_path('images/snake.png')).convert_alpha()
+image260 = pygame.image.load(resource_path('images/dino.png')).convert_alpha()
+image261 = pygame.image.load(resource_path('images/boulder.png')).convert_alpha()
 
-image262 = pygame.image.load(resource_path('images/vault.jpg'))
+image262 = pygame.image.load(resource_path('images/vault.jpg')).convert()
 image262 = pygame.transform.scale(image262, (1550, 870))
 
-image264 = pygame.image.load(resource_path('images/stashchoose.jpg'))
+image264 = pygame.image.load(resource_path('images/stashchoose.jpg')).convert_alpha()
 image264 = pygame.transform.scale(image264, (1550, 870))
 
-image266 = pygame.image.load(resource_path('images/stashwindow2.png'))
-image267 = pygame.image.load(resource_path('images/stashwindow.png'))
+image266 = pygame.image.load(resource_path('images/stashwindow2.png')).convert_alpha()
+image267 = pygame.image.load(resource_path('images/stashwindow.png')).convert_alpha()
 ########################################################################################################################
-image268 = pygame.image.load(resource_path('images/battleground1.jpg'))
+image268 = pygame.image.load(resource_path('images/battleground1.jpg')).convert()
 image268 = pygame.transform.scale(image268, (1550, 870))
-image269 = pygame.image.load(resource_path('images/battleground2.jpg'))
+image269 = pygame.image.load(resource_path('images/battleground2.jpg')).convert()
 image269 = pygame.transform.scale(image269, (1550, 870))
-image270 = pygame.image.load(resource_path('images/battleground3.jpg'))
+image270 = pygame.image.load(resource_path('images/battleground3.jpg')).convert()
 image270 = pygame.transform.scale(image270, (1550, 870))
-image271 = pygame.image.load(resource_path('images/battleground4.jpg'))
+image271 = pygame.image.load(resource_path('images/battleground4.jpg')).convert()
 image271 = pygame.transform.scale(image271, (1550, 870))
-image272 = pygame.image.load(resource_path('images/battleground5.jpg'))
+image272 = pygame.image.load(resource_path('images/battleground5.jpg')).convert()
 image272= pygame.transform.scale(image272, (1550, 870))
-image273 = pygame.image.load(resource_path('images/battleground6.jpg'))
+image273 = pygame.image.load(resource_path('images/battleground6.jpg')).convert()
 image273 = pygame.transform.scale(image273, (1550, 870))
-image274 = pygame.image.load(resource_path('images/battleground7.jpg'))
+image274 = pygame.image.load(resource_path('images/battleground7.jpg')).convert()
 image274 = pygame.transform.scale(image274, (1550, 870))
 
-image275 = pygame.image.load(resource_path('images/colleseumstartimage.jpg'))
+image275 = pygame.image.load(resource_path('images/colleseumstartimage.jpg')).convert()
 image275 = pygame.transform.scale(image275, (1550, 870))
 
-image276 = pygame.image.load(resource_path('images/colleseummenu.png'))
+image276 = pygame.image.load(resource_path('images/colleseummenu.png')).convert_alpha()
 #image276 = pygame.transform.scale(image276, (1550, 870))
 
-image277 = pygame.image.load(resource_path('images/colleseummenu1.png'))
+image277 = pygame.image.load(resource_path('images/colleseummenu1.png')).convert_alpha()
 #image277 = pygame.transform.scale(image277, (1550, 870))
 
-image278 = pygame.image.load(resource_path('images/colleseummenu2.jpg'))
+image278 = pygame.image.load(resource_path('images/colleseummenu2.jpg')).convert()
 #image278 = pygame.transform.scale(image278, (1550, 870))
 
-image279 = pygame.image.load(resource_path('images/colleseummenu3.jpg'))
+image279 = pygame.image.load(resource_path('images/colleseummenu3.jpg')).convert()
 #image279 = pygame.transform.scale(image279, (1550, 870))
 
-image280 = pygame.image.load(resource_path('images/entercolleseum.webp'))
+image280 = pygame.image.load(resource_path('images/entercolleseum.webp')).convert()
 image280 = pygame.transform.scale(image280, (1550, 870))
 
-image281 = pygame.image.load(resource_path('images/battlebutton1.png'))
-image282 = pygame.image.load(resource_path('images/battlebutton2.png'))
+image281 = pygame.image.load(resource_path('images/battlebutton1.png')).convert_alpha()
+image282 = pygame.image.load(resource_path('images/battlebutton2.png')).convert_alpha()
+
+menubattleimage = pygame.image.load(resource_path('images/itemsmenubattle1.png')).convert_alpha()
+menubattleimage1 = pygame.image.load(resource_path('images/itemsmenubattle.png')).convert_alpha()
+forfeitimage = pygame.image.load(resource_path('images/forfeitscreenmenu.png')).convert_alpha()
 
 ########################################################################################################################
-displaylength = 1920
-displaywidth = 1080
-halfdisplay = displaylength / 2
-DISPLAYSURF = pygame.display.set_mode((displaylength, displaywidth), pygame.RESIZABLE)
-DISPLAYSURF.fill(WHITE)
-pygame.display.set_caption("Game")
 font = pygame.font.SysFont(None, 75)
 font2 = pygame.font.SysFont("Arial", 60)
 font3 = pygame.font.SysFont("Times New Roman", 40)
@@ -1252,6 +1270,7 @@ def draw_text_center(text, font, color, surface, x, y, alpha=255):
     surface.blit(textobj, textrect)  # Blit the text surface onto the display surfac
 ########################################################################################################################
 def transition(speed):
+    speed = speed * 3
     transitionbool = True
     transitioncounter = 1
     while (transitionbool == True):
@@ -1328,6 +1347,16 @@ def delete_creature_by_index(index, filename="creaturedata.txt"):
 # delete_creature_by_index(2)  # Deletes the third creature (index 2)
 ########################################################################################################################
 def load_teamcreatures(filename="teamdata.txt"):
+    try:
+        with open(resource_path(filename), "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []  # Return empty list if file doesn't exist or is empty
+
+    #creatures = load_creatures()
+    #print(creatures)  # Displays the list of saved creatures
+########################################################################################################################
+def load_tempitems(filename="tempitems.txt"):
     try:
         with open(resource_path(filename), "r") as file:
             return json.load(file)
@@ -13654,6 +13683,12 @@ class colleseum(pygame.sprite.Sprite):
         image4.set_alpha(240)
         redgloww.set_alpha(170)
 
+        itembuttonbool = False
+        attackbuttonbool = False
+        changemonsterbuttonbool = False
+        forfeitbuttonbool = False
+
+
         self.gamescene = 1
         mouse_pos = pygame.mouse.get_pos()
         pygame.mixer.music.load(resource_path("audio/rebornmusic.mp3"))
@@ -13680,7 +13715,27 @@ class colleseum(pygame.sprite.Sprite):
         randomtrainername = " "
         i = 1200
 
+        base_x = 200
+        base_y = 400
+        angle = 0
+        amplitude = 7  # How much it moves up/down
+        speedofimage = 0.10  # How fast it moves
+
+        enemybase_x = 1200
+        enemybase_y = 400
+        enemyangle = 0
+        enemyamplitude = 7  # How much it moves up/down
+        enemyspeedofimage = 0.11  # How fast it moves
+
         enemyteamchoosen = 1
+
+        beast1image = normalimage
+        beast2image = normalimage
+        beast3image = normalimage
+
+        enemymonstertypeimage1 = normalimage
+        enemymonstertypeimage2 = normalimage
+        enemymonstertypeimage3 = normalimage
 
         enemybeast1namecolor = BLACK
         enemybeast2namecolor = BLACK
@@ -13740,6 +13795,10 @@ class colleseum(pygame.sprite.Sprite):
         enemymonstermove4_3 = ""
         enemymonstertype3 = ""
         enemymonstertier3 = 0
+
+        monstertypeimage1 = normalimage
+        monstertypeimage2 = normalimage
+        monstertypeimage3 = normalimage
 
         strength = 0
         defense = 0
@@ -13817,6 +13876,23 @@ class colleseum(pygame.sprite.Sprite):
         time1 = pygame.time.get_ticks()
         time2 = time1 + 3000
 
+        apple_count = 0
+        golden_apple_count = 0
+        healing_potion_count = 0
+        tempitems = load_tempitems()
+        for tempitem in tempitems:
+            name = tempitem["name"]
+            if name == "Apple":
+                apple_count += 1
+            elif name == "Golden Apple":
+                golden_apple_count += 1
+            elif name == "Healing Potion":
+                healing_potion_count += 1
+
+        print(" apple = " +str(apple_count))
+        print("golden apple = " +str(golden_apple_count))
+        print("healing_potion_count = " +str(healing_potion_count))
+
         highestlvlmonster = 0
 
         teamcreatures = load_teamcreatures()
@@ -13831,6 +13907,7 @@ class colleseum(pygame.sprite.Sprite):
             beast1specattack = specattack + attributes1[5]
             beast1tier = attributes1[7]
             beast1beastimage = attributes1[8]
+            beast1image = pygame.transform.flip(beasts[beast1beastimage], True, False)
             beast1move1 = attributes1[9]
             beast1move2 = attributes1[10]
             beast1move3 = attributes1[11]
@@ -13850,6 +13927,7 @@ class colleseum(pygame.sprite.Sprite):
             beast2specattack = specattack + attributes2[5]
             beast2tier = attributes2[7]
             beast2beastimage = attributes2[8]
+            beast2image = pygame.transform.flip(beasts[beast2beastimage], True, False)
             beast2move1 = attributes2[9]
             beast2move2 = attributes2[10]
             beast2move3 = attributes2[11]
@@ -13871,6 +13949,7 @@ class colleseum(pygame.sprite.Sprite):
             beast3specattack = specattack + attributes3[5]
             beast3tier = attributes3[7]
             beast3beastimage = attributes3[8]
+            beast3image = pygame.transform.flip(beasts[beast3beastimage], True, False)
             beast3move1 = attributes3[9]
             beast3move2 = attributes3[10]
             beast3move3 = attributes3[11]
@@ -13914,6 +13993,80 @@ class colleseum(pygame.sprite.Sprite):
         if (beast3tier == 4):
             beastnamecolor3 = DARKPURPLE
 
+        if (beast1type == "light"):
+            monstertypeimage1 = lightimage
+        if (beast1type == "lightning"):
+            monstertypeimage1 = lightningimage
+        if (beast1type == "darkness"):
+            monstertypeimage1 = darknessimage
+        if (beast1type == "ice"):
+            monstertypeimage1 = iceimage
+        if (beast1type == "normal"):
+            monstertypeimage1 = normalimage
+        if (beast1type == "psychic"):
+            monstertypeimage1 = psychicimage
+        if (beast1type == "nature"):
+            monstertypeimage1 = natureimage
+        if (beast1type == "wind"):
+            monstertypeimage1 = windimage
+        if (beast1type == "water"):
+            monstertypeimage1 = waterimage
+        if (beast1type == "ground"):
+            monstertypeimage1 = groundimage
+        if (beast1type == "fire"):
+            monstertypeimage1 = fireimage
+        if (beast1type == "poison"):
+            monstertypeimage1 = poisonimage
+
+        if (beast2type == "light"):
+            monstertypeimage2 = lightimage
+        if (beast2type == "lightning"):
+            monstertypeimage2 = lightningimage
+        if (beast2type == "darkness"):
+            monstertypeimage2 = darknessimage
+        if (beast2type == "ice"):
+            monstertypeimage2 = iceimage
+        if (beast2type == "normal"):
+            monstertypeimage2 = normalimage
+        if (beast2type == "psychic"):
+            monstertypeimage2 = psychicimage
+        if (beast2type == "nature"):
+            monstertypeimage2 = natureimage
+        if (beast2type == "wind"):
+            monstertypeimage2 = windimage
+        if (beast2type == "water"):
+            monstertypeimage2 = waterimage
+        if (beast2type == "ground"):
+            monstertypeimage2 = groundimage
+        if (beast2type == "fire"):
+            monstertypeimage2 = fireimage
+        if (beast2type == "poison"):
+            monstertypeimage2 = poisonimage
+
+        if (beast3type == "light"):
+            monstertypeimage3 = lightimage
+        if (beast3type == "lightning"):
+            monstertypeimage3 = lightningimage
+        if (beast3type == "darkness"):
+            monstertypeimage3 = darknessimage
+        if (beast3type == "ice"):
+            monstertypeimage3 = iceimage
+        if (beast3type == "normal"):
+            monstertypeimage3 = normalimage
+        if (beast3type == "psychic"):
+            monstertypeimage3 = psychicimage
+        if (beast3type == "nature"):
+            monstertypeimage3 = natureimage
+        if (beast3type == "wind"):
+            monstertypeimage3 = windimage
+        if (beast3type == "water"):
+            monstertypeimage3 = waterimage
+        if (beast3type == "ground"):
+            monstertypeimage3 = groundimage
+        if (beast3type == "fire"):
+            monstertypeimage3 = fireimage
+        if (beast3type == "poison"):
+            monstertypeimage3 = poisonimage
 
         beast1strengthlive = beast1strength
         beast1defenselive = beast1defense
@@ -14700,23 +14853,23 @@ class colleseum(pygame.sprite.Sprite):
                     enemymonstertype3 = beastattributes[monsterchoosen3][13]
                     enemymonstertier3 = beastattributes[monsterchoosen3][6]
 
-                enemybeast1strengthlive = (enemymonsterstrength1 + random.randint(0,4)) + ((enemymonsterstrength1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1) * (1 + enemymonstertier1 * .1)
-                enemybeast1defenselive = (enemymonsterdefense1 + random.randint(0,4)) + ((enemymonsterdefense1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
-                enemybeast1healthlive = (enemymonsterhp1 + random.randint(0,4)) + ((enemymonsterhp1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
-                enemybeast1speedlive = (enemymonsterspeed1 + random.randint(0,4)) + ((enemymonsterspeed1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
-                enemybeast1specattacklive = (enemymonsterspecialattack1 + random.randint(0,4)) + ((enemymonsterspecialattack1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1)
+                enemybeast1strengthlive = int((enemymonsterstrength1 + random.randint(0,4)) + ((enemymonsterstrength1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1) * (1 + enemymonstertier1 * .1))
+                enemybeast1defenselive = int((enemymonsterdefense1 + random.randint(0,4)) + ((enemymonsterdefense1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
+                enemybeast1healthlive = int((enemymonsterhp1 + random.randint(0,4)) + ((enemymonsterhp1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
+                enemybeast1speedlive = int((enemymonsterspeed1 + random.randint(0,4)) + ((enemymonsterspeed1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
+                enemybeast1specattacklive = int((enemymonsterspecialattack1 + random.randint(0,4)) + ((enemymonsterspecialattack1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
 
-                enemybeast2strengthlive = (enemymonsterstrength2 + random.randint(0,9)) + ((enemymonsterstrength2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
-                enemybeast2defenselive = (enemymonsterdefense2 + random.randint(0,9)) + ((enemymonsterdefense2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
-                enemybeast2healthlive = (enemymonsterhp2 + random.randint(0,9)) + ((enemymonsterhp2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
-                enemybeast2speedlive = (enemymonsterspeed2 + random.randint(0,9)) + ((enemymonsterspeed2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
-                enemybeast2specattacklive = (enemymonsterspecialattack2 + random.randint(0,9)) + ((enemymonsterspecialattack2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1)
+                enemybeast2strengthlive = int((enemymonsterstrength2 + random.randint(0,9)) + ((enemymonsterstrength2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1))
+                enemybeast2defenselive = int((enemymonsterdefense2 + random.randint(0,9)) + ((enemymonsterdefense2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1))
+                enemybeast2healthlive = int((enemymonsterhp2 + random.randint(0,9)) + ((enemymonsterhp2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1))
+                enemybeast2speedlive = int((enemymonsterspeed2 + random.randint(0,9)) + ((enemymonsterspeed2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1))
+                enemybeast2specattacklive = int((enemymonsterspecialattack2 + random.randint(0,9)) + ((enemymonsterspecialattack2 + random.randint(0,9)) * .2 * enemymonsterlvl2) + (enemymonsterlvl2) * (1 + enemymonstertier2 * .1))
 
-                enemybeast3strengthlive = (enemymonsterstrength3 + random.randint(2,10)) + ((enemymonsterstrength3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
-                enemybeast3defenselive = (enemymonsterdefense3 + random.randint(2,10)) + ((enemymonsterdefense3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
-                enemybeast3healthlive = (enemymonsterhp3 + random.randint(2,10)) + ((enemymonsterhp3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
-                enemybeast3speedlive = (enemymonsterspeed3 + random.randint(2,10)) + ((enemymonsterspeed3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
-                enemybeast3specattacklive = (enemymonsterspecialattack3 + random.randint(2,10)) + ((enemymonsterspecialattack3 + random.randint(2,10)) * .2 * enemymonsterlvl1) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1)
+                enemybeast3strengthlive = int((enemymonsterstrength3 + random.randint(2,10)) + ((enemymonsterstrength3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1))
+                enemybeast3defenselive = int((enemymonsterdefense3 + random.randint(2,10)) + ((enemymonsterdefense3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1))
+                enemybeast3healthlive = int((enemymonsterhp3 + random.randint(2,10)) + ((enemymonsterhp3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1))
+                enemybeast3speedlive = int((enemymonsterspeed3 + random.randint(2,10)) + ((enemymonsterspeed3 + random.randint(2,10)) * .2 * enemymonsterlvl3) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1))
+                enemybeast3specattacklive = int((enemymonsterspecialattack3 + random.randint(2,10)) + ((enemymonsterspecialattack3 + random.randint(2,10)) * .2 * enemymonsterlvl1) + (enemymonsterlvl3) * (1 + enemymonstertier3 * .1))
 
                 enemymonsterstrength1 = enemybeast1strengthlive
                 enemymonsterdefense1 = enemybeast1defenselive
@@ -14763,7 +14916,80 @@ class colleseum(pygame.sprite.Sprite):
                 if(enemymonstertier3 == 4):
                     enemybeast3namecolor = DARKPURPLE
 
+                if (enemymonstertype1 == "light"):
+                    enemymonstertypeimage1 = lightimage
+                if (enemymonstertype1 == "lightning"):
+                    enemymonstertypeimage1 = lightningimage
+                if (enemymonstertype1 == "darkness"):
+                    enemymonstertypeimage1 = darknessimage
+                if (enemymonstertype1 == "ice"):
+                    enemymonstertypeimage1 = iceimage
+                if (enemymonstertype1 == "normal"):
+                    enemymonstertypeimage1 = normalimage
+                if (enemymonstertype1 == "psychic"):
+                    enemymonstertypeimage1 = psychicimage
+                if (enemymonstertype1 == "nature"):
+                    enemymonstertypeimage1 = natureimage
+                if (enemymonstertype1 == "wind"):
+                    enemymonstertypeimage1 = windimage
+                if (enemymonstertype1 == "water"):
+                    enemymonstertypeimage1 = waterimage
+                if (enemymonstertype1 == "ground"):
+                    enemymonstertypeimage1 = groundimage
+                if (enemymonstertype1 == "fire"):
+                    enemymonstertypeimage1 = fireimage
+                if (enemymonstertype1 == "poison"):
+                    enemymonstertypeimage1 = poisonimage
 
+                if (enemymonstertype2 == "light"):
+                    enemymonstertypeimage2 = lightimage
+                if (enemymonstertype2 == "lightning"):
+                    enemymonstertypeimage2 = lightningimage
+                if (enemymonstertype2 == "darkness"):
+                    enemymonstertypeimage2 = darknessimage
+                if (enemymonstertype2 == "ice"):
+                    enemymonstertypeimage2 = iceimage
+                if (enemymonstertype2 == "normal"):
+                    enemymonstertypeimage2 = normalimage
+                if (enemymonstertype2 == "psychic"):
+                    enemymonstertypeimage2 = psychicimage
+                if (enemymonstertype2 == "nature"):
+                    enemymonstertypeimage2 = natureimage
+                if (enemymonstertype2 == "wind"):
+                    enemymonstertypeimage2 = windimage
+                if (enemymonstertype2 == "water"):
+                    enemymonstertypeimage2 = waterimage
+                if (enemymonstertype2 == "ground"):
+                    enemymonstertypeimage2 = groundimage
+                if (enemymonstertype2 == "fire"):
+                    enemymonstertypeimage2 = fireimage
+                if (enemymonstertype2 == "poison"):
+                    enemymonstertypeimage2 = poisonimage
+
+                if(enemymonstertype3 == "light"):
+                    enemymonstertypeimage3 = lightimage
+                if(enemymonstertype3 == "lightning"):
+                    enemymonstertypeimage3 = lightningimage
+                if(enemymonstertype3 == "darkness"):
+                    enemymonstertypeimage3 = darknessimage
+                if(enemymonstertype3 == "ice"):
+                    enemymonstertypeimage3 = iceimage
+                if(enemymonstertype3 == "normal"):
+                    enemymonstertypeimage3 = normalimage
+                if(enemymonstertype3 == "psychic"):
+                    enemymonstertypeimage3 = psychicimage
+                if(enemymonstertype3 == "nature"):
+                    enemymonstertypeimage3 = natureimage
+                if(enemymonstertype3 == "wind"):
+                    enemymonstertypeimage3 = windimage
+                if(enemymonstertype3 == "water"):
+                    enemymonstertypeimage3 = waterimage
+                if(enemymonstertype3 == "ground"):
+                    enemymonstertypeimage3 = groundimage
+                if(enemymonstertype3 == "fire"):
+                    enemymonstertypeimage3 = fireimage
+                if (enemymonstertype3 == "poison"):
+                    enemymonstertypeimage3 = poisonimage
 
                 self.gamescene = self.gamescene + 1
             if (self.gamescene == 14):
@@ -14792,43 +15018,77 @@ class colleseum(pygame.sprite.Sprite):
                 itemsbutton = pygame.Rect(halfdisplay + 10, 800, 240, 70)
                 forfeitbutton = pygame.Rect(halfdisplay + 10, 880, 240, 70)
 
-                pygame.draw.rect(DISPLAYSURF, CLOUD, battlebutton)
-                pygame.draw.rect(DISPLAYSURF, CLOUD, switchCharactersbutton)
-                pygame.draw.rect(DISPLAYSURF, CLOUD, itemsbutton)
-                pygame.draw.rect(DISPLAYSURF, CLOUD, forfeitbutton)
-                if battlebutton.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF, WHITE, battlebutton)
-                    pygame.draw.rect(DISPLAYSURF, rainbow, battlebutton, 4)
-                if switchCharactersbutton.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF, WHITE, switchCharactersbutton)
-                    pygame.draw.rect(DISPLAYSURF, rainbow, switchCharactersbutton, 4)
-                if itemsbutton.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF, WHITE, itemsbutton)
-                    pygame.draw.rect(DISPLAYSURF, rainbow, itemsbutton, 4)
-                if forfeitbutton.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF, WHITE, forfeitbutton)
-                    pygame.draw.rect(DISPLAYSURF, rainbow, forfeitbutton, 4)
-                draw_text_center("Battle", font22, DARKPURPLE, DISPLAYSURF, 822 , 805)
-                draw_text_center("Switch", font22, AQUA, DISPLAYSURF, 822 , 885)
-                draw_text_center("Items", font22, GOLD, DISPLAYSURF, 1086 , 805)
-                draw_text_center("Forfeit", font22, BLACK, DISPLAYSURF, 1086 , 885)
+
+                forfeit_yes_rect = pygame.Rect(1140, 315, 100, 100)
+                forfeit_no_rect = pygame.Rect(1340, 315, 100, 100)
+                pygame.draw.rect(DISPLAYSURF, DARKRED, forfeit_yes_rect, 6)
+                pygame.draw.rect(DISPLAYSURF, GREEN, forfeit_no_rect, 6)
+
+                if(forfeitbuttonbool == True):
+                    DISPLAYSURF.blit(forfeitimage , (620 , 255))
+
+
+                exititemmenubutton = pygame.Rect(1240, 315, 41, 43)
+                healingpotionrect = pygame.Rect(681, 392, 178, 389)
+                applerect = pygame.Rect(1071, 392, 178, 389)
+                goldenapplerect = pygame.Rect(876, 392, 178, 389)
+
+                if(itembuttonbool == True):
+                    DISPLAYSURF.blit(menubattleimage , (620 , 255))
+                    draw_text_center("x" +str(golden_apple_count), font7, WHITE, DISPLAYSURF, 960 , 666)
+                    draw_text_center("x" +str(apple_count), font7, WHITE, DISPLAYSURF, 1160 , 666)
+                    draw_text_center("x" + str(healing_potion_count), font7, WHITE, DISPLAYSURF, 765, 666)
+
+                    if(goldenapplerect.collidepoint(mouse_pos) and golden_apple_count > 0):
+                        pygame.draw.rect(DISPLAYSURF, LIGHTYELLOW, goldenapplerect, 6)
+                    if (applerect.collidepoint(mouse_pos) and apple_count > 0):
+                        pygame.draw.rect(DISPLAYSURF, LIGHTYELLOW, applerect, 6)
+                    if (healingpotionrect.collidepoint(mouse_pos) and healing_potion_count > 0):
+                        pygame.draw.rect(DISPLAYSURF, LIGHTYELLOW, healingpotionrect, 6)
+                if((itembuttonbool == True) and exititemmenubutton.collidepoint(mouse_pos)):
+                    DISPLAYSURF.blit(menubattleimage1 , (620 , 255))
+                    pygame.draw.rect(DISPLAYSURF, PINPPINK, exititemmenubutton, 4)
+
+                if(itembuttonbool != True and attackbuttonbool != True and changemonsterbuttonbool != True and forfeitbuttonbool != True):
+                    pygame.draw.rect(DISPLAYSURF, CLOUD, battlebutton)
+                    pygame.draw.rect(DISPLAYSURF, CLOUD, switchCharactersbutton)
+                    pygame.draw.rect(DISPLAYSURF, CLOUD, itemsbutton)
+                    pygame.draw.rect(DISPLAYSURF, CLOUD, forfeitbutton)
+                    if battlebutton.collidepoint(mouse_pos):
+                        pygame.draw.rect(DISPLAYSURF, WHITE, battlebutton)
+                        pygame.draw.rect(DISPLAYSURF, rainbow, battlebutton, 4)
+                    if switchCharactersbutton.collidepoint(mouse_pos):
+                        pygame.draw.rect(DISPLAYSURF, WHITE, switchCharactersbutton)
+                        pygame.draw.rect(DISPLAYSURF, rainbow, switchCharactersbutton, 4)
+                    if itemsbutton.collidepoint(mouse_pos):
+                        pygame.draw.rect(DISPLAYSURF, WHITE, itemsbutton)
+                        pygame.draw.rect(DISPLAYSURF, rainbow, itemsbutton, 4)
+                    if forfeitbutton.collidepoint(mouse_pos):
+                        pygame.draw.rect(DISPLAYSURF, WHITE, forfeitbutton)
+                        pygame.draw.rect(DISPLAYSURF, rainbow, forfeitbutton, 4)
+                    draw_text_center("Battle", font22, DARKPURPLE, DISPLAYSURF, 822 , 805)
+                    draw_text_center("Switch", font22, AQUA, DISPLAYSURF, 822 , 885)
+                    draw_text_center("Items", font22, GOLD, DISPLAYSURF, 1086 , 805)
+                    draw_text_center("Forfeit", font22, BLACK, DISPLAYSURF, 1086 , 885)
 
                 if(teamchoosen == 1 and teamsize >= 1):
-                    DISPLAYSURF.blit(beasts[beast1beastimage], (445 , 400))
-                    draw_text_center(beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 260 , 140)
-                    healthrect = pygame.Rect(halfdisplay - 410 , 210, 300, 40)
+
+                    offset_y = math.sin(angle) * amplitude
+                    angle += speedofimage
+                    DISPLAYSURF.blit(beast1image, (base_x, base_y + offset_y))
+                    #DISPLAYSURF.blit(beast1image, (170 , 400))
+                    draw_text_center("lvl" +str(beast1level) +" " +beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 450 , 145)
+                    healthrect = pygame.Rect(halfdisplay - 600 , 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
-                    healthrectlive = pygame.Rect(halfdisplay - 410 , 210, (300 * (beast1healthlive / beast1health)),40)
+                    healthrectlive = pygame.Rect(halfdisplay - 600 , 210, (300 * (beast1healthlive / beast1health)),40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
                     if(beast1healthlive >= (beast1health/2)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 , 265)
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 , 255)
                     if((beast1healthlive >= (beast1health/4)) and (beast1healthlive < (beast1health/2))):
-                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 265)
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 255)
                     if(beast1healthlive < (beast1health/4)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, VELVET, DISPLAYSURF,halfdisplay - 450 , 265)
-
-                    draw_text_center("lvl " +str(beast1level), font5, WHITE, DISPLAYSURF, 287, 140)
-
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, VELVET, DISPLAYSURF,halfdisplay - 450 , 255)
+                    DISPLAYSURF.blit(monstertypeimage1, (309 , 205))
 
                     draw_text_center("Strength= " +str(beast1strength), font5, WHITE, DISPLAYSURF, halfdisplay - 550 , 240)
                     draw_text_center("defense= " +str(beast1defense), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 270)
@@ -14848,19 +15108,22 @@ class colleseum(pygame.sprite.Sprite):
 
 
                 if(enemyteamchoosen == 1):
-                    DISPLAYSURF.blit(enemymonsterimage1 , (865 , 400))
-                    draw_text_center(enemymonstername1 , font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 350 , 140)
-                    healthrect = pygame.Rect(halfdisplay + 100 , 210, 300, 40)
+                    enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                    enemyangle += enemyspeedofimage
+                    DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
+                    #DISPLAYSURF.blit(enemymonsterimage1 , (1200 , 400))
+                    draw_text_center("lvl" +str(enemymonsterlvl1) +" " +enemymonstername1 , font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460 , 145)
+                    healthrect = pygame.Rect(halfdisplay + 310 , 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
-                    enemyhealthrectlive = pygame.Rect(halfdisplay + 100 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
+                    enemyhealthrectlive = pygame.Rect(halfdisplay + 310 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                     if(enemybeast1healthlive >= (beast1health/2)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 350 , 265)
+                        draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 460 , 255)
                     if((enemybeast1healthlive >= (enemymonsterhp1/4)) and (enemybeast1healthlive < (beast1health/2))):
-                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 265)
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay + 460 , 255)
                     if(beast1healthlive < (enemymonsterhp1/4)):
-                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF,halfdisplay + 350 , 265)
-                    draw_text_center("lvl " +str(enemymonsterlvl1), font5, WHITE, DISPLAYSURF, 1630, 140)
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF,halfdisplay + 460 , 255)
+                    DISPLAYSURF.blit(enemymonstertypeimage1 , (1570 , 205))
 
                     draw_text_center("Strength= " +str(enemybeast1strengthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150 , 240)
                     draw_text_center("defense= " +str(enemybeast1defenselive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 270)
@@ -14879,6 +15142,7 @@ class colleseum(pygame.sprite.Sprite):
 
                 if(enemyteamchoosen == 3):
                     DISPLAYSURF.blit(enemymonsterimage3 , (865 , 400))
+
 
                 DISPLAYSURF.blit(redgloww, (mouseX - 47, mouseY - 44))
 
@@ -14907,5 +15171,116 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
+                        if(battlebutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                            attackbuttonbool = True
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
+                        if(forfeitbutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                            forfeitbuttonbool = True
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
+                        if(switchCharactersbutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                            changemonsterbuttonbool = True
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
+                        if(itemsbutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                            itembuttonbool = True
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
+                            apple_count = 0
+                            golden_apple_count = 0
+                            healing_potion_count = 0
+                            tempitems = load_tempitems()
+                            for tempitem in tempitems:
+                                name = tempitem["name"]
+                                if name == "Apple":
+                                    apple_count += 1
+                                elif name == "Golden Apple":
+                                    golden_apple_count += 1
+                                elif name == "Healing Potion":
+                                    healing_potion_count += 1
+
+                            print(" apple = " + str(apple_count))
+                            print("golden apple = " + str(golden_apple_count))
+                            print("healing_potion_count = " + str(healing_potion_count))
+                        if (exititemmenubutton.collidepoint(mouse_pos) and itembuttonbool == True):
+                            itembuttonbool = False
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
+                        if (healingpotionrect.collidepoint(mouse_pos) and itembuttonbool == True and healing_potion_count > 0):
+                            itembuttonbool = False
+                            healing_potion_count = healing_potion_count - 1
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/healingsound.mp3"))
+                            sound_effect.play()
+                            if(teamchoosen == 1):
+                                beast1healthlive = beast1healthlive + 25
+                                if(beast1healthlive > beast1health):
+                                    beast1healthlive = beast1health
+                            if(teamchoosen == 2):
+                                beast2healthlive = beast2healthlive + 25
+                                if(beast2healthlive > beast2health):
+                                    beast2healthlive = beast2health
+                            if(teamchoosen == 3):
+                                beast3healthlive = beast3healthlive + 25
+                                if(beast3healthlive > beast3health):
+                                    beast3healthlive = beast3health
+                            with open('tempitems.txt', 'r') as f:
+                                items = json.load(f)
+                            for i, item in enumerate(items):
+                                if item["name"] == "Healing Potion":
+                                    del items[i]
+                                    break
+                            with open('tempitems.txt', 'w') as f:
+                                json.dump(items, f, indent=4)
+                        if (applerect.collidepoint(mouse_pos) and itembuttonbool == True and apple_count > 0):
+                            itembuttonbool = False
+                            apple_count = apple_count - 1
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/applesound.mp3"))
+                            sound_effect.play()
+                            if(teamchoosen == 1):
+                                beast1healthlive = beast1healthlive + 50
+                                if(beast1healthlive > beast1health):
+                                    beast1healthlive = beast1health
+                            if(teamchoosen == 2):
+                                beast2healthlive = beast2healthlive + 50
+                                if(beast2healthlive > beast2health):
+                                    beast2healthlive = beast2health
+                            if(teamchoosen == 3):
+                                beast3healthlive = beast3healthlive + 50
+                                if(beast3healthlive > beast3health):
+                                    beast3healthlive = beast3health
+                            with open('tempitems.txt', 'r') as f:
+                                items = json.load(f)
+                            for i, item in enumerate(items):
+                                if item["name"] == "Apple":
+                                    del items[i]
+                                    break
+                            with open('tempitems.txt', 'w') as f:
+                                json.dump(items, f, indent=4)
+                        if (goldenapplerect.collidepoint(mouse_pos) and itembuttonbool == True and golden_apple_count > 0):
+                            itembuttonbool = False
+                            golden_apple_count = golden_apple_count - 1
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/goldenapplesound.mp3"))
+                            sound_effect.play()
+                            if(teamchoosen == 1):
+                                beast1healthlive = beast1healthlive + 100
+                                if(beast1healthlive > beast1health):
+                                    beast1healthlive = beast1health
+                            if(teamchoosen == 2):
+                                beast2healthlive = beast2healthlive + 100
+                                if(beast2healthlive > beast2health):
+                                    beast2healthlive = beast2health
+                            if(teamchoosen == 3):
+                                beast3healthlive = beast3healthlive + 100
+                                if(beast3healthlive > beast3health):
+                                    beast3healthlive = beast3health
+                            with open('tempitems.txt', 'r') as f:
+                                items = json.load(f)
+                            for i, item in enumerate(items):
+                                if item["name"] == "Golden Apple":
+                                    del items[i]
+                                    break
+                            with open('tempitems.txt', 'w') as f:
+                                json.dump(items, f, indent=4)
                 pygame.display.update()
 ########################################################################################################################
