@@ -1224,6 +1224,14 @@ menubattleimage = pygame.image.load(resource_path('images/itemsmenubattle1.png')
 menubattleimage1 = pygame.image.load(resource_path('images/itemsmenubattle.png')).convert_alpha()
 forfeitimage = pygame.image.load(resource_path('images/forfeitscreenmenu.png')).convert_alpha()
 
+switchmonstermenu = pygame.image.load(resource_path('images/partymenu.png')).convert_alpha()
+switchmonstermenu = pygame.transform.scale(switchmonstermenu, (1550, 870))
+switchmonstermenu.set_alpha(240)
+
+switchmonstermenux = pygame.image.load(resource_path('images/partymenux.png')).convert_alpha()
+switchmonstermenux = pygame.transform.scale(switchmonstermenux, (1550, 870))
+switchmonstermenux.set_alpha(240)
+
 ########################################################################################################################
 font = pygame.font.SysFont(None, 75)
 font2 = pygame.font.SysFont("Arial", 60)
@@ -1252,6 +1260,7 @@ font24 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 40)
 font25 = pygame.font.SysFont("Comic Sans", 30)
 font26 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 30)
 font27 = pygame.font.Font(resource_path("fonts/Comfy.otf"), 15)
+font28 = pygame.font.Font(resource_path("fonts/HelpMe.ttf"), 150)
 
 gameStatus = True
 ########################################################################################################################
@@ -1589,7 +1598,7 @@ def moveprint(movestatus, target = "opponent"):
     return movereturn
 ########################################################################################################################
 def white_flash(screen, duration=500):
-    flash_surface = pygame.Surface(screen.get_size())
+    flash_surface = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
     flash_surface.fill((255, 255, 255))
 
     clock = pygame.time.Clock()
@@ -1606,7 +1615,8 @@ def white_flash(screen, duration=500):
                 pygame.quit()
                 return
 
-        screen.fill((0, 0, 0))  # Or your background
+        # screen.fill((0, 0, 0))  # REMOVE or replace with scene redraw
+
         flash_surface.set_alpha(alpha)
         screen.blit(flash_surface, (0, 0))
         pygame.display.flip()
@@ -13688,6 +13698,25 @@ class colleseum(pygame.sprite.Sprite):
         changemonsterbuttonbool = False
         forfeitbuttonbool = False
 
+        global characterName
+        colleseumwinstreak = 0
+        global gem
+        global gold
+        experience = 0
+        global level
+
+        with open(resource_path("gamedata.txt"), "r") as file:
+            lines = file.readlines()
+            colleseumwinstreak = lines[23].strip()
+            colleseumwinstreak = int(colleseumwinstreak[21:])
+            experience = lines[24].strip()
+            experience = int(experience[13:])
+            gold = lines[0].strip()
+            gold = int(gold[7:])
+            gem = lines[1].strip()
+            gem = int(gem[6:])
+            level = lines[15].strip()
+            level = int(level[8:])
 
         self.gamescene = 1
         mouse_pos = pygame.mouse.get_pos()
@@ -13700,10 +13729,6 @@ class colleseum(pygame.sprite.Sprite):
         warriorvoice = pygame.mixer.Sound("audio/colleseum1.mp3")
 
         print("Stash initialized")
-        global textFader
-        global characterName
-        global gold
-        global gem
         video = cv2.VideoCapture(resource_path("video/glowparticlevideo.mp4"))
         video2 = cv2.VideoCapture(resource_path("video/battlebackground.mp4"))
         video3 = cv2.VideoCapture(resource_path("video/battlestartvideo.mp4"))
@@ -14100,14 +14125,15 @@ class colleseum(pygame.sprite.Sprite):
                 pygame.display.update()
             self.colleseumloop = False
             print("there is no creatures in team found")
-        with open(resource_path("gamedata.txt"), "r") as file:
-            lines = file.readlines()
-            goldline = lines[0].strip()
-            goldline = goldline[7:]
-            gemline = lines[1].strip()
-            gemline = gemline[6:]
-            gold = int(goldline)
-            gem = int(gemline)
+
+        if(teamsize >= 1):
+            scaled_beast1image = pygame.transform.scale(beast1image, (beast1image.get_width() // 2,beast1image.get_height() // 2))
+        if (teamsize >= 2):
+            scaled_beast2image = pygame.transform.scale(beast2image, (beast2image.get_width() // 2, beast2image.get_height() // 2))
+        if (teamsize >= 3):
+            scaled_beast3image = pygame.transform.scale(beast3image, (beast3image.get_width() // 2, beast3image.get_height() // 2))
+
+
 ########################################################################################################################
         clock = pygame.time.Clock()
         while self.colleseumloop:
@@ -14317,6 +14343,11 @@ class colleseum(pygame.sprite.Sprite):
                 frame_surface = pygame.transform.flip(frame_surface, True, False)
                 frame_surface.set_alpha(80)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
+
+                if(colleseumwinstreak > 0):
+                    draw_text_center("Current Winstreak: " +str(colleseumwinstreak), font22, LIME, DISPLAYSURF, halfdisplay, 230)
+                    winstreak_display = "1" * colleseumwinstreak
+                    draw_text_center(winstreak_display, font28, BLACK, DISPLAYSURF, halfdisplay, 550)
 
                 draw_text_center('Click to Begin', font19, RED, DISPLAYSURF, halfdisplay, 340)
 
@@ -15013,22 +15044,244 @@ class colleseum(pygame.sprite.Sprite):
                 mouseX, mouseY = pygame.mouse.get_pos()
                 print("x and y = " + str(mouseX) + " " + str(mouseY))
 
+
+                if(teamchoosen == 1 and teamsize >= 1):
+                    offset_y = math.sin(angle) * amplitude
+                    angle += speedofimage
+                    DISPLAYSURF.blit(beast1image, (base_x, base_y + offset_y))
+                    draw_text_center("lvl" +str(beast1level) +" " +beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 450 , 145)
+                    healthrect = pygame.Rect(halfdisplay - 600 , 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    healthrectlive = pygame.Rect(halfdisplay - 600 , 210, (300 * (beast1healthlive / beast1health)),40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
+                    if(beast1healthlive >= (beast1health/2)):
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 , 255)
+                    if((beast1healthlive >= (beast1health/4)) and (beast1healthlive < (beast1health/2))):
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 255)
+                    if(beast1healthlive < (beast1health/4)):
+                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, VELVET, DISPLAYSURF,halfdisplay - 450 , 255)
+                    DISPLAYSURF.blit(monstertypeimage1, (309, 205))
+
+                    draw_text_center("Strength= " +str(beast1strength), font5, WHITE, DISPLAYSURF, halfdisplay - 550 , 240)
+                    draw_text_center("defense= " +str(beast1defense), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 270)
+                    draw_text_center("health= " +str(beast1health), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 300)
+                    draw_text_center("speed= " +str(beast1speed), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 330)
+                    draw_text_center("specattack= " +str(beast1specattack), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 360)
+                    draw_text_center("type= " +str(beast1type), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 390)
+                    draw_text_center("experience= " +str(beast1experience), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 420)
+                    draw_text_center("tier= " +str(beast1tier), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 450)
+
+                if(teamchoosen == 2 and teamsize >= 2):
+                    offset_y = math.sin(angle) * amplitude
+                    angle += speedofimage
+                    DISPLAYSURF.blit(beast2image, (base_x, base_y + offset_y))
+
+                    draw_text_center("lvl" + str(beast2level) + " " + beast2name, font22, beastnamecolor2, DISPLAYSURF, halfdisplay - 450, 145)
+
+                    healthrect = pygame.Rect(halfdisplay - 600, 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+
+                    healthrectlive = pygame.Rect(halfdisplay - 600, 210, (300 * (beast2healthlive / beast2health)), 40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
+
+                    if beast2healthlive >= (beast2health / 2):
+                        draw_text_center(str(beast2healthlive) + "/" + str(beast2health), font22, EMERALD, DISPLAYSURF, halfdisplay - 450, 255)
+                    elif (beast2healthlive >= (beast2health / 4)) and (beast2healthlive < (beast2health / 2)):
+                        draw_text_center(str(beast2healthlive) + "/" + str(beast2health), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay - 450, 255)
+                    else:
+                        draw_text_center(str(beast2healthlive) + "/" + str(beast2health), font22, VELVET, DISPLAYSURF, halfdisplay - 450, 255)
+
+                    DISPLAYSURF.blit(monstertypeimage2, (309, 205))
+
+                    draw_text_center("Strength= " + str(beast2strength), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 240)
+                    draw_text_center("defense= " + str(beast2defense), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 270)
+                    draw_text_center("health= " + str(beast2health), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 300)
+                    draw_text_center("speed= " + str(beast2speed), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 330)
+                    draw_text_center("specattack= " + str(beast2specattack), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 360)
+                    draw_text_center("type= " + str(beast2type), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 390)
+                    draw_text_center("experience= " + str(beast2experience), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 420)
+                    draw_text_center("tier= " + str(beast2tier), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 450)
+
+                if(teamchoosen == 3 and teamsize >= 3):
+                    offset_y = math.sin(angle) * amplitude
+                    angle += speedofimage
+                    DISPLAYSURF.blit(beast3image, (base_x, base_y + offset_y))
+
+                    draw_text_center("lvl" + str(beast3level) + " " + beast3name, font22, beastnamecolor3, DISPLAYSURF, halfdisplay - 450, 145)
+
+                    healthrect = pygame.Rect(halfdisplay - 600, 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+
+                    healthrectlive = pygame.Rect(halfdisplay - 600, 210, (300 * (beast3healthlive / beast3health)), 40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
+
+                    if beast3healthlive >= (beast3health / 2):
+                        draw_text_center(str(beast3healthlive) + "/" + str(beast3health), font22, EMERALD, DISPLAYSURF, halfdisplay - 450, 255)
+                    elif (beast3healthlive >= (beast3health / 4)) and (beast3healthlive < (beast3health / 2)):
+                        draw_text_center(str(beast3healthlive) + "/" + str(beast3health), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay - 450, 255)
+                    else:
+                        draw_text_center(str(beast3healthlive) + "/" + str(beast3health), font22, VELVET, DISPLAYSURF, halfdisplay - 450, 255)
+
+                    DISPLAYSURF.blit(monstertypeimage3, (309, 205))
+
+                    draw_text_center("Strength= " + str(beast3strength), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 240)
+                    draw_text_center("defense= " + str(beast3defense), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 270)
+                    draw_text_center("health= " + str(beast3health), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 300)
+                    draw_text_center("speed= " + str(beast3speed), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 330)
+                    draw_text_center("specattack= " + str(beast3specattack), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 360)
+                    draw_text_center("type= " + str(beast3type), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 390)
+                    draw_text_center("experience= " + str(beast3experience), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 420)
+                    draw_text_center("tier= " + str(beast3tier), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 450)
+
+                if(enemyteamchoosen == 1):
+                    enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                    enemyangle += enemyspeedofimage
+                    DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
+                    draw_text_center("lvl" +str(enemymonsterlvl1) +" " +enemymonstername1 , font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460 , 145)
+                    healthrect = pygame.Rect(halfdisplay + 310 , 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    enemyhealthrectlive = pygame.Rect(halfdisplay + 310 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                    if(enemybeast1healthlive >= (beast1health/2)):
+                        draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 460 , 255)
+                    if((enemybeast1healthlive >= (enemymonsterhp1/4)) and (enemybeast1healthlive < (beast1health/2))):
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay + 460 , 255)
+                    if(beast1healthlive < (enemymonsterhp1/4)):
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF,halfdisplay + 460 , 255)
+                    DISPLAYSURF.blit(enemymonstertypeimage1, (1570 , 205))
+
+                    draw_text_center("Strength= " +str(enemybeast1strengthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150 , 240)
+                    draw_text_center("defense= " +str(enemybeast1defenselive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 270)
+                    draw_text_center("health= " +str(enemybeast1speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 300)
+                    draw_text_center("speed= " +str(enemybeast1speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 330)
+                    draw_text_center("specattack= " +str(enemybeast1specattacklive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 360)
+                    draw_text_center("type= " +str(enemymonstertype1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 390)
+                    draw_text_center("tier= " +str(enemymonstertier1), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 450)
+                    draw_text_center("move1= " +str(enemymonstermove1_1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 510)
+                    draw_text_center("move2= " +str(enemymonstermove2_1)  , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 540)
+                    draw_text_center("move3= " +str(enemymonstermove3_1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 570)
+                    draw_text_center("move4= " +str(enemymonstermove4_1)  , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 600)
+
+                if(enemyteamchoosen == 2):
+                    enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                    enemyangle += enemyspeedofimage
+                    DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
+
+                    draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+
+                    healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+
+                    enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+
+                    if enemybeast2healthlive >= (enemymonsterhp2 / 2):
+                        draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                    elif (enemybeast2healthlive >= (enemymonsterhp2 / 4)) and (enemybeast2healthlive < (enemymonsterhp2 / 2)):
+                        draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                    else:
+                        draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+
+                    DISPLAYSURF.blit(enemymonstertypeimage2, (1570, 205))
+
+                    draw_text_center("Strength= " + str(enemybeast2strengthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 240)
+                    draw_text_center("defense= " + str(enemybeast2defenselive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 270)
+                    draw_text_center("health= " + str(enemybeast2healthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 300)
+                    draw_text_center("speed= " + str(enemybeast2speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 330)
+                    draw_text_center("specattack= " + str(enemybeast2specattacklive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 360)
+                    draw_text_center("type= " + str(enemymonstertype2), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 390)
+                    draw_text_center("tier= " + str(enemymonstertier2), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 450)
+                    draw_text_center("move1= " + str(enemymonstermove1_2), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 510)
+                    draw_text_center("move2= " + str(enemymonstermove2_2), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 540)
+                    draw_text_center("move3= " + str(enemymonstermove3_2), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 570)
+                    draw_text_center("move4= " + str(enemymonstermove4_2), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 600)
+
+                if(enemyteamchoosen == 3):
+                    enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                    enemyangle += enemyspeedofimage
+                    DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
+
+                    draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+
+                    healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+
+                    enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
+                    pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+
+                    if enemybeast3healthlive >= (enemymonsterhp3 / 2):
+                        draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                    elif (enemybeast3healthlive >= (enemymonsterhp3 / 4)) and (enemybeast3healthlive < (enemymonsterhp3 / 2)):
+                        draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                    else:
+                        draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+
+                    DISPLAYSURF.blit(enemymonstertypeimage3, (1570, 205))
+
+                    draw_text_center("Strength= " + str(enemybeast3strengthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 240)
+                    draw_text_center("defense= " + str(enemybeast3defenselive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 270)
+                    draw_text_center("health= " + str(enemybeast3healthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 300)
+                    draw_text_center("speed= " + str(enemybeast3speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 330)
+                    draw_text_center("specattack= " + str(enemybeast3specattacklive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 360)
+                    draw_text_center("type= " + str(enemymonstertype3), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 390)
+                    draw_text_center("tier= " + str(enemymonstertier3), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 450)
+                    draw_text_center("move1= " + str(enemymonstermove1_3), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 510)
+                    draw_text_center("move2= " + str(enemymonstermove2_3), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 540)
+                    draw_text_center("move3= " + str(enemymonstermove3_3), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 570)
+                    draw_text_center("move4= " + str(enemymonstermove4_3), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 600)
+
+
+
+######################################################################################################################################################################
+
+
                 battlebutton = pygame.Rect(halfdisplay - 250, 800, 240, 70)
                 switchCharactersbutton = pygame.Rect(halfdisplay - 250, 880, 240, 70)
                 itemsbutton = pygame.Rect(halfdisplay + 10, 800, 240, 70)
                 forfeitbutton = pygame.Rect(halfdisplay + 10, 880, 240, 70)
 
 
-                forfeit_yes_rect = pygame.Rect(1140, 315, 100, 100)
-                forfeit_no_rect = pygame.Rect(1340, 315, 100, 100)
-                pygame.draw.rect(DISPLAYSURF, DARKRED, forfeit_yes_rect, 6)
-                pygame.draw.rect(DISPLAYSURF, GREEN, forfeit_no_rect, 6)
+                monster1switch = pygame.Rect(313, 366, 390, 322)
+                monster2switch = pygame.Rect(750, 366, 396, 322)
+                monster3switch = pygame.Rect(1194, 366, 392, 322)
+                monsterXswitch = pygame.Rect(800, 726, 265, 60)
+
+                if(changemonsterbuttonbool == True):
+                    if(monsterXswitch.collidepoint(mouse_pos)):
+                        DISPLAYSURF.blit(switchmonstermenux, (180, 100))
+                    else:
+                        DISPLAYSURF.blit(switchmonstermenu, (180, 100))
+
+                    if(teamsize == 1):
+                        draw_text_center(beast1name, font26, WHITE, DISPLAYSURF, 530 , 840)
+                    if(teamsize == 2):
+                        draw_text_center(beast2name, font26, WHITE, DISPLAYSURF, 944 , 840)
+                    if(teamsize == 3):
+                        draw_text_center(beast3name, font26, WHITE, DISPLAYSURF, 1360 , 840)
+                    if(monster1switch.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, BLUE, monster1switch, 10, 10)
+                    if(monster2switch.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, BLUE, monster2switch, 10, 10)
+                    if(monster3switch.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, BLUE, monster3switch, 10, 10)
+                    if(teamsize >= 1):
+                        DISPLAYSURF.blit(scaled_beast1image, (385, 420))
+                    if(teamsize >= 2):
+                        DISPLAYSURF.blit(scaled_beast2image, (822, 420))
+                    if(teamsize >= 3):
+                        DISPLAYSURF.blit(scaled_beast3image, (1264, 420))
+
+                forfeit_yes_rect = pygame.Rect(736, 586, 215, 80)
+                forfeit_no_rect = pygame.Rect(976, 586, 215, 80)
 
                 if(forfeitbuttonbool == True):
-                    DISPLAYSURF.blit(forfeitimage , (620 , 255))
+                    DISPLAYSURF.blit(forfeitimage , (463 , -45))
+                    if (forfeit_yes_rect.collidepoint(mouse_pos)):
+                            pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, forfeit_yes_rect, 6, 5)
+                    if (forfeit_no_rect.collidepoint(mouse_pos)):
+                            pygame.draw.rect(DISPLAYSURF, LIGHTYELLOW, forfeit_no_rect, 6, 5)
 
-
-                exititemmenubutton = pygame.Rect(1240, 315, 41, 43)
+                exititemmenubutton = pygame.Rect(1240, 315, 41, 47)
                 healingpotionrect = pygame.Rect(681, 392, 178, 389)
                 applerect = pygame.Rect(1071, 392, 178, 389)
                 goldenapplerect = pygame.Rect(876, 392, 178, 389)
@@ -15047,7 +15300,10 @@ class colleseum(pygame.sprite.Sprite):
                         pygame.draw.rect(DISPLAYSURF, LIGHTYELLOW, healingpotionrect, 6)
                 if((itembuttonbool == True) and exititemmenubutton.collidepoint(mouse_pos)):
                     DISPLAYSURF.blit(menubattleimage1 , (620 , 255))
-                    pygame.draw.rect(DISPLAYSURF, PINPPINK, exititemmenubutton, 4)
+                    pygame.draw.rect(DISPLAYSURF, RED, exititemmenubutton, 5)
+                    draw_text_center("x" +str(golden_apple_count), font7, WHITE, DISPLAYSURF, 960 , 666)
+                    draw_text_center("x" +str(apple_count), font7, WHITE, DISPLAYSURF, 1160 , 666)
+                    draw_text_center("x" + str(healing_potion_count), font7, WHITE, DISPLAYSURF, 765, 666)
 
                 if(itembuttonbool != True and attackbuttonbool != True and changemonsterbuttonbool != True and forfeitbuttonbool != True):
                     pygame.draw.rect(DISPLAYSURF, CLOUD, battlebutton)
@@ -15070,79 +15326,6 @@ class colleseum(pygame.sprite.Sprite):
                     draw_text_center("Switch", font22, AQUA, DISPLAYSURF, 822 , 885)
                     draw_text_center("Items", font22, GOLD, DISPLAYSURF, 1086 , 805)
                     draw_text_center("Forfeit", font22, BLACK, DISPLAYSURF, 1086 , 885)
-
-                if(teamchoosen == 1 and teamsize >= 1):
-
-                    offset_y = math.sin(angle) * amplitude
-                    angle += speedofimage
-                    DISPLAYSURF.blit(beast1image, (base_x, base_y + offset_y))
-                    #DISPLAYSURF.blit(beast1image, (170 , 400))
-                    draw_text_center("lvl" +str(beast1level) +" " +beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 450 , 145)
-                    healthrect = pygame.Rect(halfdisplay - 600 , 210, 300, 40)
-                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
-                    healthrectlive = pygame.Rect(halfdisplay - 600 , 210, (300 * (beast1healthlive / beast1health)),40)
-                    pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
-                    if(beast1healthlive >= (beast1health/2)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, EMERALD, DISPLAYSURF,halfdisplay - 450 , 255)
-                    if((beast1healthlive >= (beast1health/4)) and (beast1healthlive < (beast1health/2))):
-                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay - 450 , 255)
-                    if(beast1healthlive < (beast1health/4)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(beast1health), font22, VELVET, DISPLAYSURF,halfdisplay - 450 , 255)
-                    DISPLAYSURF.blit(monstertypeimage1, (309 , 205))
-
-                    draw_text_center("Strength= " +str(beast1strength), font5, WHITE, DISPLAYSURF, halfdisplay - 550 , 240)
-                    draw_text_center("defense= " +str(beast1defense), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 270)
-                    draw_text_center("health= " +str(beast1health), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 300)
-                    draw_text_center("speed= " +str(beast1speed), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 330)
-                    draw_text_center("specattack= " +str(beast1specattack), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 360)
-                    draw_text_center("type= " +str(beast1type), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 390)
-                    draw_text_center("experience= " +str(beast1experience), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 420)
-                    draw_text_center("tier= " +str(beast1tier), font5, WHITE, DISPLAYSURF, halfdisplay - 550, 450)
-
-                if(teamchoosen == 2 and teamsize >= 2):
-                    DISPLAYSURF.blit(beasts[attributes2[8]], (165, 400))
-
-                if(teamchoosen == 3 and teamsize >= 3):
-                    DISPLAYSURF.blit(beasts[attributes3[8]], (165, 400))
-
-
-
-                if(enemyteamchoosen == 1):
-                    enemyoffset_y = math.sin(enemyangle) * enemyamplitude
-                    enemyangle += enemyspeedofimage
-                    DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
-                    #DISPLAYSURF.blit(enemymonsterimage1 , (1200 , 400))
-                    draw_text_center("lvl" +str(enemymonsterlvl1) +" " +enemymonstername1 , font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460 , 145)
-                    healthrect = pygame.Rect(halfdisplay + 310 , 210, 300, 40)
-                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
-                    enemyhealthrectlive = pygame.Rect(halfdisplay + 310 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
-                    pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
-                    if(enemybeast1healthlive >= (beast1health/2)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 460 , 255)
-                    if((enemybeast1healthlive >= (enemymonsterhp1/4)) and (enemybeast1healthlive < (beast1health/2))):
-                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay + 460 , 255)
-                    if(beast1healthlive < (enemymonsterhp1/4)):
-                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF,halfdisplay + 460 , 255)
-                    DISPLAYSURF.blit(enemymonstertypeimage1 , (1570 , 205))
-
-                    draw_text_center("Strength= " +str(enemybeast1strengthlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150 , 240)
-                    draw_text_center("defense= " +str(enemybeast1defenselive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 270)
-                    draw_text_center("health= " +str(enemybeast1speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 300)
-                    draw_text_center("speed= " +str(enemybeast1speedlive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 330)
-                    draw_text_center("specattack= " +str(enemybeast1specattacklive), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 360)
-                    draw_text_center("type= " +str(enemymonstertype1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 390)
-                    draw_text_center("tier= " +str(enemymonstertier1), font5, WHITE, DISPLAYSURF, halfdisplay + 150, 450)
-                    draw_text_center("move1= " +str(enemymonstermove1_1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 510)
-                    draw_text_center("move2= " +str(enemymonstermove2_1)  , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 540)
-                    draw_text_center("move3= " +str(enemymonstermove3_1) , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 570)
-                    draw_text_center("move4= " +str(enemymonstermove4_1)  , font5, WHITE, DISPLAYSURF, halfdisplay + 150, 600)
-
-                if(enemyteamchoosen == 2):
-                    DISPLAYSURF.blit(enemymonsterimage2 , (865 , 400))
-
-                if(enemyteamchoosen == 3):
-                    DISPLAYSURF.blit(enemymonsterimage3 , (865 , 400))
-
 
                 DISPLAYSURF.blit(redgloww, (mouseX - 47, mouseY - 44))
 
@@ -15282,5 +15465,284 @@ class colleseum(pygame.sprite.Sprite):
                                     break
                             with open('tempitems.txt', 'w') as f:
                                 json.dump(items, f, indent=4)
+
+                        if (forfeit_yes_rect.collidepoint(mouse_pos) and forfeitbuttonbool == True):
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/forfeitsound.mp3"))
+                            sound_effect.play()
+
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                lines[23] = f"colleseumwinstreak = {0}\n"
+                            with open(resource_path("gamedata.txt"), "w") as file:
+                                file.writelines(lines)
+
+                            with open(resource_path("gamedata.txt"), "r") as file:
+                                lines = file.readlines()
+                                colleseumwinstreak = lines[23].strip()
+                                colleseumwinstreak = int(colleseumwinstreak[21:])
+                                experience = lines[24].strip()
+                                experience = int(experience[13:])
+                                gold = lines[0].strip()
+                                gold = int(gold[7:])
+                                gem = lines[1].strip()
+                                gem = int(gem[6:])
+                                level = lines[15].strip()
+                                level = int(level[8:])
+                            transition(10)
+                            forfeitbuttonbool = False
+                            video3.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                            self.gamescene = 10
+                        if (forfeit_no_rect.collidepoint(mouse_pos) and forfeitbuttonbool == True):
+                            forfeitbuttonbool = False
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/sworddraw.mp3"))
+                            sound_effect.play()
+
+                        if (monster1switch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
+                            if(teamchoosen == 1 or teamsize < 1):
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/error2.mp3"))
+                                sound_effect.play()
+                            if(teamchoosen != 1 and teamsize >= 1):
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/switchmonster.mp3"))
+                                sound_effect.play()
+
+                                choosenimage = beast1image
+                                if (teamchoosen == 2):
+                                    choosenimage = beast2image
+                                if (teamchoosen == 3):
+                                    choosenimage = beast3image
+
+                                duration = 2
+                                steps = 60
+
+
+                                for i in range(steps):
+                                    DISPLAYSURF.fill(BLACK)
+                                    DISPLAYSURF.blit(image268, (197, 100))
+                                    if (enemyteamchoosen == 1):
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl1) + " " + enemymonstername1, font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast1healthlive / enemymonsterhp1)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if (enemybeast1healthlive >= (beast1health / 2)):
+                                            draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        if ((enemybeast1healthlive >= (enemymonsterhp1 / 4)) and (enemybeast1healthlive < (beast1health / 2))):
+                                            draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        if (beast1healthlive < (enemymonsterhp1 / 4)):
+                                            draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage1, (1570, 205))
+                                    if enemyteamchoosen == 2:
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if enemybeast2healthlive >= (enemymonsterhp2 / 2):
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        elif (enemybeast2healthlive >= (enemymonsterhp2 / 4)) and (enemybeast2healthlive < (enemymonsterhp2 / 2)):
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        else:
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage2, (1570, 205))
+                                    if enemyteamchoosen == 3:
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if enemybeast3healthlive >= (enemymonsterhp3 / 2):
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        elif (enemybeast3healthlive >= (enemymonsterhp3 / 4)) and (enemybeast3healthlive < (enemymonsterhp3 / 2)):
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        else:
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage3, (1570, 205))
+                                    scale = 1 - (i / steps)
+                                    start_x, start_y = 170, 400
+                                    original_width, original_height = choosenimage.get_width(), choosenimage.get_height()
+                                    new_width = int(original_width * scale)
+                                    new_height = int(original_height * scale)
+                                    if new_width > 0 and new_height > 0:
+                                        scaled_image = pygame.transform.smoothscale(choosenimage, (new_width, new_height))
+                                        DISPLAYSURF.blit(scaled_image, (start_x, start_y))
+                                        pygame.display.update()
+
+                                white_flash(DISPLAYSURF, duration=1000)
+                                teamchoosen = 1
+                                changemonsterbuttonbool = False
+                        if (monster2switch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
+                            if(teamchoosen == 2 or teamsize < 2):
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/error2.mp3"))
+                                sound_effect.play()
+                            if(teamchoosen != 2 and teamsize >= 2):
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/switchmonster.mp3"))
+                                sound_effect.play()
+                                choosenimage = beast1image
+                                if (teamchoosen == 1):
+                                    choosenimage = beast1image
+                                if (teamchoosen == 3):
+                                    choosenimage = beast3image
+
+                                duration = 2
+                                steps = 60
+
+
+                                for i in range(steps):
+                                    DISPLAYSURF.fill(BLACK)
+                                    DISPLAYSURF.blit(image268, (197, 100))
+                                    if (enemyteamchoosen == 1):
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl1) + " " + enemymonstername1, font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast1healthlive / enemymonsterhp1)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if (enemybeast1healthlive >= (beast1health / 2)):
+                                            draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        if ((enemybeast1healthlive >= (enemymonsterhp1 / 4)) and (enemybeast1healthlive < (beast1health / 2))):
+                                            draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        if (beast1healthlive < (enemymonsterhp1 / 4)):
+                                            draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage1, (1570, 205))
+                                    if enemyteamchoosen == 2:
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if enemybeast2healthlive >= (enemymonsterhp2 / 2):
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        elif (enemybeast2healthlive >= (enemymonsterhp2 / 4)) and (enemybeast2healthlive < (enemymonsterhp2 / 2)):
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        else:
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage2, (1570, 205))
+                                    if enemyteamchoosen == 3:
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if enemybeast3healthlive >= (enemymonsterhp3 / 2):
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        elif (enemybeast3healthlive >= (enemymonsterhp3 / 4)) and (enemybeast3healthlive < (enemymonsterhp3 / 2)):
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        else:
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage3, (1570, 205))
+                                    scale = 1 - (i / steps)
+                                    start_x, start_y = 170, 400
+                                    original_width, original_height = choosenimage.get_width(), choosenimage.get_height()
+                                    new_width = int(original_width * scale)
+                                    new_height = int(original_height * scale)
+                                    if new_width > 0 and new_height > 0:
+                                        scaled_image = pygame.transform.smoothscale(choosenimage, (new_width, new_height))
+                                        DISPLAYSURF.blit(scaled_image, (start_x, start_y))
+                                        pygame.display.update()
+
+                                white_flash(DISPLAYSURF, duration=1000)
+                                teamchoosen = 2
+                                changemonsterbuttonbool = False
+                        if (monster3switch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
+                            if(teamchoosen == 3 or teamsize < 3):
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/error2.mp3"))
+                                sound_effect.play()
+                            if(teamchoosen != 3 and teamsize >= 3):
+                                sound_effect = pygame.mixer.Sound(resource_path("audio/switchmonster.mp3"))
+                                sound_effect.play()
+                                choosenimage = beast1image
+                                if (teamchoosen == 1):
+                                    choosenimage = beast1image
+                                if (teamchoosen == 2):
+                                    choosenimage = beast2image
+
+                                duration = 2
+                                steps = 60
+
+                                for i in range(steps):
+                                    DISPLAYSURF.fill(BLACK)
+                                    DISPLAYSURF.blit(image268, (197, 100))
+                                    if (enemyteamchoosen == 1):
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl1) + " " + enemymonstername1, font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast1healthlive / enemymonsterhp1)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if (enemybeast1healthlive >= (beast1health / 2)):
+                                            draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        if ((enemybeast1healthlive >= (enemymonsterhp1 / 4)) and (enemybeast1healthlive < (beast1health / 2))):
+                                            draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        if (beast1healthlive < (enemymonsterhp1 / 4)):
+                                            draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage1, (1570, 205))
+                                    if enemyteamchoosen == 2:
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if enemybeast2healthlive >= (enemymonsterhp2 / 2):
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        elif (enemybeast2healthlive >= (enemymonsterhp2 / 4)) and (enemybeast2healthlive < (enemymonsterhp2 / 2)):
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        else:
+                                            draw_text_center(str(enemybeast2healthlive) + "/" + str(enemymonsterhp2), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage2, (1570, 205))
+                                    if enemyteamchoosen == 3:
+                                        enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                                        enemyangle += enemyspeedofimage
+                                        DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
+                                        draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
+                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
+                                        pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
+                                        if enemybeast3healthlive >= (enemymonsterhp3 / 2):
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, EMERALD, DISPLAYSURF, halfdisplay + 460, 255)
+                                        elif (enemybeast3healthlive >= (enemymonsterhp3 / 4)) and (enemybeast3healthlive < (enemymonsterhp3 / 2)):
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, ORANGEDESERT, DISPLAYSURF, halfdisplay + 460, 255)
+                                        else:
+                                            draw_text_center(str(enemybeast3healthlive) + "/" + str(enemymonsterhp3), font22, VELVET, DISPLAYSURF, halfdisplay + 460, 255)
+                                        DISPLAYSURF.blit(enemymonstertypeimage3, (1570, 205))
+                                    scale = 1 - (i / steps)
+                                    start_x, start_y = 170, 400
+                                    original_width, original_height = choosenimage.get_width(), choosenimage.get_height()
+                                    new_width = int(original_width * scale)
+                                    new_height = int(original_height * scale)
+                                    if new_width > 0 and new_height > 0:
+                                        scaled_image = pygame.transform.smoothscale(choosenimage, (new_width, new_height))
+                                        DISPLAYSURF.blit(scaled_image, (start_x, start_y))
+                                        pygame.display.update()
+
+                                white_flash(DISPLAYSURF, duration=1000)
+                                teamchoosen = 3
+                                changemonsterbuttonbool = False
+                        if (monsterXswitch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
+                            changemonsterbuttonbool = False
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
                 pygame.display.update()
 ########################################################################################################################

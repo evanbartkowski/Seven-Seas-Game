@@ -254,6 +254,8 @@ font23 = pygame.font.Font(resource_path("fonts/oldenFont.otf"), 35)
 font24 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 40)
 font25 = pygame.font.SysFont("Comic Sans", 30)
 font26 = pygame.font.Font(resource_path("fonts/AsianFont.ttf"), 30)
+font27 = pygame.font.Font(resource_path("fonts/Comfy.otf"), 15)
+font28 = pygame.font.Font(resource_path("fonts/HelpMe.ttf"), 150)
 
 gameStatus = True
 
@@ -978,7 +980,8 @@ class gameintro(pygame.sprite.Sprite):
             file.write("specattack = 1 \n")
             file.write("luck = 1 \n")
             file.write("firstblackmarket = true \n")
-
+            file.write("colleseumwinstreak = 0 \n")
+            file.write("experience = 0 \n")
             with open(resource_path("creaturedata.txt"), "w") as file:
                 file.truncate(0)
 

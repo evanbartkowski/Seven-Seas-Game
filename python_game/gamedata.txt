@@ -20,4 +20,6 @@ health = 21
 speed = 23
 specattack = 1
 luck = 6
-firstblackmarket = true 
+firstblackmarket = true
+colleseumwinstreak = 0
+experience = 0
