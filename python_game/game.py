@@ -441,8 +441,34 @@ moves = [
     ["Winglash", 45, "empty", "empty", "empty", "attack", 10],
     ["Gust", 40, "empty", "empty", "empty", "empty", 10],
     ["Aerial Ace", "superrandom", "empty", "empty", "attack+1", "attack", 5]
-    ]
+]
 
+for i, move in enumerate(moves):
+    if 0 <= i < 22:
+        move.append('darkness')
+    elif 22 <= i < 44:
+        move.append('light')
+    elif 44 <= i < 66:
+        move.append('fire')
+    elif 66 <= i < 88:
+        move.append('water')
+    elif 88 <= i < 110:
+        move.append('poison')
+    elif 110 <= i < 132:
+        move.append('nature')
+    elif 132 <= i < 154:
+        move.append('ground')
+    elif 154 <= i < 165:
+        move.append('psychic')
+    elif 165 <= i < 181:
+        move.append('normal')
+    elif 181 <= i < 198:
+        move.append('ice')
+    elif 198 <= i < 211:
+        move.append('lightning')
+    elif 211 <= i < 221:
+        move.append('wind')
+        
 moves_lore = [
     "Nightveil Slash: A shadowy blade technique forged in the depths of the Nightveil, said to sever the soul from the body.",
     "Dreadspire Maelstrom: A chaotic vortex of dark energy that consumes all light and hope, originating from the cursed Dreadspire Tower.",
@@ -1232,6 +1258,16 @@ switchmonstermenux = pygame.image.load(resource_path('images/partymenux.png')).c
 switchmonstermenux = pygame.transform.scale(switchmonstermenux, (1550, 870))
 switchmonstermenux.set_alpha(240)
 
+battlereturnarrowimg = pygame.image.load(resource_path('images/battlereturnarrow.png')).convert_alpha()
+battlereturnarrowimg2 = pygame.image.load(resource_path('images/battlereturnarrow2.png')).convert_alpha()
+
+joinguild = pygame.image.load(resource_path('images/joinguild.png')).convert_alpha()
+joinguildyes = pygame.image.load(resource_path('images/joinguildyes.png')).convert_alpha()
+joinguildno = pygame.image.load(resource_path('images/joinguildno.png')).convert_alpha()
+
+questsimage = pygame.image.load(resource_path('images/quests.png')).convert_alpha()
+professionsimage = pygame.image.load(resource_path('images/professions.png')).convert_alpha()
+quests_professionsimage = pygame.image.load(resource_path('images/quests_professions.png')).convert_alpha()
 ########################################################################################################################
 font = pygame.font.SysFont(None, 75)
 font2 = pygame.font.SysFont("Arial", 60)
@@ -3235,6 +3271,31 @@ class labormarket(pygame.sprite.Sprite):
             pygame.display.update()
 ########################################################################################################################
     def miningGame(self):
+        randomsong = random.randint(1, 5)
+        if (randomsong == 1):
+            songchoosen1 = "audio/beachmusic.mp3"
+            songchoosen2 = "audio/beachmusic3.mp3"
+
+        if (randomsong == 2):
+            songchoosen1 = "audio/beachmusic2.mp3"
+            songchoosen2 = "audio/beachmusic3.mp3"
+
+        if (randomsong == 3):
+            songchoosen1 = "audio/beachmusic3.mp3"
+            songchoosen2 = "audio/beachmusic4.mp3"
+
+        if (randomsong == 4):
+            songchoosen1 = "audio/beachmusic4.mp3"
+            songchoosen2 = "audio/beachmusic2.mp3"
+
+        if (randomsong == 5):
+            songchoosen1 = "audio/beachmusic3.mp3"
+            songchoosen2 = "audio/beachmusic.mp3"
+
+        pygame.mixer.music.load(resource_path(songchoosen1))
+        pygame.mixer.music.queue(resource_path(songchoosen2))
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
         while(self.repeatminigameloop):
             self.diggingbool = True
             global miningspeed
@@ -3246,32 +3307,6 @@ class labormarket(pygame.sprite.Sprite):
             startTime = pygame.time.get_ticks()
             dig_surface = pygame.Surface((9498, 19408), pygame.SRCALPHA)
             scene = 1
-            randomsong = random.randint(1,5)
-            if(randomsong == 1):
-                songchoosen1 = "audio/beachmusic.mp3"
-                songchoosen2 = "audio/beachmusic3.mp3"
-
-            if(randomsong == 2):
-                songchoosen1 = "audio/beachmusic2.mp3"
-                songchoosen2 = "audio/beachmusic3.mp3"
-
-            if(randomsong == 3):
-                songchoosen1 = "audio/beachmusic3.mp3"
-                songchoosen2 = "audio/beachmusic4.mp3"
-
-            if(randomsong == 4):
-                songchoosen1 = "audio/beachmusic4.mp3"
-                songchoosen2 = "audio/beachmusic2.mp3"
-
-            if(randomsong == 5):
-                songchoosen1 = "audio/beachmusic3.mp3"
-                songchoosen2 = "audio/beachmusic.mp3"
-
-
-            pygame.mixer.music.load(resource_path(songchoosen1))
-            pygame.mixer.music.queue(resource_path(songchoosen2))
-            pygame.mixer.music.set_volume(0.5)
-            pygame.mixer.music.play(-1)
             secondsextra = 0
             x = random.randint(-8100, 600)
             y = -1245
@@ -7757,7 +7792,6 @@ class guild(pygame.sprite.Sprite):
         global textFader
 
         video_frames = self.preload_video_frames(resource_path("video/glowparticlevideo.mp4"),(1550, 880), -90, True, False, 100)
-
         frame_index = 0
         imageBlack.set_alpha(120)
         self.gamescene = 1
@@ -7862,7 +7896,8 @@ class guild(pygame.sprite.Sprite):
             startTime = pygame.time.get_ticks()
             mouseX, mouseY = pygame.mouse.get_pos()
 
-
+            mouseX, mouseY = pygame.mouse.get_pos()
+            print("x and y = " + str(mouseX) + " " + str(mouseY))
             if (self.gamescene == 1):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
@@ -8079,7 +8114,7 @@ class guild(pygame.sprite.Sprite):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
                 DISPLAYSURF.blit(image4, (0, 870))
-                draw_text_center('Whatever you need, the adventurers guild can provide it.We work as one cohesive family', font5, GREY, DISPLAYSURF, halfdisplay, 880)
+                draw_text_center('Whatever you need, the adventurers guild can provide it. We work as one cohesive family', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('always watching each others backs, never leaving a guild member behind.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -8123,16 +8158,13 @@ class guild(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image164, (198, 110))
                 xrect = pygame.Rect(1680, 123, 35, 35)
                 returnarrowrect = pygame.Rect(153, 110, 120, 70)
-                norect = pygame.Rect(980, 157, 300, 300)
-                yesrect = pygame.Rect(660, 157, 300, 300)
-                pygame.draw.rect(DISPLAYSURF, GREEN, yesrect)
-                pygame.draw.rect(DISPLAYSURF, RED, norect)
-                draw_text('No', font2, BLACK, DISPLAYSURF, 1095, 227)
-                draw_text('Yes', font2, BLACK, DISPLAYSURF, 760, 227)
+                norect = pygame.Rect(795, 600, 340, 145)
+                yesrect = pygame.Rect(795, 435, 340, 145)
+                DISPLAYSURF.blit(joinguild, (540, 230))
                 if yesrect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,(rainbowcolor1,130,130), yesrect, 11)
+                    DISPLAYSURF.blit(joinguildyes, (540, 230))
                 if norect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,(rainbowcolor1,130,130), norect, 11)
+                    DISPLAYSURF.blit(joinguildno, (540, 230))
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -8205,11 +8237,9 @@ class guild(pygame.sprite.Sprite):
                 rainbowcolor1 = int((math.sin(startTime * 0.002) + 1) * 127.5)
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
-                DISPLAYSURF.blit(imageBlack, (620, 160))
-                questsrect = pygame.Rect(860, 210, 290, 120)
-                professionrect = pygame.Rect(810, 440, 370, 120)
-                draw_text_center('Quests', font2, BLACK, DISPLAYSURF,halfdisplay, 260)
-                draw_text_center('Professions', font2, BLACK, DISPLAYSURF, halfdisplay, 490)
+                questsrect = pygame.Rect(740, 370, 470, 100)
+                professionrect = pygame.Rect(740, 494, 470, 100)
+                DISPLAYSURF.blit(quests_professionsimage, (535, 250))
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
@@ -8220,9 +8250,9 @@ class guild(pygame.sprite.Sprite):
                 if returnarrowrect.collidepoint(mouse_pos):
                     DISPLAYSURF.blit(image165, (198, 110))
                 if questsrect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,(rainbowcolor1, 130, 130), questsrect, 11)
+                    DISPLAYSURF.blit(questsimage, (535, 250))
                 if professionrect.collidepoint(mouse_pos):
-                    pygame.draw.rect(DISPLAYSURF,(rainbowcolor1, 130, 130), professionrect, 11)
+                    DISPLAYSURF.blit(professionsimage, (535, 250))
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if questsrect.collidepoint(mouse_pos):
@@ -8253,6 +8283,9 @@ class guild(pygame.sprite.Sprite):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image207, (197, 100))
                 DISPLAYSURF.blit(image4, (0, 870))
+                frame_surface = video_frames[frame_index]
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
                 draw_text_center('Farewell young adventurer,', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('May lady luck be in love with you.', font5, GREY, DISPLAYSURF, halfdisplay, 910)
                 mouse_pos = pygame.mouse.get_pos()
@@ -8291,6 +8324,11 @@ class guild(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image4, (0, 870))
                 draw_text_center('Welcome back brother to the guild.', font5, GREY, DISPLAYSURF, halfdisplay, 880)
                 draw_text_center('What can we do for you today?', font5, GREY, DISPLAYSURF, halfdisplay, 910)
+                
+                frame_surface = video_frames[frame_index]
+                DISPLAYSURF.blit(frame_surface, (190, 100))
+                frame_index = (frame_index + 1) % len(video_frames)
+                
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
@@ -8307,6 +8345,7 @@ class guild(pygame.sprite.Sprite):
                             sound_effect.play()
                             channelbool = True
                             self.gamescene = 10
+                            channel1.stop()
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
                             self.guildbool1 = False
@@ -8573,6 +8612,7 @@ class guild(pygame.sprite.Sprite):
                         if stoprect.collidepoint(mouse_pos):
                             randompotionvalue = random.randint(1, 4)
                             self.gamescene = self.gamescene + 1
+                            pygame.display.update()
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
 
@@ -8583,7 +8623,7 @@ class guild(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
-                pygame.display.update()
+                    
             if (self.gamescene == 56):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image209, (197, 100))
@@ -8606,6 +8646,7 @@ class guild(pygame.sprite.Sprite):
                 alchemyhitrect2 = pygame.Rect(1005, 50, 120, 200)
                 streakrect = pygame.Rect(828, 50, 297, 200)
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
+                pygame.display.update()
 
                 if alchemyhitrect.collidepoint(x + 47, 150):
                     sound_effect = pygame.mixer.Sound(resource_path("audio/potioncreation.mp3"))
@@ -8756,7 +8797,6 @@ class guild(pygame.sprite.Sprite):
                             self.gamescene = self.gamescene - 2
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
-
                             self.guildbool1 = False
                         if xrect.collidepoint(mouse_pos):
                             print("Quit clicked")
@@ -8766,6 +8806,7 @@ class guild(pygame.sprite.Sprite):
                             sys.exit()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
                 pygame.display.update()
+
             if (self.gamescene == 30):
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image208, (197, 100))
@@ -8805,12 +8846,12 @@ class guild(pygame.sprite.Sprite):
                             pygame.quit()
                             sys.exit()
                 DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
-                pygame.display.update()
 
             mouseX, mouseY = pygame.mouse.get_pos()
             DISPLAYSURF.blit(image56, (mouseX - 47, mouseY - 44))
             if(self.gamescene != 57):
                 pygame.display.update()
+        channel1.stop()
 ########################################################################################################################
 class blackmarket(pygame.sprite.Sprite):
     def __init__(self):
@@ -9033,6 +9074,7 @@ class blackmarket(pygame.sprite.Sprite):
                     voicebool = True
             if (self.gamescene == 7):
                 if(music1):
+                    channel1.stop()
                     pygame.mixer.music.load(resource_path("audio/angels.mp3"))
                     pygame.mixer.music.play(-1)
                     music1 = False
@@ -9126,6 +9168,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if returnmenurect.collidepoint(mouse_pos):
                                 self.gamescene = 10
                                 pygame.event.clear()
+                                channel1.stop()
                             if leftclickrect.collidepoint(mouse_pos):
                                 itemdisplay = itemdisplay - 1
                                 if (itemdisplay == -1):
@@ -9159,6 +9202,7 @@ class blackmarket(pygame.sprite.Sprite):
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/lootcratechestsound.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 17
+                                    channel1.stop()
                 if(itemdisplay == 1):
                     draw_text('10,000 Gold', font11, YELLOW, DISPLAYSURF, 1430, 260)
                     draw_text_center('Diamond Treasure Chest', Bigswordfont, WHITE, DISPLAYSURF, halfdisplay, 175)
@@ -9224,6 +9268,7 @@ class blackmarket(pygame.sprite.Sprite):
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/lootcratechestsound.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 16
+                                    channel1.stop()
                 if(itemdisplay == 2):
                     draw_text('100,000 Gold', font11, YELLOW, DISPLAYSURF, 1430, 260)
                     draw_text_center('Emerald Treasure Chest', Bigswordfont, BLACK, DISPLAYSURF, halfdisplay, 175)
@@ -9258,6 +9303,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if returnmenurect.collidepoint(mouse_pos):
                                 self.gamescene = 10
                                 pygame.event.clear()
+                                channel1.stop()
                             if leftclickrect.collidepoint(mouse_pos):
                                 itemdisplay = itemdisplay - 1
                                 if (itemdisplay == -1):
@@ -9291,6 +9337,7 @@ class blackmarket(pygame.sprite.Sprite):
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/lootcratechestsound.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 15
+                                    channel1.stop()
                 if(itemdisplay == 3):
                     draw_text('200 Gems', font11, rainbow, DISPLAYSURF, 1430, 260)
                     draw_text_center('Cosmic Door', Bigswordfont, BLACK, DISPLAYSURF, halfdisplay, 175)
@@ -9334,6 +9381,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if returnmenurect.collidepoint(mouse_pos):
                                 self.gamescene = 10
                                 pygame.event.clear()
+                                channel1.stop()
                             if leftclickrect.collidepoint(mouse_pos):
                                 itemdisplay = itemdisplay - 1
                                 if (itemdisplay == -1):
@@ -9367,7 +9415,7 @@ class blackmarket(pygame.sprite.Sprite):
                                     sound_effect = pygame.mixer.Sound(resource_path("audio/scaryhowlverb.mp3"))
                                     sound_effect.play()
                                     self.gamescene = 14
-
+                                    channel1.stop()
                 pygame.display.update()
 
             if (self.gamescene == 10):
@@ -9394,6 +9442,7 @@ class blackmarket(pygame.sprite.Sprite):
                         if event.type == MOUSEBUTTONDOWN:
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
+                                channel1.stop()
                                 pygame.mixer.music.stop()
                                 pygame.quit()
                                 sys.exit()
@@ -9409,6 +9458,7 @@ class blackmarket(pygame.sprite.Sprite):
                                 sound_effect.play()
                                 pygame.mixer.music.set_volume(0.4)
                                 textFader = 0
+                                channel1.stop()
                                 self.gamescene = self.gamescene + 1
 
                 randomtext = random.randint(0, 7)
@@ -9473,30 +9523,27 @@ class blackmarket(pygame.sprite.Sprite):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 for event in pygame.event.get():
                     mouseX, mouseY = pygame.mouse.get_pos()
-                    if xrect.collidepoint(mouse_pos):
-                        if event.type == MOUSEBUTTONDOWN:
-                            if xrect.collidepoint(mouse_pos):
-                                channel1.stop()
-                                print("Quit clicked")
-                                pygame.mixer.music.stop()
-                                pygame.quit()
-                                sys.exit()
-                    else:
-                        if event.type == MOUSEBUTTONDOWN:
-                            if returnmenurect.collidepoint(mouse_pos):
-                                transition(6)
-                                self.menu_activeblackmarket = False
-                                channel1.stop()
-                                pygame.event.clear()
-                            if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
-                                sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
-                                sound_effect.play()
-                                pygame.mixer.music.set_volume(0.4)
-                                pygame.display.update()
-                                textFader = 0
-                                self.gamescene = self.gamescene + 1
-                                voicebool = True
-
+                    if event.type == MOUSEBUTTONDOWN:
+                        if returnmenurect.collidepoint(mouse_pos):
+                            channel1.stop()
+                            transition(6)
+                            self.menu_activeblackmarket = False
+                            pygame.event.clear()
+                        if 100 <= mouseX <= 1920 and 150 <= mouseY <= 1080:
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/clicknoise.mp3"))
+                            sound_effect.play()
+                            channel1.stop()
+                            pygame.mixer.music.set_volume(0.4)
+                            pygame.display.update()
+                            textFader = 0
+                            self.gamescene = self.gamescene + 1
+                            voicebool = True
+                        if xrect.collidepoint(mouse_pos):
+                            channel1.stop()
+                            print("Quit clicked")
+                            pygame.mixer.music.stop()
+                            pygame.quit()
+                            sys.exit()
                 pygame.display.update()
             if (self.gamescene == 12):
                 if(voicebool):
@@ -9527,6 +9574,7 @@ class blackmarket(pygame.sprite.Sprite):
                             if xrect.collidepoint(mouse_pos):
                                 print("Quit clicked")
                                 pygame.mixer.music.stop()
+                                channel1.stop()
                                 pygame.quit()
                                 sys.exit()
                     else:
@@ -9550,6 +9598,7 @@ class blackmarket(pygame.sprite.Sprite):
                 music1 = True
                 pygame.display.update()
             if (self.gamescene == 13):
+                channel1.stop()
                 self.gamescene = 7
 
             if (self.gamescene == 14):
@@ -9622,6 +9671,7 @@ class blackmarket(pygame.sprite.Sprite):
                                     video2.release()
                                     video.release()
                                     video3.release()
+                                    channel1.stop()
                                     pygame.mixer.music.stop()
                                     pygame.quit()
                                     sys.exit()
@@ -9661,19 +9711,28 @@ class blackmarket(pygame.sprite.Sprite):
                 move3 = " "
                 move4 = " "
 
+                inputmove1 = 'empty'
+                inputmove2 = 'empty'
+                inputmove3 = 'empty'
+                inputmove4 = 'empty'
+                
                 draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
                 draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
 
                 if(beastattributes[randombeast][9] != 'empty'):
+                    inputmove1 = int(beastattributes[randombeast][9])
                     move1 = moves[int(beastattributes[randombeast][9])][0]
                     draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
                 if(beastattributes[randombeast][10] != 'empty'):
+                    inputmove2 = int(beastattributes[randombeast][10])
                     move2 = moves[int(beastattributes[randombeast][10])][0]
                     draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
                 if(beastattributes[randombeast][11] != 'empty'):
+                    inputmove3 = int(beastattributes[randombeast][11])
                     move3 = moves[int(beastattributes[randombeast][11])][0]
                     draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
                 if(beastattributes[randombeast][12] != 'empty'):
+                    inputmove4 = int(beastattributes[randombeast][12])
                     move4 = moves[int(beastattributes[randombeast][12])][0]
                     draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
 
@@ -9716,10 +9775,10 @@ class blackmarket(pygame.sprite.Sprite):
                                 "speed": basespeed,
                                 "tier": tier,
                                 "beastimage": beastimage,
-                                "move1": move1,
-                                "move2": move2,
-                                "move3": move3,
-                                "move4": move4,
+                                "move1": inputmove1,
+                                "move2": inputmove2,
+                                "move3": inputmove3,
+                                "move4": inputmove4,
                                 "type": beasttype,
                                 "experience": experience,
                             }
@@ -9836,20 +9895,29 @@ class blackmarket(pygame.sprite.Sprite):
                 move2 = " "
                 move3 = " "
                 move4 = " "
-
+                
+                inputmove1 = 'empty'
+                inputmove2 = 'empty'
+                inputmove3 = 'empty'
+                inputmove4 = 'empty'
+                
                 draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
                 draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
 
                 if(beastattributes[randombeast][9] != 'empty'):
+                    inputmove1 = int(beastattributes[randombeast][9])
                     move1 = moves[int(beastattributes[randombeast][9])][0]
                     draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
                 if(beastattributes[randombeast][10] != 'empty'):
+                    inputmove2 = int(beastattributes[randombeast][10])
                     move2 = moves[int(beastattributes[randombeast][10])][0]
                     draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
                 if(beastattributes[randombeast][11] != 'empty'):
+                    inputmove3 = int(beastattributes[randombeast][11])
                     move3 = moves[int(beastattributes[randombeast][11])][0]
                     draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
                 if(beastattributes[randombeast][12] != 'empty'):
+                    inputmove4 = int(beastattributes[randombeast][12])
                     move4 = moves[int(beastattributes[randombeast][12])][0]
                     draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
 
@@ -9892,10 +9960,10 @@ class blackmarket(pygame.sprite.Sprite):
                                 "speed": basespeed,
                                 "tier": tier,
                                 "beastimage": beastimage,
-                                "move1": move1,
-                                "move2": move2,
-                                "move3": move3,
-                                "move4": move4,
+                                "move1": inputmove1,
+                                "move2": inputmove2,
+                                "move3": inputmove3,
+                                "move4": inputmove4,
                                 "type": beasttype,
                                 "experience": experience,
                             }
@@ -10014,19 +10082,28 @@ class blackmarket(pygame.sprite.Sprite):
                 move3 = " "
                 move4 = " "
 
+                inputmove1 = 'empty'
+                inputmove2 = 'empty'
+                inputmove3 = 'empty'
+                inputmove4 = 'empty'
+
                 draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
                 draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
 
                 if(beastattributes[randombeast][9] != 'empty'):
+                    inputmove1 = int(beastattributes[randombeast][9])
                     move1 = moves[int(beastattributes[randombeast][9])][0]
                     draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
                 if(beastattributes[randombeast][10] != 'empty'):
+                    inputmove2 = int(beastattributes[randombeast][10])
                     move2 = moves[int(beastattributes[randombeast][10])][0]
                     draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
                 if(beastattributes[randombeast][11] != 'empty'):
+                    inputmove3 = int(beastattributes[randombeast][11])
                     move3 = moves[int(beastattributes[randombeast][11])][0]
                     draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
                 if(beastattributes[randombeast][12] != 'empty'):
+                    inputmove4 = int(beastattributes[randombeast][12])
                     move4 = moves[int(beastattributes[randombeast][12])][0]
                     draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
 
@@ -10069,10 +10146,10 @@ class blackmarket(pygame.sprite.Sprite):
                                 "speed": basespeed,
                                 "tier": tier,
                                 "beastimage": beastimage,
-                                "move1": move1,
-                                "move2": move2,
-                                "move3": move3,
-                                "move4": move4,
+                                "move1": inputmove1,
+                                "move2": inputmove2,
+                                "move3": inputmove3,
+                                "move4": inputmove4,
                                 "type": beasttype,
                                 "experience": experience,
                             }
@@ -10195,19 +10272,28 @@ class blackmarket(pygame.sprite.Sprite):
                 move3 = " "
                 move4 = " "
 
+                inputmove1 = 'empty'
+                inputmove2 = 'empty'
+                inputmove3 = 'empty'
+                inputmove4 = 'empty'
+
                 draw_text('Moveset', font20, GOLD, DISPLAYSURF, 220, 300)
                 draw_text('------------', font20, GOLD, DISPLAYSURF, 220, 340)
 
                 if(beastattributes[randombeast][9] != 'empty'):
+                    inputmove1 = int(beastattributes[randombeast][9])
                     move1 = moves[int(beastattributes[randombeast][9])][0]
                     draw_text(move1, font22, WHITE, DISPLAYSURF, 220, 400)
                 if(beastattributes[randombeast][10] != 'empty'):
+                    inputmove2 = int(beastattributes[randombeast][10])
                     move2 = moves[int(beastattributes[randombeast][10])][0]
                     draw_text(move2, font22, WHITE, DISPLAYSURF, 220, 500)
                 if(beastattributes[randombeast][11] != 'empty'):
+                    inputmove3 = int(beastattributes[randombeast][11])
                     move3 = moves[int(beastattributes[randombeast][11])][0]
                     draw_text(move3, font22, WHITE, DISPLAYSURF, 220, 600)
                 if(beastattributes[randombeast][12] != 'empty'):
+                    inputmove4 = int(beastattributes[randombeast][12])
                     move4 = moves[int(beastattributes[randombeast][12])][0]
                     draw_text(move4, font22, WHITE, DISPLAYSURF, 220, 700)
 
@@ -10249,16 +10335,18 @@ class blackmarket(pygame.sprite.Sprite):
                                 "speed": basespeed,
                                 "tier": tier,
                                 "beastimage": beastimage,
-                                "move1": move1,
-                                "move2": move2,
-                                "move3": move3,
-                                "move4": move4,
+                                "move1": inputmove1,
+                                "move2": inputmove2,
+                                "move3": inputmove3,
+                                "move4": inputmove4,
                                 "type": beasttype,
                                 "experience": experience,
                             }
                             save_creature(creature)
                             lootcratespeed = 1
                             self.gamescene = 7
+                            channel1.stop()
+        channel1.stop()
         return 0
 ########################################################################################################################
 class stash(pygame.sprite.Sprite):
@@ -10503,8 +10591,6 @@ class stash(pygame.sprite.Sprite):
                 DISPLAYSURF.fill(BLACK)
                 mouse_pos = pygame.mouse.get_pos()
                 mouseX, mouseY = pygame.mouse.get_pos()
-                #print("x and y = " + str(mouseX) + " " + str(mouseY))
-
                 DISPLAYSURF.blit(image264, (197, 100))
 
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
@@ -12786,10 +12872,14 @@ class stash(pygame.sprite.Sprite):
                         draw_text_center(str(creaturename[xx]), font24, LIGHTGREEN, DISPLAYSURF, 1405, 365)
                         draw_text_center(str(beast_lore[creatureimage[xx]]), font11, DARKPURPLE, DISPLAYSURF, 960, 930)
                         draw_text_center("lvl- " +str(creaturelvl[xx]), font24, GREEN, DISPLAYSURF, 1405, 415)
-                        draw_text(str(creaturemove1[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                        draw_text(str(creaturemove2[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
-                        draw_text(str(creaturemove3[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
-                        draw_text(str(creaturemove4[xx]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                        if(creaturemove1[xx] != 'empty'):
+                            draw_text(moves[creaturemove1[xx]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                        if(creaturemove2[xx] != 'empty'):
+                            draw_text(moves[creaturemove2[xx]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                        if(creaturemove3[xx] != 'empty'):
+                            draw_text(moves[creaturemove3[xx]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                        if(creaturemove4[xx] != 'empty'):
+                            draw_text(moves[creaturemove4[xx]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 610)
                         draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
                         draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
                         draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
@@ -12825,10 +12915,14 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1405,365)
                             draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
                             draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
-                            draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
-                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
-                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                            if(attributes[9] != 'empty'):
+                                draw_text((moves[attributes[9]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            if(attributes[10] != 'empty'):  
+                                draw_text((moves[attributes[10]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            if(attributes[11] != 'empty'):
+                                draw_text((moves[attributes[11]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            if(attributes[12] != 'empty'):
+                                draw_text((moves[attributes[12]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
                             draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
                             draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
                             draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
@@ -12854,10 +12948,14 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1405,365)
                             draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
                             draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
-                            draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 515)
-                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 555)
-                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 595)
+                            if(attributes[9] != 'empty'):
+                                draw_text((moves[attributes[9]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            if(attributes[10] != 'empty'):  
+                                draw_text((moves[attributes[10]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            if(attributes[11] != 'empty'):
+                                draw_text((moves[attributes[11]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            if(attributes[12] != 'empty'):
+                                draw_text((moves[attributes[12]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
                             draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
                             draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
                             draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
@@ -12883,10 +12981,14 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(attributes[0]), font24, LIGHTGREEN, DISPLAYSURF, 1405,365)
                             draw_text_center(str(beast_lore[attributes[8]]), font11, DARKPURPLE,DISPLAYSURF, 960, 930)
                             draw_text_center("lvl- " + str(attributes[1]), font24, GREEN, DISPLAYSURF,1405, 415)
-                            draw_text(str(attributes[9]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(attributes[10]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
-                            draw_text(str(attributes[11]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
-                            draw_text(str(attributes[12]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                            if(attributes[9] != 'empty'):
+                                draw_text((moves[attributes[9]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            if(attributes[10] != 'empty'):  
+                                draw_text((moves[attributes[10]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            if(attributes[11] != 'empty'):
+                                draw_text((moves[attributes[11]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            if(attributes[12] != 'empty'):
+                                draw_text((moves[attributes[12]][0]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
                             draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
                             draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
                             draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
@@ -12920,10 +13022,14 @@ class stash(pygame.sprite.Sprite):
                             draw_text_center(str(creaturename[clickedrect]), font24, LIGHTGREEN, DISPLAYSURF, 1405, 365)
                             draw_text_center(str(beast_lore[creatureimage[clickedrect]]), font11, DARKPURPLE, DISPLAYSURF,960, 930)
                             draw_text_center("lvl- " + str(creaturelvl[clickedrect]), font24, GREEN, DISPLAYSURF, 1405, 415)
-                            draw_text(str(creaturemove1[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 475)
-                            draw_text(str(creaturemove2[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 520)
-                            draw_text(str(creaturemove3[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 565)
-                            draw_text(str(creaturemove4[clickedrect]), font24, DARKGREEN, DISPLAYSURF, 1260, 610)
+                            if (creaturemove1[clickedrect] != 'empty'):
+                                draw_text(moves[creaturemove1[clickedrect]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 475)
+                            if (creaturemove2[clickedrect] != 'empty'):
+                                draw_text(moves[creaturemove2[clickedrect]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 520)
+                            if (creaturemove3[clickedrect] != 'empty'):
+                                draw_text(moves[creaturemove3[clickedrect]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 565)
+                            if (creaturemove4[clickedrect] != 'empty'):
+                                draw_text(moves[creaturemove4[clickedrect]][0], font24, DARKGREEN, DISPLAYSURF, 1260, 610)
                             draw_text_center("stats", font24, BLUE, DISPLAYSURF, 320, 365)
                             draw_text(s2, font24, SKYBLUE, DISPLAYSURF, 260, 425)
                             draw_text(s3, font24, SKYBLUE, DISPLAYSURF, 260, 465)
@@ -12993,65 +13099,62 @@ class stash(pygame.sprite.Sprite):
 
                 if move1rect.collidepoint(mouse_pos):
                     if(clickedrect != -1):
-                        if (creaturemove1[clickedrect] != " "):
+                        if (creaturemove1[clickedrect] != "empty"):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move1rect, 5, 5)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
-                            draw_text_center(str(creaturemove1[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
-                            for index, move in enumerate(moves):
-                                if(creaturemove1[clickedrect] == move[0]):
-                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
-                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
-                                    if(move[2] != "empty"):
-                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
-                                    if(move[3] != "empty"):
-                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
-                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
-                                    if(move[4] != "empty"):
-                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
-                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
-                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
-                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+                            draw_text_center(moves[creaturemove1[clickedrect]][0], font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            move = moves[creaturemove1[clickedrect]]
+                            draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                            draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                            if(move[2] != "empty"):
+                                draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                            if(move[3] != "empty"):
+                                draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                            if(move[4] != "empty"):
+                                draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                            draw_text_center(moves_lore[creaturemove1[clickedrect]], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                            draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
 
                 if move2rect.collidepoint(mouse_pos):
                     if(clickedrect != -1):
-                        if (creaturemove2[clickedrect] != " "):
+                        if (creaturemove2[clickedrect] != "empty"):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move2rect, 5, 5)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
-                            draw_text_center(str(creaturemove2[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
-                            for index, move in enumerate(moves):
-                                if(creaturemove2[clickedrect] == move[0]):
-                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
-                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
-                                    if(move[2] != "empty"):
-                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
-                                    if(move[3] != "empty"):
-                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
-                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
-                                    if(move[4] != "empty"):
-                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
-                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
-                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
-                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+                            draw_text_center(moves[creaturemove2[clickedrect]][0], font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            move = moves[creaturemove2[clickedrect]]
+                            draw_text_center("Power  " + str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                            draw_text_center(move[5] + " Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                            if (move[2] != "empty"):
+                                draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                            if (move[3] != "empty"):
+                                draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                            if (move[4] != "empty"):
+                                draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                            draw_text_center(moves_lore[creaturemove2[clickedrect]], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                            draw_text_center(str(move[6]) + "PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
                 if move3rect.collidepoint(mouse_pos):
                     if(clickedrect != -1):
-                        if (creaturemove3[clickedrect] != " "):
+                        if (creaturemove3[clickedrect] != "empty"):
                             pygame.draw.rect(DISPLAYSURF,  (rainbowcolor2, 192, rainbowcolor2), move3rect, 5, 5)
                             DISPLAYSURF.blit(imagebackdrop, (585, 195))
-                            draw_text_center(str(creaturemove3[clickedrect]), font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
-                            for index, move in enumerate(moves):
-                                if(creaturemove3[clickedrect] == move[0]):
-                                    draw_text_center("Power  " +str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
-                                    draw_text_center(move[5] +" Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
-                                    if(move[2] != "empty"):
-                                        draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
-                                    if(move[3] != "empty"):
-                                        draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
-                                        draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
-                                    if(move[4] != "empty"):
-                                        draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
-                                        draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
-                                    draw_text_center(moves_lore[index], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
-                                    draw_text_center(str(move[6]) +"PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
+                            draw_text_center(moves[creaturemove3[clickedrect]][0], font24, LIME, DISPLAYSURF, halfdisplay + 5, 245)
+                            move = moves[creaturemove3[clickedrect]]
+                            draw_text_center("Power  " + str(move[1]), font26, VELVET, DISPLAYSURF, halfdisplay, 300)
+                            draw_text_center(move[5] + " Category", font26, SLEEPPURPLE, DISPLAYSURF, halfdisplay, 360)
+                            if (move[2] != "empty"):
+                                draw_text_center(moveprint(move[2], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 400)
+                            if (move[3] != "empty"):
+                                draw_text_center("Enemy Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 425)
+                                draw_text_center(moveprint(move[3], "opponent"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 450)
+                            if (move[4] != "empty"):
+                                draw_text_center("Self Effect", font10, YELLOW, DISPLAYSURF, halfdisplay, 475)
+                                draw_text_center(moveprint(move[4], "self"), font10, LIGHTYELLOW, DISPLAYSURF, halfdisplay, 500)
+                            draw_text_center(moves_lore[creaturemove3[clickedrect]], font27, CLOUD, DISPLAYSURF, halfdisplay + 5, 710)
+                            draw_text_center(str(move[6]) + "PP", font10, CLOUD, DISPLAYSURF, halfdisplay + 5, 778)
                 if move4rect.collidepoint(mouse_pos):
                     if(clickedrect != -1):
                         if (creaturemove4[clickedrect] != " "):
@@ -13142,7 +13245,7 @@ class stash(pygame.sprite.Sprite):
                                                                 "move4": creaturemove4[clickedrect],
                                                                 "type": creaturetype[clickedrect],
                                                                 "experience": creatureexp[
-                                                                    clickedrect]})  # Updates Dragon's health and attack
+                                                                    clickedrect]})
                                         delete_creature_by_index(clickedrect)
 
                                         creaturename.clear()
@@ -13832,6 +13935,26 @@ class colleseum(pygame.sprite.Sprite):
         specattack = 0
         luck = 0
 
+        attack1pp = 0
+        attack2pp = 0
+        attack3pp = 0
+        attack4pp = 0
+        
+        beast1liveppattack1 = 0
+        beast1liveppattack2 = 0
+        beast1liveppattack3 = 0
+        beast1liveppattack4 = 0
+        
+        beast2liveppattack1 = 0
+        beast2liveppattack2 = 0
+        beast2liveppattack3 = 0
+        beast2liveppattack4 = 0
+        
+        beast3liveppattack1 = 0
+        beast3liveppattack2 = 0
+        beast3liveppattack3 = 0
+        beast3liveppattack4 = 0
+        
         beast1name = " "
         beast1level = 0
         beast1strength = 0
@@ -13965,8 +14088,8 @@ class colleseum(pygame.sprite.Sprite):
                 highestlvlmonster = beast2level
         if (len(teamcreatures) >= 3):
             attributes3 = list(teamcreatures[2].values())
-            beast2name = attributes2[0]
-            beast2level = attributes2[1]
+            beast2name = attributes3[0]
+            beast2level = attributes3[1]
             beast3strength = strength + attributes3[4]
             beast3defense = defense + attributes3[3]
             beast3health = health + attributes3[2]
@@ -14561,7 +14684,15 @@ class colleseum(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(image268, (197, 100))
                 white_flash(DISPLAYSURF, duration=1000)
                 if (npcdifficulty == 1):
-                    pygame.mixer.music.load(resource_path("audio/easymusic.mp3"))
+                    randomsong = random.randint(0,3)
+                    if(randomsong == 0):
+                        pygame.mixer.music.load(resource_path("audio/easymusic1.mp3"))
+                    if(randomsong == 1):
+                        pygame.mixer.music.load(resource_path("audio/easymusic2.mp3"))
+                    if(randomsong == 2):
+                        pygame.mixer.music.load(resource_path("audio/easymusic3.mp3"))
+                    if(randomsong == 3):
+                        pygame.mixer.music.load(resource_path("audio/easymusic4.mp3"))
                     pygame.mixer.music.play(-1)
                     # Monster 1
                     monsterchoosen1 = random.randint(0, 15)
@@ -14615,7 +14746,11 @@ class colleseum(pygame.sprite.Sprite):
                     enemymonstertier3 = beastattributes[monsterchoosen3][6]
 
                 if (npcdifficulty == 2):
-                    pygame.mixer.music.load(resource_path("audio/mediummusic.mp3"))
+                    randomsong = random.randint(0,1)
+                    if(randomsong == 0):
+                        pygame.mixer.music.load(resource_path("audio/mediummusic.mp3"))
+                    if(randomsong == 1):
+                        pygame.mixer.music.load(resource_path("audio/mediummusic2.mp3"))
                     pygame.mixer.music.play(-1)
                     # Monster 1
                     monsterchoosen1 = random.randint(0, 30)
@@ -15021,6 +15156,35 @@ class colleseum(pygame.sprite.Sprite):
                     enemymonstertypeimage3 = fireimage
                 if (enemymonstertype3 == "poison"):
                     enemymonstertypeimage3 = poisonimage
+                
+                
+                if(teamsize >= 1):
+                    if(beast1move1 != 'empty'):
+                        beast1liveppattack1 = moves[beast1move1][6]
+                    if(beast1move2 != 'empty'):
+                        beast1liveppattack2 = moves[beast1move2][6]   
+                    if(beast1move3 != 'empty'):
+                        beast1liveppattack3 = moves[beast1move3][6]  
+                    if(beast1move4 != 'empty'):
+                        beast1liveppattack4 = moves[beast1move4][6]  
+                if(teamsize >= 2):
+                    if(beast2move1 != 'empty'):
+                        beast2liveppattack1 = moves[beast2move1][6]
+                    if(beast2move2 != 'empty'):
+                        beast2liveppattack2 = moves[beast2move2][6]   
+                    if(beast2move3 != 'empty'):
+                        beast2liveppattack3 = moves[beast2move3][6]  
+                    if(beast2move4 != 'empty'):
+                        beast2liveppattack4 = moves[beast2move4][6]   
+                if(teamsize >= 3):
+                    if(beast3move1 != 'empty'):
+                        beast3liveppattack1 = moves[beast3move1][6]
+                    if(beast3move2 != 'empty'):
+                        beast3liveppattack2 = moves[beast3move2][6]   
+                    if(beast3move3 != 'empty'):
+                        beast3liveppattack3 = moves[beast3move3][6]  
+                    if(beast3move4 != 'empty'):
+                        beast3liveppattack4 = moves[beast3move4][6]  
 
                 self.gamescene = self.gamescene + 1
             if (self.gamescene == 14):
@@ -15241,6 +15405,163 @@ class colleseum(pygame.sprite.Sprite):
                 forfeitbutton = pygame.Rect(halfdisplay + 10, 880, 240, 70)
 
 
+                attack1rect = pygame.Rect(halfdisplay - 250, 800, 240, 70)
+                attack2rect = pygame.Rect(halfdisplay - 250, 880, 240, 70)
+                attack3rect = pygame.Rect(halfdisplay + 10, 800, 240, 70)
+                attack4rect = pygame.Rect(halfdisplay + 10, 880, 240, 70)
+                
+                small_attack1rect = pygame.Rect(halfdisplay - 245, 805, 230, 60)
+                small_attack2rect = pygame.Rect(halfdisplay - 245, 885, 230, 60)
+                small_attack3rect = pygame.Rect(halfdisplay + 15, 805, 230, 60)
+                small_attack4rect = pygame.Rect(halfdisplay + 15, 885, 230, 60)
+                
+                battlereturnrect = pygame.Rect(1280, 810, 100, 100)
+                
+                if(teamchoosen == 1):
+                    attack1 = beast1move1
+                    attack2 = beast1move2
+                    attack3 = beast1move3
+                    attack4 = beast1move4
+                    attack1pp = beast1liveppattack1
+                    attack2pp = beast1liveppattack2
+                    attack3pp = beast1liveppattack3
+                    attack4pp = beast1liveppattack4
+                if(teamchoosen == 2):
+                    attack1 = beast2move1
+                    attack2 = beast2move2
+                    attack3 = beast2move3
+                    attack4 = beast2move4
+                    attack1pp = beast2liveppattack1
+                    attack2pp = beast2liveppattack2
+                    attack3pp = beast2liveppattack3
+                    attack4pp = beast2liveppattack4
+                if(teamchoosen == 3):
+                    attack1 = beast3move1
+                    attack2 = beast3move2
+                    attack3 = beast3move3
+                    attack4 = beast3move4
+                    attack1pp = beast3liveppattack1
+                    attack2pp = beast3liveppattack2
+                    attack3pp = beast3liveppattack3
+                    attack4pp = beast3liveppattack4
+
+                if(attackbuttonbool == True):
+                    pygame.draw.rect(DISPLAYSURF, GOLD, attack1rect)
+                    pygame.draw.rect(DISPLAYSURF, GOLD, attack2rect)
+                    pygame.draw.rect(DISPLAYSURF, GOLD, attack3rect)
+                    pygame.draw.rect(DISPLAYSURF, GOLD, attack4rect)
+
+                    DISPLAYSURF.blit(battlereturnarrowimg, (1280, 810))
+                    if(battlereturnrect.collidepoint(mouse_pos)):
+                        DISPLAYSURF.blit(battlereturnarrowimg2, (1280, 810))
+                    if(attack1 != 'empty'):
+                        if(moves[attack1][7] == 'light'):
+                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack1rect)
+                        if(moves[attack1][7] == 'ground'):
+                            pygame.draw.rect(DISPLAYSURF, MURKY, small_attack1rect)
+                        if(moves[attack1][7] == 'poison'):
+                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack1rect)
+                        if(moves[attack1][7] == 'lightning'):
+                            pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack1rect)
+                        if(moves[attack1][7] == 'nature'):
+                            pygame.draw.rect(DISPLAYSURF, SWAMPGREEN, small_attack1rect)
+                        if(moves[attack1][7] == 'darkness'):
+                            pygame.draw.rect(DISPLAYSURF, BLACK, small_attack1rect)
+                        if(moves[attack1][7] == 'wind'):
+                            pygame.draw.rect(DISPLAYSURF, GREY, small_attack1rect)
+                        if(moves[attack1][7] == 'water'):
+                            pygame.draw.rect(DISPLAYSURF, AQUA, small_attack1rect)
+                        if(moves[attack1][7] == 'ice'):
+                            pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack1rect)
+                        if(moves[attack1][7] == 'psychic'):
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack1rect)
+                        if(moves[attack1][7] == 'fire'):
+                            pygame.draw.rect(DISPLAYSURF, RED, small_attack1rect)
+                        draw_text_center(moves[attack1][0], font14, WHITE, DISPLAYSURF, 825 , 810)
+                        draw_text_center(" PP: " +str(attack1pp) +"/" +str(moves[attack1][6]) , font26, font14, DISPLAYSURF, 1086 , 845)
+                    if(attack2 != 'empty'):
+                        if(moves[attack2][7] == 'light'):
+                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack2rect)
+                        if(moves[attack2][7] == 'ground'):
+                            pygame.draw.rect(DISPLAYSURF, MURKY, small_attack2rect)
+                        if(moves[attack2][7] == 'poison'):
+                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack2rect)
+                        if(moves[attack2][7] == 'lightning'):
+                            pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack2rect)
+                        if(moves[attack2][7] == 'nature'):
+                            pygame.draw.rect(DISPLAYSURF, SWAMPGREEN, small_attack2rect)
+                        if(moves[attack2][7] == 'darkness'):
+                            pygame.draw.rect(DISPLAYSURF, BLACK, small_attack2rect)
+                        if(moves[attack2][7] == 'wind'):
+                            pygame.draw.rect(DISPLAYSURF, GREY, small_attack2rect)
+                        if(moves[attack2][7] == 'water'):
+                            pygame.draw.rect(DISPLAYSURF, AQUA, small_attack2rect)
+                        if(moves[attack2][7] == 'ice'):
+                            pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack2rect)
+                        if(moves[attack2][7] == 'psychic'):
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack2rect)
+                        if(moves[attack2][7] == 'fire'):
+                            pygame.draw.rect(DISPLAYSURF, RED, small_attack2rect)
+                        draw_text_center(moves[attack2][0], font14, WHITE, DISPLAYSURF, 1086 , 810)
+                        draw_text_center(" PP: " +str(attack2pp) +"/" +str(moves[attack2][6]) , font14, WHITE, DISPLAYSURF, 1086 , 845)
+                    if(attack3 != 'empty'):
+                        if(moves[attack3][7] == 'light'):
+                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack3rect)
+                        if(moves[attack3][7] == 'ground'):
+                            pygame.draw.rect(DISPLAYSURF, MURKY, small_attack3rect)
+                        if(moves[attack3][7] == 'poison'):
+                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack3rect)
+                        if(moves[attack3][7] == 'lightning'):
+                            pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack3rect)
+                        if(moves[attack3][7] == 'nature'):
+                            pygame.draw.rect(DISPLAYSURF, SWAMPGREEN, small_attack3rect)
+                        if(moves[attack3][7] == 'darkness'):
+                            pygame.draw.rect(DISPLAYSURF, BLACK, small_attack3rect)
+                        if(moves[attack3][7] == 'wind'):
+                            pygame.draw.rect(DISPLAYSURF, GREY, small_attack3rect)
+                        if(moves[attack3][7] == 'water'):
+                            pygame.draw.rect(DISPLAYSURF, AQUA, small_attack3rect)
+                        if(moves[attack3][7] == 'ice'):
+                            pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack3rect)
+                        if(moves[attack3][7] == 'psychic'):
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack3rect)
+                        if(moves[attack3][7] == 'fire'):
+                            pygame.draw.rect(DISPLAYSURF, RED, small_attack3rect)
+                        draw_text_center(moves[attack3][0], font14, WHITE, DISPLAYSURF, 825 , 880)
+                        draw_text_center(" PP: " +str(attack3pp) +"/" +str(moves[attack3][6]) , font14, WHITE, DISPLAYSURF, 825 , 915)
+                    if(attack4 != 'empty'):
+                        if(moves[attack4][7] == 'light'):
+                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack4rect)
+                        if(moves[attack4][7] == 'ground'):
+                            pygame.draw.rect(DISPLAYSURF, MURKY, small_attack4rect)
+                        if(moves[attack4][7] == 'poison'):
+                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack4rect)
+                        if(moves[attack4][7] == 'lightning'):
+                            pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack4rect)
+                        if(moves[attack4][7] == 'nature'):
+                            pygame.draw.rect(DISPLAYSURF, SWAMPGREEN, small_attack4rect)
+                        if(moves[attack4][7] == 'darkness'):
+                            pygame.draw.rect(DISPLAYSURF, BLACK, small_attack4rect)
+                        if(moves[attack4][7] == 'wind'):
+                            pygame.draw.rect(DISPLAYSURF, GREY, small_attack4rect)
+                        if(moves[attack4][7] == 'water'):
+                            pygame.draw.rect(DISPLAYSURF, AQUA, small_attack4rect)
+                        if(moves[attack4][7] == 'ice'):
+                            pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack4rect)
+                        if(moves[attack4][7] == 'psychic'):
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack4rect)
+                        if(moves[attack4][7] == 'fire'):
+                            pygame.draw.rect(DISPLAYSURF, RED, small_attack4rect)
+                        draw_text_center(moves[attack4][0], font14, WHITE, DISPLAYSURF, 1086 , 880)
+                        draw_text_center(" PP: " +str(attack4pp) +"/" +str(moves[attack4][6]) , font14, WHITE, DISPLAYSURF, 1086 , 915)
+
+# Move name, Damage, special effect, buff/debuff to enemy, buff/debuff to yourself, type of attack, PP
+#moves = [
+#["Nightveil Slash", 60, "empty", "empty", "empty", "attack", 10],
+#["Dreadspire Maelstrom", 85, "empty", "speed-1", "empty", "spec", 10],
+
+##############xx
+
                 monster1switch = pygame.Rect(313, 366, 390, 322)
                 monster2switch = pygame.Rect(750, 366, 396, 322)
                 monster3switch = pygame.Rect(1194, 366, 392, 322)
@@ -15252,12 +15573,21 @@ class colleseum(pygame.sprite.Sprite):
                     else:
                         DISPLAYSURF.blit(switchmonstermenu, (180, 100))
 
-                    if(teamsize == 1):
-                        draw_text_center(beast1name, font26, WHITE, DISPLAYSURF, 530 , 840)
-                    if(teamsize == 2):
-                        draw_text_center(beast2name, font26, WHITE, DISPLAYSURF, 944 , 840)
-                    if(teamsize == 3):
-                        draw_text_center(beast3name, font26, WHITE, DISPLAYSURF, 1360 , 840)
+                    if(teamsize >= 1):
+                        draw_text_center("lvl" + str(beast1level) + " " +beast1name, font26, WHITE, DISPLAYSURF, 530 , 830)
+                        DISPLAYSURF.blit(monstertypeimage1, (620, 610))
+                        draw_text_center("HP: " +str(beast1healthlive) + "/" + str(beast1health), font26, SKYBLUE, DISPLAYSURF, 500, 405)
+
+                    if(teamsize >= 2):
+                        draw_text_center("lvl" + str(beast2level) +" " +beast2name, font26, WHITE, DISPLAYSURF, 944 , 830)
+                        DISPLAYSURF.blit(monstertypeimage2, (1060, 610))
+                        draw_text_center("HP: " +str(beast2healthlive) + "/" + str(beast2health), font26, SKYBLUE, DISPLAYSURF, 950, 405)
+
+                    if(teamsize >= 3):
+                        draw_text_center("lvl" + str(beast1level) + " " +beast3name, font26, WHITE, DISPLAYSURF, 1360 , 830)
+                        DISPLAYSURF.blit(monstertypeimage1, (1500, 610))
+                        draw_text_center("HP: " +str(beast3healthlive) + "/" + str(beast3health), font26, SKYBLUE, DISPLAYSURF, halfdisplay, 1400, 405)
+
                     if(monster1switch.collidepoint(mouse_pos)):
                         pygame.draw.rect(DISPLAYSURF, BLUE, monster1switch, 10, 10)
                     if(monster2switch.collidepoint(mouse_pos)):
@@ -15511,8 +15841,8 @@ class colleseum(pygame.sprite.Sprite):
                                 if (teamchoosen == 3):
                                     choosenimage = beast3image
 
-                                duration = 2
-                                steps = 60
+                                duration = 3
+                                steps = 100
 
 
                                 for i in range(steps):
@@ -15576,7 +15906,7 @@ class colleseum(pygame.sprite.Sprite):
                                         DISPLAYSURF.blit(scaled_image, (start_x, start_y))
                                         pygame.display.update()
 
-                                white_flash(DISPLAYSURF, duration=1000)
+                                white_flash(DISPLAYSURF, duration=400)
                                 teamchoosen = 1
                                 changemonsterbuttonbool = False
                         if (monster2switch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
@@ -15592,8 +15922,8 @@ class colleseum(pygame.sprite.Sprite):
                                 if (teamchoosen == 3):
                                     choosenimage = beast3image
 
-                                duration = 2
-                                steps = 60
+                                duration = 3
+                                steps = 100
 
 
                                 for i in range(steps):
@@ -15657,7 +15987,7 @@ class colleseum(pygame.sprite.Sprite):
                                         DISPLAYSURF.blit(scaled_image, (start_x, start_y))
                                         pygame.display.update()
 
-                                white_flash(DISPLAYSURF, duration=1000)
+                                white_flash(DISPLAYSURF, duration=400)
                                 teamchoosen = 2
                                 changemonsterbuttonbool = False
                         if (monster3switch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
@@ -15673,8 +16003,8 @@ class colleseum(pygame.sprite.Sprite):
                                 if (teamchoosen == 2):
                                     choosenimage = beast2image
 
-                                duration = 2
-                                steps = 60
+                                duration = 3
+                                steps = 100
 
                                 for i in range(steps):
                                     DISPLAYSURF.fill(BLACK)
@@ -15737,11 +16067,15 @@ class colleseum(pygame.sprite.Sprite):
                                         DISPLAYSURF.blit(scaled_image, (start_x, start_y))
                                         pygame.display.update()
 
-                                white_flash(DISPLAYSURF, duration=1000)
+                                white_flash(DISPLAYSURF, duration=400)
                                 teamchoosen = 3
                                 changemonsterbuttonbool = False
                         if (monsterXswitch.collidepoint(mouse_pos) and changemonsterbuttonbool == True):
                             changemonsterbuttonbool = False
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
+                            sound_effect.play()
+                        if((battlereturnrect.collidepoint(mouse_pos)) and attackbuttonbool == True):
+                            attackbuttonbool = False
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
                             sound_effect.play()
                 pygame.display.update()

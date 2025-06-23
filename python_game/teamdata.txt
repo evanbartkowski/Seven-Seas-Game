@@ -1,5 +1,22 @@
 [
     {
+        "name": "DepthWing",
+        "lvl": 25,
+        "hp": 10,
+        "defense": 8,
+        "strength": 12,
+        "special attack": 4,
+        "speed": 9,
+        "tier": 2,
+        "beastimage": 37,
+        "move1": 189,
+        "move2": 200,
+        "move3": 204,
+        "move4": 182,
+        "type": "ice",
+        "experience": 0
+    },
+    {
         "name": "Sacred Lumen",
         "lvl": 1,
         "hp": 10,
@@ -9,11 +26,28 @@
         "speed": 10,
         "tier": 1,
         "beastimage": 46,
-        "move1": "Celestial Cascade",
-        "move2": "Light Bringer",
-        "move3": " ",
-        "move4": " ",
+        "move1": 29,
+        "move2": 32,
+        "move3": "empty",
+        "move4": "empty",
         "type": "light",
+        "experience": 0
+    },
+    {
+        "name": "Noodle",
+        "lvl": 1,
+        "hp": 7,
+        "defense": 6,
+        "strength": 9,
+        "special attack": 7,
+        "speed": 10,
+        "tier": 1,
+        "beastimage": 23,
+        "move1": 75,
+        "move2": 120,
+        "move3": "empty",
+        "move4": "empty",
+        "type": "normal",
         "experience": 0
     }
 ]

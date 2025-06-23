@@ -63,7 +63,7 @@ SWAMPGREEN = (0, 51, 0)
 DARKGEMBLUE = (0, 0, 51)
 VELVET = (102, 0, 51)
 LIME = (102, 255, 102)
-PINPPINK = (255, 102, 102)
+PINKPINK = (255, 102, 102)
 MURKY = (51, 51, 0)
 CLOUD = (204, 229, 255)
 SLEEPPURPLE = (204, 153, 255)
@@ -1012,11 +1012,11 @@ class gameintro(pygame.sprite.Sprite):
                 "speed": 10,
                 "tier": 1,
                 "beastimage": 46,
-                "move1": "Celestial Cascade",
-                "move2": "Light Bringer",
-                "move3": " ",
-                "move4": " ",
-                "type": "light",
+                "move1": 29,
+                "move2": 32,
+                "move3": 'empty',
+                "move4": 'empty',
+                "type": 'light',
                 "experience": 0,
             }
 

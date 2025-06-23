@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Mistfin",
+        "lvl": 1,
+        "hp": 10,
+        "defense": 7,
+        "strength": 14,
+        "special attack": 7,
+        "speed": 11,
+        "tier": 1,
+        "beastimage": 26,
+        "move1": 75,
+        "move2": 219,
+        "move3": "empty",
+        "move4": "empty",
+        "type": "wind",
+        "experience": 0
+    },
+    {
+        "name": "Amica",
+        "lvl": 1,
+        "hp": 11,
+        "defense": 11,
+        "strength": 5,
+        "special attack": 5,
+        "speed": 3,
+        "tier": 1,
+        "beastimage": 22,
+        "move1": 120,
+        "move2": 141,
+        "move3": "empty",
+        "move4": "empty",
+        "type": "normal",
+        "experience": 0
+    }
+]
