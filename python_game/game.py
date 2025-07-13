@@ -13843,6 +13843,25 @@ class colleseum(pygame.sprite.Sprite):
         randomtrainername = " "
         i = 1200
 
+        timer = 0
+        timer2 = 0
+        timer3 = 0
+        timer3_1 = 0
+        fulltimer = 0
+        getridofmenu= False
+        attack_pending1 = False
+        
+        attack1animation = False
+        attack2animation = False
+        attack3animation = False
+        attack4animation = False
+
+        offset_x = 0
+        monster_state = "idle"
+        attack_timer = 0.0
+        attack_duration = 0.1  # total attack time (forward + back)
+        attack_distance = 200  # how far the monster lunges
+        
         base_x = 200
         base_y = 400
         angle = 0
@@ -13856,6 +13875,10 @@ class colleseum(pygame.sprite.Sprite):
         enemyspeedofimage = 0.11  # How fast it moves
 
         enemyteamchoosen = 1
+
+        enemy_black_image1 = normalimage
+        enemy_black_image2 = normalimage
+        enemy_black_image3 = normalimage
 
         beast1image = normalimage
         beast2image = normalimage
@@ -14048,11 +14071,11 @@ class colleseum(pygame.sprite.Sprite):
             attributes1 = list(teamcreatures[0].values())
             beast1name = attributes1[0]
             beast1level = attributes1[1]
-            beast1strength = strength + attributes1[4]
-            beast1defense = defense + attributes1[3]
-            beast1health = health + attributes1[2]
-            beast1speed = speed + attributes1[6]
-            beast1specattack = specattack + attributes1[5]
+            beast1strength = attributes1[4]
+            beast1defense = attributes1[3]
+            beast1health = attributes1[2]
+            beast1speed = attributes1[6]
+            beast1specattack = attributes1[5]
             beast1tier = attributes1[7]
             beast1beastimage = attributes1[8]
             beast1image = pygame.transform.flip(beasts[beast1beastimage], True, False)
@@ -14063,16 +14086,24 @@ class colleseum(pygame.sprite.Sprite):
             beast1type = attributes1[13]
             beast1experience = attributes1[14]
             highestlvlmonster = beast1level
+            ###
+            beast1strength = int((beast1strength + (beast1strength * .2 * beast1level) + (1 * beast1level)) * (1 + beast1tier * .1))
+            beast1defense = int((beast1defense + (beast1defense * .2 * beast1level) + (1 * beast1level)) * (1 + beast1tier * .1))
+            beast1health =int((beast1health + (beast1health * .2 * beast1level) + (1 * beast1level)) * (1 + beast1tier * .1))
+            beast1speed = int((beast1speed + (beast1speed * .2 * beast1level) + (1 * beast1level)) * (1 + beast1level * .1))
+            beast1specattack = int((beast1specattack + (beast1specattack * .2 * beast1level) + (1 * beast1level)) * (1 + beast1level * .1))
+            ###
+
 
         if (len(teamcreatures) >= 2):
             attributes2 = list(teamcreatures[1].values())
             beast2name = attributes2[0]
             beast2level = attributes2[1]
-            beast2strength = strength + attributes2[4]
-            beast2defense = defense + attributes2[3]
-            beast2health = health + attributes2[2]
-            beast2speed = speed + attributes2[6]
-            beast2specattack = specattack + attributes2[5]
+            beast2strength = attributes2[4]
+            beast2defense = attributes2[3]
+            beast2health = attributes2[2]
+            beast2speed = attributes2[6]
+            beast2specattack = attributes2[5]
             beast2tier = attributes2[7]
             beast2beastimage = attributes2[8]
             beast2image = pygame.transform.flip(beasts[beast2beastimage], True, False)
@@ -14086,15 +14117,22 @@ class colleseum(pygame.sprite.Sprite):
                 highestlvlmonster = beast1level
             if(beast1level <= beast2level):
                 highestlvlmonster = beast2level
+            ###
+            beast2strength = int((beast2strength + (beast2strength * 0.2 * beast2level) + (1 * beast2level)) * (1 + beast2tier * 0.1))
+            beast2defense = int((beast2defense + (beast2defense * 0.2 * beast2level) + (1 * beast2level)) * (1 + beast2tier * 0.1))
+            beast2health = int((beast2health + (beast2health * 0.2 * beast2level) + (1 * beast2level)) * (1 + beast2tier * 0.1))
+            beast2speed = int((beast2speed + (beast2speed * 0.2 * beast2level) + (1 * beast2level)) * (1 + beast2level * 0.1))
+            beast2specattack = int((beast2specattack + (beast2specattack * 0.2 * beast2level) + (1 * beast2level)) * (1 + beast2level * 0.1))
+            ###
         if (len(teamcreatures) >= 3):
             attributes3 = list(teamcreatures[2].values())
-            beast2name = attributes3[0]
-            beast2level = attributes3[1]
-            beast3strength = strength + attributes3[4]
-            beast3defense = defense + attributes3[3]
-            beast3health = health + attributes3[2]
-            beast3speed = speed + attributes3[6]
-            beast3specattack = specattack + attributes3[5]
+            beast3name = attributes3[0]
+            beast3level = attributes3[1]
+            beast3strength = attributes3[4]
+            beast3defense = attributes3[3]
+            beast3health = attributes3[2]
+            beast3speed = attributes3[6]
+            beast3specattack = attributes3[5]
             beast3tier = attributes3[7]
             beast3beastimage = attributes3[8]
             beast3image = pygame.transform.flip(beasts[beast3beastimage], True, False)
@@ -14110,7 +14148,13 @@ class colleseum(pygame.sprite.Sprite):
                 highestlvlmonster = beast2level
             if(highestlvlmonster <= beast3level):
                 highestlvlmonster = beast3level
-
+            ### Beast 3 stat scaling ###
+            beast3strength = int((beast3strength + (beast3strength * 0.2 * beast3level) + (1 * beast3level)) * (1 + beast3tier * 0.1))
+            beast3defense = int((beast3defense + (beast3defense * 0.2 * beast3level) + (1 * beast3level)) * (1 + beast3tier * 0.1))
+            beast3health = int((beast3health + (beast3health * 0.2 * beast3level) + (1 * beast3level)) * (1 + beast3tier * 0.1))
+            beast3speed = int((beast3speed + (beast3speed * 0.2 * beast3level) + (1 * beast3level)) * (1 + beast3level * 0.1))
+            beast3specattack = int((beast3specattack + (beast3specattack * 0.2 * beast3level) + (1 * beast3level)) * (1 + beast3level * 0.1))
+            ###
         if (highestlvlmonster <= 10):
             highestlvlmonster = 10
 
@@ -15019,6 +15063,15 @@ class colleseum(pygame.sprite.Sprite):
                     enemymonstertype3 = beastattributes[monsterchoosen3][13]
                     enemymonstertier3 = beastattributes[monsterchoosen3][6]
 
+                enemy_black_image1 = enemymonsterimage1.copy()
+                enemy_black_image1.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
+
+                enemy_black_image2 = enemymonsterimage2.copy()
+                enemy_black_image2.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
+                
+                enemy_black_image3 = enemymonsterimage3.copy()
+                enemy_black_image3.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
+
                 enemybeast1strengthlive = int((enemymonsterstrength1 + random.randint(0,4)) + ((enemymonsterstrength1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1) * (1 + enemymonstertier1 * .1))
                 enemybeast1defenselive = int((enemymonsterdefense1 + random.randint(0,4)) + ((enemymonsterdefense1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
                 enemybeast1healthlive = int((enemymonsterhp1 + random.randint(0,4)) + ((enemymonsterhp1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
@@ -15188,6 +15241,7 @@ class colleseum(pygame.sprite.Sprite):
 
                 self.gamescene = self.gamescene + 1
             if (self.gamescene == 14):
+                dt = clock.tick(60) / 1000
                 DISPLAYSURF.fill(BLACK)
                 DISPLAYSURF.blit(image268, (197, 100))
                 fps = 30
@@ -15208,11 +15262,32 @@ class colleseum(pygame.sprite.Sprite):
                 mouseX, mouseY = pygame.mouse.get_pos()
                 print("x and y = " + str(mouseX) + " " + str(mouseY))
 
+                print("monster_state:", monster_state, "attack_timer:", attack_timer)
 
                 if(teamchoosen == 1 and teamsize >= 1):
                     offset_y = math.sin(angle) * amplitude
                     angle += speedofimage
-                    DISPLAYSURF.blit(beast1image, (base_x, base_y + offset_y))
+                    ##############
+                    if monster_state == "attacking":
+                        attack_timer += dt  # dt = time since last frame
+                        if attack_timer <= attack_duration / 2:
+                            # Moving forward
+                            progress = attack_timer / (attack_duration / 2)
+                            offset_x = progress * attack_distance
+                        elif attack_timer <= attack_duration:
+                            # Moving back
+                            progress = (attack_timer - attack_duration / 2) / (attack_duration / 2)
+                            offset_x = (1 - progress) * attack_distance
+                        else:
+                            # Reset after attack
+                            offset_x = 0
+                            monster_state = "idle"
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/supereffective.mp3"))
+                            sound_effect.play()
+                    else:
+                        offset_x = 0  # no darting
+                    ##############
+                    DISPLAYSURF.blit(beast1image, (base_x + offset_x, base_y + offset_y))
                     draw_text_center("lvl" +str(beast1level) +" " +beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 450 , 145)
                     healthrect = pygame.Rect(halfdisplay - 600 , 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
@@ -15238,7 +15313,27 @@ class colleseum(pygame.sprite.Sprite):
                 if(teamchoosen == 2 and teamsize >= 2):
                     offset_y = math.sin(angle) * amplitude
                     angle += speedofimage
-                    DISPLAYSURF.blit(beast2image, (base_x, base_y + offset_y))
+                    ##############
+                    if monster_state == "attacking":
+                        attack_timer += dt  # dt = time since last frame
+                        if attack_timer <= attack_duration / 2:
+                            # Moving forward
+                            progress = attack_timer / (attack_duration / 2)
+                            offset_x = progress * attack_distance
+                        elif attack_timer <= attack_duration:
+                            # Moving back
+                            progress = (attack_timer - attack_duration / 2) / (attack_duration / 2)
+                            offset_x = (1 - progress) * attack_distance
+                        else:
+                            # Reset after attack
+                            offset_x = 0
+                            monster_state = "idle"
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/supereffective.mp3"))
+                            sound_effect.play()
+                    else:
+                        offset_x = 0  # no darting
+                    ##############
+                    DISPLAYSURF.blit(beast2image, (base_x + offset_x, base_y + offset_y))
 
                     draw_text_center("lvl" + str(beast2level) + " " + beast2name, font22, beastnamecolor2, DISPLAYSURF, halfdisplay - 450, 145)
 
@@ -15269,7 +15364,27 @@ class colleseum(pygame.sprite.Sprite):
                 if(teamchoosen == 3 and teamsize >= 3):
                     offset_y = math.sin(angle) * amplitude
                     angle += speedofimage
-                    DISPLAYSURF.blit(beast3image, (base_x, base_y + offset_y))
+                    ##############
+                    if monster_state == "attacking":
+                        attack_timer += dt  # dt = time since last frame
+                        if attack_timer <= attack_duration / 2:
+                            # Moving forward
+                            progress = attack_timer / (attack_duration / 2)
+                            offset_x = progress * attack_distance
+                        elif attack_timer <= attack_duration:
+                            # Moving back
+                            progress = (attack_timer - attack_duration / 2) / (attack_duration / 2)
+                            offset_x = (1 - progress) * attack_distance
+                        else:
+                            # Reset after attack
+                            offset_x = 0
+                            monster_state = "idle"
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/supereffective.mp3"))
+                            sound_effect.play()
+                    else:
+                        offset_x = 0  # no darting
+                    ##############
+                    DISPLAYSURF.blit(beast3image, (base_x + offset_x, base_y + offset_y))
 
                     draw_text_center("lvl" + str(beast3level) + " " + beast3name, font22, beastnamecolor3, DISPLAYSURF, halfdisplay - 450, 145)
 
@@ -15306,11 +15421,11 @@ class colleseum(pygame.sprite.Sprite):
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
                     enemyhealthrectlive = pygame.Rect(halfdisplay + 310 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
-                    if(enemybeast1healthlive >= (beast1health/2)):
-                        draw_text_center(str(beast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 460 , 255)
-                    if((enemybeast1healthlive >= (enemymonsterhp1/4)) and (enemybeast1healthlive < (beast1health/2))):
+                    if(enemybeast1healthlive >= (enemymonsterhp1/2)):
+                        draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, EMERALD, DISPLAYSURF,halfdisplay + 460 , 255)
+                    if((enemybeast1healthlive >= (enemymonsterhp1/4)) and (enemybeast1healthlive < (enemymonsterhp1/2))):
                         draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, ORANGEDESERT, DISPLAYSURF,halfdisplay + 460 , 255)
-                    if(beast1healthlive < (enemymonsterhp1/4)):
+                    if(enemybeast1healthlive < (enemymonsterhp1/4)):
                         draw_text_center(str(enemybeast1healthlive) + "/" + str(enemymonsterhp1), font22, VELVET, DISPLAYSURF,halfdisplay + 460 , 255)
                     DISPLAYSURF.blit(enemymonstertypeimage1, (1570 , 205))
 
@@ -15411,8 +15526,8 @@ class colleseum(pygame.sprite.Sprite):
                 attack4rect = pygame.Rect(halfdisplay + 10, 880, 240, 70)
                 
                 small_attack1rect = pygame.Rect(halfdisplay - 245, 805, 230, 60)
-                small_attack2rect = pygame.Rect(halfdisplay - 245, 885, 230, 60)
-                small_attack3rect = pygame.Rect(halfdisplay + 15, 805, 230, 60)
+                small_attack3rect = pygame.Rect(halfdisplay - 245, 885, 230, 60)
+                small_attack2rect = pygame.Rect(halfdisplay + 15, 805, 230, 60)
                 small_attack4rect = pygame.Rect(halfdisplay + 15, 885, 230, 60)
                 
                 battlereturnrect = pygame.Rect(1280, 810, 100, 100)
@@ -15446,21 +15561,31 @@ class colleseum(pygame.sprite.Sprite):
                     attack4pp = beast3liveppattack4
 
                 if(attackbuttonbool == True):
-                    pygame.draw.rect(DISPLAYSURF, GOLD, attack1rect)
-                    pygame.draw.rect(DISPLAYSURF, GOLD, attack2rect)
-                    pygame.draw.rect(DISPLAYSURF, GOLD, attack3rect)
-                    pygame.draw.rect(DISPLAYSURF, GOLD, attack4rect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, attack1rect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, attack2rect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, attack3rect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, attack4rect)
 
+                    if (attack1rect.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, rainbow, attack1rect)
+                    if (attack2rect.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, rainbow, attack2rect)
+                    if (attack3rect.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, rainbow, attack3rect)
+                    if (attack4rect.collidepoint(mouse_pos)):
+                        pygame.draw.rect(DISPLAYSURF, rainbow, attack4rect)
+                        
+                        
                     DISPLAYSURF.blit(battlereturnarrowimg, (1280, 810))
                     if(battlereturnrect.collidepoint(mouse_pos)):
                         DISPLAYSURF.blit(battlereturnarrowimg2, (1280, 810))
                     if(attack1 != 'empty'):
                         if(moves[attack1][7] == 'light'):
-                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack1rect)
+                            pygame.draw.rect(DISPLAYSURF, GOLD, small_attack1rect)
                         if(moves[attack1][7] == 'ground'):
                             pygame.draw.rect(DISPLAYSURF, MURKY, small_attack1rect)
                         if(moves[attack1][7] == 'poison'):
-                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack1rect)
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack1rect)
                         if(moves[attack1][7] == 'lightning'):
                             pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack1rect)
                         if(moves[attack1][7] == 'nature'):
@@ -15474,18 +15599,21 @@ class colleseum(pygame.sprite.Sprite):
                         if(moves[attack1][7] == 'ice'):
                             pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack1rect)
                         if(moves[attack1][7] == 'psychic'):
-                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack1rect)
+                            pygame.draw.rect(DISPLAYSURF, CLOUD, small_attack1rect)
                         if(moves[attack1][7] == 'fire'):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack1rect)
                         draw_text_center(moves[attack1][0], font14, WHITE, DISPLAYSURF, 825 , 810)
-                        draw_text_center(" PP: " +str(attack1pp) +"/" +str(moves[attack1][6]) , font26, font14, DISPLAYSURF, 1086 , 845)
+                        draw_text_center(" PP: " +str(attack1pp) +"/" +str(moves[attack1][6]), font14, WHITE, DISPLAYSURF, 825 , 835)
+                        if(moves[attack1][1] > 0):
+                            draw_text_center(str(moves[attack1][1]) , font14, WHITE, DISPLAYSURF, 920 , 830)
+
                     if(attack2 != 'empty'):
                         if(moves[attack2][7] == 'light'):
-                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack2rect)
+                            pygame.draw.rect(DISPLAYSURF, GOLD, small_attack2rect)
                         if(moves[attack2][7] == 'ground'):
                             pygame.draw.rect(DISPLAYSURF, MURKY, small_attack2rect)
                         if(moves[attack2][7] == 'poison'):
-                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack2rect)
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack2rect)
                         if(moves[attack2][7] == 'lightning'):
                             pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack2rect)
                         if(moves[attack2][7] == 'nature'):
@@ -15499,18 +15627,21 @@ class colleseum(pygame.sprite.Sprite):
                         if(moves[attack2][7] == 'ice'):
                             pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack2rect)
                         if(moves[attack2][7] == 'psychic'):
-                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack2rect)
+                            pygame.draw.rect(DISPLAYSURF, CLOUD, small_attack2rect)
                         if(moves[attack2][7] == 'fire'):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack2rect)
                         draw_text_center(moves[attack2][0], font14, WHITE, DISPLAYSURF, 1086 , 810)
-                        draw_text_center(" PP: " +str(attack2pp) +"/" +str(moves[attack2][6]) , font14, WHITE, DISPLAYSURF, 1086 , 845)
+                        draw_text_center(" PP: " +str(attack2pp) +"/" +str(moves[attack2][6]) , font14, WHITE, DISPLAYSURF, 1086 , 835)
+                        if(moves[attack2][1] > 0):
+                            draw_text_center(str(moves[attack2][1]) , font14, WHITE, DISPLAYSURF, 1180 , 830)
+
                     if(attack3 != 'empty'):
                         if(moves[attack3][7] == 'light'):
-                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack3rect)
+                            pygame.draw.rect(DISPLAYSURF, GOLD, small_attack3rect)
                         if(moves[attack3][7] == 'ground'):
                             pygame.draw.rect(DISPLAYSURF, MURKY, small_attack3rect)
                         if(moves[attack3][7] == 'poison'):
-                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack3rect)
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack3rect)
                         if(moves[attack3][7] == 'lightning'):
                             pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack3rect)
                         if(moves[attack3][7] == 'nature'):
@@ -15524,18 +15655,21 @@ class colleseum(pygame.sprite.Sprite):
                         if(moves[attack3][7] == 'ice'):
                             pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack3rect)
                         if(moves[attack3][7] == 'psychic'):
-                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack3rect)
+                            pygame.draw.rect(DISPLAYSURF, CLOUD, small_attack3rect)
                         if(moves[attack3][7] == 'fire'):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack3rect)
-                        draw_text_center(moves[attack3][0], font14, WHITE, DISPLAYSURF, 825 , 880)
+                        draw_text_center(moves[attack3][0], font14, WHITE, DISPLAYSURF, 825 , 890)
                         draw_text_center(" PP: " +str(attack3pp) +"/" +str(moves[attack3][6]) , font14, WHITE, DISPLAYSURF, 825 , 915)
+                        if(moves[attack3][1] > 0):
+                            draw_text_center(str(moves[attack3][1]) , font14, WHITE, DISPLAYSURF, 920 , 915)
+
                     if(attack4 != 'empty'):
                         if(moves[attack4][7] == 'light'):
-                            pygame.draw.rect(DISPLAYSURF, YELLOW, small_attack4rect)
+                            pygame.draw.rect(DISPLAYSURF, GOLD, small_attack4rect)
                         if(moves[attack4][7] == 'ground'):
                             pygame.draw.rect(DISPLAYSURF, MURKY, small_attack4rect)
                         if(moves[attack4][7] == 'poison'):
-                            pygame.draw.rect(DISPLAYSURF, WHITE, small_attack4rect)
+                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack4rect)
                         if(moves[attack4][7] == 'lightning'):
                             pygame.draw.rect(DISPLAYSURF, PURPLE, small_attack4rect)
                         if(moves[attack4][7] == 'nature'):
@@ -15549,12 +15683,96 @@ class colleseum(pygame.sprite.Sprite):
                         if(moves[attack4][7] == 'ice'):
                             pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, small_attack4rect)
                         if(moves[attack4][7] == 'psychic'):
-                            pygame.draw.rect(DISPLAYSURF, SLEEPPURPLE, small_attack4rect)
+                            pygame.draw.rect(DISPLAYSURF, CLOUD, small_attack4rect)
                         if(moves[attack4][7] == 'fire'):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack4rect)
-                        draw_text_center(moves[attack4][0], font14, WHITE, DISPLAYSURF, 1086 , 880)
+                        draw_text_center(moves[attack4][0], font14, WHITE, DISPLAYSURF, 1086 , 890)
                         draw_text_center(" PP: " +str(attack4pp) +"/" +str(moves[attack4][6]) , font14, WHITE, DISPLAYSURF, 1086 , 915)
+                        if(moves[attack4][1] > 0):
+                            draw_text_center(str(moves[attack4][1]) , font14, WHITE, DISPLAYSURF, 1180 , 915)
 
+################################################################################################################################################################
+                if(attack1animation):
+                    attackbuttonbool = False
+                    attack1pp = attack1pp - 1
+                    timer = pygame.time.get_ticks()
+                    timer2 = timer + 2000
+                    timer3 = timer + 5000
+                    fulltimer = timer + 10000
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/marksound.mp3"))
+                    sound_effect.play()
+                    attack1animation = False
+                    getridofmenu = True
+                    attack_pending1 = True
+                    
+                if(fulltimer > timer):
+                    timer = pygame.time.get_ticks()
+                    
+                if(timer2 > timer):
+                    draw_text_center("Your monster has used " + moves[attack1][0] + "!", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                elif timer2 != -1000 and attack_pending1:
+                    timer2 = -1000  # mark it as done
+                    monster_state = "attacking"
+                    attack_timer = 0.0
+                        
+                if(timer2 == -1000 and timer3 > timer):
+                    enemydamagetaken = 0
+                    if (enemyteamchoosen == 1):
+                        enemydamagetaken = int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast1defenselive)))
+                        if(timer % 2 == 1):
+                            enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                            enemyangle += enemyspeedofimage
+                            DISPLAYSURF.blit(enemy_black_image1, (enemybase_x, enemybase_y + enemyoffset_y))
+                    if (enemyteamchoosen == 2):
+                        enemydamagetaken = int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast2defenselive)))
+                        if (timer % 2 == 1):
+                            enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                            enemyangle += enemyspeedofimage
+                            DISPLAYSURF.blit(enemy_black_image2, (enemybase_x, enemybase_y + enemyoffset_y))
+                    if (enemyteamchoosen == 3):
+                        enemydamagetaken = int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast3defenselive)))
+                        if (timer % 2 == 1):
+                            enemyoffset_y = math.sin(enemyangle) * enemyamplitude
+                            enemyangle += enemyspeedofimage
+                            DISPLAYSURF.blit(enemy_black_image3, (enemybase_x, enemybase_y + enemyoffset_y))
+                    draw_text_center("Your monster has dealt " + str(enemydamagetaken) + " damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                elif timer3 != -1000 and timer2 == -1000 and attack_pending1:
+                    timer3 = -1000  # mark it as done
+                    if (enemyteamchoosen == 3):
+                        attack1pp = attack1pp - 1
+                        enemybeast3healthlive = enemybeast3healthlive - int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast3defenselive)))
+                        attack_pending1 = False
+                        if(enemybeast3healthlive <= 0):
+                            enemybeast3healthlive = 0
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/victorysound.mp3"))
+                            sound_effect.play()
+                        getridofmenu = False
+                    if (enemyteamchoosen == 2):
+                        attack1pp = attack1pp - 1
+                        enemybeast2healthlive = enemybeast2healthlive - int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast2defenselive)))
+                        attack_pending1 = False
+                        if(enemybeast2healthlive <= 0):
+                            enemybeast2healthlive = 0
+                            enemyteamchoosen = 3
+                            random_sound_number = random.randint(1, 14)
+                            sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                            sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                            sound_effect.play()
+                        getridofmenu = False
+                    if (enemyteamchoosen == 1):
+                        enemybeast1healthlive = enemybeast1healthlive - int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast1defenselive)))
+                        attack1pp = attack1pp - 1
+                        attack_pending1 = False
+                        if(enemybeast1healthlive <= 0):
+                            enemybeast1healthlive = 0
+                            enemyteamchoosen = 2
+                            random_sound_number = random.randint(1, 14)
+                            sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                            sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                            sound_effect.play()
+                        getridofmenu = False
+
+################################################################################################################################################################
 # Move name, Damage, special effect, buff/debuff to enemy, buff/debuff to yourself, type of attack, PP
 #moves = [
 #["Nightveil Slash", 60, "empty", "empty", "empty", "attack", 10],
@@ -15565,11 +15783,13 @@ class colleseum(pygame.sprite.Sprite):
                 monster1switch = pygame.Rect(313, 366, 390, 322)
                 monster2switch = pygame.Rect(750, 366, 396, 322)
                 monster3switch = pygame.Rect(1194, 366, 392, 322)
-                monsterXswitch = pygame.Rect(800, 726, 265, 60)
+                monsterXswitch = pygame.Rect(795, 753, 265, 63)
 
                 if(changemonsterbuttonbool == True):
                     if(monsterXswitch.collidepoint(mouse_pos)):
                         DISPLAYSURF.blit(switchmonstermenux, (180, 100))
+                        pygame.draw.rect(DISPLAYSURF, LIGHTGREEN, monsterXswitch, 6)
+
                     else:
                         DISPLAYSURF.blit(switchmonstermenu, (180, 100))
 
@@ -15584,9 +15804,9 @@ class colleseum(pygame.sprite.Sprite):
                         draw_text_center("HP: " +str(beast2healthlive) + "/" + str(beast2health), font26, SKYBLUE, DISPLAYSURF, 950, 405)
 
                     if(teamsize >= 3):
-                        draw_text_center("lvl" + str(beast1level) + " " +beast3name, font26, WHITE, DISPLAYSURF, 1360 , 830)
-                        DISPLAYSURF.blit(monstertypeimage1, (1500, 610))
-                        draw_text_center("HP: " +str(beast3healthlive) + "/" + str(beast3health), font26, SKYBLUE, DISPLAYSURF, halfdisplay, 1400, 405)
+                        draw_text_center("lvl" + str(beast3level) + " " +beast3name, font26, WHITE, DISPLAYSURF, 1360 , 830)
+                        DISPLAYSURF.blit(monstertypeimage3, (1500, 610))
+                        draw_text_center("HP: " +str(beast3healthlive) + "/" + str(beast3health), font26, SKYBLUE, DISPLAYSURF, 1760 , 830)
 
                     if(monster1switch.collidepoint(mouse_pos)):
                         pygame.draw.rect(DISPLAYSURF, BLUE, monster1switch, 10, 10)
@@ -15635,7 +15855,7 @@ class colleseum(pygame.sprite.Sprite):
                     draw_text_center("x" +str(apple_count), font7, WHITE, DISPLAYSURF, 1160 , 666)
                     draw_text_center("x" + str(healing_potion_count), font7, WHITE, DISPLAYSURF, 765, 666)
 
-                if(itembuttonbool != True and attackbuttonbool != True and changemonsterbuttonbool != True and forfeitbuttonbool != True):
+                if(itembuttonbool != True and attackbuttonbool != True and changemonsterbuttonbool != True and forfeitbuttonbool != True and getridofmenu == False):
                     pygame.draw.rect(DISPLAYSURF, CLOUD, battlebutton)
                     pygame.draw.rect(DISPLAYSURF, CLOUD, switchCharactersbutton)
                     pygame.draw.rect(DISPLAYSURF, CLOUD, itemsbutton)
@@ -15661,7 +15881,8 @@ class colleseum(pygame.sprite.Sprite):
 
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
-                DISPLAYSURF.blit(image164, (198, 110))
+                if(attackbuttonbool != True and forfeitbuttonbool != True and changemonsterbuttonbool != True and itembuttonbool != True):
+                    DISPLAYSURF.blit(image164, (198, 110))
                 xrect = pygame.Rect(1680, 123, 35, 35)
                 returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
@@ -15684,19 +15905,27 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.mixer.music.stop()
                             pygame.quit()
                             sys.exit()
-                        if(battlebutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                        if (attack1rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack1pp > 0):
+                            attack1animation = True
+                        if (attack2rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack2pp > 0):
+                            attack2animation = True
+                        if (attack3rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack3pp > 0):
+                            attack3animation = True
+                        if (attack4rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack4pp > 0):
+                            attack4animation = True
+                        if(battlebutton.collidepoint(mouse_pos) and getridofmenu == False and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
                             attackbuttonbool = True
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
                             sound_effect.play()
-                        if(forfeitbutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                        if(forfeitbutton.collidepoint(mouse_pos) and getridofmenu == False and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
                             forfeitbuttonbool = True
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
                             sound_effect.play()
-                        if(switchCharactersbutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                        if(switchCharactersbutton.collidepoint(mouse_pos) and getridofmenu == False and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
                             changemonsterbuttonbool = True
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
                             sound_effect.play()
-                        if(itemsbutton.collidepoint(mouse_pos) and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
+                        if(itemsbutton.collidepoint(mouse_pos) and getridofmenu == False and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
                             itembuttonbool = True
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
                             sound_effect.play()
@@ -16078,5 +16307,7 @@ class colleseum(pygame.sprite.Sprite):
                             attackbuttonbool = False
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
                             sound_effect.play()
+
+                            
                 pygame.display.update()
 ########################################################################################################################
