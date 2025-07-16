@@ -228,7 +228,7 @@ moves = [
     ["Nocturne Fang", 75, "empty", "empty", "empty", "attack", 10],
     ["Void Lash", 40, "empty", "empty", "empty", "attack", 5],
     ["Nightfall", 60, "empty", "empty", "empty", "spec", 5],
-    ["Netherstrike Touch", "random", "fire", "empty", "empty", "attack", 5],
+    ["Netherstrike Touch", -1, "fire", "empty", "empty", "attack", 5],
     ["Oblivion Bloom", 85, "empty", "empty", "empty", "spec", 5],
     ["Soul Harvest", 100, "empty", "empty", "empty", "spec", 3],
     ["Reaper Death Seal", 300, "userdeath", "empty", "empty", "spec", 1],
@@ -256,8 +256,8 @@ moves = [
     ["Light Bringer", 45, "empty", "empty", "empty", "spec", 10],
     ["Love", 0, "heal1", "attack-1", "empty", "empty", 10],
     ["Quintessence", 0, "heal2", "empty", "defense+1", "empty", 3],
-    ["Smite", "random", "fire", "empty", "empty", "spec", 10],
-    ["Holy Smite", "superrandom", "fire", "empty", "empty", "spec", 5],
+    ["Smite", -1, "fire", "empty", "empty", "spec", 10],
+    ["Holy Smite", -2, "fire", "empty", "empty", "spec", 5],
     ["Requiem of Life", 100, "empty", "empty", "empty", "spec", 3],
     ["Lumina Pulse", 95, "empty", "empty", "empty", "spec", 7],
     ["Prismstrike", 95, "empty", "empty", "empty", "attack", 7],
@@ -285,7 +285,7 @@ moves = [
     ["Solarclaw", 70, "empty", "empty", "empty", "attack", 10],
     ["Volcanic Strike", 85, "fire", "empty", "empty", "attack", 5],
     ["Fireheart", 0, "heal1", "empty", "attack+1", "empty", 5],
-    ["Ashstorm", "random", "empty", "empty", "empty", "empty", 5],
+    ["Ashstorm", -1, "empty", "empty", "empty", "empty", 5],
     ["Crystal Tempest", 95, "empty", "empty", "empty", "attack", 5],
     ["Spiritbound Vortex", 75, "empty", "speed-1", "empty", "spec", 7],
     ["Aqua Surge", 60, "empty", "empty", "empty", "attack", 7],
@@ -293,7 +293,7 @@ moves = [
     ["Ocean Requiem", 100, "empty", "empty", "empty", "spec", 3],
     ["Plunge", 50, "empty", "empty", "empty", "attack", 7],
     ["Watergun", 45, "empty", "empty", "empty", "attack", 7],
-    ["Hurricane", "random", "riptide", "empty", "empty", "spec", 10],
+    ["Hurricane", -1, "riptide", "empty", "empty", "spec", 10],
     ["Hydro Cannon", 65, "empty", "empty", "empty", "attack", 5],
     ["Splash", 10, "empty", "empty", "empty", "spec", 20],
     ["Bubblebeam", 50, "empty", "empty", "empty", "spec", 7],
@@ -321,7 +321,7 @@ moves = [
     ["Paralyze", 0, "paralyze", "empty", "empty", "empty", 10],
     ["Poison Beak", 50, "empty", "empty", "empty", "attack", 10],
     ["Chemical Burn", 75, "empty", "empty", "empty", "spec", 5],
-    ["Mustard Gas", "superrandom", "empty", "defense-1", "empty", "spec", 5],
+    ["Mustard Gas", -2, "empty", "defense-1", "empty", "spec", 5],
     ["Dao of Poison", 100, "poison2", "empty", "empty", "spec", 3],
     ["Purple Lotus", 120, "fire", "empty", "empty", "spec", 3],
     ["Miasma", 90, "paralyze", "empty", "empty", "spec", 5],
@@ -364,7 +364,7 @@ moves = [
     ["Stomp", 45, "empty", "empty", "empty", "attack", 10],
     ["New Earth", 130, "empty", "defense-1", "defense-1", "spec", 1],
     ["Bedrock", 120, "empty", "empty", "empty", "attack", 3],
-    ["Gravelstrike", "superrandom", "empty", "empty", "empty", "attack", 10],
+    ["Gravelstrike", -2, "empty", "empty", "empty", "attack", 10],
     ["Tremor", 40, "empty", "empty", "empty", "spec", 10],
     ["Faultline", 100, "empty", "empty", "empty", "spec", 5],
     ["Geospike", 100, "empty", "empty", "empty", "attack", 5],
@@ -373,23 +373,23 @@ moves = [
     ["Terraburst", 85, "empty", "empty", "empty", "spec", 5],
     ["Meteor Impact", 110, "empty", "empty", "accuracy-1", "attack", 3],
     ["Torterra", 120, "empty", "empty", "empty", "attack", 3],
-    ["Duststorm", "random", "empty", "speed-1", "empty", "empty", 5],
+    ["Duststorm", -1, "empty", "speed-1", "empty", "empty", 5],
     ["Voidflare Rift", 90, "empty", "empty", "empty", "spec", 5],
-    ["Mind Burst", "superrandom", "empty", "empty", "empty", "spec", 3],
+    ["Mind Burst", -2, "empty", "empty", "empty", "spec", 3],
     ["Timefracture", 130, "empty", "empty", "accuracy-1", "spec", 3],
     ["Echoing Frenzy", 0, "gravity2", "empty", "empty", "empty", 10],
     ["Soulpierce Shot", 75, "paralyze", "empty", "empty", "spec", 5],
     ["Spectral Bolt", 75, "empty", "empty", "empty", "spec", 7],
     ["Astral Coil", 60, "empty", "empty", "empty", "spec", 10],
-    ["Dreambreaker", "random", "empty", "empty", "empty", "spec", 10],
+    ["Dreambreaker", -1, "empty", "empty", "empty", "spec", 10],
     ["Etherwave", 50, "empty", "empty", "empty", "spec", 10],
     ["Memory Wipe", 0, "empty", "specattack-2", "empty", "empty", 5],
-    ["Enlightenment", "superrandom", "heal1", "empty", "specattack+2", "empty", 5],
+    ["Enlightenment", -2, "heal1", "empty", "specattack+2", "empty", 5],
     ["Lionheart Lunge", 80, "gravity", "empty", "empty", "attack", 5],
     ["Arrowstorm", 80, "empty", "empty", "empty", "attack", 5],
     ["Echo Strike", 75, "empty", "empty", "empty", "spec", 5],
     ["Phantom Edge", 75, "empty", "empty", "empty", "spec", 5],
-    ["Bladestorm Spiral", "random", "empty", "empty", "empty", "attack", 7],
+    ["Bladestorm Spiral", -1, "empty", "empty", "empty", "attack", 7],
     ["Slash", 70, "empty", "empty", "empty", "attack", 7],
     ["Crunch", 70, "empty", "empty", "empty", "attack", 7],
     ["Leer", 0, "empty", "accuracy-1", "empty", "empty", 10],
@@ -430,7 +430,7 @@ moves = [
     ["Tempest", 120, "empty", "empty", "empty", "spec", 5],
     ["Sky Sunder", 140, "empty", "empty", "speed-1", "attack", 3],
     ["Storm Lord", 150, "empty", "speed+1", "attack-1", "spec", 1],
-    ["Tribulation Lightning", "superrandom", "paralyze", "defense-1", "defense-1", "spec", 5],
+    ["Tribulation Lightning", -2, "paralyze", "defense-1", "defense-1", "spec", 5],
     ["Agile", 0, "empty", "speed-1", "speed+2", "empty", 10],
     ["Zephyr", 130, "empty", "empty", "accuracy-1", "attack", 3],
     ["Feather Tornado", 70, "empty", "empty", "empty", "attack", 7],
@@ -440,7 +440,7 @@ moves = [
     ["Airstream", 60, "gravity", "empty", "empty", "attack", 10],
     ["Winglash", 45, "empty", "empty", "empty", "attack", 10],
     ["Gust", 40, "empty", "empty", "empty", "empty", 10],
-    ["Aerial Ace", "superrandom", "empty", "empty", "attack+1", "attack", 5]
+    ["Aerial Ace", -2, "empty", "empty", "attack+1", "attack", 5]
 ]
 
 for i, move in enumerate(moves):
@@ -982,6 +982,37 @@ image127 = pygame.image.load(resource_path('images/coralhelmet.png')).convert_al
 image127 = pygame.transform.scale(image127, (350, 350))
 
 ########################################################################################################################
+image137 = pygame.image.load(resource_path('images/goblin.jpg'))
+image137 = pygame.transform.scale(image137, (1550, 870))
+image138 = pygame.image.load(resource_path('images/laborchoices.png')).convert_alpha()
+image138 = pygame.transform.scale(image138, (800, 600))
+image139 = pygame.image.load(resource_path('images/redx.png')).convert_alpha()
+image139 = pygame.transform.scale(image139, (400, 100))
+image140 = pygame.image.load(resource_path('images/laborchoiceshover1.png')).convert_alpha()
+image140 = pygame.transform.scale(image140, (800, 600))
+image142 = pygame.image.load(resource_path('images/betacharacter.png')).convert_alpha()
+image142 = pygame.transform.scale(image142, (50, 50))
+image143 = pygame.image.load(resource_path('images/lightbluegem.png')).convert_alpha()
+image144 = pygame.image.load(resource_path('images/pinkgem.png')).convert_alpha()
+image145 = pygame.image.load(resource_path('images/rubygem.png')).convert_alpha()
+image146 = pygame.image.load(resource_path('images/heartgem.png')).convert_alpha()
+image147 = pygame.image.load(resource_path('images/diamondgem.png')).convert_alpha()
+image148 = pygame.image.load(resource_path('images/purplegem.png')).convert_alpha()
+image149 = pygame.image.load(resource_path('images/darkbluegem.png')).convert_alpha()
+image150 = pygame.image.load(resource_path('images/miningworldgame2.jpg')).convert()
+image151 = pygame.image.load(resource_path('images/dighole.png')).convert_alpha()
+image151 = pygame.transform.scale(image151, (60, 60))
+image152 = pygame.image.load(resource_path('images/digholereturnarro.png')).convert_alpha()
+image152 = pygame.transform.scale(image152, (60, 60))
+image153 = pygame.image.load(resource_path('images/digholereturnarrow.png')).convert_alpha()
+image153 = pygame.transform.scale(image153, (60, 60))
+image154 = pygame.image.load(resource_path('images/trilobite.png')).convert_alpha()
+image155 = pygame.image.load(resource_path('images/gems.png')).convert_alpha()
+image156 = pygame.image.load(resource_path('images/dinosaurbones.png')).convert_alpha()
+image157 = pygame.image.load(resource_path('images/crown.png')).convert_alpha()
+image158 = pygame.image.load(resource_path('images/spider.png')).convert_alpha()
+image159 = pygame.image.load(resource_path('images/egg.png')).convert_alpha()
+
 image128 = pygame.image.load(resource_path('images/stars.png')).convert_alpha()
 image128 = pygame.transform.scale(image128, ((770, 740)))
 image129 = pygame.image.load(resource_path('images/itemframe.png')).convert_alpha()
@@ -1027,36 +1058,6 @@ image135 = pygame.transform.scale(image135, (125, 125))
 image136 = pygame.image.load(resource_path('images/returnbutton2.png')).convert_alpha()
 image136 = pygame.transform.scale(image136, (250, 250))
 ########################################################################################################################
-image137 = pygame.image.load(resource_path('images/goblin.jpg'))
-image137 = pygame.transform.scale(image137, (1550, 870))
-image138 = pygame.image.load(resource_path('images/laborchoices.png')).convert_alpha()
-image138 = pygame.transform.scale(image138, (800, 600))
-image139 = pygame.image.load(resource_path('images/redx.png')).convert_alpha()
-image139 = pygame.transform.scale(image139, (400, 100))
-image140 = pygame.image.load(resource_path('images/laborchoiceshover1.png')).convert_alpha()
-image140 = pygame.transform.scale(image140, (800, 600))
-image142 = pygame.image.load(resource_path('images/betacharacter.png')).convert_alpha()
-image142 = pygame.transform.scale(image142, (50, 50))
-image143 = pygame.image.load(resource_path('images/lightbluegem.png')).convert_alpha()
-image144 = pygame.image.load(resource_path('images/pinkgem.png')).convert_alpha()
-image145 = pygame.image.load(resource_path('images/rubygem.png')).convert_alpha()
-image146 = pygame.image.load(resource_path('images/heartgem.png')).convert_alpha()
-image147 = pygame.image.load(resource_path('images/diamondgem.png')).convert_alpha()
-image148 = pygame.image.load(resource_path('images/purplegem.png')).convert_alpha()
-image149 = pygame.image.load(resource_path('images/darkbluegem.png')).convert_alpha()
-image150 = pygame.image.load(resource_path('images/miningworldgame2.jpg')).convert()
-image151 = pygame.image.load(resource_path('images/dighole.png')).convert_alpha()
-image151 = pygame.transform.scale(image151, (60, 60))
-image152 = pygame.image.load(resource_path('images/digholereturnarro.png')).convert_alpha()
-image152 = pygame.transform.scale(image152, (60, 60))
-image153 = pygame.image.load(resource_path('images/digholereturnarrow.png')).convert_alpha()
-image153 = pygame.transform.scale(image153, (60, 60))
-image154 = pygame.image.load(resource_path('images/trilobite.png')).convert_alpha()
-image155 = pygame.image.load(resource_path('images/gems.png')).convert_alpha()
-image156 = pygame.image.load(resource_path('images/dinosaurbones.png')).convert_alpha()
-image157 = pygame.image.load(resource_path('images/crown.png')).convert_alpha()
-image158 = pygame.image.load(resource_path('images/spider.png')).convert_alpha()
-image159 = pygame.image.load(resource_path('images/egg.png')).convert_alpha()
 image160 = pygame.image.load(resource_path('images/digchest1.png')).convert_alpha()
 image161 = pygame.image.load(resource_path('images/digchest2.png')).convert_alpha()
 image162 = pygame.image.load(resource_path('images/digchest3.png')).convert_alpha()
@@ -1115,15 +1116,13 @@ image197 = pygame.image.load(resource_path('images/dice6.jpg')).convert()
 image197 = pygame.transform.scale(image197, (320, 320))
 image198 = pygame.image.load(resource_path('images/dice7.png')).convert_alpha()
 image198 = pygame.transform.scale(image198, (320, 320))
-
-image199 = pygame.image.load(resource_path('images/bluebakcground.jpg')).convert_alpha()
-
 image201 = pygame.transform.scale(image192, (150, 150))
 image202 = pygame.transform.scale(image193, (150, 150))
 image203 = pygame.transform.scale(image194, (150, 150))
 image204 = pygame.transform.scale(image195, (150, 150))
 image205 = pygame.transform.scale(image196, (150, 150))
 image206 = pygame.transform.scale(image197, (150, 150))
+image199 = pygame.image.load(resource_path('images/bluebakcground.jpg')).convert_alpha()
 
 image207 = pygame.image.load(resource_path('images/guildroom.png')).convert_alpha()
 image207 = pygame.transform.scale(image207, (1550, 870))
@@ -1698,6 +1697,8 @@ class maingameareas(pygame.sprite.Sprite):
         chestbool = 0
         randomsong = random.randint(1, 7)
 
+        partybool = False
+
         if (randomsong == 1):
             songchoosen1 = "audio/fantasyhomemusic.mp3"
             songchoosen2 = "audio/beachmusic1.mp3"
@@ -1766,6 +1767,36 @@ class maingameareas(pygame.sprite.Sprite):
             gem = int(gemline)
             gold = int(goldline)
             characterName = str(nameline)
+
+        paimonrect = pygame.Rect(1300, 420, 270, 130)
+        labormarketrect = pygame.Rect(1300, 690, 310, 210)
+        gamblingdenrect = pygame.Rect(1400, 555, 150, 130)
+        castlerect = pygame.Rect(889, 465, 140, 130)
+        colesseumrect = pygame.Rect(889, 630, 140, 130)
+        guildrect = pygame.Rect(640, 560, 90, 100)
+        stashrect = pygame.Rect(470, 690, 310, 230)
+        blackmarketrect = pygame.Rect(250, 588, 160, 140)
+        adventurerect = pygame.Rect(690, 130, 180, 270)
+        
+        chestrect = pygame.Rect(230, 220, 100, 100)
+        xrect = pygame.Rect(1680, 123, 35, 35)
+        adminrect = pygame.Rect(1680, 940, 50, 50)
+        partymenurect = pygame.Rect(1690, 340, 40, 95)
+        partymenurectglow = pygame.Rect(1590, 285, 150, 50)
+
+        homepartymenu = pygame.image.load(resource_path('images/homepartymenu.png')).convert_alpha()
+        homepartymenuglow = pygame.image.load(resource_path('images/homepartymenuglow.png')).convert_alpha()
+        homepartymenu1 = pygame.image.load(resource_path('images/homepartymenu1.png')).convert_alpha()
+        homepartymenu2 = pygame.image.load(resource_path('images/homepartymenu2.png')).convert_alpha()
+        homepartymenu.set_alpha(180)
+        homepartymenuglow.set_alpha(180)
+        homepartymenu1.set_alpha(110)
+        homepartymenu2.set_alpha(160)
+        beast1beastimage = homepartymenu1
+        beast2beastimage = homepartymenu1
+        beast3beastimage = homepartymenu1
+        teamsize = 0
+        
         while(mainloop):
             clock.tick(60)
 
@@ -1778,16 +1809,6 @@ class maingameareas(pygame.sprite.Sprite):
             mouse_pos = pygame.mouse.get_pos()
             DISPLAYSURF.fill(BLACK)
             DISPLAYSURF.blit(image132, (195, 100))
-
-            paimonrect = pygame.Rect(1300, 420, 270, 130)
-            labormarketrect = pygame.Rect(1300, 690, 310, 210)
-            gamblingdenrect = pygame.Rect(1400, 555, 150, 130)
-            castlerect = pygame.Rect(889, 465, 140, 130)
-            colesseumrect = pygame.Rect(889, 630, 140, 130)
-            guildrect = pygame.Rect(640, 560, 90, 100)
-            stashrect = pygame.Rect(470, 690, 310, 230)
-            blackmarketrect = pygame.Rect(250, 588, 160, 140)
-            adventurerect = pygame.Rect(690, 130, 180, 270)
 
             rainbow = (rainbowcolor1,rainbowcolor2,rainbowcolor3)
 
@@ -1834,8 +1855,6 @@ class maingameareas(pygame.sprite.Sprite):
             DISPLAYSURF.blit(image133, (mouseX - 41, mouseY - 37))
 
             chesttimer = pygame.time.get_ticks()
-            chestrect = pygame.Rect(230, 220, 100, 100)
-
 
             if((((chestcollected + 600000) - chesttimer) / 1000) >= 0):
                 DISPLAYSURF.blit(image226, (230, 220))
@@ -1873,6 +1892,26 @@ class maingameareas(pygame.sprite.Sprite):
             # pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, blackmarketrect, 6)
             # pygame.draw.rect(DISPLAYSURF, GOLD, adventurerect, 6)
 
+        
+
+            if(partybool == True):
+                
+                if partymenurectglow.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(homepartymenuglow, (1589, 282))
+
+                else:
+                    DISPLAYSURF.blit(homepartymenu, (1592, 285))
+                if (teamsize >= 1):
+                    DISPLAYSURF.blit(beast1beastimage, (1623, 355))
+                if (teamsize >= 2):
+                    DISPLAYSURF.blit(beast2beastimage, (1623, 475))
+                if (teamsize >= 3):
+                    DISPLAYSURF.blit(beast3beastimage, (1625, 600))
+            else:
+                DISPLAYSURF.blit(homepartymenu1, (1705, 342))
+                if partymenurect.collidepoint(mouse_pos):
+                    DISPLAYSURF.blit(homepartymenu2, (1703, 340))
+                    
             bubblecounter = 199
             while (bubblecounter > 0):
                 bubbley[bubblecounter] = bubbley[bubblecounter] - 1
@@ -1885,11 +1924,8 @@ class maingameareas(pygame.sprite.Sprite):
                 bubblecounter = bubblecounter - 1
 
             draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
-            xrect = pygame.Rect(1680, 123, 35, 35)
             if xrect.collidepoint(mouse_pos):
                 draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
-
-            adminrect = pygame.Rect(1680, 940, 50, 50)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -1906,6 +1942,33 @@ class maingameareas(pygame.sprite.Sprite):
                                 file.writelines(lines)
 
                 if event.type == MOUSEBUTTONDOWN:
+                    if partymenurect.collidepoint(mouse_pos):
+                        teamcreatures = load_teamcreatures()
+                        if (len(teamcreatures) >= 1):
+                            attributes1 = list(teamcreatures[0].values())
+                            beast1beastimage = beasts[attributes1[8]]
+                        if (len(teamcreatures) >= 2):
+                            attributes2 = list(teamcreatures[1].values())
+                            beast2beastimage = beasts[attributes2[8]]
+                        if (len(teamcreatures) >= 3):
+                            attributes3 = list(teamcreatures[2].values())
+                            beast3beastimage = beasts[attributes3[8]]
+                        if (len(teamcreatures) == 1):
+                            teamsize = 1
+                        if (len(teamcreatures) == 2):
+                            teamsize = 2
+                        if (len(teamcreatures) == 3):
+                            teamsize = 3
+                        if (teamsize >= 1):
+                            beast1beastimage = pygame.transform.scale(beast1beastimage, (beast1beastimage.get_width() // 6,beast1beastimage.get_height() // 6))
+                        if (teamsize >= 2):
+                            beast2beastimage = pygame.transform.scale(beast2beastimage, (beast2beastimage.get_width() // 6,beast2beastimage.get_height() // 6))
+                        if (teamsize >= 3):
+                            beast3beastimage = pygame.transform.scale(beast3beastimage, (beast3beastimage.get_width() // 6,beast3beastimage.get_height() // 6))
+                            
+                        partybool = True
+                    if partymenurectglow.collidepoint(mouse_pos):
+                        partybool = False
                     if chestrect.collidepoint(mouse_pos):
                         if ((((chestcollected + 600000) - chesttimer) / 1000) < 0):
                             randomgold = random.randint(0, level * 250)
@@ -3068,7 +3131,7 @@ class labormarket(pygame.sprite.Sprite):
         image133.set_alpha(150)
         imageBlack.set_alpha(210)
         image4.set_alpha(210)
-
+        
         channel1 = pygame.mixer.Channel(0)
         channel2 = pygame.mixer.Channel(1)
         channel1.set_volume(1.0)
@@ -4729,7 +4792,7 @@ class casino(pygame.sprite.Sprite):
                             lines[0] = f"gold = {gold}\n"
                         with open(resource_path("gamedata.txt"), "w") as file:
                             file.writelines(lines)
-                        fps = int(cap1.get(cv2.CAP_PROP_FPS))
+                        fps = 60
                         clock = pygame.time.Clock()
                         while cap1.isOpened():
                             ret, frame = cap1.read()
@@ -13807,7 +13870,7 @@ class colleseum(pygame.sprite.Sprite):
         global gold
         experience = 0
         global level
-
+        
         with open(resource_path("gamedata.txt"), "r") as file:
             lines = file.readlines()
             colleseumwinstreak = lines[23].strip()
@@ -13843,21 +13906,107 @@ class colleseum(pygame.sprite.Sprite):
         randomtrainername = " "
         i = 1200
 
+        #for gamescene 12
+        battlerect = pygame.Rect(745, 390, 460, 290)
+
+
+        #for gamescene 3
+        choice1 = pygame.Rect(691, 290, 190, 300)
+        choice2 = pygame.Rect(896, 290, 190, 300)
+        choice3 = pygame.Rect(1105, 290, 190, 300)
+        
+        #for gamescene 14
+        monster1switch = pygame.Rect(313, 366, 390, 322)
+        monster2switch = pygame.Rect(750, 366, 396, 322)
+        monster3switch = pygame.Rect(1194, 366, 392, 322)
+        monsterXswitch = pygame.Rect(795, 726, 300, 63)
+
+        xrect = pygame.Rect(1680, 123, 35, 35)
+        returnarrowrect = pygame.Rect(153, 110, 120, 70)
+
+        healthrect = pygame.Rect(halfdisplay - 600, 210, 300, 40)
+        enemyhealthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
+
+        battlebutton = pygame.Rect(halfdisplay - 250, 800, 240, 70)
+        switchCharactersbutton = pygame.Rect(halfdisplay - 250, 880, 240, 70)
+        itemsbutton = pygame.Rect(halfdisplay + 10, 800, 240, 70)
+        forfeitbutton = pygame.Rect(halfdisplay + 10, 880, 240, 70)
+
+        attack1rect = pygame.Rect(halfdisplay - 250, 800, 240, 70)
+        attack3rect = pygame.Rect(halfdisplay - 250, 880, 240, 70)
+        attack2rect = pygame.Rect(halfdisplay + 10, 800, 240, 70)
+        attack4rect = pygame.Rect(halfdisplay + 10, 880, 240, 70)
+
+        small_attack1rect = pygame.Rect(halfdisplay - 245, 805, 230, 60)
+        small_attack3rect = pygame.Rect(halfdisplay - 245, 885, 230, 60)
+        small_attack2rect = pygame.Rect(halfdisplay + 15, 805, 230, 60)
+        small_attack4rect = pygame.Rect(halfdisplay + 15, 885, 230, 60)
+
+        battlereturnrect = pygame.Rect(1280, 810, 100, 100)
+
+        forfeit_yes_rect = pygame.Rect(736, 586, 215, 80)
+        forfeit_no_rect = pygame.Rect(976, 586, 215, 80)
+
+        exititemmenubutton = pygame.Rect(1240, 315, 41, 47)
+        healingpotionrect = pygame.Rect(681, 392, 178, 389)
+        applerect = pygame.Rect(1071, 392, 178, 389)
+        goldenapplerect = pygame.Rect(876, 392, 178, 389)
+
+
+        use_move1 = False
+        use_move2 = False
+        use_move3 = False
+        use_move4 = False
+        spec_or_strength = 0
+        ppmove = 0
+        
+        enemy_move_random = 0
+        e_timer = 0
+        e_timer2 = 0
+        e_timer3 = 0
+        e_timer4 = 0
+        e_timer5 = 0
+        e_fulltimer = 0
+        lostbattle = False
+        you_enemydied = False
+        curr_enemy_lvl = 0
+
+
+        attackstrength = 0
+        specattackstrength = 0
+        
+        current_enemy_strength = 0
+        damagetaken = 0
+        current_beast_damaged = 0
+
+        e_currspeed = 0
+        currspeed = 0
+        
+        enemydied = False
+        e_attack_pending1 = False
+        
         timer = 0
         timer2 = 0
         timer3 = 0
-        timer3_1 = 0
+        timer4 = 0
+        timer5 = 0
+        wonbattle = 0
         fulltimer = 0
+        beastexpamount = 0
         getridofmenu= False
         attack_pending1 = False
+        currmonsterlvl = 0
         
         attack1animation = False
         attack2animation = False
         attack3animation = False
         attack4animation = False
 
+        enemy_attack_sequence = False
+
         offset_x = 0
         monster_state = "idle"
+
         attack_timer = 0.0
         attack_duration = 0.1  # total attack time (forward + back)
         attack_distance = 200  # how far the monster lunges
@@ -13873,7 +14022,14 @@ class colleseum(pygame.sprite.Sprite):
         enemyangle = 0
         enemyamplitude = 7  # How much it moves up/down
         enemyspeedofimage = 0.11  # How fast it moves
+        enemyoffset_x = 0
+        e_monster_state = "idle"
 
+        enemy_attack_timer = 0.0
+        enemy_attack_duration = 0.1  # total enemy attack time (forward + back)
+        enemy_attack_distance = -200  # how far the enemy lunges
+        
+        
         enemyteamchoosen = 1
 
         enemy_black_image1 = normalimage
@@ -14342,9 +14498,6 @@ class colleseum(pygame.sprite.Sprite):
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
 
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
-
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -14396,8 +14549,6 @@ class colleseum(pygame.sprite.Sprite):
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -14443,9 +14594,7 @@ class colleseum(pygame.sprite.Sprite):
                 DISPLAYSURF.blit(frame_surface, (190, 100))
                 DISPLAYSURF.blit(image276, (630, 190))
 
-                choice1 = pygame.Rect(691, 290, 190, 300)
-                choice2 = pygame.Rect(896, 290, 190, 300)
-                choice3 = pygame.Rect(1105, 290, 190, 300)
+
 
                 #mouseX, mouseY = pygame.mouse.get_pos()
                 #print("x and y = " + str(mouseX) + " " + str(mouseY))
@@ -14462,8 +14611,6 @@ class colleseum(pygame.sprite.Sprite):
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -14521,8 +14668,6 @@ class colleseum(pygame.sprite.Sprite):
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -14538,6 +14683,7 @@ class colleseum(pygame.sprite.Sprite):
                             npcdifficulty = random.randint(1,npcdifficulty)
                             npcdifficulty = random.randint(1,npcdifficulty)
                             randomtrainername = fantasy_names[random.randint(0, len(fantasy_names))]
+                            video3.set(cv2.CAP_PROP_POS_FRAMES, 0)
                             self.gamescene = self.gamescene + 1
                         if returnarrowrect.collidepoint(mouse_pos):
                             transition(6)
@@ -14608,8 +14754,6 @@ class colleseum(pygame.sprite.Sprite):
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -14652,7 +14796,6 @@ class colleseum(pygame.sprite.Sprite):
                 frame_surface.set_alpha(160)
                 DISPLAYSURF.blit(frame_surface, (190, 100))
 
-                battlerect = pygame.Rect(745, 390, 460, 290)
                 DISPLAYSURF.blit(image281, (725, 300))
 
                 if battlerect.collidepoint(mouse_pos):
@@ -14661,8 +14804,6 @@ class colleseum(pygame.sprite.Sprite):
                 mouse_pos = pygame.mouse.get_pos()
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 DISPLAYSURF.blit(image164, (198, 110))
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -15072,6 +15213,15 @@ class colleseum(pygame.sprite.Sprite):
                 enemy_black_image3 = enemymonsterimage3.copy()
                 enemy_black_image3.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
 
+                team_black_image1 = beast1image.copy()
+                team_black_image1.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
+
+                team_black_image2 = beast2image.copy()
+                team_black_image2.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
+
+                team_black_image3 = beast3image.copy()
+                team_black_image3.fill((0, 0, 0), special_flags=pygame.BLEND_RGB_MULT)
+
                 enemybeast1strengthlive = int((enemymonsterstrength1 + random.randint(0,4)) + ((enemymonsterstrength1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1) * (1 + enemymonstertier1 * .1))
                 enemybeast1defenselive = int((enemymonsterdefense1 + random.randint(0,4)) + ((enemymonsterdefense1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
                 enemybeast1healthlive = int((enemymonsterhp1 + random.randint(0,4)) + ((enemymonsterhp1 + random.randint(0,4)) * .2 * enemymonsterlvl1) + (enemymonsterlvl1)* (1 + enemymonstertier1 * .1))
@@ -15262,8 +15412,6 @@ class colleseum(pygame.sprite.Sprite):
                 mouseX, mouseY = pygame.mouse.get_pos()
                 print("x and y = " + str(mouseX) + " " + str(mouseY))
 
-                print("monster_state:", monster_state, "attack_timer:", attack_timer)
-
                 if(teamchoosen == 1 and teamsize >= 1):
                     offset_y = math.sin(angle) * amplitude
                     angle += speedofimage
@@ -15289,7 +15437,6 @@ class colleseum(pygame.sprite.Sprite):
                     ##############
                     DISPLAYSURF.blit(beast1image, (base_x + offset_x, base_y + offset_y))
                     draw_text_center("lvl" +str(beast1level) +" " +beast1name, font22, beastnamecolor1, DISPLAYSURF, halfdisplay - 450 , 145)
-                    healthrect = pygame.Rect(halfdisplay - 600 , 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
                     healthrectlive = pygame.Rect(halfdisplay - 600 , 210, (300 * (beast1healthlive / beast1health)),40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, healthrectlive)
@@ -15337,7 +15484,6 @@ class colleseum(pygame.sprite.Sprite):
 
                     draw_text_center("lvl" + str(beast2level) + " " + beast2name, font22, beastnamecolor2, DISPLAYSURF, halfdisplay - 450, 145)
 
-                    healthrect = pygame.Rect(halfdisplay - 600, 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
 
                     healthrectlive = pygame.Rect(halfdisplay - 600, 210, (300 * (beast2healthlive / beast2health)), 40)
@@ -15388,7 +15534,6 @@ class colleseum(pygame.sprite.Sprite):
 
                     draw_text_center("lvl" + str(beast3level) + " " + beast3name, font22, beastnamecolor3, DISPLAYSURF, halfdisplay - 450, 145)
 
-                    healthrect = pygame.Rect(halfdisplay - 600, 210, 300, 40)
                     pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
 
                     healthrectlive = pygame.Rect(halfdisplay - 600, 210, (300 * (beast3healthlive / beast3health)), 40)
@@ -15415,10 +15560,31 @@ class colleseum(pygame.sprite.Sprite):
                 if(enemyteamchoosen == 1):
                     enemyoffset_y = math.sin(enemyangle) * enemyamplitude
                     enemyangle += enemyspeedofimage
-                    DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
+
+                    # Enemy darting logic
+                    if e_monster_state == "attacking":
+                        enemy_attack_timer += dt  # dt = time since last frame
+                        if enemy_attack_timer <= enemy_attack_duration / 2:
+                            # Moving forward
+                            progress = enemy_attack_timer / (enemy_attack_duration / 2)
+                            enemyoffset_x = -progress * enemy_attack_distance  # move LEFT toward player
+                        elif enemy_attack_timer <= enemy_attack_duration:
+                            # Moving back
+                            progress = (enemy_attack_timer - enemy_attack_duration / 2) / (enemy_attack_duration / 2)
+                            enemyoffset_x = -(1 - progress) * enemy_attack_distance
+                        else:
+                            # Reset after attack
+                            enemyoffset_x = 0
+                            e_monster_state = "idle"
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/supereffective.mp3"))
+                            sound_effect.play()
+                    else:
+                        enemyoffset_x = 0  # no darting
+
+                    # Draw the enemy monster with float + dart
+                    DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x + enemyoffset_x, enemybase_y + enemyoffset_y))
                     draw_text_center("lvl" +str(enemymonsterlvl1) +" " +enemymonstername1 , font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460 , 145)
-                    healthrect = pygame.Rect(halfdisplay + 310 , 210, 300, 40)
-                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                     enemyhealthrectlive = pygame.Rect(halfdisplay + 310 , 210, (300 * (enemybeast1healthlive  / enemymonsterhp1 )),40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                     if(enemybeast1healthlive >= (enemymonsterhp1/2)):
@@ -15444,12 +15610,33 @@ class colleseum(pygame.sprite.Sprite):
                 if(enemyteamchoosen == 2):
                     enemyoffset_y = math.sin(enemyangle) * enemyamplitude
                     enemyangle += enemyspeedofimage
-                    DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
+
+                    # Enemy darting logic
+                    if e_monster_state == "attacking":
+                        enemy_attack_timer += dt  # dt = time since last frame
+                        if enemy_attack_timer <= enemy_attack_duration / 2:
+                            # Moving forward
+                            progress = enemy_attack_timer / (enemy_attack_duration / 2)
+                            enemyoffset_x = -progress * enemy_attack_distance  # move LEFT toward player
+                        elif enemy_attack_timer <= enemy_attack_duration:
+                            # Moving back
+                            progress = (enemy_attack_timer - enemy_attack_duration / 2) / (enemy_attack_duration / 2)
+                            enemyoffset_x = -(1 - progress) * enemy_attack_distance
+                        else:
+                            # Reset after attack
+                            enemyoffset_x = 0
+                            e_monster_state = "idle"
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/supereffective.mp3"))
+                            sound_effect.play()
+                    else:
+                        enemyoffset_x = 0  # no darting
+
+                    # Draw the enemy monster with float + dart
+                    DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x + enemyoffset_x, enemybase_y + enemyoffset_y))
 
                     draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
 
-                    healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
 
                     enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
@@ -15478,12 +15665,33 @@ class colleseum(pygame.sprite.Sprite):
                 if(enemyteamchoosen == 3):
                     enemyoffset_y = math.sin(enemyangle) * enemyamplitude
                     enemyangle += enemyspeedofimage
-                    DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
+
+                    # Enemy darting logic
+                    if e_monster_state == "attacking":
+                        enemy_attack_timer += dt  # dt = time since last frame
+                        if enemy_attack_timer <= enemy_attack_duration / 2:
+                            # Moving forward
+                            progress = enemy_attack_timer / (enemy_attack_duration / 2)
+                            enemyoffset_x = -progress * enemy_attack_distance  # move LEFT toward player
+                        elif enemy_attack_timer <= enemy_attack_duration:
+                            # Moving back
+                            progress = (enemy_attack_timer - enemy_attack_duration / 2) / (enemy_attack_duration / 2)
+                            enemyoffset_x = -(1 - progress) * enemy_attack_distance
+                        else:
+                            # Reset after attack
+                            enemyoffset_x = 0
+                            e_monster_state = "idle"
+                            sound_effect = pygame.mixer.Sound(resource_path("audio/supereffective.mp3"))
+                            sound_effect.play()
+                    else:
+                        enemyoffset_x = 0  # no darting
+
+                    # Draw the enemy monster with float + dart
+                    DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x + enemyoffset_x, enemybase_y + enemyoffset_y))
 
                     draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
 
-                    healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                    pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                    pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
 
                     enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
                     pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
@@ -15512,27 +15720,9 @@ class colleseum(pygame.sprite.Sprite):
 
 
 ######################################################################################################################################################################
-
-
-                battlebutton = pygame.Rect(halfdisplay - 250, 800, 240, 70)
-                switchCharactersbutton = pygame.Rect(halfdisplay - 250, 880, 240, 70)
-                itemsbutton = pygame.Rect(halfdisplay + 10, 800, 240, 70)
-                forfeitbutton = pygame.Rect(halfdisplay + 10, 880, 240, 70)
-
-
-                attack1rect = pygame.Rect(halfdisplay - 250, 800, 240, 70)
-                attack2rect = pygame.Rect(halfdisplay - 250, 880, 240, 70)
-                attack3rect = pygame.Rect(halfdisplay + 10, 800, 240, 70)
-                attack4rect = pygame.Rect(halfdisplay + 10, 880, 240, 70)
-                
-                small_attack1rect = pygame.Rect(halfdisplay - 245, 805, 230, 60)
-                small_attack3rect = pygame.Rect(halfdisplay - 245, 885, 230, 60)
-                small_attack2rect = pygame.Rect(halfdisplay + 15, 805, 230, 60)
-                small_attack4rect = pygame.Rect(halfdisplay + 15, 885, 230, 60)
-                
-                battlereturnrect = pygame.Rect(1280, 810, 100, 100)
                 
                 if(teamchoosen == 1):
+                    currmonsterlvl = beast1level
                     attack1 = beast1move1
                     attack2 = beast1move2
                     attack3 = beast1move3
@@ -15541,7 +15731,10 @@ class colleseum(pygame.sprite.Sprite):
                     attack2pp = beast1liveppattack2
                     attack3pp = beast1liveppattack3
                     attack4pp = beast1liveppattack4
+                    attackstrength = beast1strengthlive
+                    specattackstrength = beast1specattacklive
                 if(teamchoosen == 2):
+                    currmonsterlvl = beast1level
                     attack1 = beast2move1
                     attack2 = beast2move2
                     attack3 = beast2move3
@@ -15550,7 +15743,10 @@ class colleseum(pygame.sprite.Sprite):
                     attack2pp = beast2liveppattack2
                     attack3pp = beast2liveppattack3
                     attack4pp = beast2liveppattack4
+                    attackstrength = beast2strengthlive
+                    specattackstrength = beast2specattacklive
                 if(teamchoosen == 3):
+                    currmonsterlvl = beast1level
                     attack1 = beast3move1
                     attack2 = beast3move2
                     attack3 = beast3move3
@@ -15559,7 +15755,8 @@ class colleseum(pygame.sprite.Sprite):
                     attack2pp = beast3liveppattack2
                     attack3pp = beast3liveppattack3
                     attack4pp = beast3liveppattack4
-
+                    attackstrength = beast3strengthlive
+                    specattackstrength = beast3specattacklive
                 if(attackbuttonbool == True):
                     pygame.draw.rect(DISPLAYSURF, WHITE, attack1rect)
                     pygame.draw.rect(DISPLAYSURF, WHITE, attack2rect)
@@ -15604,9 +15801,12 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack1rect)
                         draw_text_center(moves[attack1][0], font14, WHITE, DISPLAYSURF, 825 , 810)
                         draw_text_center(" PP: " +str(attack1pp) +"/" +str(moves[attack1][6]), font14, WHITE, DISPLAYSURF, 825 , 835)
-                        if(moves[attack1][1] > 0):
+                        if(int(moves[attack1][1]) > 0):
                             draw_text_center(str(moves[attack1][1]) , font14, WHITE, DISPLAYSURF, 920 , 830)
-
+                        if(int(moves[attack1][1]) == -1):
+                            draw_text_center("25-100" , font14, WHITE, DISPLAYSURF, 920 , 830)
+                        if(int(moves[attack1][1]) == -2):
+                            draw_text_center("1-150" , font14, WHITE, DISPLAYSURF, 920 , 830) 
                     if(attack2 != 'empty'):
                         if(moves[attack2][7] == 'light'):
                             pygame.draw.rect(DISPLAYSURF, GOLD, small_attack2rect)
@@ -15632,9 +15832,12 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack2rect)
                         draw_text_center(moves[attack2][0], font14, WHITE, DISPLAYSURF, 1086 , 810)
                         draw_text_center(" PP: " +str(attack2pp) +"/" +str(moves[attack2][6]) , font14, WHITE, DISPLAYSURF, 1086 , 835)
-                        if(moves[attack2][1] > 0):
+                        if(int(moves[attack2][1]) > 0):
                             draw_text_center(str(moves[attack2][1]) , font14, WHITE, DISPLAYSURF, 1180 , 830)
-
+                        if(int(moves[attack2][1]) == -1):
+                            draw_text_center("25-100" , font14, WHITE, DISPLAYSURF, 1180 , 830)
+                        if(int(moves[attack2][1]) == -2):
+                            draw_text_center("1-150" , font14, WHITE, DISPLAYSURF, 1180 , 830) 
                     if(attack3 != 'empty'):
                         if(moves[attack3][7] == 'light'):
                             pygame.draw.rect(DISPLAYSURF, GOLD, small_attack3rect)
@@ -15660,9 +15863,13 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack3rect)
                         draw_text_center(moves[attack3][0], font14, WHITE, DISPLAYSURF, 825 , 890)
                         draw_text_center(" PP: " +str(attack3pp) +"/" +str(moves[attack3][6]) , font14, WHITE, DISPLAYSURF, 825 , 915)
-                        if(moves[attack3][1] > 0):
+                        if(int(moves[attack3][1]) > 0):
                             draw_text_center(str(moves[attack3][1]) , font14, WHITE, DISPLAYSURF, 920 , 915)
-
+                        if(int(moves[attack3][1]) == -1):
+                            draw_text_center("25-100" , font14, WHITE, DISPLAYSURF, 920 , 915)
+                        if(int(moves[attack3][1]) == -2):
+                            draw_text_center("1-150" , font14, WHITE, DISPLAYSURF, 920 , 915)  
+                                             
                     if(attack4 != 'empty'):
                         if(moves[attack4][7] == 'light'):
                             pygame.draw.rect(DISPLAYSURF, GOLD, small_attack4rect)
@@ -15688,28 +15895,73 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.draw.rect(DISPLAYSURF, RED, small_attack4rect)
                         draw_text_center(moves[attack4][0], font14, WHITE, DISPLAYSURF, 1086 , 890)
                         draw_text_center(" PP: " +str(attack4pp) +"/" +str(moves[attack4][6]) , font14, WHITE, DISPLAYSURF, 1086 , 915)
-                        if(moves[attack4][1] > 0):
+                        if(int(moves[attack4][1]) > 0):
                             draw_text_center(str(moves[attack4][1]) , font14, WHITE, DISPLAYSURF, 1180 , 915)
-
+                        if(int(moves[attack4][1]) == -1):
+                            draw_text_center("25-100" , font14, WHITE, DISPLAYSURF, 1180 , 915)
+                        if(int(moves[attack4][1]) == -2):
+                            draw_text_center("1-150" , font14, WHITE, DISPLAYSURF, 1180 , 915) 
 ################################################################################################################################################################
                 if(attack1animation):
                     attackbuttonbool = False
-                    attack1pp = attack1pp - 1
                     timer = pygame.time.get_ticks()
                     timer2 = timer + 2000
                     timer3 = timer + 5000
-                    fulltimer = timer + 10000
+                    timer4 = timer + 8000
+                    timer5 = timer + 10000
+                    fulltimer = timer + 12000
                     sound_effect = pygame.mixer.Sound(resource_path("audio/marksound.mp3"))
                     sound_effect.play()
                     attack1animation = False
                     getridofmenu = True
                     attack_pending1 = True
                     
+                    if(use_move1):
+                        used_attack = attack1
+                        ppmove = 1
+                        if(moves[attack1][5] == "spec"):
+                            spec_or_strength = specattackstrength + specattack
+                        elif (moves[attack1][5] == "attack"):
+                            spec_or_strength = attackstrength + strength
+                        elif (moves[attack1][5] == "empty"):
+                            spec_or_strength = 0
+                    if(use_move2):
+                        used_attack = attack2
+                        ppmove = 2
+                        if(moves[attack2][5] == "spec"):
+                            spec_or_strength = specattackstrength + specattack
+                        elif (moves[attack2][5] == "attack"):
+                            spec_or_strength = attackstrength + strength
+                        elif (moves[attack2][5] == "empty"):
+                            spec_or_strength = 0
+                    if(use_move3):
+                        used_attack = attack3
+                        ppmove = 3
+                        if(moves[attack3][5] == "spec"):
+                            spec_or_strength = specattackstrength + specattack
+                        elif (moves[attack3][5] == "attack"):
+                            spec_or_strength = attackstrength + strength
+                        elif (moves[attack3][5] == "empty"):
+                            spec_or_strength = 0
+                    if(use_move4):
+                        used_attack = attack4
+                        ppmove = 4
+                        if(moves[attack4][5] == "spec"):
+                            spec_or_strength = specattackstrength + specattack
+                        elif (moves[attack4][5] == "attack"):
+                            spec_or_strength = attackstrength + strength
+                        elif (moves[attack4][5] == "empty"):
+                            spec_or_strength = 0
+                    use_move1 = False
+                    use_move2 = False
+                    use_move3 = False
+                    use_move4 = False
+                    
                 if(fulltimer > timer):
                     timer = pygame.time.get_ticks()
                     
                 if(timer2 > timer):
-                    draw_text_center("Your monster has used " + moves[attack1][0] + "!", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    draw_text_center("Your monster has used " + moves[used_attack][0] + "!", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
                 elif timer2 != -1000 and attack_pending1:
                     timer2 = -1000  # mark it as done
                     monster_state = "attacking"
@@ -15718,60 +15970,500 @@ class colleseum(pygame.sprite.Sprite):
                 if(timer2 == -1000 and timer3 > timer):
                     enemydamagetaken = 0
                     if (enemyteamchoosen == 1):
-                        enemydamagetaken = int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast1defenselive)))
+                        enemydamagetaken = int(abs(((spec_or_strength + (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast1defenselive))
+                        if(moves[used_attack][1] == -1):
+                            enemydamagetaken = -1
+                        if(moves[used_attack][1] == -2):
+                            enemydamagetaken = -2
                         if(timer % 2 == 1):
                             enemyoffset_y = math.sin(enemyangle) * enemyamplitude
                             enemyangle += enemyspeedofimage
                             DISPLAYSURF.blit(enemy_black_image1, (enemybase_x, enemybase_y + enemyoffset_y))
                     if (enemyteamchoosen == 2):
-                        enemydamagetaken = int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast2defenselive)))
+                        enemydamagetaken = int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast2defenselive))
+                        if(moves[used_attack][1] == -1):
+                            enemydamagetaken = -1
+                        if(moves[used_attack][1] == -2):
+                            enemydamagetaken = -2
                         if (timer % 2 == 1):
                             enemyoffset_y = math.sin(enemyangle) * enemyamplitude
                             enemyangle += enemyspeedofimage
                             DISPLAYSURF.blit(enemy_black_image2, (enemybase_x, enemybase_y + enemyoffset_y))
                     if (enemyteamchoosen == 3):
-                        enemydamagetaken = int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast3defenselive)))
+                        enemydamagetaken = int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast3defenselive))
+                        if(moves[used_attack][1] == -1):
+                            enemydamagetaken = -1
+                        if(moves[used_attack][1] == -2):
+                            enemydamagetaken = -2
                         if (timer % 2 == 1):
                             enemyoffset_y = math.sin(enemyangle) * enemyamplitude
                             enemyangle += enemyspeedofimage
                             DISPLAYSURF.blit(enemy_black_image3, (enemybase_x, enemybase_y + enemyoffset_y))
-                    draw_text_center("Your monster has dealt " + str(enemydamagetaken) + " damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    if(enemydamagetaken == -1):
+                        draw_text_center("Your monster has dealt random damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    elif(enemydamagetaken == -2):
+                        draw_text_center("Your monster has dealt super random damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    else:
+                        if(moves[used_attack][1] == 0):
+                            draw_text_center("Your monster has used a status effect.", font18, WHITE, DISPLAYSURF, halfdisplay, 790)
+                            draw_text_center("Your monster has used " + str(moves[used_attack][2]) + ".", font18, WHITE, DISPLAYSURF, halfdisplay, 840)
+                        else:
+                            if (damagetaken > 0):
+                                draw_text_center("Your monster has dealt " + str(enemydamagetaken) + " damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                            elif (damagetaken < 0):
+                                draw_text_center("Your monster has dealt 0 damage (blocked).", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    print("spec_or_strength = " +str(spec_or_strength))
+                    print("currmonsterlvl = " +str(currmonsterlvl))
+                    print("enemybeast1defenselive = " +str(enemybeast1defenselive))
+                    print("moves[used_attack][5] = " + str(moves[used_attack][5]))
                 elif timer3 != -1000 and timer2 == -1000 and attack_pending1:
                     timer3 = -1000  # mark it as done
                     if (enemyteamchoosen == 3):
-                        attack1pp = attack1pp - 1
-                        enemybeast3healthlive = enemybeast3healthlive - int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast3defenselive)))
+                        if(ppmove == 1):
+                            attack1pp = attack1pp - 1
+                        if(ppmove == 2):
+                            attack2pp = attack2pp - 1
+                        if(ppmove == 3):
+                            attack3pp = attack3pp - 1
+                        if(ppmove == 4):
+                            attack4pp = attack4pp - 1
+                        if(moves[used_attack][1] == -1):
+                            damagetaken = int(abs(((spec_or_strength + (random.randint(25,100)) * .05 * currmonsterlvl))) - (enemybeast3defenselive))
+                            if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                enemybeast3healthlive = enemybeast3healthlive - damagetaken
+                        elif(moves[used_attack][1] == -2):
+                            damagetaken = int(abs(((spec_or_strength + (random.randint(1,150)) * .05 * currmonsterlvl))) - (enemybeast3defenselive))
+                            if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                enemybeast3healthlive = enemybeast3healthlive - damagetaken
+                        else:
+                            if(int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast3defenselive)) > 0):
+                                if (damagetaken > 0 and moves[used_attack][1] != 0):
+                                    enemybeast3healthlive = enemybeast3healthlive - int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast3defenselive))
                         attack_pending1 = False
                         if(enemybeast3healthlive <= 0):
                             enemybeast3healthlive = 0
                             sound_effect = pygame.mixer.Sound(resource_path("audio/victorysound.mp3"))
                             sound_effect.play()
-                        getridofmenu = False
+                            enemydied = True
+                            wonbattle = True
+                            beastexpamount = int(random.randint(1,20) * enemymonsterlvl3 * .1)
+                            if(teamchoosen == 1):
+                                beast1experience = beast1experience + beastexpamount
+                            if(teamchoosen == 2):
+                                beast2experience = beast2experience + beastexpamount
+                            if(teamchoosen == 3):
+                                beast3experience = beast3experience + beastexpamount
+                        else:
+                            if(currspeed >= e_currspeed):
+                                enemy_attack_sequence = True
+                            else:
+                                getridofmenu = False
                     if (enemyteamchoosen == 2):
-                        attack1pp = attack1pp - 1
-                        enemybeast2healthlive = enemybeast2healthlive - int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast2defenselive)))
+                        if(ppmove == 1):
+                            attack1pp = attack1pp - 1
+                        if(ppmove == 2):
+                            attack2pp = attack2pp - 1
+                        if(ppmove == 3):
+                            attack3pp = attack3pp - 1
+                        if(ppmove == 4):
+                            attack4pp = attack4pp - 1
+                        if(moves[used_attack][1] == -1):
+                            damagetaken = int(abs(((spec_or_strength + (random.randint(25,100)) * .05 * currmonsterlvl))) - (enemybeast2defenselive))
+                            if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                enemybeast2healthlive = enemybeast2healthlive - damagetaken                        
+                        elif(moves[used_attack][1] == -2):
+                            damagetaken = int(abs(((spec_or_strength + (random.randint(1,150)) * .05 * currmonsterlvl))) - (enemybeast2defenselive))
+                            if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                enemybeast2healthlive = enemybeast2healthlive - damagetaken
+                        else:
+                            if(int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast2defenselive)) > 0):
+                                if (damagetaken > 0 and moves[used_attack][1] != 0):
+                                    enemybeast2healthlive = enemybeast2healthlive - int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast2defenselive))
                         attack_pending1 = False
                         if(enemybeast2healthlive <= 0):
                             enemybeast2healthlive = 0
+                            beastexpamount = int(random.randint(1,20) * enemymonsterlvl2 * .1)
+                            if(teamchoosen == 1):
+                                beast1experience = beast1experience + beastexpamount
+                            if(teamchoosen == 2):
+                                beast2experience = beast2experience + beastexpamount
+                            if(teamchoosen == 3):
+                                beast3experience = beast3experience + beastexpamount
                             enemyteamchoosen = 3
                             random_sound_number = random.randint(1, 14)
                             sound_filename = f"audio/monstersound{random_sound_number}.mp3"
                             sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
                             sound_effect.play()
-                        getridofmenu = False
+                            enemydied = True
+                        else:
+                            if(currspeed >= e_currspeed):
+                                enemy_attack_sequence = True
+                            else:
+                                getridofmenu = False
                     if (enemyteamchoosen == 1):
-                        enemybeast1healthlive = enemybeast1healthlive - int(abs(((beast1strength + strength+ moves[attack1][1]) * .2) - (enemybeast1defenselive)))
-                        attack1pp = attack1pp - 1
+                        if(ppmove == 1):
+                            attack1pp = attack1pp - 1
+                        if(ppmove == 2):
+                            attack2pp = attack2pp - 1
+                        if(ppmove == 3):
+                            attack3pp = attack3pp - 1
+                        if(ppmove == 4):
+                            attack4pp = attack4pp - 1
+                        if(moves[used_attack][1] == -1):
+                            damagetaken = int(abs(((spec_or_strength + (random.randint(25,100)) * .05 * currmonsterlvl))) - (enemybeast1defenselive))
+                            if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                enemybeast1healthlive = enemybeast1healthlive - damagetaken
+                        elif(moves[used_attack][1] == -2):
+                            damagetaken = int(abs(((spec_or_strength + (random.randint(1,150)) * .05 * currmonsterlvl))) - (enemybeast1defenselive))
+                            if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                enemybeast1healthlive = enemybeast1healthlive - damagetaken
+                        else:
+                            if(int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast1defenselive)) > 0):
+                                if(damagetaken > 0 and moves[used_attack][1] != 0):
+                                    enemybeast1healthlive = enemybeast1healthlive - int(abs(((spec_or_strength +  (moves[used_attack][1]) * .05 * currmonsterlvl))) - (enemybeast1defenselive))
+                        
+                        if(ppmove == 1):
+                            attack1pp = attack1pp - 1
+                        if(ppmove == 2):
+                            attack2pp = attack2pp - 1
+                        if(ppmove == 3):
+                            attack3pp = attack3pp - 1
+                        if(ppmove == 4):
+                            attack4pp = attack4pp - 1
                         attack_pending1 = False
                         if(enemybeast1healthlive <= 0):
                             enemybeast1healthlive = 0
+                            beastexpamount = int(random.randint(1,20) * enemymonsterlvl1 * .1)
+                            if(teamchoosen == 1):
+                                beast1experience = beast1experience + beastexpamount
+                            if(teamchoosen == 2):
+                                beast2experience = beast2experience + beastexpamount
+                            if(teamchoosen == 3):
+                                beast3experience = beast3experience + beastexpamount
                             enemyteamchoosen = 2
                             random_sound_number = random.randint(1, 14)
                             sound_filename = f"audio/monstersound{random_sound_number}.mp3"
                             sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
                             sound_effect.play()
-                        getridofmenu = False
+                            enemydied = True
+                        else:
+                            if(currspeed >= e_currspeed):
+                                enemy_attack_sequence = True
+                            else:
+                                getridofmenu = False
+                            
+                if(enemydied and timer4 > timer and timer3 == -1000):
+                    draw_text_center("Your monster has defeated the enemy!", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    draw_text_center("Your monster has gained " +str(beastexpamount) +" exp.", font18, WHITE, DISPLAYSURF, halfdisplay, 860)
+                if enemydied and timer4 < timer and wonbattle != True:
+                    getridofmenu = False
+                    enemydied = False
+                if(wonbattle and timer4 < timer and timer5 > timer):
+                    draw_text_center("Your have defeated " +randomtrainername +"!", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    draw_text_center("You have gained " +str(enemymonsterlvl3) +" exp.", font18, WHITE, DISPLAYSURF, halfdisplay, 860)
+                if timer5 < timer and wonbattle == True:
+                    getridofmenu = False
+                    transition(6)
+                    attack_pending1 = False
+                    wonbattle = False
+                    enemydied = False
+                    colleseumwinstreak = colleseumwinstreak + 1
+                    self.gamescene = 10
+                    beast1strengthlive = beast1strength
+                    beast1defenselive = beast1defense
+                    beast1healthlive = beast1health
+                    beast1speedlive = beast1speed
+                    beast1specattacklive = beast1specattack
 
+                    beast2strengthlive = beast2strength
+                    beast2defenselive = beast2defense
+                    beast2healthlive = beast2health
+                    beast2speedlive = beast2speed
+                    beast2specattacklive = beast2specattack
+
+                    beast3strengthlive = beast3strength
+                    beast3defenselive = beast3defense
+                    beast3healthlive = beast3health
+                    beast3speedlive = beast3speed
+                    beast3specattacklive = beast3specattack
+                    
+                    teamchoosen = 1
+                    enemyteamchoosen = 1
+################################################################################################################################################################
+                if(enemy_attack_sequence):
+                    e_timer = pygame.time.get_ticks()
+                    e_timer2 = e_timer + 2000
+                    e_timer3 = e_timer + 5000
+                    e_timer4 = e_timer + 8000
+                    e_timer5 = e_timer + 10000
+                    e_fulltimer = e_timer + 12000
+                    e_attack_pending1 = True
+                    enemy_move_random = 0
+                    while(enemy_move_random == 0):
+                        random_enemy_move_generator = random.randint(1, 4)
+                        if(enemyteamchoosen == 1):
+                            curr_enemy_lvl = enemymonsterlvl1
+                            current_enemy_strength = enemybeast1strengthlive
+                            if(random_enemy_move_generator == 1 and enemymonstermove1_1 != "empty"):
+                                enemy_move_random = enemymonstermove1_1
+                            if(random_enemy_move_generator == 2 and enemymonstermove2_1 != "empty"):
+                                enemy_move_random = enemymonstermove2_1
+                            if(random_enemy_move_generator == 3 and enemymonstermove3_1 != "empty"):
+                                enemy_move_random = enemymonstermove3_1
+                            if(random_enemy_move_generator == 4 and enemymonstermove4_1 != "empty"):
+                                enemy_move_random = enemymonstermove4_1
+                        if(enemyteamchoosen == 2):
+                            curr_enemy_lvl = enemymonsterlvl1
+                            current_enemy_strength = enemybeast2strengthlive
+                            if(random_enemy_move_generator == 1 and enemymonstermove1_2 != "empty"):
+                                enemy_move_random = enemymonstermove1_2
+                            if(random_enemy_move_generator == 2 and enemymonstermove2_2 != "empty"):
+                                enemy_move_random = enemymonstermove2_2
+                            if(random_enemy_move_generator == 3 and enemymonstermove3_2 != "empty"):
+                                enemy_move_random =enemymonstermove3_2
+                            if(random_enemy_move_generator == 4 and enemymonstermove4_2 != "empty"):
+                                enemy_move_random = enemymonstermove4_2
+                        if (enemyteamchoosen == 3):
+                            curr_enemy_lvl = enemymonsterlvl1
+                            current_enemy_strength = enemybeast3strengthlive
+                            if (random_enemy_move_generator == 1 and enemymonstermove1_3 != "empty"):
+                                enemy_move_random = enemymonstermove1_3
+                            if (random_enemy_move_generator == 2 and enemymonstermove2_3 != "empty"):
+                                enemy_move_random = enemymonstermove2_3
+                            if (random_enemy_move_generator == 3 and enemymonstermove3_3 != "empty"):
+                                enemy_move_random = enemymonstermove3_3
+                            if (random_enemy_move_generator == 4 and enemymonstermove4_3 != "empty"):
+                                enemy_move_random = enemymonstermove4_3
+                    sound_effect = pygame.mixer.Sound(resource_path("audio/marksound.mp3"))
+                    sound_effect.play()
+                    getridofmenu = True
+                    enemy_attack_sequence = False
+                    attackbuttonbool = False
+
+                if (e_fulltimer > e_timer):
+                    e_timer = pygame.time.get_ticks()
+
+                if (e_timer2 > e_timer):
+                    draw_text_center("Enemy monster has used " + str(moves[enemy_move_random][0]) + "!", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                elif e_timer2 != -1000 and e_attack_pending1:
+                    e_timer2 = -1000  # mark it as done
+                    e_monster_state = "attacking"
+                    enemy_attack_timer  = 0.0
+
+                if (e_timer2 == -1000 and e_timer3 > e_timer):
+                    damagetaken = 0
+                    
+                    if (teamchoosen == 1):
+                        damagetaken = int(abs(((current_enemy_strength + (moves[enemy_move_random][1]) * .05 * curr_enemy_lvl))) - (beast1defenselive))
+                        if (moves[attack1][1] == -1):
+                            damagetaken = -1
+                        if (moves[attack1][1] == -2):
+                            damagetaken = -2
+                        if (e_timer % 2 == 1):
+                            offset_y = math.sin(angle) * amplitude
+                            angle += speedofimage
+                            DISPLAYSURF.blit(team_black_image1, (base_x + offset_x, base_y + offset_y))
+                    if (teamchoosen == 2):
+                        damagetaken = int(abs(((current_enemy_strength + (moves[enemy_move_random][1]) * .05 * curr_enemy_lvl))) - (beast2defenselive))
+                        if (moves[attack1][1] == -1):
+                            damagetaken = -1
+                        if (moves[attack1][1] == -2):
+                            damagetaken = -2
+                        if (e_timer % 2 == 1):
+                            offset_y = math.sin(angle) * amplitude
+                            angle += speedofimage
+                            DISPLAYSURF.blit(team_black_image2, (base_x + offset_x, base_y + offset_y))
+                    if (teamchoosen == 3):
+                        damagetaken = int(abs(((current_enemy_strength + (moves[enemy_move_random][1]) * .05 * curr_enemy_lvl))) - (beast3defenselive))
+                        if (moves[attack1][1] == -1):
+                            damagetaken = -1
+                        if (moves[attack1][1] == -2):
+                            damagetaken = -2
+                        if (e_timer % 2 == 1):
+                            offset_y = math.sin(angle) * amplitude
+                            angle += speedofimage
+                            DISPLAYSURF.blit(team_black_image3, (base_x + offset_x, base_y + offset_y))
+                    if (damagetaken == -1):
+                        draw_text_center("Enemy monster has dealt you random damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    elif (damagetaken == -2):
+                        draw_text_center("Enemy monster has dealt you super random damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    else:
+                        if(damagetaken < -2):
+                            damagetaken = 0
+                        if(moves[enemy_move_random][1] == 0):
+                            draw_text_center("Enemy monster has used a status effect.", font18, WHITE, DISPLAYSURF, halfdisplay, 790)
+                            draw_text_center("Enemy monster has used " + str(moves[enemy_move_random][2]) + ".", font18, WHITE, DISPLAYSURF, halfdisplay, 840)
+                        else:
+                            if(damagetaken > 0):
+                                draw_text_center("Your monster has taken " + str(damagetaken) + " damage.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                            elif(damagetaken < 0):
+                                draw_text_center("Your monster has taken 0 damage (blocked).", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    print("current_enemy_strength = " +str(current_enemy_strength))
+                    print("curr_enemy_lvl = " +str(curr_enemy_lvl))
+                    print("beast1defenselive = " +str(beast1defenselive))
+                    print("moves[enemy_move_random][5] = " + str(moves[enemy_move_random][5]))
+                elif e_timer3 != -1000 and e_timer2 == -1000 and e_attack_pending1:
+                    e_timer3 = -1000  # mark it as done
+                    if (teamchoosen == 3):
+                        if (moves[enemy_move_random][1] == -1):
+                            damagetaken2 = int(abs(((current_enemy_strength + (random.randint(25, 100)) * .05 * curr_enemy_lvl))) - (beast3defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast3healthlive = beast3healthlive - damagetaken2
+                        elif (moves[enemy_move_random][1] == -2):
+                            damagetaken2 = int(abs(((current_enemy_strength + (random.randint(1, 150)) * .05 * curr_enemy_lvl))) - (beast3defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast3healthlive = beast3healthlive - damagetaken2
+                        else:
+                            damagetaken2 = int(abs(((current_enemy_strength + (moves[enemy_move_random][1]) * .05 * curr_enemy_lvl))) - (beast3defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast3healthlive = beast3healthlive - damagetaken2
+                        e_attack_pending1 = False
+                        if (beast3healthlive <= 0):
+                            beast3healthlive = 0
+                            if (beast1healthlive > 0):
+                                teamchoosen = 1
+                                random_sound_number = random.randint(1, 14)
+                                sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                                sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                                sound_effect.play()
+                                you_enemydied = True
+                            elif (beast2healthlive > 0):
+                                teamchoosen = 2
+                                random_sound_number = random.randint(1, 14)
+                                sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                                sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                                sound_effect.play()
+                                you_enemydied = True
+                            if (beast1healthlive <= 0 and beast2healthlive <= 0 and beast3healthlive <= 0):
+                                lostbattle = True
+                                you_enemydied = True
+                        else:
+                            if(currspeed < e_currspeed):
+                                attack1animation = True
+                            else:
+                                getridofmenu = False
+                    if (teamchoosen == 2):
+                        if (moves[enemy_move_random][1] == -1):
+                            damagetaken2 = int(abs(((current_enemy_strength + (random.randint(25, 100)) * .05 * curr_enemy_lvl))) - (beast2defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast2healthlive = beast2healthlive - damagetaken2
+                        elif (moves[enemy_move_random][1] == -2):
+                            damagetaken2 = int(abs(((current_enemy_strength + (random.randint(1, 150)) * .05 * curr_enemy_lvl))) - (beast2defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast2healthlive = beast2healthlive - damagetaken2
+                        else:
+                            damagetaken2 = int(abs(((current_enemy_strength + (moves[enemy_move_random][1]) * .05 * curr_enemy_lvl))) - (beast2defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast2healthlive = beast2healthlive - damagetaken2
+                        e_attack_pending1 = False
+                        if (beast2healthlive <= 0):
+                            beast2healthlive = 0
+                            if (beast1healthlive > 0):
+                                teamchoosen = 1
+                                random_sound_number = random.randint(1, 14)
+                                sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                                sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                                sound_effect.play()
+                                you_enemydied = True
+                            elif (beast3healthlive > 0):
+                                teamchoosen = 3
+                                random_sound_number = random.randint(1, 14)
+                                sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                                sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                                sound_effect.play()
+                                you_enemydied = True
+                            if (beast1healthlive <= 0 and beast2healthlive <= 0 and beast3healthlive <= 0):
+                                lostbattle = True
+                                you_enemydied = True
+                        else:
+                            if(currspeed < e_currspeed):
+                                attack1animation = True
+                            else:
+                                getridofmenu = False
+                    if (teamchoosen == 1):
+                        if (moves[enemy_move_random][1] == -1):
+                            damagetaken2 = int(abs(((current_enemy_strength + (random.randint(25, 100)) * .05 * curr_enemy_lvl))) - (beast1defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast1healthlive = beast1healthlive - damagetaken2
+                        elif (moves[enemy_move_random][1] == -2):
+                            damagetaken2 = int(abs(((current_enemy_strength + (random.randint(1, 150)) * .05 * curr_enemy_lvl))) - (beast1defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast1healthlive = beast1healthlive - damagetaken2
+                        else:
+                            damagetaken2 = int(abs(((current_enemy_strength + (moves[enemy_move_random][1]) * .05 * curr_enemy_lvl))) - (beast1defenselive))
+                            if(damagetaken2 < 0 or moves[enemy_move_random][1] == 0):
+                                damagetaken2 = 0
+                            beast1healthlive = beast1healthlive - damagetaken2
+                        e_attack_pending1 = False
+                        if (beast1healthlive <= 0):
+                            beast1healthlive = 0
+                            if(beast2healthlive > 0):
+                                teamchoosen = 2
+                                random_sound_number = random.randint(1, 14)
+                                sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                                sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                                sound_effect.play()
+                                you_enemydied = True
+                            elif (beast3healthlive > 0):
+                                teamchoosen = 3
+                                random_sound_number = random.randint(1, 14)
+                                sound_filename = f"audio/monstersound{random_sound_number}.mp3"
+                                sound_effect = pygame.mixer.Sound(resource_path(sound_filename))
+                                sound_effect.play()
+                                you_enemydied = True
+                            if(beast1healthlive <= 0 and beast2healthlive <= 0 and beast3healthlive <= 0):
+                                lostbattle = True
+                                you_enemydied = True
+                        else:
+                            if(currspeed < e_currspeed):
+                                attack1animation = True
+                            else:
+                                getridofmenu = False
+
+                if (you_enemydied and e_timer4 > e_timer and e_timer3 == -1000):
+                    draw_text_center("Your monster has been defeated.", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                    draw_text_center("sending out next monster...", font18, WHITE, DISPLAYSURF, halfdisplay, 860)
+                if you_enemydied and e_timer4 < e_timer and lostbattle != True:
+                    getridofmenu = False
+                    you_enemydied = False
+                if (lostbattle and e_timer4 < e_timer and e_timer5 > e_timer):
+                    draw_text_center("Your have been defeated by" + randomtrainername + ".", font18, WHITE, DISPLAYSURF, halfdisplay, 820)
+                if e_timer5 < e_timer and lostbattle == True:
+                    getridofmenu = False
+                    transition(6)
+                    e_attack_pending1 = False
+                    lostbattle = False
+                    you_enemydied = False
+                    colleseumwinstreak = 0
+                    self.gamescene = 10
+                    beast1strengthlive = beast1strength
+                    beast1defenselive = beast1defense
+                    beast1healthlive = beast1health
+                    beast1speedlive = beast1speed
+                    beast1specattacklive = beast1specattack
+
+                    beast2strengthlive = beast2strength
+                    beast2defenselive = beast2defense
+                    beast2healthlive = beast2health
+                    beast2speedlive = beast2speed
+                    beast2specattacklive = beast2specattack
+
+                    beast3strengthlive = beast3strength
+                    beast3defenselive = beast3defense
+                    beast3healthlive = beast3health
+                    beast3speedlive = beast3speed
+                    beast3specattacklive = beast3specattack
+                    
+                    teamchoosen = 1
+                    enemyteamchoosen = 1
 ################################################################################################################################################################
 # Move name, Damage, special effect, buff/debuff to enemy, buff/debuff to yourself, type of attack, PP
 #moves = [
@@ -15779,11 +16471,6 @@ class colleseum(pygame.sprite.Sprite):
 #["Dreadspire Maelstrom", 85, "empty", "speed-1", "empty", "spec", 10],
 
 ##############xx
-
-                monster1switch = pygame.Rect(313, 366, 390, 322)
-                monster2switch = pygame.Rect(750, 366, 396, 322)
-                monster3switch = pygame.Rect(1194, 366, 392, 322)
-                monsterXswitch = pygame.Rect(795, 753, 265, 63)
 
                 if(changemonsterbuttonbool == True):
                     if(monsterXswitch.collidepoint(mouse_pos)):
@@ -15806,7 +16493,7 @@ class colleseum(pygame.sprite.Sprite):
                     if(teamsize >= 3):
                         draw_text_center("lvl" + str(beast3level) + " " +beast3name, font26, WHITE, DISPLAYSURF, 1360 , 830)
                         DISPLAYSURF.blit(monstertypeimage3, (1500, 610))
-                        draw_text_center("HP: " +str(beast3healthlive) + "/" + str(beast3health), font26, SKYBLUE, DISPLAYSURF, 1760 , 830)
+                        draw_text_center("HP: " +str(beast3healthlive) + "/" + str(beast3health), font26, SKYBLUE, DISPLAYSURF, 1380 , 405)
 
                     if(monster1switch.collidepoint(mouse_pos)):
                         pygame.draw.rect(DISPLAYSURF, BLUE, monster1switch, 10, 10)
@@ -15821,20 +16508,12 @@ class colleseum(pygame.sprite.Sprite):
                     if(teamsize >= 3):
                         DISPLAYSURF.blit(scaled_beast3image, (1264, 420))
 
-                forfeit_yes_rect = pygame.Rect(736, 586, 215, 80)
-                forfeit_no_rect = pygame.Rect(976, 586, 215, 80)
-
                 if(forfeitbuttonbool == True):
                     DISPLAYSURF.blit(forfeitimage , (463 , -45))
                     if (forfeit_yes_rect.collidepoint(mouse_pos)):
                             pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, forfeit_yes_rect, 6, 5)
                     if (forfeit_no_rect.collidepoint(mouse_pos)):
                             pygame.draw.rect(DISPLAYSURF, LIGHTYELLOW, forfeit_no_rect, 6, 5)
-
-                exititemmenubutton = pygame.Rect(1240, 315, 41, 47)
-                healingpotionrect = pygame.Rect(681, 392, 178, 389)
-                applerect = pygame.Rect(1071, 392, 178, 389)
-                goldenapplerect = pygame.Rect(876, 392, 178, 389)
 
                 if(itembuttonbool == True):
                     DISPLAYSURF.blit(menubattleimage , (620 , 255))
@@ -15883,8 +16562,6 @@ class colleseum(pygame.sprite.Sprite):
                 draw_text('x', font4, BLACK, DISPLAYSURF, 1685, 105)
                 if(attackbuttonbool != True and forfeitbuttonbool != True and changemonsterbuttonbool != True and itembuttonbool != True):
                     DISPLAYSURF.blit(image164, (198, 110))
-                xrect = pygame.Rect(1680, 123, 35, 35)
-                returnarrowrect = pygame.Rect(153, 110, 120, 70)
                 if xrect.collidepoint(mouse_pos):
                     draw_text('x', font4, RED, DISPLAYSURF, 1685, 105)
                 if returnarrowrect.collidepoint(mouse_pos):
@@ -15906,13 +16583,85 @@ class colleseum(pygame.sprite.Sprite):
                             pygame.quit()
                             sys.exit()
                         if (attack1rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack1pp > 0):
-                            attack1animation = True
+                            if(enemyteamchoosen == 1):
+                                e_currspeed = enemymonsterspeed1
+                            if(enemyteamchoosen == 2):
+                                e_currspeed = enemymonsterspeed2
+                            if(enemyteamchoosen == 3):
+                                e_currspeed = enemymonsterspeed3
+                            if(teamchoosen == 1): 
+                                currspeed = beast1speedlive
+                            if (teamchoosen == 2):
+                                currspeed = beast2speedlive
+                            if(teamchoosen == 3): 
+                                currspeed = beast3speedlive
+                            
+                            if(currspeed >= e_currspeed):
+                                attack1animation = True
+                            if (currspeed < e_currspeed):
+                                enemy_attack_sequence = True
+                            use_move1 = True
+                            getridofmenu = True
                         if (attack2rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack2pp > 0):
-                            attack2animation = True
+                            if (enemyteamchoosen == 1):
+                                e_currspeed = enemymonsterspeed1
+                            if (enemyteamchoosen == 2):
+                                e_currspeed = enemymonsterspeed2
+                            if (enemyteamchoosen == 3):
+                                e_currspeed = enemymonsterspeed3
+                            if (teamchoosen == 1):
+                                currspeed = beast1speedlive
+                            if (teamchoosen == 2):
+                                currspeed = beast2speedlive
+                            if (teamchoosen == 3):
+                                currspeed = beast3speedlive
+
+                            if (currspeed >= e_currspeed):
+                                attack1animation = True
+                            if (currspeed < e_currspeed):
+                                enemy_attack_sequence = True
+                            use_move2 = True
+                            getridofmenu = True
                         if (attack3rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack3pp > 0):
-                            attack3animation = True
+                            if (enemyteamchoosen == 1):
+                                e_currspeed = enemymonsterspeed1
+                            if (enemyteamchoosen == 2):
+                                e_currspeed = enemymonsterspeed2
+                            if (enemyteamchoosen == 3):
+                                e_currspeed = enemymonsterspeed3
+                            if (teamchoosen == 1):
+                                currspeed = beast1speedlive
+                            if (teamchoosen == 2):
+                                currspeed = beast2speedlive
+                            if (teamchoosen == 3):
+                                currspeed = beast3speedlive
+
+                            if (currspeed >= e_currspeed):
+                                attack1animation = True
+                            if (currspeed < e_currspeed):
+                                enemy_attack_sequence = True
+                            use_move3 = True
+                            getridofmenu = True
                         if (attack4rect.collidepoint(mouse_pos) and attackbuttonbool == True and attack4pp > 0):
-                            attack4animation = True
+                            if (enemyteamchoosen == 1):
+                                e_currspeed = enemymonsterspeed1
+                            if (enemyteamchoosen == 2):
+                                e_currspeed = enemymonsterspeed2
+                            if (enemyteamchoosen == 3):
+                                e_currspeed = enemymonsterspeed3
+                            if (teamchoosen == 1):
+                                currspeed = beast1speedlive
+                            if (teamchoosen == 2):
+                                currspeed = beast2speedlive
+                            if (teamchoosen == 3):
+                                currspeed = beast3speedlive
+
+                            if (currspeed >= e_currspeed):
+                                attack1animation = True
+                            if (currspeed < e_currspeed):
+                                enemy_attack_sequence = True
+                            use_move4 = True
+                            getridofmenu = True
                         if(battlebutton.collidepoint(mouse_pos) and getridofmenu == False and itembuttonbool == False and attackbuttonbool == False and forfeitbuttonbool == False and changemonsterbuttonbool == False):
                             attackbuttonbool = True
                             sound_effect = pygame.mixer.Sound(resource_path("audio/inventorysound.mp3"))
@@ -16082,8 +16831,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl1) + " " + enemymonstername1, font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast1healthlive / enemymonsterhp1)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if (enemybeast1healthlive >= (beast1health / 2)):
@@ -16098,8 +16846,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if enemybeast2healthlive >= (enemymonsterhp2 / 2):
@@ -16114,8 +16861,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if enemybeast3healthlive >= (enemymonsterhp3 / 2):
@@ -16163,8 +16909,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl1) + " " + enemymonstername1, font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast1healthlive / enemymonsterhp1)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if (enemybeast1healthlive >= (beast1health / 2)):
@@ -16179,8 +16924,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if enemybeast2healthlive >= (enemymonsterhp2 / 2):
@@ -16195,8 +16939,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if enemybeast3healthlive >= (enemymonsterhp3 / 2):
@@ -16243,8 +16986,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage1, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl1) + " " + enemymonstername1, font22, enemybeast1namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast1healthlive / enemymonsterhp1)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if (enemybeast1healthlive >= (beast1health / 2)):
@@ -16259,8 +17001,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage2, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl2) + " " + enemymonstername2, font22, enemybeast2namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast2healthlive / enemymonsterhp2)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if enemybeast2healthlive >= (enemymonsterhp2 / 2):
@@ -16275,8 +17016,7 @@ class colleseum(pygame.sprite.Sprite):
                                         enemyangle += enemyspeedofimage
                                         DISPLAYSURF.blit(enemymonsterimage3, (enemybase_x, enemybase_y + enemyoffset_y))
                                         draw_text_center("lvl" + str(enemymonsterlvl3) + " " + enemymonstername3, font22, enemybeast3namecolor, DISPLAYSURF, halfdisplay + 460, 145)
-                                        healthrect = pygame.Rect(halfdisplay + 310, 210, 300, 40)
-                                        pygame.draw.rect(DISPLAYSURF, WHITE, healthrect)
+                                        pygame.draw.rect(DISPLAYSURF, WHITE, enemyhealthrect)
                                         enemyhealthrectlive = pygame.Rect(halfdisplay + 310, 210, (300 * (enemybeast3healthlive / enemymonsterhp3)), 40)
                                         pygame.draw.rect(DISPLAYSURF, GREEN, enemyhealthrectlive)
                                         if enemybeast3healthlive >= (enemymonsterhp3 / 2):
